@@ -1,0 +1,33 @@
+# dependencies
+node_modules/
+vendor/
+
+# env
+.env
+.env.local
+.env.*.local
+
+# build outputs
+.next/
+dist/
+build/
+out/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+*.swp
+
+# PHP
+composer.phar
+*.cache
+
+# logs
+*.log
+storage/logs/
+storage/framework/cache/
+storage/framework/sessions/
+storage/framework/views/
