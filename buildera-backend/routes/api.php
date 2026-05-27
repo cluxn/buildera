@@ -12,6 +12,8 @@ use App\Http\Controllers\Api\SeoMetaController;
 use App\Http\Controllers\Api\SettingsController;
 use App\Http\Controllers\Api\TestimonialController;
 use App\Http\Controllers\Api\LeadController;
+use App\Http\Controllers\Api\SubscriberController;
+use App\Http\Controllers\Api\UnsubscribeController;
 use Illuminate\Support\Facades\Route;
 
 // Health check — no auth, no throttle
@@ -41,3 +43,10 @@ Route::get('/guides/{slug}', [GuideController::class, 'show']);
 // Lead capture — requires X-API-Key, throttled 5/hr per IP
 Route::post('/leads', [LeadController::class, 'store'])
     ->middleware(['api.key', 'throttle:5,60']);
+
+// Newsletter subscribers — rate limited 3/hr, no API key required
+Route::post('/subscribers', [SubscriberController::class, 'store'])
+    ->middleware(['throttle:3,60']);
+
+// Unsubscribe via signed token — public, no auth
+Route::get('/unsubscribe', [UnsubscribeController::class, 'handle']);
