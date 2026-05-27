@@ -41,10 +41,11 @@ created: 2026-05-27
 | 04-01-01 | 01 | 1 | SVC-03 | — | N/A | build | `npm run build` | ⬜ pending |
 | 04-01-02 | 01 | 1 | SVC-03, COMP-05 | — | N/A | build | `npx tsc --noEmit` | ⬜ pending |
 | 04-01-03 | 01 | 1 | SVC-01, SVC-02 | — | N/A | build | `npm run build` | ⬜ pending |
+| 04-01-04 | 01 | 1 | SOL-01, SOL-02 | — | N/A | build | `npm run build` | ⬜ pending |
 | 04-02-01 | 02 | 2 | SVC-04 | — | N/A | build | `npm run build` | ⬜ pending |
 | 04-03-01 | 03 | 2 | SVC-05, SVC-06 | — | N/A | build | `npm run build` | ⬜ pending |
 | 04-04-01 | 04 | 2 | SVC-07, SVC-08 | — | N/A | build | `npm run build` | ⬜ pending |
-| 04-05-01 | 05 | 3 | SVC-09, SOL-01, SOL-02, SOL-03 | — | N/A | build | `npm run build` | ⬜ pending |
+| 04-05-01 | 05 | 2 | SVC-09, SOL-01, SOL-02, SOL-03 | — | N/A | build | `npm run build` | ⬜ pending |
 | 04-06-01 | 06 | 4 | TRUST-06 | T-04-01 | `getEmbedUrl()` returns null for non-YouTube/Vimeo URLs | manual | manual dev-server check | ⬜ pending |
 | 04-06-02 | 06 | 4 | COMP-04 | T-04-01 | iframe only for YouTube/Vimeo allowlist | manual | manual dev-server check | ⬜ pending |
 | 04-06-03 | 06 | 4 | TRUST-06 | — | N/A | CLI | `php artisan db:seed --class=CaseStudySeeder && php artisan db:seed --class=TestimonialSeeder` | ⬜ pending |

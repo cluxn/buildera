@@ -804,15 +804,12 @@ export function TechShowcase({ technologies }: TechShowcaseProps) {
       <div className="space-y-6">
         {grouped.map((group, catIdx) => (
           <div key={group.key}>
-            <motion.h3
+            {/* OVERRIDE: Use plain h3, NOT motion.h3 — motion.X requires "use client" per STATE.md (motion/react v12.40.0) */}
+            <h3
               className="text-xl font-semibold mb-3 text-[var(--brand-primary)]"
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: catIdx * 0.1 }}
             >
               {group.label}
-            </motion.h3>
+            </h3>
             {/* "use client" child for per-logo stagger */}
             <TechStaggerGrid
               technologies={group.techs}
@@ -1360,22 +1357,13 @@ This phase is code and config only on the frontend. Backend requires PHP/Laravel
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **Phase 3 execution status**
-   - What we know: Phase 3 plans exist but STATE.md shows Phase 3 as "Not started"
-   - What's unclear: Will Phase 4 execute while Phase 3 is still in progress, or after Phase 3 completes?
-   - Recommendation: If Phase 3 has not yet built `AnimatedRingStat` and `FeatureCheckList`, Plan 04-01 must own these components. The planner should check Phase 3 completion status before assigning 04-01.
+1. **Phase 3 execution status** — RESOLVED: Phase 3 is Complete (6/6 plans done per STATE.md). `AnimatedRingStat` exists and will be extended (not rebuilt) in 04-01. Phase 4 executes after Phase 3.
 
-2. **`motion.h3` in Server Components**
-   - What we know: motion/react v12 supports RSC; `motion.div` with `whileInView` works server-side
-   - What's unclear: Whether `motion.h3` emits a hydration warning when rendered in a Server Component with `whileInView`
-   - Recommendation: If uncertain, wrap the TechShowcase category header in a simple Server Component `<h3>` (no animation) and keep all animation inside the `"use client"` `TechStaggerGrid` leaf.
+2. **`motion.h3` in Server Components** — RESOLVED: STATE.md confirmed `motion/react v12.40.0 requires "use client" on ALL motion.X components`. TechShowcase uses plain `<h3>` (Server Component); animation stays entirely within `TechStaggerGrid` ("use client" leaf). Assumption A3 is invalid.
 
-3. **Services overview page (SVC-01) duplication with Phase 3**
-   - What we know: Phase 3 plan 03-05 builds `ServicesTabSection` on the homepage
-   - What's unclear: Does `app/services/page.tsx` (SVC-01) simply reuse `ServicesTabSection`, or is it a different layout?
-   - Recommendation: `app/services/page.tsx` should reuse `ServicesTabSection` directly — same component, different page context. The planner should confirm this avoids duplication.
+3. **Services overview page (SVC-01) duplication with Phase 3** — RESOLVED: `app/services/page.tsx` reuses `ServicesTabSection` component from Phase 3. No duplication — same component rendered in a new page context.
 
 ---
 
