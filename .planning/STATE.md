@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-05-27T10:41:38.611Z"
+last_updated: "2026-05-27T10:55:00Z"
 progress:
   total_phases: 10
   completed_phases: 2
   total_plans: 15
-  completed_plans: 14
+  completed_plans: 15
   percent: 23
 ---
 
@@ -28,7 +28,7 @@ See: `.planning/PROJECT.md` (updated 2026-05-26)
 |-------|------|--------|
 | 1 | Project Foundation | 📋 Planned (4 plans, 3 waves) |
 | 2 | Backend Core | 🔄 In progress (4/5 plans done) |
-| 3 | Homepage & Design System | 🔄 In progress (4/6 plans done) |
+| 3 | Homepage & Design System | 🔄 In progress (5/6 plans done) |
 | 4 | Services & Solutions Pages | ⬜ Not started |
 | 5 | Industries, Trust Pages & Lead Capture | ⬜ Not started |
 | 6 | Content — Blog, Case Studies, Guides | ⬜ Not started |
@@ -69,6 +69,9 @@ See: `.planning/PROJECT.md` (updated 2026-05-26)
 - Newsletter form action="#" is intentional Phase 3 visual stub — POST /api/subscribers wiring deferred to Phase 5 plan 05-04
 - Button asChild pattern not available in @base-ui/react Button — hero CTAs implemented as styled Link elements directly
 - parseInt fallback (|| defaultValue) applied to StatsBarSection stat values — mitigates T-03-10 NaN render
+- ServicesTabSection defines own SERVICES_DATA with icon component refs and descriptions (not re-imported from SiteNav SERVICES_MENU) — nav menu needs string slugs only; tab section needs icon components + sub-service descriptions
+- ServiceCard uses CSS hover (not motion whileHover) — parent ServicesTabSection already handles card enter animations; transition-all duration-200 provides smooth hover
+- ClientLogosMarquee logos rendered twice via JSX spread ([...LOGOS, ...LOGOS]) for seamless CSS marquee loop (no JS duplication)
 
 ## Artifacts
 
