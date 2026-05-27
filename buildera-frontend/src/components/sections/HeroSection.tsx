@@ -36,17 +36,8 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.5 }}
             >
-              <Link
-                href="/book-a-call"
-                className="inline-flex items-center justify-center rounded-lg bg-[var(--brand-primary)] text-white font-medium text-sm px-6 min-h-[48px] transition-all hover:bg-[var(--brand-primary-dark)] active:translate-y-px"
-              >
+              <Link href="/book-a-call" className="btn-primary">
                 Book a Free Call
-              </Link>
-              <Link
-                href="/services"
-                className="inline-flex items-center justify-center rounded-lg border border-border bg-background text-foreground font-medium text-sm px-6 min-h-[48px] transition-all hover:bg-muted"
-              >
-                View Our Services
               </Link>
             </motion.div>
 

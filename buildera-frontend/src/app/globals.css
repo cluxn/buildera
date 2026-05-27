@@ -300,18 +300,80 @@
   50%       { opacity: 1; }
 }
 
-/* CTA button shimmer (HOME-07) */
-.cta-button-shimmer::after {
+/* ── Brand button system ── */
+.btn-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--brand-gradient-from), var(--brand-gradient-to));
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0 1.5rem;
+  min-height: 48px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 4px 14px hsl(217 91% 60% / 30%);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-primary::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.25) 50%, transparent 60%);
-  transform: translateX(-100%);
-  transition: none;
+  background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.22) 50%, transparent 65%);
+  transform: translateX(-110%);
+  transition: transform 0.5s ease;
   pointer-events: none;
 }
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px hsl(217 91% 60% / 45%);
+}
+.btn-primary:hover::after {
+  transform: translateX(110%);
+}
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 14px hsl(217 91% 60% / 30%);
+}
 
-.cta-button-shimmer:hover::after {
-  transform: translateX(100%);
-  transition: transform 0.5s ease;
+.btn-outline {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: transparent;
+  color: var(--brand-primary);
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0 1.5rem;
+  min-height: 48px;
+  border-radius: 10px;
+  border: 1.5px solid var(--brand-primary);
+  transition: color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+  z-index: 0;
+}
+.btn-outline::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--brand-gradient-from), var(--brand-gradient-to));
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  z-index: -1;
+}
+.btn-outline:hover {
+  color: #fff;
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px hsl(217 91% 60% / 35%);
+}
+.btn-outline:hover::before {
+  opacity: 1;
+}
+.btn-outline:active {
+  transform: translateY(0);
 }

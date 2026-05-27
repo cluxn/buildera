@@ -96,10 +96,7 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
 
             {/* Desktop CTA + Mobile hamburger */}
             <div className="flex items-center gap-3">
-              <Link
-                href="/book-a-call"
-                className="hidden lg:inline-flex items-center bg-[var(--brand-primary)] text-white px-5 py-2.5 rounded-lg font-medium min-h-[48px] hover:bg-[var(--brand-primary-dark)] transition-colors text-sm"
-              >
+              <Link href="/book-a-call" className="hidden lg:inline-flex btn-primary !min-h-[42px]">
                 Book a Call
               </Link>
               <button
