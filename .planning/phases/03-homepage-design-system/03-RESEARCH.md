@@ -847,17 +847,13 @@ None — this phase creates all components from scratch. No existing test infras
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **shadcn Tabs component + AnimatePresence compatibility**
-   - What we know: shadcn Tabs in base-nova style is built on @base-ui/react (not Radix UI). AnimatePresence needs to wrap the tab content panel.
-   - What's unclear: Whether the @base-ui/react Tabs primitive exposes a pattern compatible with `AnimatePresence mode="wait"` wrapping.
-   - Recommendation: Install `npx shadcn add tabs` in Wave 0 of 03-05 plan, inspect the scaffolded component, decide whether to use it as the tab container or replace entirely with custom `useState`-based tabs.
+   - RESOLVED: Custom `useState` + `AnimatePresence` implementation used in `ServicesTabSection` — shadcn Tabs component not used for tab state management. This avoids any @base-ui/react Tabs + AnimatePresence incompatibility.
 
 2. **Laravel API field names for Settings and NavItems**
-   - What we know: Phase 2 built `GET /api/nav-items` and `GET /api/settings` controllers.
-   - What's unclear: Exact JSON field names in API responses (snake_case vs camelCase, exact stat key names).
-   - Recommendation: 03-02 and 03-04 task should begin with reading the Phase 2 API controller files to confirm response shapes before writing TypeScript types.
+   - RESOLVED: Plans 03-02 (Task 1 read_first) and 03-04 (Task 1 read_first) include Phase 2 API controller files (`buildera-backend/app/Http/Controllers/Api/NavItemController.php`, `SettingsController.php`) as mandatory reads before writing TypeScript types. Field names are confirmed at implementation time.
 
 ---
 
