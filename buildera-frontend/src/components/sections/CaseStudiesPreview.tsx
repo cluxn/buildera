@@ -38,7 +38,17 @@ const CASE_STUDIES = [
 
 export function CaseStudiesPreview() {
   return (
-    <section className="py-16 lg:py-24 bg-[var(--brand-surface)]">
+    <section className="py-16 lg:py-24 relative overflow-hidden"
+      style={{ background: "linear-gradient(160deg, hsl(222,47%,11%) 0%, hsl(242,40%,14%) 100%)" }}
+    >
+      {/* Decorative glows */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, hsl(217 91% 60% / 10%), transparent 70%)", filter: "blur(60px)" }}
+        aria-hidden="true" />
+      <div className="absolute bottom-0 right-1/4 w-72 h-72 rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, hsl(242 75% 40% / 8%), transparent 70%)", filter: "blur(60px)" }}
+        aria-hidden="true" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-12"
@@ -50,10 +60,14 @@ export function CaseStudiesPreview() {
           <p className="text-xs font-medium uppercase tracking-widest text-[var(--brand-primary)] mb-3">
             Proven Results
           </p>
-          <h2 className="text-4xl font-bold tracking-tight text-foreground">
+          <h2 className="text-4xl font-bold tracking-tight text-white mb-3">
             Results We&apos;ve Delivered
           </h2>
+          <p className="text-white/60 text-lg max-w-2xl mx-auto">
+            Three industries, three challenges, three measurable outcomes — scoped, shipped, and verified against real business results.
+          </p>
         </motion.div>
+
         <div className="grid md:grid-cols-3 gap-6">
           {CASE_STUDIES.map((study, index) => (
             <motion.div
@@ -61,11 +75,7 @@ export function CaseStudiesPreview() {
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{
-                delay: index * 0.2,
-                duration: 0.5,
-                ease: "easeOut",
-              }}
+              transition={{ delay: index * 0.2, duration: 0.5, ease: "easeOut" }}
             >
               <CaseStudyPreviewCard
                 title={study.title}
@@ -74,10 +84,23 @@ export function CaseStudiesPreview() {
                 metricSuffix={study.metricSuffix}
                 metricLabel={study.metricLabel}
                 description={study.description}
+                variant="dark"
               />
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          className="text-center mt-10"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+        >
+          <a href="/case-studies" className="btn-white">
+            View All Case Studies →
+          </a>
+        </motion.div>
       </div>
     </section>
   )

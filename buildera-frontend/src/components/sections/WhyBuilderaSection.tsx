@@ -19,9 +19,12 @@ export function WhyBuilderaSection() {
           <p className="text-xs font-medium uppercase tracking-widest text-[var(--brand-primary)] mb-3">
             Why Choose Buildera
           </p>
-          <h2 className="text-4xl font-bold tracking-tight text-foreground">
+          <h2 className="text-4xl font-bold tracking-tight text-foreground mb-4">
             Why Smart Businesses Choose Buildera
           </h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Accountability, fixed scopes, and a team that ships on time — here&apos;s what consistently makes the difference.
+          </p>
         </motion.div>
         <div className="grid md:grid-cols-3 gap-8 items-stretch">
           <motion.div
@@ -52,6 +55,19 @@ export function WhyBuilderaSection() {
             <MiniMetricsCard />
           </motion.div>
         </div>
+
+        <motion.div
+          className="text-center mt-10"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+        >
+          <a href="/about" className="btn-primary">
+            Learn More About Buildera →
+          </a>
+        </motion.div>
+
       </div>
     </section>
   )

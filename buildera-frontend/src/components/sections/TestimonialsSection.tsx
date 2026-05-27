@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { motion } from "motion/react"
 import { IconStar, IconQuote } from "@tabler/icons-react"
 
@@ -14,6 +15,7 @@ const TESTIMONIALS = [
     tag: "ERP & Operations",
     rating: 5,
     featured: true,
+    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
   },
   {
     id: 2,
@@ -25,6 +27,7 @@ const TESTIMONIALS = [
     tag: "E-Commerce",
     rating: 5,
     featured: false,
+    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
   },
   {
     id: 3,
@@ -36,6 +39,7 @@ const TESTIMONIALS = [
     tag: "Salesforce CRM",
     rating: 5,
     featured: false,
+    avatar: "https://randomuser.me/api/portraits/men/46.jpg",
   },
   {
     id: 4,
@@ -47,6 +51,7 @@ const TESTIMONIALS = [
     tag: "AI Agent Dev",
     rating: 5,
     featured: false,
+    avatar: "https://randomuser.me/api/portraits/women/68.jpg",
   },
 ]
 
@@ -69,14 +74,11 @@ export function TestimonialsSection() {
 
   return (
     <section className="py-16 lg:py-24 relative overflow-hidden"
-      style={{ background: "linear-gradient(160deg, hsl(222,47%,11%) 0%, hsl(242,40%,14%) 100%)" }}
+      style={{ background: "#F3F6FC" }}
     >
-      {/* Decorative glows */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, hsl(217 91% 60% / 12%), transparent 70%)", filter: "blur(60px)" }}
-        aria-hidden="true" />
-      <div className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, hsl(242 75% 40% / 10%), transparent 70%)", filter: "blur(60px)" }}
+      {/* Subtle decorative glow */}
+      <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, hsl(217 91% 60% / 7%), transparent 70%)", filter: "blur(80px)" }}
         aria-hidden="true" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -92,16 +94,19 @@ export function TestimonialsSection() {
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
             Client Stories
           </p>
-          <h2 className="text-4xl font-bold tracking-tight text-white mb-5">
+          <h2 className="text-4xl font-bold tracking-tight text-foreground mb-4">
             Don&apos;t Take Our Word For It
           </h2>
-          <div className="inline-flex items-center gap-2 border border-white/10 bg-white/5 rounded-full px-4 py-2 backdrop-blur-sm">
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-5">
+            Real feedback from business owners who trusted Buildera with their most critical systems.
+          </p>
+          <div className="inline-flex items-center gap-2 border border-[var(--brand-primary)]/20 bg-white rounded-full px-4 py-2 shadow-sm">
             <div className="flex gap-0.5">
               {Array.from({ length: 5 }).map((_, i) => (
                 <IconStar key={i} className="size-3.5 text-amber-400 fill-amber-400" />
               ))}
             </div>
-            <span className="text-sm font-medium text-white/80">4.9 / 5.0 on Clutch</span>
+            <span className="text-sm font-medium text-foreground/70">4.9 / 5.0 on Clutch</span>
           </div>
         </motion.div>
 
@@ -113,12 +118,12 @@ export function TestimonialsSection() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="relative rounded-2xl p-8 lg:p-10 mb-6 overflow-hidden"
           style={{
-            background: "linear-gradient(135deg, hsl(217 91% 60% / 14%), hsl(242 75% 40% / 10%))",
-            border: "1px solid hsl(217 91% 60% / 25%)",
+            background: "linear-gradient(135deg, hsl(217 91% 60% / 8%), hsl(242 75% 40% / 5%))",
+            border: "1px solid hsl(217 91% 60% / 20%)",
           }}
         >
           {/* Big decorative quote */}
-          <IconQuote className="absolute top-6 right-8 size-20 text-white/5" aria-hidden="true" />
+          <IconQuote className="absolute top-6 right-8 size-20 text-[var(--brand-primary)]/8" aria-hidden="true" />
 
           <div className="flex flex-col lg:flex-row lg:items-start gap-6">
             <div className="flex-1">
@@ -126,18 +131,18 @@ export function TestimonialsSection() {
                 {featured.tag}
               </span>
               <StarRow rating={featured.rating} />
-              <blockquote className="mt-4 text-lg lg:text-xl text-white/90 leading-relaxed font-medium">
+              <blockquote className="mt-4 text-lg lg:text-xl text-foreground leading-relaxed font-medium">
                 &ldquo;{featured.quote}&rdquo;
               </blockquote>
             </div>
             <div className="lg:w-56 flex-shrink-0 lg:pt-12">
               <div className="flex items-center gap-3 lg:flex-col lg:items-start lg:gap-2">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[var(--brand-gradient-from)] to-[var(--brand-gradient-to)] flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
-                  {featured.name.charAt(0)}
+                <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-[var(--brand-primary)]/20">
+                  <Image src={featured.avatar} alt={featured.name} width={48} height={48} className="w-full h-full object-cover" />
                 </div>
                 <div>
-                  <p className="font-semibold text-white">{featured.name}</p>
-                  <p className="text-xs text-white/60 mt-0.5">{featured.title}</p>
+                  <p className="font-semibold text-foreground">{featured.name}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">{featured.title}</p>
                   <p className="text-xs text-[var(--brand-primary)] font-medium mt-0.5">{featured.company}</p>
                 </div>
               </div>
@@ -154,11 +159,10 @@ export function TestimonialsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ delay: i * 0.12, duration: 0.5, ease: "easeOut" }}
-              className="flex flex-col gap-4 rounded-xl p-6"
+              className="flex flex-col gap-4 rounded-xl p-6 bg-white"
               style={{
-                background: "hsl(0 0% 100% / 4%)",
-                border: "1px solid hsl(0 0% 100% / 8%)",
-                backdropFilter: "blur(8px)",
+                border: "1px solid hsl(220 13% 91%)",
+                boxShadow: "0 1px 4px hsl(220 13% 80% / 30%)",
               }}
             >
               <div className="flex items-start justify-between gap-2">
@@ -168,22 +172,34 @@ export function TestimonialsSection() {
                 </span>
               </div>
 
-              <blockquote className="text-sm text-white/75 leading-relaxed flex-1">
+              <blockquote className="text-sm text-foreground/75 leading-relaxed flex-1">
                 &ldquo;{t.quote}&rdquo;
               </blockquote>
 
-              <div className="flex items-center gap-3 pt-2 border-t border-white/8">
-                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[var(--brand-gradient-from)] to-[var(--brand-gradient-to)] flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
-                  {t.name.charAt(0)}
+              <div className="flex items-center gap-3 pt-2 border-t border-border">
+                <div className="w-9 h-9 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-[var(--brand-primary)]/15">
+                  <Image src={t.avatar} alt={t.name} width={36} height={36} className="w-full h-full object-cover" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-white">{t.name}</p>
-                  <p className="text-xs text-white/50">{t.title} · {t.company}</p>
+                  <p className="text-sm font-semibold text-foreground">{t.name}</p>
+                  <p className="text-xs text-muted-foreground">{t.title} · {t.company}</p>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          className="text-center mt-10"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+        >
+          <a href="/testimonials" className="btn-primary">
+            Read All Client Stories →
+          </a>
+        </motion.div>
 
       </div>
     </section>

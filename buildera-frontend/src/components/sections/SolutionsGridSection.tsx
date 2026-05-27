@@ -54,7 +54,7 @@ export function SolutionsGridSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="mb-12"
+          className="mb-12 text-center"
         >
           <p className="text-xs font-medium uppercase tracking-widest text-[var(--brand-primary)] mb-3">
             Problems We Solve
@@ -62,7 +62,7 @@ export function SolutionsGridSection() {
           <h2 className="text-4xl font-bold tracking-tight text-foreground mb-4">
             Find the Solution to Your Problem
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl">
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             From operations to finance, we build the software that eliminates the exact bottleneck holding your business back.
           </p>
         </motion.div>
@@ -93,6 +93,18 @@ export function SolutionsGridSection() {
             )
           })}
         </div>
+
+        <motion.div
+          className="text-center mt-10"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+        >
+          <a href="/book-a-call" className="btn-primary">
+            Found Your Problem? Let's Build the Fix →
+          </a>
+        </motion.div>
 
       </div>
     </section>

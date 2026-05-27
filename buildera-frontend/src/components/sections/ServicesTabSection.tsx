@@ -203,7 +203,7 @@ export function ServicesTabSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="mb-10"
+          className="mb-10 text-center"
         >
           <p className="text-xs font-medium uppercase tracking-widest text-[var(--brand-primary)] mb-3">
             What We Build
@@ -211,7 +211,7 @@ export function ServicesTabSection() {
           <h2 className="text-4xl font-bold tracking-tight text-foreground mb-4">
             Everything Your Business Needs, Built Right
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl">
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Six service lines, each with dedicated specialists — so you always work with someone who knows your domain deeply.
           </p>
         </motion.div>
@@ -274,6 +274,18 @@ export function ServicesTabSection() {
             })}
           </motion.div>
         </AnimatePresence>
+
+        <motion.div
+          className="text-center mt-10"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+        >
+          <a href="/book-a-call" className="btn-primary">
+            Not Sure Which Fits? Book a Free Call →
+          </a>
+        </motion.div>
 
       </div>
     </section>

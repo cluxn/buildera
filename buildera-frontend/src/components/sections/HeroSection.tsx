@@ -3,7 +3,6 @@
 import Link from "next/link"
 import { motion } from "motion/react"
 import { HeroHeadline } from "./HeroHeadline"
-import { StatsBadgeStrip } from "./StatsBadgeStrip"
 
 export function HeroSection() {
   return (
@@ -13,9 +12,9 @@ export function HeroSection() {
       <div className="hero-orb-2" aria-hidden="true" />
 
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl w-full relative z-10">
-        <div className="grid lg:grid-cols-[1fr_1fr] gap-8 lg:gap-12 items-center py-24">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center py-24">
           {/* Left column */}
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6 min-w-0">
             {/* Word-by-word animated headline (Client Component) */}
             <HeroHeadline />
 
@@ -40,25 +39,16 @@ export function HeroSection() {
                 Book a Free Call
               </Link>
             </motion.div>
-
-            {/* Social proof badge strip */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.0, duration: 0.5 }}
-            >
-              <StatsBadgeStrip />
-            </motion.div>
           </div>
 
           {/* Right column — Client Results Dashboard */}
           <motion.div
-            className="hidden lg:flex lg:flex-col lg:w-full"
+            className="hidden lg:flex lg:flex-col min-w-0"
             initial={{ opacity: 0, x: 24 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.6, duration: 0.6, ease: "easeOut" }}
           >
-            <div className="relative w-full">
+            <div className="relative w-full max-w-md mx-auto">
               {/* Glow behind card */}
               <div
                 className="absolute -inset-4 rounded-3xl pointer-events-none"

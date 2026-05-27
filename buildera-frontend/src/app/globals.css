@@ -339,41 +339,39 @@
   box-shadow: 0 4px 14px hsl(221 83% 53% / 30%);
 }
 
-.btn-outline {
+.btn-white {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: transparent;
+  background: #fff;
   color: var(--brand-primary);
   font-weight: 600;
   font-size: 0.875rem;
   padding: 0 1.5rem;
   min-height: 48px;
   border-radius: 10px;
-  border: 1.5px solid var(--brand-primary);
-  transition: color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
-  z-index: 0;
+  border: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.btn-outline::before {
+.btn-white::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, var(--brand-gradient-from), var(--brand-gradient-to));
-  opacity: 0;
-  transition: opacity 0.25s ease;
-  z-index: -1;
+  background: linear-gradient(105deg, transparent 35%, hsl(217 91% 60% / 0.22) 50%, transparent 65%);
+  transform: translateX(-110%);
+  transition: transform 0.5s ease;
+  pointer-events: none;
 }
-.btn-outline:hover {
-  color: #fff;
-  border-color: transparent;
+.btn-white:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px hsl(221 83% 53% / 35%);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
 }
-.btn-outline:hover::before {
-  opacity: 1;
+.btn-white:hover::after {
+  transform: translateX(110%);
 }
-.btn-outline:active {
+.btn-white:active {
   transform: translateY(0);
 }

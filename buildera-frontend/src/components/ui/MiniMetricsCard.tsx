@@ -4,10 +4,10 @@ import { motion } from "motion/react"
 import { AnimatedBarChart } from "@/components/ui/AnimatedBarChart"
 
 const CHART_BARS = [
-  { height: 40, label: "Q1" },
-  { height: 65, label: "Q2" },
-  { height: 80, label: "Q3" },
-  { height: 92, label: "Q4" },
+  { height: 40, label: "Q1", value: "40%" },
+  { height: 65, label: "Q2", value: "65%" },
+  { height: 80, label: "Q3", value: "80%" },
+  { height: 92, label: "Q4", value: "92%" },
 ]
 
 const PROJECT_OUTCOMES = [
@@ -29,7 +29,7 @@ export function MiniMetricsCard() {
   return (
     <div className="flex flex-col gap-4 p-6 rounded-lg border border-border bg-card h-full">
       <h3 className="font-semibold text-foreground">Typical Project Impact</h3>
-      <AnimatedBarChart bars={CHART_BARS} />
+      <div className="mt-2"><AnimatedBarChart bars={CHART_BARS} /></div>
       <div className="border-t border-border" />
       <div className="flex flex-col gap-3">
         {PROJECT_OUTCOMES.map((item, index) => (
