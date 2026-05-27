@@ -20,9 +20,11 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const [isMobileOpen, setIsMobileOpen] = useState(false)
+  const [dropdownLeft, setDropdownLeft] = useState<number | null>(null)
 
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const buttonRefs = useRef<Partial<Record<string, HTMLButtonElement>>>({})
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50)
@@ -31,9 +33,16 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
   }, [])
 
   function handleNavMouseEnter(panel: string) {
-    if (hoverTimeoutRef.current) {
-      clearTimeout(hoverTimeoutRef.current)
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current)
+
+    // Capture button's left position for compact (Work/Resources) dropdowns
+    const btn = buttonRefs.current[panel]
+    if (btn && (panel === "Work" || panel === "Resources")) {
+      setDropdownLeft(btn.getBoundingClientRect().left)
+    } else {
+      setDropdownLeft(null)
     }
+
     hoverTimeoutRef.current = setTimeout(() => {
       setActiveDropdown(panel)
     }, 150)
@@ -63,12 +72,17 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
-            {/* Logo */}
-            <Link
-              href="/"
-              className="text-xl font-bold text-foreground hover:text-[var(--brand-primary)] transition-colors"
-            >
-              Buildera
+
+            {/* Logo — gradient icon + wordmark */}
+            <Link href="/" className="flex items-center gap-2.5 group">
+              <span className="flex items-center justify-center w-8 h-8 rounded-lg text-white font-bold text-base flex-shrink-0 shadow-sm group-hover:shadow-md transition-shadow"
+                style={{ background: "linear-gradient(135deg, hsl(217,91%,60%), hsl(242,75%,40%))" }}
+              >
+                B
+              </span>
+              <span className="text-[1.1rem] font-bold text-foreground group-hover:text-[var(--brand-primary)] transition-colors tracking-tight">
+                buildera
+              </span>
             </Link>
 
             {/* Desktop nav links */}
@@ -79,6 +93,7 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
               {NAV_PANELS.map((panel) => (
                 <button
                   key={panel}
+                  ref={(el) => { buttonRefs.current[panel] = el ?? undefined }}
                   aria-expanded={activeDropdown === panel}
                   aria-controls={`mega-dropdown-${panel.toLowerCase()}`}
                   className={cn(
@@ -111,9 +126,10 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
         </div>
       </nav>
 
-      {/* Mega dropdown — positioned below nav bar */}
+      {/* Mega dropdown */}
       <MegaDropdown
         activePanel={activeDropdown}
+        dropdownLeft={dropdownLeft}
         servicesMenu={servicesMenu}
         navItems={navItems}
         onMouseEnter={handleDropdownMouseEnter}

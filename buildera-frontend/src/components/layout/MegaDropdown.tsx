@@ -58,6 +58,7 @@ const RESOURCES_NAV_FALLBACK = [
 
 interface Props {
   activePanel: string | null
+  dropdownLeft: number | null
   servicesMenu: readonly ServiceMenuItem[]
   navItems: NavItem[]
   onMouseEnter: () => void
@@ -66,6 +67,7 @@ interface Props {
 
 export function MegaDropdown({
   activePanel,
+  dropdownLeft,
   servicesMenu,
   navItems,
   onMouseEnter,
@@ -87,7 +89,12 @@ export function MegaDropdown({
           className={
             activePanel === "Services" || activePanel === "Solutions"
               ? "absolute left-0 right-0 top-full bg-white border-t border-border shadow-lg"
-              : "absolute left-0 top-full bg-white border border-border shadow-xl rounded-b-xl min-w-[480px]"
+              : "absolute top-full bg-white border border-border shadow-xl rounded-xl min-w-[480px]"
+          }
+          style={
+            (activePanel === "Work" || activePanel === "Resources") && dropdownLeft != null
+              ? { left: dropdownLeft }
+              : undefined
           }
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}

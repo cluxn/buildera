@@ -13,7 +13,7 @@ export function HeroSection() {
       <div className="hero-orb-2" aria-hidden="true" />
 
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl w-full relative z-10">
-        <div className="grid lg:grid-cols-[5fr_7fr] gap-12 lg:gap-20 items-center py-24">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center py-24">
           {/* Left column */}
           <div className="flex flex-col gap-6">
             {/* Word-by-word animated headline (Client Component) */}
