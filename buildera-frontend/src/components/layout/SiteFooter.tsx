@@ -214,6 +214,7 @@ export async function SiteFooter() {
             <input
               type="email"
               name="email"
+              required
               placeholder="Enter your email"
               aria-label="Email address for newsletter"
               className={cn(
@@ -225,13 +226,15 @@ export async function SiteFooter() {
             />
             <button
               type="submit"
+              disabled
               className={cn(
                 "bg-[var(--brand-primary)] text-white px-5 py-2.5 rounded-lg font-medium",
                 "min-h-[48px] text-sm whitespace-nowrap",
-                "hover:bg-[var(--brand-primary-dark)] transition-colors"
+                "transition-colors",
+                "disabled:opacity-50 disabled:cursor-not-allowed"
               )}
             >
-              Get Updates
+              Coming Soon
             </button>
           </form>
         </div>
