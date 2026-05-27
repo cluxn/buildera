@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function Error({
   error,
@@ -10,25 +11,34 @@ export default function Error({
   reset: () => void;
 }) {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center gap-6 px-4">
-      <h2 className="text-3xl font-bold text-destructive">
-        Something went wrong
-      </h2>
-      <p className="text-muted-foreground text-center max-w-md">
-        {error.message || "An unexpected error occurred"}
+    <div className="min-h-screen flex flex-col items-center justify-center gap-6 px-4 text-center">
+      <p className="text-xs font-medium uppercase tracking-widest text-[var(--brand-primary)]">
+        Error
       </p>
-      <button
-        onClick={() => reset()}
-        className="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium hover:opacity-90 transition-opacity"
-      >
-        Try again
-      </button>
-      <Link
-        href="/"
-        className="text-primary underline underline-offset-4 hover:opacity-80"
-      >
-        Go Home
-      </Link>
+      <h1 className="text-4xl font-bold tracking-tight text-foreground">
+        Something went wrong
+      </h1>
+      <p className="text-muted-foreground max-w-md">
+        {error.message || "An unexpected error occurred. Please try again."}
+      </p>
+      <div className="flex flex-col sm:flex-row items-center gap-4 mt-2">
+        <Button onClick={() => reset()}>Try again</Button>
+        <Link
+          href="/"
+          className="text-[var(--brand-primary)] hover:underline font-medium"
+        >
+          Go back home
+        </Link>
+        <span className="text-muted-foreground hidden sm:inline" aria-hidden="true">
+          •
+        </span>
+        <Link
+          href="/services"
+          className="text-[var(--brand-primary)] hover:underline font-medium"
+        >
+          View our services
+        </Link>
+      </div>
     </div>
   );
 }
