@@ -15,8 +15,7 @@ interface Props {
   navItems: NavItem[]
 }
 
-const ACCORDION_GROUPS = ["Services", "Solutions", "Work", "Resources"] as const
-type AccordionGroup = (typeof ACCORDION_GROUPS)[number]
+type AccordionGroup = "Services" | "Solutions" | "Work" | "Resources"
 
 export function MobileNavDrawer({ isOpen, onClose, servicesMenu, navItems }: Props) {
   const [openGroup, setOpenGroup] = useState<AccordionGroup | null>(null)
