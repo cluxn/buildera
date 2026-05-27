@@ -23,8 +23,9 @@ export function WhyBuilderaSection() {
             Why Smart Businesses Choose Buildera
           </h2>
         </motion.div>
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8 items-stretch">
           <motion.div
+            className="h-full"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -33,6 +34,7 @@ export function WhyBuilderaSection() {
             <AnimatedRingStat percentage={98} label="Client Satisfaction" />
           </motion.div>
           <motion.div
+            className="h-full"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -41,6 +43,7 @@ export function WhyBuilderaSection() {
             <FeatureCheckList />
           </motion.div>
           <motion.div
+            className="h-full"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

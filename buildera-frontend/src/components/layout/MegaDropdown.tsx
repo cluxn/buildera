@@ -78,14 +78,15 @@ export function MegaDropdown({
   const resourceItems = navItems.filter((item) => item.group === "resources")
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {activePanel && (
         <motion.div
-          id={`mega-dropdown-${activePanel?.toLowerCase()}`}
+          key={activePanel}
+          id={`mega-dropdown-${activePanel.toLowerCase()}`}
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.2, ease: "easeOut" }}
+          transition={{ duration: 0.15, ease: "easeOut" }}
           className={
             activePanel === "Services" || activePanel === "Solutions"
               ? "absolute left-0 right-0 top-full bg-white border-t border-border shadow-lg"

@@ -73,13 +73,26 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
 
-            {/* Logo — gradient icon + wordmark */}
+            {/* Logo — SVG icon matching favicon + wordmark */}
             <Link href="/" className="flex items-center gap-2.5 group">
-              <span className="flex items-center justify-center w-8 h-8 rounded-lg text-white font-bold text-base flex-shrink-0 shadow-sm group-hover:shadow-md transition-shadow"
-                style={{ background: "linear-gradient(135deg, hsl(217,91%,60%), hsl(242,75%,40%))" }}
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                className="flex-shrink-0 group-hover:opacity-90 transition-opacity"
               >
-                B
-              </span>
+                <rect width="32" height="32" rx="8" fill="url(#nav-logo-grad)" />
+                <text x="8" y="24" fontFamily="Inter, Arial, sans-serif" fontSize="20" fontWeight="700" fill="white">B</text>
+                <defs>
+                  <linearGradient id="nav-logo-grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stopColor="hsl(217,91%,60%)" />
+                    <stop offset="100%" stopColor="hsl(242,75%,40%)" />
+                  </linearGradient>
+                </defs>
+              </svg>
               <span className="text-[1.1rem] font-bold text-foreground group-hover:text-[var(--brand-primary)] transition-colors tracking-tight">
                 buildera
               </span>

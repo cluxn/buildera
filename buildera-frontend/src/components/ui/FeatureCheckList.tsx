@@ -16,7 +16,7 @@ const COLUMN_HEADERS = ["", "Buildera", "In-House", "Freelancer"]
 
 export function FeatureCheckList() {
   return (
-    <div className="flex flex-col gap-4 p-6 rounded-lg border border-border bg-card">
+    <div className="flex flex-col gap-4 p-6 rounded-lg border border-border bg-card h-full">
       <h3 className="font-semibold text-foreground">
         Buildera vs. the alternatives
       </h3>

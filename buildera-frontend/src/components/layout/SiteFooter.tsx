@@ -97,77 +97,84 @@ export async function SiteFooter() {
 
           {/* Column 1: Brand + contact + social */}
           <div className="lg:col-span-1 flex flex-col gap-4">
-            <Link
-              href="/"
-              className="text-white font-bold text-xl tracking-tight hover:text-white/90 transition-colors w-fit"
-            >
-              Buildera
+            {/* Logo — SVG icon + wordmark */}
+            <Link href="/" className="flex items-center gap-2 group w-fit">
+              <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className="flex-shrink-0">
+                <rect width="32" height="32" rx="8" fill="url(#footer-logo-grad)" />
+                <text x="8" y="24" fontFamily="Inter, Arial, sans-serif" fontSize="20" fontWeight="700" fill="white">B</text>
+                <defs>
+                  <linearGradient id="footer-logo-grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stopColor="hsl(221,83%,63%)" />
+                    <stop offset="100%" stopColor="hsl(243,72%,50%)" />
+                  </linearGradient>
+                </defs>
+              </svg>
+              <span className="text-white font-bold text-xl tracking-tight group-hover:text-white/90 transition-colors">
+                buildera
+              </span>
             </Link>
 
             <p className="text-sm text-slate-400 leading-relaxed">
-              {settings.footer_tagline}
+              {settings.footer_tagline || "We build custom software, Salesforce solutions, AI agents, and dedicated dev teams for Indian SMBs that demand accountability and results."}
             </p>
 
-            {/* Contact options */}
+            {/* Contact details */}
             <div className="flex flex-col gap-2 text-sm text-slate-400">
-              {settings.phone && (
+              {(settings.phone || "+91 98765 43210") && (
                 <a
-                  href={`tel:${settings.phone.replace(/\s/g, "")}`}
+                  href={`tel:${(settings.phone || "+91 98765 43210").replace(/\s/g, "")}`}
                   className="hover:text-white transition-colors"
                 >
-                  {settings.phone}
+                  {settings.phone || "+91 98765 43210"}
                 </a>
               )}
-              {settings.email && (
+              {(settings.email || "hello@buildera.co") && (
                 <a
-                  href={`mailto:${settings.email}`}
+                  href={`mailto:${settings.email || "hello@buildera.co"}`}
                   className="hover:text-white transition-colors"
                 >
-                  {settings.email}
+                  {settings.email || "hello@buildera.co"}
                 </a>
               )}
-              {settings.address && (
+              {(settings.address || "Kanpur, Uttar Pradesh, India") && (
                 <address className="not-italic leading-relaxed">
-                  {settings.address}
+                  {settings.address || "Kanpur, Uttar Pradesh, India"}
                 </address>
               )}
-              <Link
-                href="/book-a-call"
-                className="text-[var(--brand-primary)] hover:text-[var(--brand-primary-light)] transition-colors font-medium"
-              >
-                Book a Discovery Call →
-              </Link>
-              <Link
-                href="/contact"
-                className="hover:text-white transition-colors"
-              >
+              <Link href="/contact" className="hover:text-white transition-colors">
                 Contact Us
               </Link>
             </div>
 
             {/* Social icons */}
             <div className="flex gap-3 mt-1">
-              {settings.linkedin_url ? (
-                <a href={settings.linkedin_url} target="_blank" rel="noopener noreferrer" aria-label="Follow Buildera on LinkedIn" className="text-slate-400 hover:text-white transition-colors">
-                  <IconBrandLinkedin className="size-5" />
-                </a>
-              ) : (
-                <span className="text-slate-600" aria-hidden="true"><IconBrandLinkedin className="size-5" /></span>
-              )}
-              {settings.twitter_url ? (
-                <a href={settings.twitter_url} target="_blank" rel="noopener noreferrer" aria-label="Follow Buildera on Twitter" className="text-slate-400 hover:text-white transition-colors">
-                  <IconBrandTwitter className="size-5" />
-                </a>
-              ) : (
-                <span className="text-slate-600" aria-hidden="true"><IconBrandTwitter className="size-5" /></span>
-              )}
-              {settings.instagram_url ? (
-                <a href={settings.instagram_url} target="_blank" rel="noopener noreferrer" aria-label="Follow Buildera on Instagram" className="text-slate-400 hover:text-white transition-colors">
-                  <IconBrandInstagram className="size-5" />
-                </a>
-              ) : (
-                <span className="text-slate-600" aria-hidden="true"><IconBrandInstagram className="size-5" /></span>
-              )}
+              <a
+                href={settings.linkedin_url || "https://linkedin.com/company/buildera"}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow Buildera on LinkedIn"
+                className="text-slate-400 hover:text-white transition-colors"
+              >
+                <IconBrandLinkedin className="size-5" />
+              </a>
+              <a
+                href={settings.twitter_url || "https://twitter.com/buildera"}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow Buildera on Twitter"
+                className="text-slate-400 hover:text-white transition-colors"
+              >
+                <IconBrandTwitter className="size-5" />
+              </a>
+              <a
+                href={settings.instagram_url || "https://instagram.com/buildera"}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow Buildera on Instagram"
+                className="text-slate-400 hover:text-white transition-colors"
+              >
+                <IconBrandInstagram className="size-5" />
+              </a>
             </div>
           </div>
 
@@ -225,15 +232,13 @@ export async function SiteFooter() {
             />
             <button
               type="submit"
-              disabled
               className={cn(
-                "bg-[var(--brand-primary)] text-white px-5 py-2.5 rounded-lg font-medium",
+                "bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white px-5 py-2.5 rounded-lg font-medium",
                 "min-h-[48px] text-sm whitespace-nowrap",
-                "transition-colors",
-                "disabled:opacity-50 disabled:cursor-not-allowed"
+                "transition-colors"
               )}
             >
-              Coming Soon
+              Subscribe
             </button>
           </form>
         </div>

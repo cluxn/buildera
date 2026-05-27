@@ -7,6 +7,7 @@ import { ClientLogosMarquee } from "@/components/sections/ClientLogosMarquee"
 import { WhyBuilderaSection } from "@/components/sections/WhyBuilderaSection"
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection"
 import { CaseStudiesPreview } from "@/components/sections/CaseStudiesPreview"
+import { ContactFormSection } from "@/components/sections/ContactFormSection"
 import { CTASection } from "@/components/sections/CTASection"
 
 export default async function HomePage() {
@@ -22,6 +23,7 @@ export default async function HomePage() {
       <WhyBuilderaSection />
       <TestimonialsSection />
       <CaseStudiesPreview />
+      <ContactFormSection />
       <CTASection />
     </>
   )

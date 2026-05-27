@@ -27,7 +27,7 @@ const PROJECT_OUTCOMES = [
 
 export function MiniMetricsCard() {
   return (
-    <div className="flex flex-col gap-4 p-6 rounded-lg border border-border bg-card">
+    <div className="flex flex-col gap-4 p-6 rounded-lg border border-border bg-card h-full">
       <h3 className="font-semibold text-foreground">Typical Project Impact</h3>
       <AnimatedBarChart bars={CHART_BARS} />
       <div className="border-t border-border" />

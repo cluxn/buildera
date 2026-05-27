@@ -13,7 +13,7 @@ export function HeroSection() {
       <div className="hero-orb-2" aria-hidden="true" />
 
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl w-full relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center py-24">
+        <div className="grid lg:grid-cols-[1fr_1fr] gap-8 lg:gap-12 items-center py-24">
           {/* Left column */}
           <div className="flex flex-col gap-6">
             {/* Word-by-word animated headline (Client Component) */}
@@ -21,7 +21,7 @@ export function HeroSection() {
 
             {/* Sub-headline */}
             <motion.p
-              className="text-lg text-muted-foreground max-w-lg"
+              className="text-lg text-muted-foreground"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
@@ -53,12 +53,12 @@ export function HeroSection() {
 
           {/* Right column — Client Results Dashboard */}
           <motion.div
-            className="hidden lg:block"
+            className="hidden lg:flex lg:flex-col lg:w-full"
             initial={{ opacity: 0, x: 24 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.6, duration: 0.6, ease: "easeOut" }}
           >
-            <div className="relative">
+            <div className="relative w-full">
               {/* Glow behind card */}
               <div
                 className="absolute -inset-4 rounded-3xl pointer-events-none"
