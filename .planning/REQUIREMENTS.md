@@ -27,9 +27,9 @@
 - [ ] **HOME-02**: Services overview section — 6-tab switcher (Website Dev, Salesforce Dev, DevOps Dev, AI Agent Dev, Software Dev, Hire a Dev) with sub-service cards
 - [ ] **HOME-03**: Solutions grid section — scrollable/filterable grid of ~18 solution tiles with links to detail pages
 - [ ] **HOME-04**: Stats bar — 4 key numbers (e.g., years experience, projects delivered, clients, satisfaction rate); each stat (label + value) admin-manageable via Settings; seeded with genuine-looking sample values (e.g., "150+ Projects Delivered", "50+ Happy Clients", "6+ Years Experience", "98% Client Satisfaction") that client replaces with real data
-- [ ] **HOME-05**: Testimonials section — 3-5 client quotes with name, company, photo
-- [ ] **HOME-06**: Case studies preview — 3 featured case studies with headline, industry, results metric
-- [ ] **HOME-07**: CTA section — bottom-of-page conversion block with "Book a Free Discovery Call" button
+- [x] **HOME-05**: Testimonials section — 3-5 client quotes with name, company, photo
+- [x] **HOME-06**: Case studies preview — 3 featured case studies with headline, industry, results metric
+- [x] **HOME-07**: CTA section — bottom-of-page conversion block with "Book a Free Discovery Call" button
 
 ### SERVICES (SVC-*)
 
@@ -182,10 +182,10 @@
 
 - [ ] **COMP-01**: Partner & certification badges section — Salesforce Partner, Google Cloud, Microsoft, AWS, Shopify Partner logos displayed on homepage and About page; Filament resource to manage badge name + logo + link + display_order
 - [ ] **COMP-02**: Client logos strip — scrolling marquee of client/partner logos on homepage; seeded with 8-10 sample industry-relevant logos (generic tech/business brand-style logos that look genuine); admin-manageable: logo upload + alt text + link + display_order + is_visible toggle; client replaces with real logos post-launch
-- [ ] **COMP-03**: Clutch / GoodFirms / DesignRush review badges — embedded widget or static badge image with rating + review count on homepage hero and contact page; admin-configurable badge URL + rating text
+- [x] **COMP-03**: Clutch / GoodFirms / DesignRush review badges — embedded widget or static badge image with rating + review count on homepage hero and contact page; admin-configurable badge URL + rating text
 - [ ] **COMP-04**: Video support — YouTube/Vimeo embed field on homepage hero (optional autoplay loop), case study detail pages (video testimonial), service detail pages (explainer video); Filament field: video_url (nullable); frontend renders embed if present
 - [ ] **COMP-05**: Technologies showcase section — grid of technology/tool logos (React, Node.js, Python, PHP, AWS, Azure, Salesforce, Shopify, MySQL, etc.); displayed on homepage and a dedicated `/technologies` page; Filament resource: name + logo + category (Frontend/Backend/Cloud/CRM/E-Commerce) + display_order
-- [ ] **COMP-06**: "Why Buildera" differentiation section on homepage — addresses the 3-way decision: Buildera vs hiring in-house vs freelancer; structured as feature comparison rows (Cost / Speed / Communication / Accountability / Expertise) with checkmarks/crosses
+- [x] **COMP-06**: "Why Buildera" differentiation section on homepage — addresses the 3-way decision: Buildera vs hiring in-house vs freelancer; structured as feature comparison rows (Cost / Speed / Communication / Accountability / Expertise) with checkmarks/crosses
 - [ ] **COMP-07**: Granular cookie consent — two-tier consent (Essential always on; Analytics + Marketing require opt-in); GA4, Clarity, Facebook Pixel, LinkedIn only load after analytics consent is given; consent preference stored in localStorage
 
 ### SEO ADVANCED (SEOPLUS-*)
