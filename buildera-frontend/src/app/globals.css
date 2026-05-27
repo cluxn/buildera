@@ -7,7 +7,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
+  --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -81,6 +81,14 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  /* Brand tokens — Phase 3+ (D-08) */
+  --brand-primary: hsl(217 91% 60%);
+  --brand-primary-dark: hsl(217 91% 45%);
+  --brand-primary-light: hsl(217 91% 75%);
+  --brand-gradient-from: hsl(217 91% 60%);
+  --brand-gradient-to: hsl(242 75% 40%);
+  --brand-surface: hsl(217 60% 97%);
+  --brand-glass: hsl(217 91% 60% / 8%);
 }
 
 .dark {
@@ -115,6 +123,13 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  /* Brand tokens dark mode (D-09) */
+  --brand-primary: hsl(217 91% 65%);
+  --brand-primary-dark: hsl(217 91% 55%);
+  --brand-primary-light: hsl(217 91% 80%);
+  --brand-surface: hsl(217 30% 12%);
+  --brand-glass: hsl(217 91% 65% / 12%);
+  /* --brand-gradient-from and --brand-gradient-to unchanged in dark mode */
 }
 
 @layer base {
@@ -127,4 +142,172 @@
   html {
     @apply font-sans;
   }
+
+  /* Typography scale — Inter type hierarchy (D-27) */
+  .text-display {
+    font-size: 3.75rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  h1,
+  .text-h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  h2,
+  .text-h2 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  h3,
+  .text-h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  h4,
+  .text-h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .text-body-lg {
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  body,
+  .text-body {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  .text-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .text-caption {
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+}
+
+/* Glassmorphism utilities (D-10) */
+@utility glass-card {
+  background: var(--brand-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid hsl(217 91% 60% / 15%);
+  border-radius: var(--radius-lg);
+}
+
+@utility glass-nav {
+  background: hsl(0 0% 100% / 80%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--brand-glass);
+}
+
+/* Hero orb animations (D-02) */
+@keyframes orb-float {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(20px, -30px) scale(1.05); }
+}
+
+.hero-orb-1 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, hsl(217 91% 60% / 40%), transparent 70%);
+  filter: blur(80px);
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  animation: orb-float 8s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-orb-2 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, hsl(242 75% 40% / 35%), transparent 70%);
+  filter: blur(100px);
+  position: absolute;
+  bottom: -80px;
+  left: -80px;
+  animation: orb-float 10s ease-in-out infinite alternate-reverse;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Hero SVG illustration animation (D-06) */
+@keyframes svg-pulse {
+  0%   { transform: translateY(0px); }
+  100% { transform: translateY(-12px); }
+}
+
+.hero-illustration {
+  animation: svg-pulse 6s ease-in-out infinite alternate;
+}
+
+/* Client logos marquee (D-23) */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.logo-item {
+  filter: grayscale(100%) opacity(0.6);
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.logo-item:hover {
+  filter: grayscale(0%) opacity(1);
+}
+
+/* Bottom CTA gradient pulse (HOME-07) */
+@keyframes gradient-pulse {
+  0%, 100% { opacity: 0.85; }
+  50%       { opacity: 1; }
+}
+
+/* CTA button shimmer (HOME-07) */
+.cta-button-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.25) 50%, transparent 60%);
+  transform: translateX(-100%);
+  transition: none;
+  pointer-events: none;
+}
+
+.cta-button-shimmer:hover::after {
+  transform: translateX(100%);
+  transition: transform 0.5s ease;
 }
