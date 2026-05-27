@@ -15,7 +15,7 @@
 - [ ] **NAV-01**: Sticky header — Buildera logo left, 4-item mega nav center, "Book a Call" CTA button right; frosted glass / blur backdrop on scroll
 - [ ] **NAV-02**: Mega dropdown — **Services**: grid of all 6 categories each with their sub-service links; **Solutions**: grid of all ~18 solution tiles; **Work**: Industries, About Us, Testimonials, Case Studies, How We Work; **Resources**: Blog, Guides, Contact Us
 - [ ] **NAV-03**: Mobile nav — full-screen overlay drawer; accordion-expand per dropdown group; "Book a Call" CTA prominent at bottom
-- [ ] **NAV-04**: Footer — multi-column layout (Services, Solutions, Company, Resources columns) + social icons (LinkedIn, Twitter/X, Instagram) + legal links (Privacy, Terms) + WhatsApp link + newsletter opt-in strip
+- [x] **NAV-04**: Footer — multi-column layout (Services, Solutions, Company, Resources columns) + social icons (LinkedIn, Twitter/X, Instagram) + legal links (Privacy, Terms) + WhatsApp link + newsletter opt-in strip
 - [ ] **NAV-05**: Admin-editable navigation — Filament NavItem resource: label, URL, parent group, display_order, is_visible toggle; Owner can add/remove/reorder/rename any nav link or dropdown group without code deploy; unpublished pages automatically hidden from nav
 - [ ] **NAV-06**: Admin-editable footer — Filament FooterLink resource: label, URL, column group (Services/Solutions/Company/Resources), display_order, is_visible toggle; same CRUD as nav
 - [ ] **NAV-07**: Breadcrumbs on all deep pages (service detail, solution detail, blog post, case study, guide, industry); `BreadcrumbList` JSON-LD included
