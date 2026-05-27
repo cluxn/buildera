@@ -34,8 +34,8 @@ const TESTIMONIALS = [
   },
 ]
 
-const Y_OFFSETS = [40, 24, 56]
-const DELAYS = [0, 0.15, 0.3]
+const getYOffset = (i: number) => [40, 24, 56][i] ?? 24
+const getDelay = (i: number) => i * 0.15
 
 export function TestimonialsSection() {
   return (
@@ -63,11 +63,11 @@ export function TestimonialsSection() {
           {TESTIMONIALS.map((testimonial, index) => (
             <motion.div
               key={testimonial.id}
-              initial={{ opacity: 0, y: Y_OFFSETS[index] }}
+              initial={{ opacity: 0, y: getYOffset(index) }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{
-                delay: DELAYS[index],
+                delay: getDelay(index),
                 duration: 0.6,
                 ease: "easeOut",
               }}
