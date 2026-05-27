@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-05-26T18:31:50.827Z"
+last_updated: "2026-05-27T00:25:31.719Z"
 progress:
   total_phases: 10
-  completed_phases: 0
-  total_plans: 4
-  completed_plans: 0
-  percent: 0
+  completed_phases: 1
+  total_plans: 9
+  completed_plans: 6
+  percent: 15
 ---
 
 # Buildera — Project State
@@ -20,14 +20,14 @@ See: `.planning/PROJECT.md` (updated 2026-05-26)
 
 **Core value:** A decision-maker lands on buildera.co — cold or warm — immediately understands what Buildera builds, finds their specific problem reflected in the services/solutions, and books a discovery call.
 
-**Current focus:** Phase 1 planned — ready to execute
+**Current focus:** Phase 2 Backend Core — plan 02-01 complete, executing 02-02 next
 
 ## Phase Status
 
 | Phase | Name | Status |
 |-------|------|--------|
 | 1 | Project Foundation | 📋 Planned (4 plans, 3 waves) |
-| 2 | Backend Core | ⬜ Not started |
+| 2 | Backend Core | 🔄 In progress (1/5 plans done) |
 | 3 | Homepage & Design System | ⬜ Not started |
 | 4 | Services & Solutions Pages | ⬜ Not started |
 | 5 | Industries, Trust Pages & Lead Capture | ⬜ Not started |
@@ -44,6 +44,9 @@ See: `.planning/PROJECT.md` (updated 2026-05-26)
 - Deploy: Hostinger (Node.js + PHP + MySQL) — full build first, deploy once at end
 - Content: Hardcoded pages first, admin control added progressively
 - No mid-project deploys
+- Setting::get($key, $default) for all settings reads — 1hr cache via Cache::remember
+- Filament v5 Page $view is non-static; $navigationGroup is string|UnitEnum|null (not ?string)
+- canAccessPanel() returns true for all authenticated users; Shield handles resource-level RBAC
 
 ## Artifacts
 

@@ -29,7 +29,7 @@
 **Requirements:** ADM-01, ADM-11, ADM-17 (scaffold), LEAD-03 → LEAD-07, REL-05 → REL-08, PUB-01 → PUB-02
 
 **Plans:**
-- 02-01: Filament install + 5 navigation groups (Leads & CRM / Content / Website / SEO & Analytics / Settings); ManageSettings page with all company/social/WhatsApp/Calendly fields; filament-shield RBAC (Owner/Editor/Viewer)
+- 02-01: Filament install + 5 navigation groups (Leads & CRM / Content / Website / SEO & Analytics / Settings); ManageSettings page with all company/social/WhatsApp/Calendly fields; filament-shield RBAC (Owner/Editor/Viewer) ✓ DONE
 - 02-02: All public GET API controllers (Settings, BlogPost, CaseStudy, Guide, Testimonial, Service, Solution, Industry, SeoMeta, Redirects, Search, NavItems, FooterLinks); `is_published` filter on all content endpoints; `published_at <= NOW()` enforcement (REL-06)
 - 02-03: Lead capture — `POST /api/leads` with ApiKeyMiddleware, throttle (5/hr), honeypot validation, duplicate detection (REL-03), lead stored with source_form + UTM + IP; Resend email notification dispatched as queued job (REL-07)
 - 02-04: Newsletter — `POST /api/subscribers`, rate limit (REL-05), unsubscribe endpoint with signed token (REL-04); queued jobs for all side effects; database queue driver; audit log observers (REL-08)

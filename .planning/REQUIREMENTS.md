@@ -107,7 +107,7 @@
 - **SEO & Analytics** — SEO Metadata, Analytics Scripts, Sitemap
 - **Settings** — General Settings (company info, social, WhatsApp, Calendly), User Management
 
-- [ ] **ADM-01**: Filament admin at `/admin` with Sanctum session auth; navigation organized into 5 groups (Leads & CRM, Content, Website, SEO & Analytics, Settings) — no ungrouped resources
+- [x] **ADM-01**: Filament admin at `/admin` with Sanctum session auth; navigation organized into 5 groups (Leads & CRM, Content, Website, SEO & Analytics, Settings) — no ungrouped resources
 - [ ] **ADM-02**: Unified Lead Inbox — all leads from ALL sources (contact form, mini CTA, mini popup, floating CTA, exit-intent popup, inline blog CTA) land in one table; tagged by `source_form` (contact-form / mini-cta / mini-popup / floating-cta / exit-popup / inline-blog); filterable by source, status, date, service interest
 - [ ] **ADM-03**: Newsletter Subscribers resource — separate from leads; email, source_page, subscribed_at, status (active/unsubscribed); bulk export CSV
 - [ ] **ADM-04**: Blog Post resource — title, slug (auto), excerpt, body (RichEditor with image embed), category (multi-select), tags, author (relation), featured image (Spatie MediaLibrary with mandatory alt text field), reading time (auto-calculated), published_at, is_featured toggle, SEO fields (title tag, meta desc, OG image), status (draft/published/archived)
@@ -117,13 +117,13 @@
 - [ ] **ADM-08**: Author resource — name, bio, avatar upload with alt text, LinkedIn URL, role/title
 - [ ] **ADM-09**: Page Content resource — manage editable sections of homepage (hero headline, hero subtext, stats bar values, CTA section text), announcement/nudge bar, floating CTA text, mini CTA copy — each section as a named key-value block
 - [ ] **ADM-10**: Popup Manager — exit-intent popup (headline, body, CTA text, CTA link, image, enabled toggle); idle popup (same fields + trigger delay in seconds); each popup previewed inline before enabling
-- [ ] **ADM-11**: Settings page (General) — company name, email, phone, address, Calendly URL, WhatsApp number (with widget enable toggle), LinkedIn/Instagram/Twitter/X URLs, footer tagline, footer copyright text
+- [x] **ADM-11**: Settings page (General) — company name, email, phone, address, Calendly URL, WhatsApp number (with widget enable toggle), LinkedIn/Instagram/Twitter/X URLs, footer tagline, footer copyright text
 - [ ] **ADM-12**: Analytics & Scripts page — GA4 measurement ID, Clarity project ID, Facebook Pixel ID, LinkedIn Insight tag ID, Google Ads conversion ID, GSC HTML verification tag, custom `<head>` scripts textarea, custom `<body>` scripts textarea
 - [ ] **ADM-13**: Nudge/Announcement Banner — text, destination URL, background color picker, start date, end date, enabled toggle; preview shown in admin before enabling
 - [ ] **ADM-14**: SEO Metadata resource — per-page records keyed by page type + slug; fields: title tag, meta description, canonical URL, OG title, OG description, OG image upload, robots (index/noindex); covers homepage, service pages, solution pages, industry pages, blog, case studies, guides
 - [ ] **ADM-15**: User management — CRUD for admin users with role assignment (Owner / Editor / Viewer via filament-shield); Owner = full access, Editor = content + leads only, Viewer = read-only
 - [ ] **ADM-16**: Sitemap management — manual "Regenerate Sitemap" action button, last generated timestamp shown, download link for sitemap.xml
-- [ ] **ADM-17**: ISR revalidation — on every content save (blog, case study, guide, testimonial, settings, SEO), automatically fire POST to Next.js /api/revalidate with the correct cache tag; log last revalidation time per resource
+- [ ] **ADM-17**: ISR revalidation — on every content save (blog, case study, guide, testimonial, settings, SEO), automatically fire POST to Next.js /api/revalidate with the correct cache tag; log last revalidation time per resource [scaffold: 02-01 wired RBAC/settings; full observers in 02-05]
 
 ### SEO (SEO-*)
 
