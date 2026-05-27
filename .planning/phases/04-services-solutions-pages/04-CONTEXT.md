@@ -37,11 +37,14 @@ All ~24 sub-service detail pages and ~18 solution detail pages built as statical
 
 ### Social Proof Sourcing (04-06)
 
-- **D-11:** Phase 4 seeds 8 testimonials + 6 case studies via Laravel seeders (no Filament resource UI — just database rows). Genuine-looking, diverse industries.
-- **D-12:** Phase 4 adds backend migrations: `service_category` (string, nullable) + `industry_category` (string, nullable) columns to both `testimonials` and `case_studies` tables. These unlock the API filter queries needed in 04-06.
-- **D-13:** Testimonials tagged by `service_category` column value matching the URL slug (e.g., `'website-development'`). Case studies similarly tagged. Phase 6 Filament resources will expose these as admin-editable fields.
-- **D-14:** Frontend API calls: `GET /api/testimonials?service={category}` and `GET /api/case-studies?service={category}` per service/solution page. The Phase 2 API controllers already exist — Phase 4 extends them with a `?service=` query param filter.
-- **D-15:** Graceful empty state: if no testimonials/case studies match the service query, those sections render as hidden (not broken). No hard dependency on seeded count.
+- **D-11:** Phase 4 seeds **~20 testimonials + 8 case studies** via Laravel seeders (no Filament resource UI — just database rows). Genuine-looking, diverse clients and industries. Coverage: 1-2 per service category (12), remainder cross-tagged to cover major solutions and all 8 industry pages. A single testimonial can be tagged with a service AND an industry so it appears on both pages.
+- **D-12:** Phase 4 adds backend migrations with three tagging columns on both `testimonials` and `case_studies` tables:
+  - `service_category` (string, nullable) — e.g., `'website-development'`
+  - `solution_slug` (string, nullable) — e.g., `'crm'`, `'erp'`
+  - `industry_category` (string, nullable) — e.g., `'manufacturing'`, `'retail'`
+  All three are independent — a testimonial can have one, two, or all three set. Phase 6 Filament resources expose these as admin-editable fields.
+- **D-13:** Frontend API calls accept any of the three filter params: `GET /api/testimonials?service=X`, `GET /api/testimonials?solution=X`, `GET /api/testimonials?industry=X`. Case studies use the same pattern. Phase 2 API controllers extended with these query param filters in 04-06.
+- **D-14:** Graceful empty state: sections render hidden (not broken) if no seeded testimonials match the query. No hard dependency on seeded count per page.
 
 ### Animation Depth on Service Pages
 
