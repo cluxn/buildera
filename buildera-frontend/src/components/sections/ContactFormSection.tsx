@@ -55,7 +55,18 @@ export function ContactFormSection() {
   }
 
   return (
-    <section className="py-16 lg:py-24 bg-[var(--brand-surface)]" id="contact">
+    <section
+      className="py-16 lg:py-24 relative overflow-hidden"
+      id="contact"
+      style={{ background: "linear-gradient(160deg, #fff 60%, hsl(221 60% 96%) 100%)" }}
+    >
+      {/* Subtle top accent line */}
+      <div
+        className="absolute top-0 left-0 right-0 h-1"
+        style={{ background: "linear-gradient(90deg, transparent 0%, var(--brand-gradient-from) 30%, var(--brand-gradient-to) 70%, transparent 100%)" }}
+        aria-hidden="true"
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section header */}
@@ -77,17 +88,18 @@ export function ContactFormSection() {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-[2fr_1fr] gap-12 items-start">
+        <div className="grid lg:grid-cols-[3fr_2fr] gap-10 lg:items-stretch">
 
           {/* Form */}
           <motion.div
+            className="flex flex-col"
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
             {state === "success" ? (
-              <div className="flex flex-col items-center justify-center gap-4 py-16 px-8 bg-white rounded-2xl border border-border text-center">
+              <div className="flex flex-col items-center justify-center gap-4 py-16 px-8 bg-white rounded-2xl border border-border shadow-sm text-center flex-1">
                 <div className="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center">
                   <IconCheck className="size-7 text-green-600" />
                 </div>
@@ -105,7 +117,7 @@ export function ContactFormSection() {
             ) : (
               <form
                 onSubmit={handleSubmit}
-                className="bg-white rounded-2xl border border-border p-8 flex flex-col gap-5"
+                className="bg-white rounded-2xl border border-border shadow-sm p-8 flex flex-col gap-5 flex-1"
                 noValidate
               >
                 {/* Honeypot */}
@@ -221,58 +233,81 @@ export function ContactFormSection() {
             )}
           </motion.div>
 
-          {/* Contact info sidebar */}
+          {/* Contact info sidebar — dark gradient panel */}
           <motion.div
-            className="flex flex-col gap-6"
+            className="flex flex-col"
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
           >
-            <div className="bg-white rounded-2xl border border-border p-6 flex flex-col gap-5">
-              <h3 className="font-bold text-foreground text-lg">Contact Information</h3>
+            <div
+              className="flex-1 rounded-2xl flex flex-col p-8 gap-7"
+              style={{ background: "linear-gradient(150deg, var(--brand-gradient-from) 0%, var(--brand-gradient-to) 100%)" }}
+            >
+              {/* Header */}
+              <div>
+                <h3 className="font-bold text-white text-xl mb-1">Let&apos;s Connect</h3>
+                <p className="text-white/70 text-sm leading-relaxed">
+                  Our team is ready to help you scope, plan, and build something great.
+                </p>
+              </div>
 
-              <div className="flex items-start gap-3">
-                <div className="w-9 h-9 rounded-xl bg-[var(--brand-surface)] flex items-center justify-center flex-shrink-0">
-                  <IconMail className="size-4 text-[var(--brand-primary)]" />
+              {/* Contact items */}
+              <div className="flex flex-col gap-5">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
+                    <IconMail className="size-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-white/55 text-xs uppercase tracking-wider font-medium mb-0.5">Email</p>
+                    <a href="mailto:hello@buildera.co" className="text-white font-semibold text-sm hover:text-white/80 transition-colors">
+                      hello@buildera.co
+                    </a>
+                  </div>
                 </div>
-                <div className="flex flex-col gap-0.5">
-                  <span className="text-xs text-muted-foreground font-medium uppercase tracking-wide">Email</span>
-                  <a href="mailto:hello@buildera.co" className="text-sm text-foreground hover:text-[var(--brand-primary)] transition-colors font-medium">
-                    hello@buildera.co
-                  </a>
+
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
+                    <IconPhone className="size-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-white/55 text-xs uppercase tracking-wider font-medium mb-0.5">Phone</p>
+                    <a href="tel:+919876543210" className="text-white font-semibold text-sm hover:text-white/80 transition-colors">
+                      +91 98765 43210
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
+                    <IconMapPin className="size-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-white/55 text-xs uppercase tracking-wider font-medium mb-0.5">Location</p>
+                    <span className="text-white font-semibold text-sm">Kanpur, Uttar Pradesh, India</span>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3">
-                <div className="w-9 h-9 rounded-xl bg-[var(--brand-surface)] flex items-center justify-center flex-shrink-0">
-                  <IconPhone className="size-4 text-[var(--brand-primary)]" />
-                </div>
-                <div className="flex flex-col gap-0.5">
-                  <span className="text-xs text-muted-foreground font-medium uppercase tracking-wide">Phone</span>
-                  <a href="tel:+919876543210" className="text-sm text-foreground hover:text-[var(--brand-primary)] transition-colors font-medium">
-                    +91 98765 43210
-                  </a>
-                </div>
+              {/* Response time */}
+              <div className="rounded-xl bg-white/10 p-4 border border-white/15">
+                <p className="text-white font-semibold text-sm mb-1">⚡ Fast Response</p>
+                <p className="text-white/70 text-xs leading-relaxed">
+                  Typically within <strong className="text-white">24 hours</strong>. Urgent?{" "}
+                  <a href="/book-a-call" className="text-white underline underline-offset-2 hover:text-white/80 transition-colors">
+                    Book a call directly
+                  </a>.
+                </p>
               </div>
 
-              <div className="flex items-start gap-3">
-                <div className="w-9 h-9 rounded-xl bg-[var(--brand-surface)] flex items-center justify-center flex-shrink-0">
-                  <IconMapPin className="size-4 text-[var(--brand-primary)]" />
-                </div>
-                <div className="flex flex-col gap-0.5">
-                  <span className="text-xs text-muted-foreground font-medium uppercase tracking-wide">Location</span>
-                  <span className="text-sm text-foreground font-medium">Kanpur, Uttar Pradesh, India</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-2xl border border-border p-6">
-              <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-2">Response Time</p>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                We typically respond within <span className="text-foreground font-semibold">24 hours</span>. For urgent projects, call us directly or{" "}
-                <a href="/book-a-call" className="text-[var(--brand-primary)] hover:underline font-medium">book a call</a>.
-              </p>
+              {/* CTA */}
+              <a
+                href="/book-a-call"
+                className="mt-auto block w-full text-center bg-white text-[var(--brand-primary)] font-semibold py-3.5 rounded-xl text-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_hsl(221_83%_53%/40%)]"
+              >
+                Book a Free Discovery Call
+              </a>
             </div>
           </motion.div>
 

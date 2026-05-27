@@ -20,7 +20,7 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const [isMobileOpen, setIsMobileOpen] = useState(false)
-  const [dropdownOffset, setDropdownOffset] = useState<{ right: number } | null>(null)
+  const [dropdownOffset, setDropdownOffset] = useState<{ left: number } | null>(null)
 
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -40,7 +40,10 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
     const btn = buttonRefs.current[panel]
     if (btn && (panel === "Work" || panel === "Resources")) {
       const rect = btn.getBoundingClientRect()
-      setDropdownOffset({ right: window.innerWidth - rect.right })
+      const btnCenter = rect.left + rect.width / 2
+      const dropdownHalfWidth = 230 // half of min-w-[460px]
+      const left = Math.max(8, Math.min(btnCenter - dropdownHalfWidth, window.innerWidth - 468))
+      setDropdownOffset({ left })
     } else {
       setDropdownOffset(null)
     }
@@ -75,28 +78,18 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
 
-            {/* Logo — ascending-steps mark + wordmark */}
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <svg
-                width="30"
-                height="22"
-                viewBox="0 0 30 22"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-                className="flex-shrink-0"
+            {/* Logo — gradient text wordmark */}
+            <Link href="/" className="group">
+              <span
+                className="font-bold text-[1.2rem] tracking-tight select-none"
+                style={{
+                  backgroundImage: "linear-gradient(135deg, hsl(217,91%,60%) 0%, hsl(242,75%,40%) 100%)",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  color: "transparent",
+                }}
               >
-                <rect x="0" y="16" width="30" height="6" rx="2" fill="url(#nav-mark-grad)" />
-                <rect x="5" y="8" width="22" height="6" rx="2" fill="url(#nav-mark-grad)" opacity="0.82" />
-                <rect x="10" y="0" width="14" height="6" rx="2" fill="url(#nav-mark-grad)" opacity="0.65" />
-                <defs>
-                  <linearGradient id="nav-mark-grad" x1="0" y1="0" x2="30" y2="22" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stopColor="hsl(217,91%,60%)" />
-                    <stop offset="100%" stopColor="hsl(242,75%,40%)" />
-                  </linearGradient>
-                </defs>
-              </svg>
-              <span className="text-[1.1rem] font-bold text-foreground group-hover:text-[var(--brand-primary)] transition-colors tracking-tight">
                 Buildera
               </span>
             </Link>

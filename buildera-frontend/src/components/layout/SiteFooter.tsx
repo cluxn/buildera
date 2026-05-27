@@ -97,20 +97,19 @@ export async function SiteFooter() {
 
           {/* Column 1: Brand + contact + social */}
           <div className="lg:col-span-1 flex flex-col gap-4">
-            {/* Logo — SVG icon + wordmark */}
-            <Link href="/" className="flex items-center gap-2 group w-fit">
-              <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className="flex-shrink-0">
-                <rect width="32" height="32" rx="8" fill="url(#footer-logo-grad)" />
-                <text x="8" y="24" fontFamily="Inter, Arial, sans-serif" fontSize="20" fontWeight="700" fill="white">B</text>
-                <defs>
-                  <linearGradient id="footer-logo-grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stopColor="hsl(221,83%,63%)" />
-                    <stop offset="100%" stopColor="hsl(243,72%,50%)" />
-                  </linearGradient>
-                </defs>
-              </svg>
-              <span className="text-white font-bold text-xl tracking-tight group-hover:text-white/90 transition-colors">
-                buildera
+            {/* Logo — gradient text wordmark */}
+            <Link href="/" className="w-fit">
+              <span
+                className="font-bold text-[1.2rem] tracking-tight select-none"
+                style={{
+                  backgroundImage: "linear-gradient(135deg, hsl(217,91%,68%) 0%, hsl(242,75%,58%) 100%)",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  color: "transparent",
+                }}
+              >
+                Buildera
               </span>
             </Link>
 
@@ -118,33 +117,6 @@ export async function SiteFooter() {
               {settings.footer_tagline || "We build custom software, Salesforce solutions, AI agents, and dedicated dev teams for Indian SMBs that demand accountability and results."}
             </p>
 
-            {/* Contact details */}
-            <div className="flex flex-col gap-2 text-sm text-slate-400">
-              {(settings.phone || "+91 98765 43210") && (
-                <a
-                  href={`tel:${(settings.phone || "+91 98765 43210").replace(/\s/g, "")}`}
-                  className="hover:text-white transition-colors"
-                >
-                  {settings.phone || "+91 98765 43210"}
-                </a>
-              )}
-              {(settings.email || "hello@buildera.co") && (
-                <a
-                  href={`mailto:${settings.email || "hello@buildera.co"}`}
-                  className="hover:text-white transition-colors"
-                >
-                  {settings.email || "hello@buildera.co"}
-                </a>
-              )}
-              {(settings.address || "Kanpur, Uttar Pradesh, India") && (
-                <address className="not-italic leading-relaxed">
-                  {settings.address || "Kanpur, Uttar Pradesh, India"}
-                </address>
-              )}
-              <Link href="/contact" className="hover:text-white transition-colors">
-                Contact Us
-              </Link>
-            </div>
 
             {/* Social icons */}
             <div className="flex gap-3 mt-1">
@@ -230,14 +202,7 @@ export async function SiteFooter() {
                 "w-full sm:w-64"
               )}
             />
-            <button
-              type="submit"
-              className={cn(
-                "bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white px-5 py-2.5 rounded-lg font-medium",
-                "min-h-[48px] text-sm whitespace-nowrap",
-                "transition-colors"
-              )}
-            >
+            <button type="submit" className="btn-primary whitespace-nowrap !px-5">
               Subscribe
             </button>
           </form>

@@ -34,7 +34,8 @@ export function StatsBarSection({ settings }: Props) {
 
   return (
     <motion.section
-      className="bg-[var(--brand-primary)] py-12 lg:py-16"
+      className="py-12 lg:py-16"
+      style={{ background: "linear-gradient(135deg, var(--brand-gradient-from), var(--brand-gradient-to))" }}
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}

@@ -58,7 +58,7 @@ const RESOURCES_NAV_FALLBACK = [
 
 interface Props {
   activePanel: string | null
-  dropdownOffset: { right: number } | null
+  dropdownOffset: { left: number } | null
   servicesMenu: readonly ServiceMenuItem[]
   navItems: NavItem[]
   onMouseEnter: () => void
