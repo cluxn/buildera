@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 import {
   IconWorldWww,
@@ -43,6 +45,7 @@ export function MegaDropdown({
     <AnimatePresence>
       {activePanel && (
         <motion.div
+          id={`mega-dropdown-${activePanel?.toLowerCase()}`}
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -8 }}

@@ -79,6 +79,8 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
               {NAV_PANELS.map((panel) => (
                 <button
                   key={panel}
+                  aria-expanded={activeDropdown === panel}
+                  aria-controls={`mega-dropdown-${panel.toLowerCase()}`}
                   className={cn(
                     "relative px-4 py-2 text-sm font-medium rounded-lg transition-colors min-h-[48px]",
                     activeDropdown === panel
