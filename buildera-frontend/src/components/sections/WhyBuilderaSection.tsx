@@ -34,7 +34,7 @@ export function WhyBuilderaSection() {
             viewport={{ once: true }}
             transition={{ delay: 0, duration: 0.5 }}
           >
-            <AnimatedRingStat percentage={98} label="Client Satisfaction" />
+            <AnimatedRingStat value={98} suffix="%" label="Client Satisfaction" className="w-[120px]" />
           </motion.div>
           <motion.div
             className="h-full"

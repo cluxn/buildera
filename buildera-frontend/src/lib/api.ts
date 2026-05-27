@@ -92,3 +92,31 @@ export async function fetchSettings(): Promise<Settings> {
     next: { tags: ['settings'] },
   } as RequestInit).catch(() => SETTINGS_FALLBACK)
 }
+
+import type { TestimonialData, CaseStudyData } from '@/types/service-page'
+
+export async function fetchTestimonials(
+  filters: { service?: string; solution?: string; industry?: string } = {}
+): Promise<TestimonialData[]> {
+  const params = new URLSearchParams()
+  if (filters.service) params.set('service', filters.service)
+  if (filters.solution) params.set('solution', filters.solution)
+  if (filters.industry) params.set('industry', filters.industry)
+  const query = params.toString() ? `?${params.toString()}` : ''
+  return fetchFromApi<TestimonialData[]>(`/api/testimonials${query}`, {
+    next: { tags: ['testimonials'], revalidate: 3600 },
+  } as RequestInit).catch(() => [])
+}
+
+export async function fetchCaseStudies(
+  filters: { service?: string; solution?: string; industry?: string } = {}
+): Promise<CaseStudyData[]> {
+  const params = new URLSearchParams()
+  if (filters.service) params.set('service', filters.service)
+  if (filters.solution) params.set('solution', filters.solution)
+  if (filters.industry) params.set('industry', filters.industry)
+  const query = params.toString() ? `?${params.toString()}` : ''
+  return fetchFromApi<CaseStudyData[]>(`/api/case-studies${query}`, {
+    next: { tags: ['case-studies'], revalidate: 3600 },
+  } as RequestInit).catch(() => [])
+}
