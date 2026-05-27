@@ -84,11 +84,19 @@ export function MegaDropdown({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -8 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
-          className="absolute left-0 right-0 top-full bg-white border-t border-border shadow-lg"
+          className={
+            activePanel === "Services" || activePanel === "Solutions"
+              ? "absolute left-0 right-0 top-full bg-white border-t border-border shadow-lg"
+              : "absolute left-0 top-full bg-white border border-border shadow-xl rounded-b-xl min-w-[480px]"
+          }
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className={
+            activePanel === "Services" || activePanel === "Solutions"
+              ? "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"
+              : "px-6 py-6"
+          }>
             {activePanel === "Services" && (
               <div className="grid grid-cols-3 gap-6">
                 {servicesMenu.map((service) => {
