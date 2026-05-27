@@ -10,10 +10,10 @@ interface Props {
   className?: string
 }
 
-export function ServiceCard({ name, parentSlug, description, icon, className }: Props) {
+export function ServiceCard({ name, slug, parentSlug, description, icon, className }: Props) {
   return (
     <Link
-      href={`/services/${parentSlug}`}
+      href={`/services/${parentSlug}/${slug}`}
       className={cn(
         "flex flex-col gap-3 p-4 rounded-lg border border-border bg-card",
         "hover:shadow-[0_0_0_2px_var(--brand-primary)] hover:-translate-y-1",
