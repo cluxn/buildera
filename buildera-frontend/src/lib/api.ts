@@ -14,9 +14,13 @@ export async function fetchFromApi<T>(
 ): Promise<T> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${path}`, options);
   if (!res.ok) {
-    throw new ApiError(res.status, res.statusText);
+    throw new ApiError(res.status, `API request failed: ${path}`);
   }
-  return res.json() as Promise<T>;
+  try {
+    return await res.json() as T;
+  } catch {
+    throw new ApiError(res.status, `Invalid JSON from: ${path}`);
+  }
 }
 
 export interface NavItem {
@@ -55,11 +59,11 @@ export interface Settings {
 
 export const SETTINGS_FALLBACK: Settings = {
   company_name: 'Buildera',
-  email: 'info@buildera.co',
-  phone: '+91 82994 06767',
-  address: '117/Q/457/10A Indrapuri Sharda Nagar, Kanpur 208025',
+  email: '',
+  phone: '',
+  address: '',
   calendly_url: '',
-  whatsapp_number: '+918299406767',
+  whatsapp_number: '',
   whatsapp_enabled: false,
   linkedin_url: '',
   instagram_url: '',
