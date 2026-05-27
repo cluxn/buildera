@@ -55,7 +55,7 @@
 - 03-01: Design system — Tailwind 4 `@theme` CSS variables (brand blue palette, gradients, shadows, radius); shadcn/ui init; global motion config (`motion` v12 scroll-triggered variants); glassmorphism utility classes; Inter font; typography scale (D-27); globals.css complete
 
 **Wave 2** *(blocked on Wave 1 completion)*
-- 03-02: SiteNav — sticky frosted-glass header, 4-group mega dropdown (Services/Solutions/Work/Resources), logo, "Book a Call" CTA; populated from `GET /api/nav-items`; mobile full-screen overlay drawer with accordion groups
+- 03-02: SiteNav — sticky frosted-glass header, 4-group mega dropdown (Services/Solutions/Work/Resources), logo, "Book a Call" CTA; populated from `GET /api/nav-items`; mobile full-screen overlay drawer with accordion groups ✓ DONE
 - 03-03: SiteFooter — multi-column layout, social icons, newsletter opt-in strip (Phase 5 wires submission), legal links; populated from `GET /api/footer-links`
 
 **Wave 3** *(blocked on Wave 2 completion — 03-06 is sole assembler of page.tsx)*

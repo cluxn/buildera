@@ -8,7 +8,7 @@ progress:
   total_phases: 10
   completed_phases: 2
   total_plans: 15
-  completed_plans: 11
+  completed_plans: 12
   percent: 22
 ---
 
@@ -28,7 +28,7 @@ See: `.planning/PROJECT.md` (updated 2026-05-26)
 |-------|------|--------|
 | 1 | Project Foundation | 📋 Planned (4 plans, 3 waves) |
 | 2 | Backend Core | 🔄 In progress (4/5 plans done) |
-| 3 | Homepage & Design System | 🔄 In progress (1/6 plans done) |
+| 3 | Homepage & Design System | 🔄 In progress (2/6 plans done) |
 | 4 | Services & Solutions Pages | ⬜ Not started |
 | 5 | Industries, Trust Pages & Lead Capture | ⬜ Not started |
 | 6 | Content — Blog, Case Studies, Guides | ⬜ Not started |
@@ -61,6 +61,9 @@ See: `.planning/PROJECT.md` (updated 2026-05-26)
 - Typography scale added to @layer base (8 roles: Display/h1-h4/body-lg/body/label/caption) per D-27
 - fetchFromApi options cast as RequestInit — Next.js extends RequestInit with next.tags at runtime
 - SETTINGS_FALLBACK exported for use in downstream Server Components without API dependency
+- SERVICES_MENU typed as readonly ServiceMenuItem[] and exported from SiteNav.tsx for reuse in ServicesTabSection (plan 03-05)
+- MegaDropdown rendered inside SiteNavClient client tree (receives props, no data fetching) — avoids "use client" boundary issues
+- Work/Resources panels show hardcoded fallback links when API returns empty array — prevents empty nav panels at build time
 
 ## Artifacts
 
