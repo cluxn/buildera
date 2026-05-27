@@ -86,6 +86,32 @@ Font: Inter (variable font, latin subset). All sizes in px mapped to `rem` by Ta
 
 ---
 
+## Phase 3 Approved Amendments — Carry-Forward (REQUIRED)
+
+> These decisions were approved after Phase 3 execution. They override the original Phase 3 spec.
+> Phase 4 executors MUST follow these exactly. Do not re-derive or revert.
+
+| Amendment | Rule |
+|-----------|------|
+| AM-01 Logo | Gradient badge `<span>` containing "Buildera" in white — no separate SVG mark. Apply to any page/layout that renders the site logo. |
+| AM-02 Button hover | ALL buttons: `hover:-translate-y-0.5 hover:shadow-[0_8px_24px_hsl(221_83%_53%/45%)] transition-all duration-200`. No opacity fades, no white glows, no scale pops. |
+| AM-03 Stats bar | `linear-gradient(135deg, var(--brand-gradient-from), var(--brand-gradient-to))` — same as CTA section. |
+| AM-04 Hero | Stats strip above CTA button. Right column card: `max-w-md mx-auto`. |
+| AM-05 Contact section | Added as 10th homepage section. Gradient sidebar panel. See Phase 3 spec §AM-05. |
+| AM-06 Nav dropdowns | Work/Resources: center-aligned below button. `AnimatePresence mode="sync"`. Close-timeout cleared on panel enter. |
+| AM-07 Button system | `btn-outline` REMOVED. Two classes only: `btn-primary` (light bg sections) and `btn-white` (dark bg sections). Both have shimmer `::after` sweep on hover. See Phase 3 §AM-07. |
+| AM-08 Section headers | ALL headers center-aligned. Structure: eyebrow → H2 → one para (~90–110 chars) → optional CTA. No H2-only headers. See Phase 3 §AM-08. |
+| AM-09 Testimonials | Light `#F3F6FC` bg. Real avatar photos via `<Image>`, no initials. `btn-primary` CTA. See Phase 3 §AM-09. |
+| AM-10 Case Studies | Dark gradient bg. `variant="dark"` on cards. `btn-white` CTA. See Phase 3 §AM-10. |
+| AM-11 Hero headline | "We Build Software / For Indian SMBs". StatsBadgeStrip removed. See Phase 3 §AM-11. |
+
+**For Phase 4 service/solution pages:**
+- All page-level CTA buttons (hero, inline, sticky footer) follow AM-02 hover rule
+- Any gradient backgrounds on Phase 4 pages use `linear-gradient(135deg, var(--brand-gradient-from), var(--brand-gradient-to))` — same direction and stops as CTA/Stats bar
+- Section eyebrow labels, button styles, card hover animations inherit from Phase 3 spec unchanged
+
+---
+
 ## Color Contract
 
 All Phase 3 brand tokens carry forward. No new color tokens needed.
@@ -836,10 +862,10 @@ Server Components by default unless marked `[use client]`.
 
 | Placement | Button Label | Destination |
 |-----------|-------------|-------------|
-| Service hero — primary | "Book a Free Call" | `/book-a-call` |
-| Service hero — secondary | "View Our Work" | `/case-studies` |
-| Solution hero — primary | "Book a Free Call" | `/book-a-call` |
-| Solution hero — secondary | "See Related Services" | `/services` |
+| Service hero — primary | "Book a Free Call" (`btn-primary`) | `/book-a-call` |
+| Service hero — secondary | "View Our Work" (`btn-white` on dark, plain link on light) | `/case-studies` |
+| Solution hero — primary | "Book a Free Call" (`btn-primary`) | `/book-a-call` |
+| Solution hero — secondary | "See Related Services" (plain text link, not btn-outline) | `/services` |
 | Service CTA section | "Book a Free Discovery Call" | `/book-a-call` |
 | Solution CTA section | "Book a Free Discovery Call" | `/book-a-call` |
 | Category page CTA | "Book a Free Call" | `/book-a-call` |

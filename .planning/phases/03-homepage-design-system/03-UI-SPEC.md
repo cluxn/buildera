@@ -159,14 +159,15 @@ This sequence is locked. Do not reorder.
 | # | Section | Background | Text Color |
 |---|---------|-----------|-----------|
 | 1 | Hero | `bg-background` (white) | `text-foreground` |
-| 2 | Stats bar | `bg-[var(--brand-primary)]` | `text-white` |
+| 2 | Stats bar | `linear-gradient(135deg, brand-gradient-from, brand-gradient-to)` | `text-white` |
 | 3 | Services tab section | `bg-background` (white) | `text-foreground` |
 | 4 | Solutions grid | `bg-[var(--brand-surface)]` | `text-foreground` |
 | 5 | Client logos marquee | `bg-background` (white) | `text-foreground` |
 | 6 | Why Buildera | `bg-background` (white) | `text-foreground` |
-| 7 | Testimonials | `bg-background` (white) | `text-foreground` |
-| 8 | Case studies preview | `bg-[var(--brand-surface)]` | `text-foreground` |
-| 9 | Bottom CTA | `bg-gradient-to-br from-[var(--brand-gradient-from)] to-[var(--brand-gradient-to)]` | `text-white` |
+| 7 | Testimonials | `#F3F6FC` (light blue-grey) | `text-foreground` |
+| 8 | Case studies preview | `linear-gradient(160deg, hsl(222,47%,11%) 0%, hsl(242,40%,14%) 100%)` | `text-white` |
+| 9 | Contact form | `linear-gradient(160deg, #fff 60%, hsl(221 60% 96%) 100%)` | `text-foreground` |
+| 10 | Bottom CTA | `linear-gradient(135deg, brand-gradient-from, brand-gradient-to)` | `text-white` |
 
 ---
 
@@ -948,3 +949,179 @@ npx shadcn add separator
 | `api.ts` | `fetchFromApi` pattern confirmed, typed helper pattern defined |
 | Prompt `<animation_requirements>` | All 9 bespoke section animations — 100% included |
 | Prompt `<design_context>` | Brand tokens, glassmorphism, section backgrounds confirmed |
+
+---
+
+## Approved Post-Implementation Amendments
+
+> These decisions supersede their original spec values. All are locked for Phases 4–10.
+> Source: client review sessions after Phase 3 execution.
+
+### AM-01 — Logo Design
+
+**Original spec:** SVG icon (gradient box with "B") + "buildera" wordmark as separate elements.
+
+**Approved change:** Single gradient badge wordmark. A `<span>` with brand gradient background containing "Buildera" in white bold text. No separate mark/icon. Matches favicon concept but extends it to the full company name.
+
+```tsx
+<span
+  className="inline-flex items-center px-3.5 py-1.5 rounded-lg font-bold text-white text-[1.05rem] tracking-tight select-none transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_hsl(221_83%_53%/45%)]"
+  style={{ background: "linear-gradient(135deg, hsl(217,91%,60%), hsl(242,75%,40%))" }}
+>
+  Buildera
+</span>
+```
+
+Applied to: `SiteNavClient.tsx`, `SiteFooter.tsx`. MobileNavDrawer must also use this pattern.
+
+---
+
+### AM-02 — Universal Button Hover Rule
+
+**Original spec:** `.btn-primary` had lift + blue shadow. Other buttons unspecified.
+
+**Approved change:** ALL interactive buttons — primary, outline, CTA section, newsletter subscribe, sidebar CTAs — must use identical hover behaviour:
+
+```css
+/* On hover: */
+transform: translateY(-2px);
+box-shadow: 0 8px 24px hsl(221 83% 53% / 45%);
+transition: transform 0.2s ease, box-shadow 0.2s ease;
+```
+
+Tailwind equivalent: `hover:-translate-y-0.5 hover:shadow-[0_8px_24px_hsl(221_83%_53%/45%)] transition-all duration-200`
+
+**Prohibited:** `hover:opacity-X`, `hover:bg-[color]/90` (opacity fade), `hover:scale-[1.0X]` (scale pop), `hover:shadow-[0_0_Xpx_X_rgba(255,255,255,...)]` (white glow). These create visual inconsistency.
+
+---
+
+### AM-03 — Stats Bar Background
+
+**Original spec:** `bg-[var(--brand-primary)]` (flat solid blue).
+
+**Approved change:** Same `135deg` gradient as CTA section for visual consistency:
+```tsx
+style={{ background: "linear-gradient(135deg, var(--brand-gradient-from), var(--brand-gradient-to))" }}
+```
+
+Updated section backgrounds table:
+
+| # | Section | Background |
+|---|---------|-----------|
+| 2 | Stats bar | `linear-gradient(135deg, brand-gradient-from, brand-gradient-to)` |
+
+All other section backgrounds unchanged.
+
+---
+
+### AM-04 — Hero Layout Amendments
+
+**Order change:** Stats badge strip (`StatsBadgeStrip`) renders **above** the CTA button, not below. Stagger delays: stats at `delay: 0.8`, button at `delay: 1.0`.
+
+**Width constraint:** Right column dashboard card has `max-w-md mx-auto` to prevent over-expansion on wide viewports. Right column class: `hidden lg:flex lg:flex-col min-w-0`.
+
+---
+
+### AM-05 — ContactFormSection (10th Homepage Section)
+
+A 10th section is added between Case Studies Preview and the Bottom CTA.
+
+**Background:** `linear-gradient(160deg, #fff 60%, hsl(221 60% 96%) 100%)` + 1px gradient accent top border.
+
+**Layout:** `grid lg:grid-cols-[3fr_2fr] lg:items-stretch`
+
+**Sidebar design (replaces two white info cards):** Single dark gradient panel filling full grid row height. Background: `linear-gradient(150deg, brand-gradient-from, brand-gradient-to)`. Contains: heading, email, phone, location, response-time block, white CTA button. All text white.
+
+**Sidebar CTA button hover:** Follows AM-02 universal rule (`hover:-translate-y-0.5 hover:shadow-[0_8px_24px_hsl(221_83%_53%/40%)]`).
+
+---
+
+### AM-07 — Button System Simplification
+
+**Removed:** `.btn-outline` class deleted entirely from `globals.css`. Do not reference or recreate it.
+
+**Two-button system (locked for Phases 4–10):**
+
+| Class | Background | Text | Use On |
+|-------|-----------|------|--------|
+| `btn-primary` | Blue gradient (`brand-gradient-from → brand-gradient-to`) | `#fff` | All **light/white** background sections |
+| `btn-white` | `#fff` solid | `var(--brand-primary)` | All **dark** background sections |
+
+Both classes include:
+- `position: relative; overflow: hidden` (required for shimmer)
+- `::after` shimmer sweep on hover — `btn-primary` uses white shimmer, `btn-white` uses blue shimmer `hsl(217 91% 60% / 0.22)`
+- Lift: `hover:-translate-y-2px` + shadow on hover
+- `min-height: 48px; border-radius: 10px; font-weight: 600`
+
+**Rule:** Match button to section background. Dark section (Testimonials-era light is fine for btn-primary; Case Studies dark uses btn-white). CTA section uses `btn-white`.
+
+---
+
+### AM-08 — Section Header Consistency (All Sections)
+
+All homepage sections (and Phase 4 page sections) must follow this exact header structure:
+
+```
+[eyebrow] — text-xs font-medium uppercase tracking-widest text-[var(--brand-primary)] mb-3
+[H2]      — text-4xl font-bold tracking-tight [text-foreground OR text-white] mb-4
+[para]    — text-lg [text-muted-foreground OR text-white/60] max-w-2xl mx-auto
+```
+
+**Alignment:** ALL section headers are `text-center`. No left-aligned section headers on any page.
+
+**Para requirement:** Every section with a header MUST have a subtitle para (~90–110 chars, one sentence). No section header is H2-only.
+
+**CTA button below header (presence rules):**
+- Catalog sections with a dedicated full page (Case Studies, Testimonials, About) → `btn-primary` or `btn-white` CTA
+- Conversion sections (Services, Solutions) → `btn-primary` CTA pointing to `/book-a-call`
+- Proof/trust sections without own page (Stats Bar, Client Logos, Why Buildera standalone proof) → no CTA
+
+---
+
+### AM-09 — Testimonials Section Redesign
+
+**Background:** `#F3F6FC` (light blue-grey). Was: dark gradient. All text uses `text-foreground` / `text-muted-foreground`.
+
+**Avatar photos:** Real portrait images (`<Image>` from `next/image`). NO letter-initial circles. Domain `randomuser.me` whitelisted in `next.config.ts`. Replace with real client photos before go-live.
+- Featured card avatar: `w-12 h-12 rounded-full overflow-hidden ring-2 ring-[var(--brand-primary)]/20`
+- Supporting card avatar: `w-9 h-9 rounded-full overflow-hidden ring-2 ring-[var(--brand-primary)]/15`
+
+**Rating badge:** `border border-[var(--brand-primary)]/20 bg-white rounded-full shadow-sm` (was dark glassmorphism).
+
+**Supporting cards:** `bg-white border border-[hsl(220_13%_91%)]` (was translucent dark).
+
+**CTA button:** `btn-primary` "Read All Client Stories →" → `/testimonials`
+
+---
+
+### AM-10 — Case Studies Section Redesign
+
+**Background:** `linear-gradient(160deg, hsl(222,47%,11%) 0%, hsl(242,40%,14%) 100%)` dark. Was: `bg-[var(--brand-surface)]` light.
+
+**Text:** All `text-white` / `text-white/60`. Decorative glows added (same pattern as stats bar).
+
+**Cards:** `CaseStudyPreviewCard` now accepts `variant="dark"` prop → `bg-white/5 border-white/10 text-white`.
+
+**CTA button:** `btn-white` "View All Case Studies →" → `/case-studies`
+
+---
+
+### AM-11 — Hero Headline & Strip Update
+
+**Headline:** Two lines, both `whitespace-nowrap`:
+- Line 1: `"We Build Software"` — `text-foreground`
+- Line 2: `"For Indian SMBs"` — `text-[var(--brand-primary)]`
+
+**StatsBadgeStrip:** REMOVED from hero left column. Stats are already shown in the right-column dashboard card (150+, 98%, 6 wks). Do not re-add.
+
+**Subheadline max-width:** `max-w-lg` or narrower — must not compete with right column card width.
+
+---
+
+### AM-06 — Nav Dropdown Behaviour (Work/Resources)
+
+**Position:** Compact dropdowns (Work, Resources) are centered below their trigger button. Calculated as `left = buttonCenter - (dropdownWidth / 2)`, clamped to viewport edges.
+
+**Ghost-flash fix:** `handleNavMouseEnter` must clear `closeTimeoutRef` before setting the new open timer. Without this, switching between panels causes the previous panel to briefly reappear.
+
+**Animation mode:** `AnimatePresence mode="sync"` (not `mode="wait"`) — panels cross-fade simultaneously instead of exit-then-enter.
