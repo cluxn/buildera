@@ -20,7 +20,7 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const [isMobileOpen, setIsMobileOpen] = useState(false)
-  const [dropdownLeft, setDropdownLeft] = useState<number | null>(null)
+  const [dropdownOffset, setDropdownOffset] = useState<{ right: number } | null>(null)
 
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -34,13 +34,15 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
 
   function handleNavMouseEnter(panel: string) {
     if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current)
+    // Clear any pending close so switching between panels doesn't ghost-flash the previous one
+    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current)
 
-    // Capture button's left position for compact (Work/Resources) dropdowns
     const btn = buttonRefs.current[panel]
     if (btn && (panel === "Work" || panel === "Resources")) {
-      setDropdownLeft(btn.getBoundingClientRect().left)
+      const rect = btn.getBoundingClientRect()
+      setDropdownOffset({ right: window.innerWidth - rect.right })
     } else {
-      setDropdownLeft(null)
+      setDropdownOffset(null)
     }
 
     hoverTimeoutRef.current = setTimeout(() => {
@@ -73,28 +75,29 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
 
-            {/* Logo — SVG icon matching favicon + wordmark */}
+            {/* Logo — ascending-steps mark + wordmark */}
             <Link href="/" className="flex items-center gap-2.5 group">
               <svg
-                width="32"
-                height="32"
-                viewBox="0 0 32 32"
+                width="30"
+                height="22"
+                viewBox="0 0 30 22"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true"
-                className="flex-shrink-0 group-hover:opacity-90 transition-opacity"
+                className="flex-shrink-0"
               >
-                <rect width="32" height="32" rx="8" fill="url(#nav-logo-grad)" />
-                <text x="8" y="24" fontFamily="Inter, Arial, sans-serif" fontSize="20" fontWeight="700" fill="white">B</text>
+                <rect x="0" y="16" width="30" height="6" rx="2" fill="url(#nav-mark-grad)" />
+                <rect x="5" y="8" width="22" height="6" rx="2" fill="url(#nav-mark-grad)" opacity="0.82" />
+                <rect x="10" y="0" width="14" height="6" rx="2" fill="url(#nav-mark-grad)" opacity="0.65" />
                 <defs>
-                  <linearGradient id="nav-logo-grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                  <linearGradient id="nav-mark-grad" x1="0" y1="0" x2="30" y2="22" gradientUnits="userSpaceOnUse">
                     <stop offset="0%" stopColor="hsl(217,91%,60%)" />
                     <stop offset="100%" stopColor="hsl(242,75%,40%)" />
                   </linearGradient>
                 </defs>
               </svg>
               <span className="text-[1.1rem] font-bold text-foreground group-hover:text-[var(--brand-primary)] transition-colors tracking-tight">
-                buildera
+                Buildera
               </span>
             </Link>
 
@@ -142,7 +145,7 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
       {/* Mega dropdown */}
       <MegaDropdown
         activePanel={activeDropdown}
-        dropdownLeft={dropdownLeft}
+        dropdownOffset={dropdownOffset}
         servicesMenu={servicesMenu}
         navItems={navItems}
         onMouseEnter={handleDropdownMouseEnter}
