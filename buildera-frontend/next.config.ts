@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
     ],
   },
   experimental: {
-    optimizePackageImports: ["@tabler/icons-react", "motion"],
+    optimizePackageImports: ["@tabler/icons-react"],
   },
 };
 

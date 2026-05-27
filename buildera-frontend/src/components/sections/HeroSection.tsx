@@ -60,75 +60,103 @@ export function HeroSection() {
             </motion.div>
           </div>
 
-          {/* Right column — inline SVG tech illustration */}
-          <div className="hidden lg:flex items-center justify-center">
-            <div className="hero-illustration">
-              <svg
-                viewBox="0 0 400 400"
-                width="400"
-                height="400"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+          {/* Right column — Client Results Dashboard */}
+          <motion.div
+            className="hidden lg:block"
+            initial={{ opacity: 0, x: 24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.6, duration: 0.6, ease: "easeOut" }}
+          >
+            <div className="relative">
+              {/* Glow behind card */}
+              <div
+                className="absolute -inset-4 rounded-3xl pointer-events-none"
+                style={{ background: "radial-gradient(ellipse at 60% 40%, hsl(217 91% 60% / 12%), transparent 70%)" }}
                 aria-hidden="true"
-              >
-                {/* Connection lines */}
-                <line x1="200" y1="80" x2="120" y2="160" stroke="var(--brand-primary)" strokeWidth="1.5" strokeOpacity="0.4" />
-                <line x1="200" y1="80" x2="280" y2="160" stroke="var(--brand-primary)" strokeWidth="1.5" strokeOpacity="0.4" />
-                <line x1="120" y1="160" x2="80" y2="260" stroke="var(--brand-primary)" strokeWidth="1.5" strokeOpacity="0.4" />
-                <line x1="120" y1="160" x2="200" y2="240" stroke="var(--brand-primary)" strokeWidth="1.5" strokeOpacity="0.4" />
-                <line x1="280" y1="160" x2="200" y2="240" stroke="var(--brand-primary)" strokeWidth="1.5" strokeOpacity="0.4" />
-                <line x1="280" y1="160" x2="320" y2="260" stroke="var(--brand-primary)" strokeWidth="1.5" strokeOpacity="0.4" />
-                <line x1="200" y1="240" x2="200" y2="330" stroke="var(--brand-primary)" strokeWidth="1.5" strokeOpacity="0.4" />
-                <line x1="80" y1="260" x2="200" y2="330" stroke="var(--brand-primary)" strokeWidth="1.5" strokeOpacity="0.3" />
-                <line x1="320" y1="260" x2="200" y2="330" stroke="var(--brand-primary)" strokeWidth="1.5" strokeOpacity="0.3" />
+              />
 
-                {/* Main central node (top) */}
-                <circle cx="200" cy="80" r="14" fill="var(--brand-primary)" fillOpacity="0.15" stroke="var(--brand-primary)" strokeWidth="2" />
-                <circle cx="200" cy="80" r="6" fill="var(--brand-primary)" />
+              {/* Dashboard card */}
+              <div className="relative glass-card p-6 rounded-2xl">
 
-                {/* Mid-level nodes */}
-                <circle cx="120" cy="160" r="11" fill="var(--brand-primary)" fillOpacity="0.12" stroke="var(--brand-primary)" strokeWidth="1.5" />
-                <circle cx="120" cy="160" r="5" fill="var(--brand-primary)" />
+                {/* Card header */}
+                <div className="flex items-center justify-between mb-6">
+                  <span className="text-[11px] font-semibold uppercase tracking-widest text-[var(--brand-primary)]">
+                    Client Results
+                  </span>
+                  <span className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" aria-hidden="true" />
+                    Live
+                  </span>
+                </div>
 
-                <circle cx="280" cy="160" r="11" fill="var(--brand-primary)" fillOpacity="0.12" stroke="var(--brand-primary)" strokeWidth="1.5" />
-                <circle cx="280" cy="160" r="5" fill="var(--brand-primary)" />
+                {/* Outcome rows */}
+                {[
+                  {
+                    icon: "🏭",
+                    project: "Warehouse Mgmt System",
+                    outcome: "40% faster operations",
+                    tag: "Manufacturing",
+                  },
+                  {
+                    icon: "☁️",
+                    project: "Salesforce CRM Rollout",
+                    outcome: "3× lead pipeline growth",
+                    tag: "Sales",
+                  },
+                  {
+                    icon: "🛒",
+                    project: "E-Commerce Platform",
+                    outcome: "2× revenue in 90 days",
+                    tag: "Retail",
+                  },
+                ].map((item, i) => (
+                  <motion.div
+                    key={item.project}
+                    className="flex items-start gap-3 mb-4"
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.9 + i * 0.18, duration: 0.4, ease: "easeOut" }}
+                  >
+                    <div className="w-9 h-9 rounded-xl bg-[var(--brand-surface)] flex items-center justify-center text-lg flex-shrink-0">
+                      {item.icon}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-sm font-semibold text-foreground truncate">{item.project}</span>
+                        <span className="text-[10px] font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded-full flex-shrink-0">
+                          {item.tag}
+                        </span>
+                      </div>
+                      <span className="text-xs font-medium text-green-600 mt-0.5 block">{item.outcome}</span>
+                    </div>
+                  </motion.div>
+                ))}
 
-                {/* Center large node */}
-                <circle cx="200" cy="240" r="18" fill="var(--brand-primary)" fillOpacity="0.18" stroke="var(--brand-primary)" strokeWidth="2" />
-                <circle cx="200" cy="240" r="8" fill="var(--brand-primary)" />
+                {/* Divider */}
+                <div className="border-t border-border my-4" />
 
-                {/* Lower nodes */}
-                <circle cx="80" cy="260" r="9" fill="var(--brand-primary)" fillOpacity="0.1" stroke="var(--brand-primary)" strokeWidth="1.5" />
-                <circle cx="80" cy="260" r="4" fill="var(--brand-primary)" />
+                {/* Bottom stats row */}
+                <motion.div
+                  className="grid grid-cols-3 gap-3 text-center"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.45, duration: 0.4 }}
+                >
+                  {[
+                    { value: "150+", label: "Projects" },
+                    { value: "98%", label: "Satisfaction" },
+                    { value: "6 wks", label: "Avg. Delivery" },
+                  ].map((stat) => (
+                    <div key={stat.label} className="flex flex-col gap-0.5">
+                      <span className="text-base font-bold text-foreground">{stat.value}</span>
+                      <span className="text-[10px] text-muted-foreground">{stat.label}</span>
+                    </div>
+                  ))}
+                </motion.div>
 
-                <circle cx="320" cy="260" r="9" fill="var(--brand-primary)" fillOpacity="0.1" stroke="var(--brand-primary)" strokeWidth="1.5" />
-                <circle cx="320" cy="260" r="4" fill="var(--brand-primary)" />
-
-                {/* Bottom anchor node */}
-                <circle cx="200" cy="330" r="12" fill="var(--brand-primary)" fillOpacity="0.12" stroke="var(--brand-primary)" strokeWidth="1.5" />
-                <circle cx="200" cy="330" r="5" fill="var(--brand-primary)" />
-
-                {/* Code bracket shapes */}
-                <text x="50" y="130" fontFamily="monospace" fontSize="18" fill="var(--brand-primary)" fillOpacity="0.5">{"{"}</text>
-                <text x="340" y="200" fontFamily="monospace" fontSize="18" fill="var(--brand-primary)" fillOpacity="0.5">{"}"}</text>
-                <text x="155" y="45" fontFamily="monospace" fontSize="14" fill="var(--brand-primary)" fillOpacity="0.4">{"</>"}</text>
-
-                {/* Floating data dots */}
-                <circle cx="155" cy="115" r="3" fill="var(--brand-primary)" fillOpacity="0.5">
-                  <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite" />
-                </circle>
-                <circle cx="248" cy="115" r="3" fill="var(--brand-primary)" fillOpacity="0.5">
-                  <animate attributeName="opacity" values="0.5;1;0.5" dur="3.5s" repeatCount="indefinite" />
-                </circle>
-                <circle cx="98" cy="215" r="3" fill="var(--brand-primary)" fillOpacity="0.4">
-                  <animate attributeName="opacity" values="0.4;0.9;0.4" dur="4s" repeatCount="indefinite" />
-                </circle>
-                <circle cx="305" cy="215" r="3" fill="var(--brand-primary)" fillOpacity="0.4">
-                  <animate attributeName="opacity" values="0.4;0.9;0.4" dur="2.8s" repeatCount="indefinite" />
-                </circle>
-              </svg>
+              </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

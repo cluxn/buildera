@@ -41,8 +41,7 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
 
   function handleNavMouseLeave() {
     if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current)
-    // Delay close so mouse has time to reach the dropdown panel
-    closeTimeoutRef.current = setTimeout(() => setActiveDropdown(null), 120)
+    closeTimeoutRef.current = setTimeout(() => setActiveDropdown(null), 300)
   }
 
   function handleDropdownMouseEnter() {
@@ -51,7 +50,7 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
   }
 
   function handleDropdownMouseLeave() {
-    closeTimeoutRef.current = setTimeout(() => setActiveDropdown(null), 80)
+    closeTimeoutRef.current = setTimeout(() => setActiveDropdown(null), 200)
   }
 
   return (
