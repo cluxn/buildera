@@ -46,19 +46,21 @@ All values are multiples of 4. Used as Tailwind utility values (e.g., `p-4` = 16
 | xl | 32px | `gap-8`, `p-8` | Section internal padding (mobile) |
 | 2xl | 48px | `gap-12`, `py-12` | Section padding (desktop top/bottom) |
 | 3xl | 64px | `gap-16`, `py-16` | Major section breaks (hero, CTA) |
-| 4xl | 96px | `py-24` | Hero section vertical padding |
 
 **Exceptions:**
 - Touch targets (mobile): minimum 48px height/width on all interactive elements (A11Y-02). Use `min-h-[48px]` on buttons and nav items.
 - Mega dropdown panel: full-width, no horizontal padding constraint — constrained by inner `container` class only.
 - Stat card numbers: 64px font size (display value), not spacing.
 - Hero section: `min-h-screen` (100dvh), not a spacing token.
+- Hero vertical padding: 96px (`py-24`) — required to achieve `min-h-screen` visual breathing room at 1280px+ viewports. Closest standard value (64px/`py-16`) produces cramped hero at large screen sizes.
 
 **Section horizontal padding:** `px-4` (mobile) → `px-6` (sm) → `container mx-auto px-8` (lg+). Max content width: `max-w-7xl` (1280px).
 
 ---
 
 ## Typography
+
+> **D-27 Project Override:** Type scale supersedes standard 4-size ceiling. See CONTEXT.md D-27 for rationale. Locked for Phases 4–10.
 
 Font: Inter (variable font, latin subset). All sizes in px mapped to `rem` by Tailwind 4.
 
@@ -229,6 +231,8 @@ transition={{ type: "spring", stiffness: 100, damping: 20 }}
 #### Section 1: Hero
 
 **Narrative purpose:** "Command attention, assert identity immediately." Animation visualizes Buildera assembling itself word by word — as if the company is building the page before your eyes.
+
+**Primary visual anchor and focal point:** The hero headline (left column) is the primary focal point. Eye enters at the headline, travels down to the sub-headline, then to the two CTA buttons. The right column SVG illustration is a supporting element — it reinforces the tech identity without competing for the visitor's primary attention. The illustration must never be brighter, larger, or more animated than the headline at initial load.
 
 **Headline word reveal:**
 ```tsx
@@ -659,6 +663,7 @@ Strict rule from CLAUDE.md: `"use client"` ONLY on components that require brows
 | Address | 117/Q/457/10A Indrapuri Sharda Nagar, Kanpur 208025 |
 | Footer tagline | "Building technology that grows businesses." |
 | Attribution | `Developed and managed by <a href="https://buildera.co" rel="nofollow">Buildera Technologies LLP</a>` |
+| Newsletter submit button | "Get Updates" |
 
 ### Empty States
 
@@ -854,7 +859,7 @@ Bar chart: 4 bars with heights proportional to (40, 65, 80, 92) — abstract met
 | Resources | Blog, Guides, Contact Us, Book a Call, Privacy Policy, Terms |
 
 **Social icons:** LinkedIn, Twitter/X, Instagram — from `GET /api/settings` (social URLs).
-**Newsletter strip:** Email input + "Subscribe" button → `POST /api/subscribers`. Inline success/error state (no redirect).
+**Newsletter strip:** Email input + "Get Updates" button → `POST /api/subscribers`. Inline success/error state (no redirect).
 **Footer background:** `bg-slate-900` (`oklch(0.145 0 0)`) — dark footer. Text: `text-slate-300`. Links: `hover:text-white`.
 
 ---
@@ -933,7 +938,7 @@ npx shadcn add separator
 
 | Source | Decisions Used |
 |--------|---------------|
-| `03-CONTEXT.md` | 26 locked decisions (D-01 → D-26) — 100% pre-populated, 0 re-asked |
+| `03-CONTEXT.md` | 27 locked decisions (D-01 → D-27) — 100% pre-populated, 0 re-asked |
 | `REQUIREMENTS.md` | NAV-01→08, HOME-01→07, COMP-02, COMP-03, COMP-06, DESIGN-01→08 |
 | `ROADMAP.md` | Phase 3 plans 03-01 → 03-06 |
 | `globals.css` | Existing shadcn tokens, `--primary: hsl(217 91% 60%)`, font disconnect identified |

@@ -95,6 +95,10 @@ Site nav (SiteNav), site footer (SiteFooter), and the full homepage are built, w
 - **D-25:** Grid stagger: child cards enter with 80ms stagger delay per item (`delay: index * 0.08`).
 - **D-26:** Hover cards: `translateY(-4px)`, border glow, `transition: 200ms ease` — applied to all card components globally.
 
+### Typography Scale Override
+
+- **D-27 (LOCKED):** This phase is design-system-defining and establishes the full Inter type hierarchy (Display/H1/H2/H3/H4/Body/Label/Caption) for Phases 4–10. The standard UI-SPEC Dimension 4 ceiling of 4 sizes and 2 weights is superseded by this project-level decision. The type scale uses: 60px Display, 48px H1, 36px H2, 24px H3, 20px H4, 16px Body, 14px Label, 12px Caption (8 roles, 8 sizes). Weights: 400 Body, 500 Label, 600 H2/H3/H4, 700 Display/H1. Rationale: a marketing site spanning 9+ section types, 6 service categories, and 18 solution pages requires a full type hierarchy to visually differentiate content levels.
+
 ### `"use client"` Boundary Rules (carry-forward from CLAUDE.md)
 
 - Tab switcher component (Services tabs): `"use client"` — requires state for active tab + AnimatePresence
