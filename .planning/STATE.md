@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-05-27T10:34:40.831Z"
+last_updated: "2026-05-27T10:41:38.611Z"
 progress:
   total_phases: 10
   completed_phases: 2
   total_plans: 15
-  completed_plans: 12
-  percent: 20
+  completed_plans: 14
+  percent: 23
 ---
 
 # Buildera — Project State
@@ -28,7 +28,7 @@ See: `.planning/PROJECT.md` (updated 2026-05-26)
 |-------|------|--------|
 | 1 | Project Foundation | 📋 Planned (4 plans, 3 waves) |
 | 2 | Backend Core | 🔄 In progress (4/5 plans done) |
-| 3 | Homepage & Design System | 🔄 In progress (3/6 plans done) |
+| 3 | Homepage & Design System | 🔄 In progress (4/6 plans done) |
 | 4 | Services & Solutions Pages | ⬜ Not started |
 | 5 | Industries, Trust Pages & Lead Capture | ⬜ Not started |
 | 6 | Content — Blog, Case Studies, Guides | ⬜ Not started |
@@ -67,6 +67,8 @@ See: `.planning/PROJECT.md` (updated 2026-05-26)
 - SiteFooter uses Promise.all for parallel fetch of footerLinks + settings — both have .catch() fallbacks, footer never crashes
 - Social icons in SiteFooter render only when settings URL is non-empty string — no empty icon anchors
 - Newsletter form action="#" is intentional Phase 3 visual stub — POST /api/subscribers wiring deferred to Phase 5 plan 05-04
+- Button asChild pattern not available in @base-ui/react Button — hero CTAs implemented as styled Link elements directly
+- parseInt fallback (|| defaultValue) applied to StatsBarSection stat values — mitigates T-03-10 NaN render
 
 ## Artifacts
 

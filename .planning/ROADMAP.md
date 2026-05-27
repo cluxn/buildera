@@ -59,7 +59,7 @@
 - 03-03: SiteFooter — multi-column layout, social icons, newsletter opt-in strip (Phase 5 wires submission), legal links; populated from `GET /api/footer-links`
 
 **Wave 3** *(blocked on Wave 2 completion — 03-06 is sole assembler of page.tsx)*
-- 03-04: Homepage components — Hero (CSS orbs, word-reveal headline, inline SVG, primary + secondary CTA, social proof badges); Stats bar with animated counters
+- 03-04: Homepage components — Hero (CSS orbs, word-reveal headline, inline SVG, primary + secondary CTA, social proof badges); Stats bar with animated counters ✓ DONE
 - 03-05: Homepage components — Services tab section (AnimatePresence tab switcher, staggered card reveals, hover glow); Solutions grid (diagonal scroll stagger); Client logos marquee (CSS infinite scroll, COMP-02)
 - 03-06: Homepage assembly — Why Buildera differentiation (COMP-06, animated ring stat, comparison table); Testimonials (glassmorphism cards, COMP-03 Clutch badge); Case studies preview (3 cards); bottom CTA; **assembles complete page.tsx importing all 9 sections**
 
