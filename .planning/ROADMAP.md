@@ -50,12 +50,24 @@
 **Requirements:** NAV-01 → NAV-08, HOME-01 → HOME-07, COMP-02, COMP-03, COMP-06, DESIGN-01 → DESIGN-08, INFRA-03
 
 **Plans:**
-- 03-01: Design system — Tailwind 4 `@theme` CSS variables (brand blue palette, gradients, shadows, radius); shadcn/ui init; global motion config (`motion` v12 scroll-triggered variants); glassmorphism utility classes; Inter font; globals.css complete
+
+**Wave 1**
+- 03-01: Design system — Tailwind 4 `@theme` CSS variables (brand blue palette, gradients, shadows, radius); shadcn/ui init; global motion config (`motion` v12 scroll-triggered variants); glassmorphism utility classes; Inter font; typography scale (D-27); globals.css complete
+
+**Wave 2** *(blocked on Wave 1 completion)*
 - 03-02: SiteNav — sticky frosted-glass header, 4-group mega dropdown (Services/Solutions/Work/Resources), logo, "Book a Call" CTA; populated from `GET /api/nav-items`; mobile full-screen overlay drawer with accordion groups
-- 03-03: SiteFooter — multi-column layout, social icons, newsletter opt-in strip, legal links; populated from `GET /api/footer-links`; NAV-06 (admin-editable)
-- 03-04: Homepage — Hero (animated gradient bg, word-reveal headline, parallax scroll, primary + secondary CTA, social proof stat); Stats bar with animated counters; seeded sample stats
-- 03-05: Homepage — Services tab section (animated tab switcher, staggered card reveals, hover glow); Solutions grid (scroll-triggered stagger); Client logos marquee (seeded sample logos, COMP-02)
-- 03-06: Homepage — Testimonials section (glassmorphism cards, COMP-03 Clutch badge); Case studies preview (3 cards); "Why Buildera" differentiation section (COMP-06); bottom CTA section
+- 03-03: SiteFooter — multi-column layout, social icons, newsletter opt-in strip (Phase 5 wires submission), legal links; populated from `GET /api/footer-links`
+
+**Wave 3** *(blocked on Wave 2 completion — 03-06 is sole assembler of page.tsx)*
+- 03-04: Homepage components — Hero (CSS orbs, word-reveal headline, inline SVG, primary + secondary CTA, social proof badges); Stats bar with animated counters
+- 03-05: Homepage components — Services tab section (AnimatePresence tab switcher, staggered card reveals, hover glow); Solutions grid (diagonal scroll stagger); Client logos marquee (CSS infinite scroll, COMP-02)
+- 03-06: Homepage assembly — Why Buildera differentiation (COMP-06, animated ring stat, comparison table); Testimonials (glassmorphism cards, COMP-03 Clutch badge); Case studies preview (3 cards); bottom CTA; **assembles complete page.tsx importing all 9 sections**
+
+**Cross-cutting constraints:**
+- Brand tokens in `:root` as CSS variables, consumed via `bg-[var(--brand-primary)]` arbitrary syntax (not @theme)
+- `"use client"` scoped to: SiteNavClient, MobileNavDrawer, HeroHeadline, AnimatedCounter, ServicesTabSection, AnimatedRingStat, AnimatedBarChart, MiniMetricsCard, FeatureCheckList, CaseStudyPreviewCard
+- All API helpers in `buildera-frontend/src/lib/api.ts` — no inline fetch calls in components
+- All motion imports from `"motion/react"` — never `"framer-motion"`
 
 **Success Criteria:**
 1. Homepage scores ≥ 85 PageSpeed mobile at this stage
