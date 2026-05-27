@@ -20,7 +20,7 @@ See: `.planning/PROJECT.md` (updated 2026-05-26)
 
 **Core value:** A decision-maker lands on buildera.co — cold or warm — immediately understands what Buildera builds, finds their specific problem reflected in the services/solutions, and books a discovery call.
 
-**Current focus:** Phase 2 Backend Core — plans 02-01, 02-02, 02-03, and 02-04 complete, executing 02-05 next
+**Current focus:** Phase 3 Homepage & Design System — planning in progress (parallel with Phase 4 context gathering)
 
 ## Phase Status
 
