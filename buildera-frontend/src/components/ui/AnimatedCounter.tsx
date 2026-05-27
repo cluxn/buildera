@@ -26,13 +26,13 @@ export function AnimatedCounter({ target, suffix = "", delay = 0 }: Props) {
   const rounded = useTransform(spring, (v) => `${Math.round(v)}${suffix}`)
 
   useEffect(() => {
-    if (isInView) {
-      if (prefersReducedMotion) {
-        count.set(target)
-      } else {
-        setTimeout(() => count.set(target), delay * 1000)
-      }
+    if (!isInView) return;
+    if (prefersReducedMotion) {
+      count.set(target)
+      return;
     }
+    const id = setTimeout(() => count.set(target), delay * 1000)
+    return () => clearTimeout(id)
     // count, target, delay intentionally excluded — motion values are not React state
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isInView, prefersReducedMotion])
