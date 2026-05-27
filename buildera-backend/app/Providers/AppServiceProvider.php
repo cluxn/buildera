@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $required = ['APP_KEY', 'DB_HOST', 'DB_DATABASE', 'DB_USERNAME', 'RESEND_API_KEY', 'APP_API_KEY'];
+        $required = ['APP_KEY', 'DB_HOST', 'DB_DATABASE', 'DB_USERNAME', 'RESEND_API_KEY', 'APP_API_KEY', 'NEXTJS_REVALIDATE_SECRET'];
         foreach ($required as $var) {
             if (empty(env($var))) {
                 throw new \RuntimeException("Required environment variable [{$var}] is not set.");

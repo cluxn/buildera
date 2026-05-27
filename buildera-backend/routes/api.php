@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\SettingsController;
 use App\Http\Controllers\Api\TestimonialController;
 use App\Http\Controllers\Api\LeadController;
 use App\Http\Controllers\Api\SubscriberController;
+use App\Http\Controllers\Api\RevalidateController;
 use App\Http\Controllers\Api\UnsubscribeController;
 use Illuminate\Support\Facades\Route;
 
@@ -50,3 +51,6 @@ Route::post('/subscribers', [SubscriberController::class, 'store'])
 
 // Unsubscribe via signed token — public, no auth
 Route::get('/unsubscribe', [UnsubscribeController::class, 'handle']);
+
+// ISR revalidation trigger — HMAC-verified, no rate limit (internal use only)
+Route::post('/revalidate', [RevalidateController::class, 'handle']);
