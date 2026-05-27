@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Lead;
+use App\Models\NewsletterSubscriber;
+use App\Observers\AuditLogObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,5 +28,9 @@ class AppServiceProvider extends ServiceProvider
                 throw new \RuntimeException("Required environment variable [{$var}] is not set.");
             }
         }
+
+        // Register audit log observers — every create/update on these models is logged
+        Lead::observe(AuditLogObserver::class);
+        NewsletterSubscriber::observe(AuditLogObserver::class);
     }
 }
