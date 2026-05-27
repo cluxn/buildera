@@ -1,3 +1,5 @@
+"use client"
+
 import { motion } from "motion/react"
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter"
 import type { Settings } from "@/lib/api"

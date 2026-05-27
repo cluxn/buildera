@@ -1,3 +1,5 @@
+"use client"
+
 import { motion } from "motion/react"
 import { AnimatedRingStat } from "@/components/ui/AnimatedRingStat"
 import { FeatureCheckList } from "@/components/ui/FeatureCheckList"
