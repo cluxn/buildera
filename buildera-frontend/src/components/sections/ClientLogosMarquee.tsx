@@ -91,7 +91,7 @@ export function ClientLogosMarquee() {
         <div className="marquee-track">
           {[...LOGOS, ...LOGOS].map((logo, index) => (
             <div
-              key={index}
+              key={`${logo.name}-${index}`}
               className="logo-item mx-8 flex-shrink-0 flex items-center h-12"
             >
               {logo.svg}
