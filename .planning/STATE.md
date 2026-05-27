@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-05-27T00:00:00.000Z"
+last_updated: "2026-05-27T00:00:00Z"
 progress:
   total_phases: 10
   completed_phases: 2
   total_plans: 15
-  completed_plans: 9
-  percent: 20
+  completed_plans: 11
+  percent: 22
 ---
 
 # Buildera — Project State
@@ -20,7 +20,7 @@ See: `.planning/PROJECT.md` (updated 2026-05-26)
 
 **Core value:** A decision-maker lands on buildera.co — cold or warm — immediately understands what Buildera builds, finds their specific problem reflected in the services/solutions, and books a discovery call.
 
-**Current focus:** Phase 3 Homepage & Design System — ready to execute (6 plans, 3 waves)
+**Current focus:** Phase 03 — Homepage & Design System
 
 ## Phase Status
 
@@ -28,7 +28,7 @@ See: `.planning/PROJECT.md` (updated 2026-05-26)
 |-------|------|--------|
 | 1 | Project Foundation | 📋 Planned (4 plans, 3 waves) |
 | 2 | Backend Core | 🔄 In progress (4/5 plans done) |
-| 3 | Homepage & Design System | 📋 Planned (6 plans, 3 waves) |
+| 3 | Homepage & Design System | 🔄 In progress (1/6 plans done) |
 | 4 | Services & Solutions Pages | ⬜ Not started |
 | 5 | Industries, Trust Pages & Lead Capture | ⬜ Not started |
 | 6 | Content — Blog, Case Studies, Guides | ⬜ Not started |
@@ -57,6 +57,10 @@ See: `.planning/PROJECT.md` (updated 2026-05-26)
 - POST /api/subscribers: throttle:3,60, no api.key; re-subscribe generates fresh unsubscribe_token; old token invalidated
 - AuditLogObserver wraps created()/updated() in try/catch — audit DB failure never propagates to main request
 - FireNewsletterWebhookJob uses array payload (not model) — consistent with FireLeadWebhookJob pattern
+- Brand tokens placed in :root (not @theme) — consumed via var(--brand-*) arbitrary value syntax in Tailwind classes
+- Typography scale added to @layer base (8 roles: Display/h1-h4/body-lg/body/label/caption) per D-27
+- fetchFromApi options cast as RequestInit — Next.js extends RequestInit with next.tags at runtime
+- SETTINGS_FALLBACK exported for use in downstream Server Components without API dependency
 
 ## Artifacts
 

@@ -19,7 +19,7 @@
 - [ ] **NAV-05**: Admin-editable navigation — Filament NavItem resource: label, URL, parent group, display_order, is_visible toggle; Owner can add/remove/reorder/rename any nav link or dropdown group without code deploy; unpublished pages automatically hidden from nav
 - [ ] **NAV-06**: Admin-editable footer — Filament FooterLink resource: label, URL, column group (Services/Solutions/Company/Resources), display_order, is_visible toggle; same CRUD as nav
 - [ ] **NAV-07**: Breadcrumbs on all deep pages (service detail, solution detail, blog post, case study, guide, industry); `BreadcrumbList` JSON-LD included
-- [ ] **NAV-08**: Skip-to-content link for keyboard/screen-reader accessibility (WCAG AA)
+- [x] **NAV-08**: Skip-to-content link for keyboard/screen-reader accessibility (WCAG AA)
 
 ### HOMEPAGE (HOME-*)
 
@@ -198,11 +198,11 @@
 
 ### DESIGN (DESIGN-*)
 
-- [ ] **DESIGN-01**: Motion-first UI — scroll-triggered entrance animations (fade-up, stagger) on all section blocks using `motion` (Framer Motion v12); page transitions on route change; demonstrates Buildera's frontend capability through the site itself
+- [x] **DESIGN-01**: Motion-first UI — scroll-triggered entrance animations (fade-up, stagger) on all section blocks using `motion` (Framer Motion v12); page transitions on route change; demonstrates Buildera's frontend capability through the site itself
 - [ ] **DESIGN-02**: Hero animation — animated gradient background or floating tech-element illustration (SVG/canvas); animated headline word reveal on load; subtle parallax on scroll
-- [ ] **DESIGN-03**: Card micro-interactions — hover lift + border glow on all service/solution/industry cards; icon color shift on hover; smooth 200ms transitions throughout
-- [ ] **DESIGN-04**: Glassmorphism / frosted-glass accents — nav blur-backdrop, stat cards, testimonial cards use `backdrop-filter: blur` with subtle border; minimal but premium feel
-- [ ] **DESIGN-05**: Gradient system — consistent blue gradient palette (from brand primary to deeper blue/indigo); used on CTAs, section backgrounds, badge accents; defined as CSS variables in `@theme`
+- [x] **DESIGN-03**: Card micro-interactions — hover lift + border glow on all service/solution/industry cards; icon color shift on hover; smooth 200ms transitions throughout
+- [x] **DESIGN-04**: Glassmorphism / frosted-glass accents — nav blur-backdrop, stat cards, testimonial cards use `backdrop-filter: blur` with subtle border; minimal but premium feel
+- [x] **DESIGN-05**: Gradient system — consistent blue gradient palette (from brand primary to deeper blue/indigo); used on CTAs, section backgrounds, badge accents; defined as CSS variables in `@theme`
 - [ ] **DESIGN-06**: Animated stats counters — numbers count up when scrolled into view (e.g., "0 → 150+ projects"); reinforces capability perception
 - [ ] **DESIGN-07**: Staggered list reveals — service tab content, solution grid, team members animate in with staggered delay; no static dumps of content
 - [ ] **DESIGN-08**: Tab switcher animation — services tab content cross-fades / slides on tab change; active tab underline slides with motion
@@ -249,7 +249,7 @@
 
 - [ ] **INFRA-01**: Database indexes — `leads.created_at`, `leads.email`, `leads.source_form`, `blog_posts.published_at`, `blog_posts.slug`, `case_studies.industry` indexed in migrations for query performance
 - [ ] **INFRA-02**: Health check endpoint — `GET /api/health` returns `{ status: "ok", db: "ok", timestamp }` — used for uptime monitoring and Hostinger server checks
-- [ ] **INFRA-03**: Error pages — custom Next.js `not-found.tsx` (404) and `error.tsx` (500) with navigation back to homepage and key sections; not blank browser errors
+- [x] **INFRA-03**: Error pages — custom Next.js `not-found.tsx` (404) and `error.tsx` (500) with navigation back to homepage and key sections; not blank browser errors
 
 ---
 
