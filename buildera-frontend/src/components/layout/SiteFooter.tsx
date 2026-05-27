@@ -95,8 +95,8 @@ export async function SiteFooter() {
         {/* ── Top section: logo+info + 4 link columns ── */}
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 py-16">
 
-          {/* Column 1: Brand + contact */}
-          <div className="lg:col-span-1 flex flex-col gap-5">
+          {/* Column 1: Brand + contact + social */}
+          <div className="lg:col-span-1 flex flex-col gap-4">
             <Link
               href="/"
               className="text-white font-bold text-xl tracking-tight hover:text-white/90 transition-colors w-fit"
@@ -108,6 +108,7 @@ export async function SiteFooter() {
               {settings.footer_tagline}
             </p>
 
+            {/* Contact options */}
             <div className="flex flex-col gap-2 text-sm text-slate-400">
               {settings.phone && (
                 <a
@@ -129,6 +130,43 @@ export async function SiteFooter() {
                 <address className="not-italic leading-relaxed">
                   {settings.address}
                 </address>
+              )}
+              <Link
+                href="/book-a-call"
+                className="text-[var(--brand-primary)] hover:text-[var(--brand-primary-light)] transition-colors font-medium"
+              >
+                Book a Discovery Call →
+              </Link>
+              <Link
+                href="/contact"
+                className="hover:text-white transition-colors"
+              >
+                Contact Us
+              </Link>
+            </div>
+
+            {/* Social icons */}
+            <div className="flex gap-3 mt-1">
+              {settings.linkedin_url ? (
+                <a href={settings.linkedin_url} target="_blank" rel="noopener noreferrer" aria-label="Follow Buildera on LinkedIn" className="text-slate-400 hover:text-white transition-colors">
+                  <IconBrandLinkedin className="size-5" />
+                </a>
+              ) : (
+                <span className="text-slate-600" aria-hidden="true"><IconBrandLinkedin className="size-5" /></span>
+              )}
+              {settings.twitter_url ? (
+                <a href={settings.twitter_url} target="_blank" rel="noopener noreferrer" aria-label="Follow Buildera on Twitter" className="text-slate-400 hover:text-white transition-colors">
+                  <IconBrandTwitter className="size-5" />
+                </a>
+              ) : (
+                <span className="text-slate-600" aria-hidden="true"><IconBrandTwitter className="size-5" /></span>
+              )}
+              {settings.instagram_url ? (
+                <a href={settings.instagram_url} target="_blank" rel="noopener noreferrer" aria-label="Follow Buildera on Instagram" className="text-slate-400 hover:text-white transition-colors">
+                  <IconBrandInstagram className="size-5" />
+                </a>
+              ) : (
+                <span className="text-slate-600" aria-hidden="true"><IconBrandInstagram className="size-5" /></span>
               )}
             </div>
           </div>
@@ -154,45 +192,6 @@ export async function SiteFooter() {
             </div>
           ))}
         </div>
-
-        {/* ── Social icons ── */}
-        {(settings.linkedin_url || settings.twitter_url || settings.instagram_url) && (
-          <div className="flex gap-4 justify-center pb-6">
-            {settings.linkedin_url && (
-              <a
-                href={settings.linkedin_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Follow Buildera on LinkedIn"
-                className="text-slate-400 hover:text-white transition-colors min-h-[48px] flex items-center"
-              >
-                <IconBrandLinkedin className="size-5" />
-              </a>
-            )}
-            {settings.twitter_url && (
-              <a
-                href={settings.twitter_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Follow Buildera on Twitter / X"
-                className="text-slate-400 hover:text-white transition-colors min-h-[48px] flex items-center"
-              >
-                <IconBrandTwitter className="size-5" />
-              </a>
-            )}
-            {settings.instagram_url && (
-              <a
-                href={settings.instagram_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Follow Buildera on Instagram"
-                className="text-slate-400 hover:text-white transition-colors min-h-[48px] flex items-center"
-              >
-                <IconBrandInstagram className="size-5" />
-              </a>
-            )}
-          </div>
-        )}
 
         <Separator className="bg-slate-700" />
 
@@ -241,39 +240,27 @@ export async function SiteFooter() {
 
         <Separator className="bg-slate-700" />
 
-        {/* ── Bottom bar: copyright + legal links ── */}
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 py-6">
-          <p className="text-sm text-slate-400">
+        {/* ── Bottom bar: copyright · attribution · legal ── */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-6 text-xs text-slate-500">
+          <p>
             &copy; {currentYear} {settings.company_name}. All rights reserved.
           </p>
-          <div className="flex items-center gap-4 text-sm">
-            <Link
-              href="/privacy-policy"
-              className="text-slate-400 hover:text-white transition-colors"
-            >
+          <p>
+            Developed and managed by{" "}
+            <a href="https://buildera.co" rel="nofollow" className="hover:text-white transition-colors">
+              Buildera Technologies LLP
+            </a>
+          </p>
+          <div className="flex items-center gap-4">
+            <Link href="/privacy-policy" className="hover:text-white transition-colors">
               Privacy Policy
             </Link>
             <span className="text-slate-600">&middot;</span>
-            <Link
-              href="/terms"
-              className="text-slate-400 hover:text-white transition-colors"
-            >
+            <Link href="/terms" className="hover:text-white transition-colors">
               Terms
             </Link>
           </div>
         </div>
-
-        {/* ── Attribution line ── */}
-        <p className="text-xs text-slate-500 text-center pb-4">
-          Developed and managed by{" "}
-          <a
-            href="https://buildera.co"
-            rel="nofollow"
-            className="hover:text-white transition-colors"
-          >
-            Buildera Technologies LLP
-          </a>
-        </p>
       </div>
     </footer>
   )

@@ -23,6 +23,39 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   IconUsers,
 }
 
+const SOLUTION_NAV_FALLBACK = [
+  { label: "Operations Management", href: "/solutions/operations-management" },
+  { label: "Supply Chain", href: "/solutions/supply-chain" },
+  { label: "Warehouse Management", href: "/solutions/warehouse-management" },
+  { label: "HR Management", href: "/solutions/hr-management" },
+  { label: "CRM", href: "/solutions/crm" },
+  { label: "Sales Management", href: "/solutions/sales-management" },
+  { label: "Lead Management", href: "/solutions/lead-management" },
+  { label: "ERP", href: "/solutions/erp" },
+  { label: "Financial Management", href: "/solutions/financial-management" },
+  { label: "Project Management", href: "/solutions/project-management" },
+  { label: "AI Automation", href: "/solutions/india-mart-automation" },
+  { label: "Manufacturing", href: "/solutions/manufacturing-production" },
+] as const
+
+const WORK_NAV_FALLBACK = [
+  { label: "Industries We Serve", href: "/industries", desc: "Healthcare, retail, logistics, finance & more" },
+  { label: "Case Studies", href: "/case-studies", desc: "Real projects, measurable outcomes" },
+  { label: "How We Work", href: "/how-we-work", desc: "Scoped → Built → Shipped → Supported" },
+  { label: "About Buildera", href: "/about", desc: "6+ years, 150+ projects, Kanpur-based" },
+  { label: "Testimonials", href: "/testimonials", desc: "What our clients say" },
+  { label: "Book a Discovery Call", href: "/book-a-call", desc: "Free 30-min scoping session" },
+] as const
+
+const RESOURCES_NAV_FALLBACK = [
+  { label: "Blog", href: "/blog", desc: "Tech insights for decision-makers" },
+  { label: "Guides", href: "/guides", desc: "How-to guides for your stack" },
+  { label: "Contact Us", href: "/contact", desc: "Talk to a solution expert" },
+  { label: "FAQ", href: "/faq", desc: "Pricing, timelines, and process" },
+  { label: "Privacy Policy", href: "/privacy-policy", desc: "" },
+  { label: "Terms of Service", href: "/terms", desc: "" },
+] as const
+
 interface Props {
   activePanel: string | null
   servicesMenu: readonly ServiceMenuItem[]
@@ -90,82 +123,69 @@ export function MegaDropdown({
             )}
 
             {activePanel === "Solutions" && (
-              <div>
-                {solutionItems.length > 0 ? (
-                  <div className="grid grid-cols-4 gap-4">
-                    {solutionItems.map((item) => (
-                      <Link
-                        key={item.id}
-                        href={item.url}
-                        className="flex items-center gap-2 p-3 rounded-lg hover:bg-[var(--brand-surface)] transition-colors group min-h-[48px]"
-                      >
-                        <span className="text-sm font-medium text-foreground group-hover:text-[var(--brand-primary)] transition-colors">
-                          {item.label}
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="text-sm text-muted-foreground">Solutions coming soon.</p>
-                )}
+              <div className="grid grid-cols-4 gap-3">
+                {(solutionItems.length > 0
+                  ? solutionItems.map((item) => ({ label: item.label, href: item.url }))
+                  : SOLUTION_NAV_FALLBACK
+                ).map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="flex items-center p-3 rounded-lg hover:bg-[var(--brand-surface)] transition-colors group min-h-[44px]"
+                  >
+                    <span className="text-sm font-medium text-foreground group-hover:text-[var(--brand-primary)] transition-colors">
+                      {item.label}
+                    </span>
+                  </Link>
+                ))}
               </div>
             )}
 
             {activePanel === "Work" && (
-              <div className="grid grid-cols-3 gap-6">
-                {(workItems.length > 0
-                  ? workItems.map((i) => ({ label: i.label, href: i.url, desc: "" }))
-                  : [
-                      { label: "Industries We Serve", href: "/industries", desc: "Healthcare, retail, logistics, finance & more" },
-                      { label: "Case Studies", href: "/case-studies", desc: "Real projects, measurable outcomes" },
-                      { label: "How We Work", href: "/how-we-work", desc: "Scoped → Built → Shipped → Supported" },
-                      { label: "About Buildera", href: "/about", desc: "6+ years, 150+ projects, Kanpur-based" },
-                      { label: "Testimonials", href: "/testimonials", desc: "What our clients say" },
-                      { label: "Book a Discovery Call", href: "/book-a-call", desc: "Free 30-min scoping session" },
-                    ]
-                ).map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="flex flex-col gap-1 p-4 rounded-lg hover:bg-[var(--brand-surface)] transition-colors group"
-                  >
-                    <span className="text-sm font-semibold text-foreground group-hover:text-[var(--brand-primary)] transition-colors">
-                      {item.label}
-                    </span>
-                    {item.desc && (
-                      <span className="text-xs text-muted-foreground">{item.desc}</span>
-                    )}
-                  </Link>
-                ))}
+              <div className="max-w-2xl">
+                <div className="grid grid-cols-2 gap-3">
+                  {(workItems.length > 0
+                    ? workItems.map((i) => ({ label: i.label, href: i.url, desc: "" }))
+                    : WORK_NAV_FALLBACK
+                  ).map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="flex flex-col gap-0.5 px-4 py-3 rounded-lg hover:bg-[var(--brand-surface)] transition-colors group"
+                    >
+                      <span className="text-sm font-semibold text-foreground group-hover:text-[var(--brand-primary)] transition-colors">
+                        {item.label}
+                      </span>
+                      {item.desc && (
+                        <span className="text-xs text-muted-foreground">{item.desc}</span>
+                      )}
+                    </Link>
+                  ))}
+                </div>
               </div>
             )}
 
             {activePanel === "Resources" && (
-              <div className="grid grid-cols-3 gap-6">
-                {(resourceItems.length > 0
-                  ? resourceItems.map((i) => ({ label: i.label, href: i.url, desc: "" }))
-                  : [
-                      { label: "Blog", href: "/blog", desc: "Tech insights for decision-makers" },
-                      { label: "Guides", href: "/guides", desc: "How-to guides for your stack" },
-                      { label: "Contact Us", href: "/contact", desc: "Talk to a solution expert" },
-                      { label: "FAQ", href: "/faq", desc: "Pricing, timelines, and process" },
-                      { label: "Privacy Policy", href: "/privacy-policy", desc: "" },
-                      { label: "Terms of Service", href: "/terms", desc: "" },
-                    ]
-                ).map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="flex flex-col gap-1 p-4 rounded-lg hover:bg-[var(--brand-surface)] transition-colors group"
-                  >
-                    <span className="text-sm font-semibold text-foreground group-hover:text-[var(--brand-primary)] transition-colors">
-                      {item.label}
-                    </span>
-                    {item.desc && (
-                      <span className="text-xs text-muted-foreground">{item.desc}</span>
-                    )}
-                  </Link>
-                ))}
+              <div className="max-w-2xl">
+                <div className="grid grid-cols-2 gap-3">
+                  {(resourceItems.length > 0
+                    ? resourceItems.map((i) => ({ label: i.label, href: i.url, desc: "" }))
+                    : RESOURCES_NAV_FALLBACK
+                  ).map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="flex flex-col gap-0.5 px-4 py-3 rounded-lg hover:bg-[var(--brand-surface)] transition-colors group"
+                    >
+                      <span className="text-sm font-semibold text-foreground group-hover:text-[var(--brand-primary)] transition-colors">
+                        {item.label}
+                      </span>
+                      {item.desc && (
+                        <span className="text-xs text-muted-foreground">{item.desc}</span>
+                      )}
+                    </Link>
+                  ))}
+                </div>
               </div>
             )}
           </div>

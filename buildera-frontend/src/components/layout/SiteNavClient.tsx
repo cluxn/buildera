@@ -72,7 +72,10 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
             </Link>
 
             {/* Desktop nav links */}
-            <div className="hidden lg:flex items-center gap-1">
+            <div
+              className="hidden lg:flex items-center gap-1"
+              onMouseLeave={handleNavMouseLeave}
+            >
               {NAV_PANELS.map((panel) => (
                 <button
                   key={panel}
@@ -85,7 +88,6 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
                       : "text-foreground hover:text-[var(--brand-primary)] hover:bg-[var(--brand-surface)]"
                   )}
                   onMouseEnter={() => handleNavMouseEnter(panel)}
-                  onMouseLeave={handleNavMouseLeave}
                 >
                   {panel}
                 </button>

@@ -18,7 +18,7 @@ export function AnimatedRingStat({ percentage, label }: Props) {
   const prefersReducedMotion = useReducedMotion()
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center gap-4 p-6 rounded-lg border border-border bg-card">
       <svg width="120" height="120" viewBox="0 0 120 120">
         {/* Track ring */}
         <circle

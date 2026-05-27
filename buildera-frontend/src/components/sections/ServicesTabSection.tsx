@@ -275,15 +275,6 @@ export function ServicesTabSection() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Footer link */}
-        <div className="mt-8 text-center">
-          <a
-            href="/services"
-            className="text-sm font-medium text-[var(--brand-primary)] hover:underline"
-          >
-            Explore All Services →
-          </a>
-        </div>
       </div>
     </section>
   )

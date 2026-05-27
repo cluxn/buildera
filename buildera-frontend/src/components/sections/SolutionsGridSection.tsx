@@ -94,15 +94,6 @@ export function SolutionsGridSection() {
           })}
         </div>
 
-        {/* Footer link */}
-        <div className="mt-10 text-center">
-          <a
-            href="/solutions"
-            className="text-sm font-medium text-[var(--brand-primary)] hover:underline"
-          >
-            View All Solutions →
-          </a>
-        </div>
       </div>
     </section>
   )

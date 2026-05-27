@@ -20,7 +20,7 @@ export function FeatureCheckList() {
       <h3 className="font-semibold text-foreground">
         Buildera vs. the alternatives
       </h3>
-      <div className="grid grid-cols-4 gap-2 items-center text-xs font-medium text-muted-foreground">
+      <div className="grid grid-cols-[2fr_1fr_1fr_1fr] gap-2 items-center text-xs font-medium text-muted-foreground">
         {COLUMN_HEADERS.map((header, i) => (
           <span key={i} className={cn(header === "Buildera" && "text-[var(--brand-primary)]")}>
             {header}
@@ -30,7 +30,7 @@ export function FeatureCheckList() {
       {COMPARISON_ROWS.map((row, rowIndex) => (
         <motion.div
           key={row.feature}
-          className="grid grid-cols-4 gap-2 items-center text-sm"
+          className="grid grid-cols-[2fr_1fr_1fr_1fr] gap-2 items-center text-sm"
           initial={{ opacity: 0, x: -8 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
