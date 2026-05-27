@@ -22,11 +22,11 @@ export function HeroSection() {
             {/* Sub-headline */}
             <motion.p
               className="text-lg text-muted-foreground max-w-lg"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.5 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
             >
-              From custom software and Salesforce implementations to AI automation and dedicated dev teams — Buildera delivers technology that drives real business outcomes for SMBs across India.
+              Custom software, Salesforce, AI agents, and dedicated dev teams — built for Indian SMBs that need real accountability, fixed scopes, and technology that actually ships.
             </motion.p>
 
             {/* CTA buttons */}

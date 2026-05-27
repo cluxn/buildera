@@ -17,16 +17,16 @@ const COLUMN_HEADERS = ["", "Buildera", "In-House", "Freelancer"]
 export function FeatureCheckList() {
   return (
     <div className="flex flex-col gap-4 p-6 rounded-lg border border-border bg-card">
-      <div className="grid grid-cols-4 gap-2 items-center text-xs font-medium text-muted-foreground mb-1">
-        {COLUMN_HEADERS.map((header) => (
-          <span key={header} className={cn(header === "Buildera" && "text-[var(--brand-primary)]")}>
+      <h3 className="font-semibold text-foreground">
+        Buildera vs. the alternatives
+      </h3>
+      <div className="grid grid-cols-4 gap-2 items-center text-xs font-medium text-muted-foreground">
+        {COLUMN_HEADERS.map((header, i) => (
+          <span key={i} className={cn(header === "Buildera" && "text-[var(--brand-primary)]")}>
             {header}
           </span>
         ))}
       </div>
-      <h3 className="font-semibold text-foreground -mt-2 mb-2">
-        Buildera vs. the alternatives
-      </h3>
       {COMPARISON_ROWS.map((row, rowIndex) => (
         <motion.div
           key={row.feature}

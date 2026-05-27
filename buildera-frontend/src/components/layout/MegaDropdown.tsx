@@ -112,76 +112,60 @@ export function MegaDropdown({
             )}
 
             {activePanel === "Work" && (
-              <div>
-                {workItems.length > 0 ? (
-                  <ul className="flex flex-col gap-2">
-                    {workItems.map((item) => (
-                      <li key={item.id}>
-                        <Link
-                          href={item.url}
-                          className="text-sm font-medium text-foreground hover:text-[var(--brand-primary)] transition-colors block py-1 min-h-[48px] flex items-center"
-                        >
-                          {item.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <ul className="flex flex-col gap-2">
-                    {[
-                      { label: "Industries", href: "/industries" },
-                      { label: "About Us", href: "/about" },
-                      { label: "Testimonials", href: "/testimonials" },
-                      { label: "Case Studies", href: "/case-studies" },
-                      { label: "How We Work", href: "/how-we-work" },
-                    ].map((item) => (
-                      <li key={item.href}>
-                        <Link
-                          href={item.href}
-                          className="text-sm font-medium text-foreground hover:text-[var(--brand-primary)] transition-colors block py-1"
-                        >
-                          {item.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+              <div className="grid grid-cols-3 gap-6">
+                {(workItems.length > 0
+                  ? workItems.map((i) => ({ label: i.label, href: i.url, desc: "" }))
+                  : [
+                      { label: "Industries We Serve", href: "/industries", desc: "Healthcare, retail, logistics, finance & more" },
+                      { label: "Case Studies", href: "/case-studies", desc: "Real projects, measurable outcomes" },
+                      { label: "How We Work", href: "/how-we-work", desc: "Scoped → Built → Shipped → Supported" },
+                      { label: "About Buildera", href: "/about", desc: "6+ years, 150+ projects, Kanpur-based" },
+                      { label: "Testimonials", href: "/testimonials", desc: "What our clients say" },
+                      { label: "Book a Discovery Call", href: "/book-a-call", desc: "Free 30-min scoping session" },
+                    ]
+                ).map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="flex flex-col gap-1 p-4 rounded-lg hover:bg-[var(--brand-surface)] transition-colors group"
+                  >
+                    <span className="text-sm font-semibold text-foreground group-hover:text-[var(--brand-primary)] transition-colors">
+                      {item.label}
+                    </span>
+                    {item.desc && (
+                      <span className="text-xs text-muted-foreground">{item.desc}</span>
+                    )}
+                  </Link>
+                ))}
               </div>
             )}
 
             {activePanel === "Resources" && (
-              <div>
-                {resourceItems.length > 0 ? (
-                  <ul className="flex flex-col gap-2">
-                    {resourceItems.map((item) => (
-                      <li key={item.id}>
-                        <Link
-                          href={item.url}
-                          className="text-sm font-medium text-foreground hover:text-[var(--brand-primary)] transition-colors block py-1 min-h-[48px] flex items-center"
-                        >
-                          {item.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <ul className="flex flex-col gap-2">
-                    {[
-                      { label: "Blog", href: "/blog" },
-                      { label: "Guides", href: "/guides" },
-                      { label: "Contact Us", href: "/contact" },
-                    ].map((item) => (
-                      <li key={item.href}>
-                        <Link
-                          href={item.href}
-                          className="text-sm font-medium text-foreground hover:text-[var(--brand-primary)] transition-colors block py-1"
-                        >
-                          {item.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+              <div className="grid grid-cols-3 gap-6">
+                {(resourceItems.length > 0
+                  ? resourceItems.map((i) => ({ label: i.label, href: i.url, desc: "" }))
+                  : [
+                      { label: "Blog", href: "/blog", desc: "Tech insights for decision-makers" },
+                      { label: "Guides", href: "/guides", desc: "How-to guides for your stack" },
+                      { label: "Contact Us", href: "/contact", desc: "Talk to a solution expert" },
+                      { label: "FAQ", href: "/faq", desc: "Pricing, timelines, and process" },
+                      { label: "Privacy Policy", href: "/privacy-policy", desc: "" },
+                      { label: "Terms of Service", href: "/terms", desc: "" },
+                    ]
+                ).map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="flex flex-col gap-1 p-4 rounded-lg hover:bg-[var(--brand-surface)] transition-colors group"
+                  >
+                    <span className="text-sm font-semibold text-foreground group-hover:text-[var(--brand-primary)] transition-colors">
+                      {item.label}
+                    </span>
+                    {item.desc && (
+                      <span className="text-xs text-muted-foreground">{item.desc}</span>
+                    )}
+                  </Link>
+                ))}
               </div>
             )}
           </div>

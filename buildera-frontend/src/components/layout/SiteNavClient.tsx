@@ -22,6 +22,7 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
   const [isMobileOpen, setIsMobileOpen] = useState(false)
 
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50)
@@ -39,21 +40,18 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
   }
 
   function handleNavMouseLeave() {
-    if (hoverTimeoutRef.current) {
-      clearTimeout(hoverTimeoutRef.current)
-    }
-    setActiveDropdown(null)
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current)
+    // Delay close so mouse has time to reach the dropdown panel
+    closeTimeoutRef.current = setTimeout(() => setActiveDropdown(null), 120)
   }
 
   function handleDropdownMouseEnter() {
-    if (hoverTimeoutRef.current) {
-      clearTimeout(hoverTimeoutRef.current)
-    }
-    // Keep active dropdown alive while hovering the panel
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current)
+    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current)
   }
 
   function handleDropdownMouseLeave() {
-    setActiveDropdown(null)
+    closeTimeoutRef.current = setTimeout(() => setActiveDropdown(null), 80)
   }
 
   return (
