@@ -9,6 +9,7 @@ const CASE_STUDIES = [
     title: "Warehouse Management System for Logistics Company",
     industry: "Logistics",
     metricValue: 40,
+    metricSuffix: "%",
     metricLabel: "faster operations",
     description:
       "Replaced legacy spreadsheets with a real-time inventory tracking system, cutting order fulfillment time and reducing picking errors across 3 warehouse locations.",
@@ -18,6 +19,7 @@ const CASE_STUDIES = [
     title: "Salesforce CRM Rollout for Trading Firm",
     industry: "Finance",
     metricValue: 200,
+    metricSuffix: "%",
     metricLabel: "increase in lead pipeline",
     description:
       "Implemented a full Salesforce CRM with custom pipeline stages, automated lead scoring, and reporting dashboards that gave the sales team end-to-end visibility.",
@@ -27,6 +29,7 @@ const CASE_STUDIES = [
     title: "Custom E-Commerce Platform for Retail SMB",
     industry: "Retail",
     metricValue: 60,
+    metricSuffix: "%",
     metricLabel: "more conversions",
     description:
       "Built a blazing-fast storefront with one-click checkout, mobile-first design, and deep inventory integration — turning window shoppers into paying customers.",
@@ -68,6 +71,7 @@ export function CaseStudiesPreview() {
                 title={study.title}
                 industry={study.industry}
                 metricValue={study.metricValue}
+                metricSuffix={study.metricSuffix}
                 metricLabel={study.metricLabel}
                 description={study.description}
               />

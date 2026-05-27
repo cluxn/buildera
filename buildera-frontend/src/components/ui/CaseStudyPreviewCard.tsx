@@ -8,6 +8,7 @@ interface Props {
   industry: string
   metricValue: number
   metricLabel: string
+  metricSuffix?: string
   description: string
 }
 
@@ -16,6 +17,7 @@ export function CaseStudyPreviewCard({
   industry,
   metricValue,
   metricLabel,
+  metricSuffix,
   description,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null)
@@ -23,7 +25,7 @@ export function CaseStudyPreviewCard({
 
   const count = useMotionValue(0)
   const spring = useSpring(count, { stiffness: 60, damping: 20 })
-  const rounded = useTransform(spring, (v) => `${Math.round(v)}%`)
+  const rounded = useTransform(spring, (v) => `${Math.round(v)}${metricSuffix ?? ""}`)
 
   useEffect(() => {
     if (isInView) {
