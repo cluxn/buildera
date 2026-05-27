@@ -2,9 +2,14 @@
 
 namespace App\Providers;
 
+use App\Models\BlogPost;
+use App\Models\CaseStudy;
+use App\Models\Guide;
 use App\Models\Lead;
 use App\Models\NewsletterSubscriber;
+use App\Models\Testimonial;
 use App\Observers\AuditLogObserver;
+use App\Observers\ContentObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -32,5 +37,11 @@ class AppServiceProvider extends ServiceProvider
         // Register audit log observers — every create/update on these models is logged
         Lead::observe(AuditLogObserver::class);
         NewsletterSubscriber::observe(AuditLogObserver::class);
+
+        // Register content observers — fires RevalidationJob on save/delete for ISR cache purge
+        BlogPost::observe(ContentObserver::class);
+        CaseStudy::observe(ContentObserver::class);
+        Guide::observe(ContentObserver::class);
+        Testimonial::observe(ContentObserver::class);
     }
 }
