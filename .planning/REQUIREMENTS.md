@@ -123,7 +123,7 @@
 - [ ] **ADM-14**: SEO Metadata resource — per-page records keyed by page type + slug; fields: title tag, meta description, canonical URL, OG title, OG description, OG image upload, robots (index/noindex); covers homepage, service pages, solution pages, industry pages, blog, case studies, guides
 - [ ] **ADM-15**: User management — CRUD for admin users with role assignment (Owner / Editor / Viewer via filament-shield); Owner = full access, Editor = content + leads only, Viewer = read-only
 - [ ] **ADM-16**: Sitemap management — manual "Regenerate Sitemap" action button, last generated timestamp shown, download link for sitemap.xml
-- [ ] **ADM-17**: ISR revalidation — on every content save (blog, case study, guide, testimonial, settings, SEO), automatically fire POST to Next.js /api/revalidate with the correct cache tag; log last revalidation time per resource [scaffold: 02-01 wired RBAC/settings; full observers in 02-05]
+- [x] **ADM-17**: ISR revalidation — on every content save (blog, case study, guide, testimonial, settings, SEO), automatically fire POST to Next.js /api/revalidate with the correct cache tag; log last revalidation time per resource [scaffold: 02-01 wired RBAC/settings; full observers in 02-05]
 
 ### SEO (SEO-*)
 
@@ -169,7 +169,7 @@
 
 ### RELIABILITY (REL-*)
 
-- [ ] **REL-01**: Category and Tag management resource in Filament — CRUD for blog/guide categories and tags; prevents duplicate/inconsistent taxonomy
+- [x] **REL-01**: Category and Tag management resource in Filament — CRUD for blog/guide categories and tags; prevents duplicate/inconsistent taxonomy
 - [ ] **REL-02**: Redirect Manager — Filament resource (source path, destination path, type 301/302, active toggle); `GET /api/redirects` endpoint; Next.js middleware reads redirects and applies them — prevents broken URLs when slugs change
 - [ ] **REL-03**: Duplicate lead detection — on `POST /api/leads`, if an email already exists in leads table within last 30 days, flag as duplicate in admin (do not block submission; just mark `is_duplicate = true` and link to original); Filament shows duplicate badge in lead inbox
 - [x] **REL-04**: Newsletter unsubscribe endpoint — `GET /unsubscribe?token={signed_token}` route; marks subscriber as unsubscribed; required before any newsletter emails are sent (CAN-SPAM / GDPR)
