@@ -41,14 +41,14 @@ export function AnimatedRingStat({ percentage, label }: Props) {
           strokeDasharray="326.7"
           initial={{ pathLength: 0, opacity: 0 }}
           whileInView={{
-            pathLength: prefersReducedMotion ? 1 : percentage / 100,
+            pathLength: percentage / 100,
             opacity: 1,
           }}
           viewport={{ once: true }}
           transition={{
             duration: prefersReducedMotion ? 0 : 1.5,
             ease: "easeInOut",
-            delay: 0.3,
+            delay: prefersReducedMotion ? 0 : 0.3,
           }}
           style={{ rotate: -90, transformOrigin: "60px 60px" }}
         />
