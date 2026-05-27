@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'n8n' => [
+        'lead_webhook_url'       => env('N8N_LEAD_WEBHOOK_URL'),
+        'newsletter_webhook_url' => env('N8N_NEWSLETTER_WEBHOOK_URL'),
+    ],
+
 ];
