@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "motion/react"
 import { IconX, IconChevronDown } from "@tabler/icons-react"
-import { cn } from "@/lib/utils"
+import { cn, toSlug } from "@/lib/utils"
 import type { NavItem } from "@/lib/api"
 import type { ServiceMenuItem } from "./SiteNav"
 
@@ -126,7 +126,7 @@ export function MobileNavDrawer({ isOpen, onClose, servicesMenu, navItems }: Pro
                               {service.subServices.map((sub) => (
                                 <li key={sub}>
                                   <Link
-                                    href={`/services/${service.slug}/${sub.toLowerCase().replace(/\s+/g, "-")}`}
+                                    href={`/services/${service.slug}/${toSlug(sub)}`}
                                     onClick={onClose}
                                     className="block text-xs text-muted-foreground hover:text-[var(--brand-primary)] transition-colors py-1 min-h-[36px] flex items-center"
                                   >

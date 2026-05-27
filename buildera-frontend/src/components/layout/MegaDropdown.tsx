@@ -11,6 +11,7 @@ import {
 } from "@tabler/icons-react"
 import { motion, AnimatePresence } from "motion/react"
 import type { NavItem } from "@/lib/api"
+import { toSlug } from "@/lib/utils"
 import type { ServiceMenuItem } from "./SiteNav"
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -74,7 +75,7 @@ export function MegaDropdown({
                         {service.subServices.map((sub) => (
                           <li key={sub}>
                             <Link
-                              href={`/services/${service.slug}/${sub.toLowerCase().replace(/\s+/g, "-")}`}
+                              href={`/services/${service.slug}/${toSlug(sub)}`}
                               className="text-xs text-muted-foreground hover:text-[var(--brand-primary)] transition-colors"
                             >
                               {sub}
