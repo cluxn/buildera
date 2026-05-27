@@ -174,7 +174,7 @@
 - [ ] **REL-03**: Duplicate lead detection — on `POST /api/leads`, if an email already exists in leads table within last 30 days, flag as duplicate in admin (do not block submission; just mark `is_duplicate = true` and link to original); Filament shows duplicate badge in lead inbox
 - [ ] **REL-04**: Newsletter unsubscribe endpoint — `GET /unsubscribe?token={signed_token}` route; marks subscriber as unsubscribed; required before any newsletter emails are sent (CAN-SPAM / GDPR)
 - [ ] **REL-05**: Rate limiting on `/api/subscribers` — 3 newsletter signups per IP per hour (same throttle pattern as leads)
-- [ ] **REL-06**: `published_at <= NOW()` enforced on all content API endpoints — blog posts, case studies, guides only returned if `published_at` is set and not in the future; status must be `published`
+- [x] **REL-06**: `published_at <= NOW()` enforced on all content API endpoints — blog posts, case studies, guides only returned if `published_at` is set and not in the future; status must be `published`
 - [ ] **REL-07**: Queued jobs for side effects — lead email notification, ISR revalidation call, and sitemap regeneration dispatched as queued jobs (database queue driver); prevents lead form timeout if Resend or Next.js is slow
 - [ ] **REL-08**: Audit log — Filament AuditLog resource records who changed what and when across all resources; visible to Owner role only; uses Laravel model observers
 
@@ -214,8 +214,8 @@
 
 ### PUBLISHING (PUB-*)
 
-- [ ] **PUB-01**: Published/unpublished toggle on ALL content types — service pages, solution pages, industry pages, blog posts, case studies, guides, testimonials each have `is_published` boolean; frontend only renders published items; Filament shows status badge and toggle action on every resource
-- [ ] **PUB-02**: Unpublished items excluded from nav dropdowns, sitemap, and search results — when a service/solution/industry is unpublished, it disappears from mega menu, sitemap.xml, and API responses automatically
+- [x] **PUB-01**: Published/unpublished toggle on ALL content types — service pages, solution pages, industry pages, blog posts, case studies, guides, testimonials each have `is_published` boolean; frontend only renders published items; Filament shows status badge and toggle action on every resource
+- [x] **PUB-02**: Unpublished items excluded from nav dropdowns, sitemap, and search results — when a service/solution/industry is unpublished, it disappears from mega menu, sitemap.xml, and API responses automatically
 
 ### SCALING (SCALE-*)
 
