@@ -223,6 +223,10 @@
   border-bottom: 1px solid var(--brand-glass);
 }
 
+.dark .glass-nav {
+  background: hsl(0 0% 10% / 85%);
+}
+
 /* Hero orb animations (D-02) */
 @keyframes orb-float {
   0%   { transform: translate(0, 0) scale(1); }
