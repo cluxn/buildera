@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-05-27T00:37:00Z"
+last_updated: "2026-05-27T00:43:00Z"
 progress:
   total_phases: 10
   completed_phases: 1
   total_plans: 9
-  completed_plans: 8
+  completed_plans: 9
   percent: 11
 ---
 
@@ -20,14 +20,14 @@ See: `.planning/PROJECT.md` (updated 2026-05-26)
 
 **Core value:** A decision-maker lands on buildera.co — cold or warm — immediately understands what Buildera builds, finds their specific problem reflected in the services/solutions, and books a discovery call.
 
-**Current focus:** Phase 2 Backend Core — plans 02-01, 02-02, and 02-03 complete, executing 02-04 next
+**Current focus:** Phase 2 Backend Core — plans 02-01, 02-02, 02-03, and 02-04 complete, executing 02-05 next
 
 ## Phase Status
 
 | Phase | Name | Status |
 |-------|------|--------|
 | 1 | Project Foundation | 📋 Planned (4 plans, 3 waves) |
-| 2 | Backend Core | 🔄 In progress (3/5 plans done) |
+| 2 | Backend Core | 🔄 In progress (4/5 plans done) |
 | 3 | Homepage & Design System | ⬜ Not started |
 | 4 | Services & Solutions Pages | ⬜ Not started |
 | 5 | Industries, Trust Pages & Lead Capture | ⬜ Not started |
@@ -54,6 +54,9 @@ See: `.planning/PROJECT.md` (updated 2026-05-26)
 - POST /api/leads: api.key + throttle:5,60 + honeypot + 24hr duplicate detection + queued jobs (Resend + n8n)
 - Filament v5: $navigationGroup must be string|UnitEnum|null; $navigationIcon must be string|BackedEnum|null
 - Jobs dispatch only for non-duplicate leads; FireLeadWebhookJob is no-op when N8N URL is empty
+- POST /api/subscribers: throttle:3,60, no api.key; re-subscribe generates fresh unsubscribe_token; old token invalidated
+- AuditLogObserver wraps created()/updated() in try/catch — audit DB failure never propagates to main request
+- FireNewsletterWebhookJob uses array payload (not model) — consistent with FireLeadWebhookJob pattern
 
 ## Artifacts
 

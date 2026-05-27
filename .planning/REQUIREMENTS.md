@@ -172,11 +172,11 @@
 - [ ] **REL-01**: Category and Tag management resource in Filament — CRUD for blog/guide categories and tags; prevents duplicate/inconsistent taxonomy
 - [ ] **REL-02**: Redirect Manager — Filament resource (source path, destination path, type 301/302, active toggle); `GET /api/redirects` endpoint; Next.js middleware reads redirects and applies them — prevents broken URLs when slugs change
 - [ ] **REL-03**: Duplicate lead detection — on `POST /api/leads`, if an email already exists in leads table within last 30 days, flag as duplicate in admin (do not block submission; just mark `is_duplicate = true` and link to original); Filament shows duplicate badge in lead inbox
-- [ ] **REL-04**: Newsletter unsubscribe endpoint — `GET /unsubscribe?token={signed_token}` route; marks subscriber as unsubscribed; required before any newsletter emails are sent (CAN-SPAM / GDPR)
-- [ ] **REL-05**: Rate limiting on `/api/subscribers` — 3 newsletter signups per IP per hour (same throttle pattern as leads)
+- [x] **REL-04**: Newsletter unsubscribe endpoint — `GET /unsubscribe?token={signed_token}` route; marks subscriber as unsubscribed; required before any newsletter emails are sent (CAN-SPAM / GDPR)
+- [x] **REL-05**: Rate limiting on `/api/subscribers` — 3 newsletter signups per IP per hour (same throttle pattern as leads)
 - [x] **REL-06**: `published_at <= NOW()` enforced on all content API endpoints — blog posts, case studies, guides only returned if `published_at` is set and not in the future; status must be `published`
 - [x] **REL-07**: Queued jobs for side effects — lead email notification, ISR revalidation call, and sitemap regeneration dispatched as queued jobs (database queue driver); prevents lead form timeout if Resend or Next.js is slow
-- [ ] **REL-08**: Audit log — Filament AuditLog resource records who changed what and when across all resources; visible to Owner role only; uses Laravel model observers
+- [x] **REL-08**: Audit log — Filament AuditLog resource records who changed what and when across all resources; visible to Owner role only; uses Laravel model observers
 
 ### COMPETITIVE (COMP-*)
 
