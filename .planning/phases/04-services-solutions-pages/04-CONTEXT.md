@@ -37,14 +37,27 @@ All ~24 sub-service detail pages and ~18 solution detail pages built as statical
 
 ### Social Proof Sourcing (04-06)
 
-- **D-11:** Phase 4 seeds **~20 testimonials + 8 case studies** via Laravel seeders (no Filament resource UI — just database rows). Genuine-looking, diverse clients and industries. Coverage: 1-2 per service category (12), remainder cross-tagged to cover major solutions and all 8 industry pages. A single testimonial can be tagged with a service AND an industry so it appears on both pages.
+- **D-11:** Phase 4 seeds **~20 testimonials** + **8 case studies** (one per real client) via Laravel seeders. No Filament resource UI — just database rows. Phase 6 builds the admin UI; the data is already there.
+  - **Case studies source:** all 8 are based on real client details in `.planning/CLIENT-CONTEXT.md`. Content fabricated realistically from the client's category and notes (no real images — placeholder with descriptive alt text).
+  - **Case study → tag mapping (canonical, do not deviate):**
+    | Client | service_category | solution_slug | industry_category |
+    |---|---|---|---|
+    | Saharsh Packaging | `software-development` | `erp` | `manufacturing` |
+    | Ease My Hotel | `software-development` | `hotels-resorts` | `hospitality` |
+    | Shivaansh / Equi Brief | `software-development` | `project-mgmt` | `finance` |
+    | Insurance Mgmt (PV Krishnan) | `software-development` | `crm` | `finance` |
+    | Aroma Monk | `website-development` | `lead-mgmt` | `retail` |
+    | SRJ | `website-development` | `vendor-mgmt` | `manufacturing` |
+    | Barrel Books | `software-development` | `warehouse-mgmt` | `retail` |
+    | GNC Exports | `website-development` | `supply-chain` | `manufacturing` |
+  - **Testimonials:** ~20 testimonials seeded across all 6 service categories, major solutions, and all 8 industry pages. Fabricated from the same real clients where plausible. 1-2 per service category minimum; cross-tagged so a single testimonial can appear on both a service page and an industry page.
 - **D-12:** Phase 4 adds backend migrations with three tagging columns on both `testimonials` and `case_studies` tables:
-  - `service_category` (string, nullable) — e.g., `'website-development'`
-  - `solution_slug` (string, nullable) — e.g., `'crm'`, `'erp'`
-  - `industry_category` (string, nullable) — e.g., `'manufacturing'`, `'retail'`
-  All three are independent — a testimonial can have one, two, or all three set. Phase 6 Filament resources expose these as admin-editable fields.
+  - `service_category` (string, nullable) — matches URL slug (e.g., `'website-development'`)
+  - `solution_slug` (string, nullable) — matches solution page slug (e.g., `'crm'`, `'erp'`)
+  - `industry_category` (string, nullable) — matches industry page slug (e.g., `'manufacturing'`, `'retail'`)
+  All three are independent — any combination can be set per row. Phase 6 Filament resources expose these as admin-editable fields.
 - **D-13:** Frontend API calls accept any of the three filter params: `GET /api/testimonials?service=X`, `GET /api/testimonials?solution=X`, `GET /api/testimonials?industry=X`. Case studies use the same pattern. Phase 2 API controllers extended with these query param filters in 04-06.
-- **D-14:** Graceful empty state: sections render hidden (not broken) if no seeded testimonials match the query. No hard dependency on seeded count per page.
+- **D-14:** Graceful empty state: sections render hidden (not broken) if no seeded rows match the query. No hard dependency on seeded count per page.
 
 ### Animation Depth on Service Pages
 
@@ -85,8 +98,9 @@ All ~24 sub-service detail pages and ~18 solution detail pages built as statical
 - `buildera-frontend/src/lib/utils.ts` — `cn()` helper for all conditional class composition
 
 ### Backend
-- `buildera-backend/` — Phase 2 API controllers at `app/Http/Controllers/Api/`; extend `TestimonialController` and `CaseStudyController` with `?service=` query param filter
+- `buildera-backend/` — Phase 2 API controllers at `app/Http/Controllers/Api/`; extend `TestimonialController` and `CaseStudyController` with `?service=`, `?solution=`, `?industry=` query param filters
 - `.planning/phases/02-backend-core/02-02-PLAN.md` — Existing API controller patterns to follow
+- `.planning/CLIENT-CONTEXT.md` §Previous Clients — **MANDATORY for case study seeder** — 8 real clients with category and notes; use as the basis for all case study content
 
 ### Project Constraints
 - `CLAUDE.md` — `"use client"` allowed list (forms, tab switcher, analytics, popups), rendering strategy (Server Components by default), tech stack constraints
