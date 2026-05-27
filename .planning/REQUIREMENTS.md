@@ -67,11 +67,11 @@
 
 - [ ] **LEAD-01**: Full contact form — name, email, phone, company, service interest (dropdown of 6 services), message, honeypot field, source_form = "contact-form"
 - [ ] **LEAD-02**: Mini lead form (reusable component) — name + email + optional service interest, short headline, submit CTA; used inside blog/guide/case study at conversion hotspots; source_form tagged per placement
-- [ ] **LEAD-03**: All lead forms submit to `POST /api/leads` with X-API-Key header + honeypot validation
-- [ ] **LEAD-04**: Lead stored in MySQL with: source_page (URL path), source_form (form type tag), UTM first-touch + last-touch, timezone, IP (hashed), submitted_at
-- [ ] **LEAD-05**: Email notification to Buildera on every new lead via Resend (includes name, email, service interest, source)
+- [x] **LEAD-03**: All lead forms submit to `POST /api/leads` with X-API-Key header + honeypot validation
+- [x] **LEAD-04**: Lead stored in MySQL with: source_page (URL path), source_form (form type tag), UTM first-touch + last-touch, timezone, IP (hashed), submitted_at
+- [x] **LEAD-05**: Email notification to Buildera on every new lead via Resend (includes name, email, service interest, source)
 - [ ] **LEAD-06**: Form success states — full form: redirect to /thank-you; mini forms: inline success message (no redirect)
-- [ ] **LEAD-07**: Throttle: 5 lead submissions per IP per hour (429 response on breach)
+- [x] **LEAD-07**: Throttle: 5 lead submissions per IP per hour (429 response on breach)
 - [ ] **LEAD-08**: Contact Us page at `/contact` — full form + company contact info + WhatsApp button + Calendly link
 - [ ] **LEAD-09**: Book a Call page at `/book-a-call` — Calendly embed (full-page) + brief "what to expect" copy
 - [ ] **LEAD-10**: Thank You page at `/thank-you` — confirmation message, next steps, links back to services/blog
@@ -175,7 +175,7 @@
 - [ ] **REL-04**: Newsletter unsubscribe endpoint — `GET /unsubscribe?token={signed_token}` route; marks subscriber as unsubscribed; required before any newsletter emails are sent (CAN-SPAM / GDPR)
 - [ ] **REL-05**: Rate limiting on `/api/subscribers` — 3 newsletter signups per IP per hour (same throttle pattern as leads)
 - [x] **REL-06**: `published_at <= NOW()` enforced on all content API endpoints — blog posts, case studies, guides only returned if `published_at` is set and not in the future; status must be `published`
-- [ ] **REL-07**: Queued jobs for side effects — lead email notification, ISR revalidation call, and sitemap regeneration dispatched as queued jobs (database queue driver); prevents lead form timeout if Resend or Next.js is slow
+- [x] **REL-07**: Queued jobs for side effects — lead email notification, ISR revalidation call, and sitemap regeneration dispatched as queued jobs (database queue driver); prevents lead form timeout if Resend or Next.js is slow
 - [ ] **REL-08**: Audit log — Filament AuditLog resource records who changed what and when across all resources; visible to Owner role only; uses Laravel model observers
 
 ### COMPETITIVE (COMP-*)

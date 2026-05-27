@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-05-27T12:00:00.000Z"
+last_updated: "2026-05-27T00:37:00Z"
 progress:
   total_phases: 10
   completed_phases: 1
   total_plans: 9
-  completed_plans: 7
-  percent: 12
+  completed_plans: 8
+  percent: 11
 ---
 
 # Buildera — Project State
@@ -20,14 +20,14 @@ See: `.planning/PROJECT.md` (updated 2026-05-26)
 
 **Core value:** A decision-maker lands on buildera.co — cold or warm — immediately understands what Buildera builds, finds their specific problem reflected in the services/solutions, and books a discovery call.
 
-**Current focus:** Phase 2 Backend Core — plans 02-01 and 02-02 complete, executing 02-03 next
+**Current focus:** Phase 2 Backend Core — plans 02-01, 02-02, and 02-03 complete, executing 02-04 next
 
 ## Phase Status
 
 | Phase | Name | Status |
 |-------|------|--------|
 | 1 | Project Foundation | 📋 Planned (4 plans, 3 waves) |
-| 2 | Backend Core | 🔄 In progress (2/5 plans done) |
+| 2 | Backend Core | 🔄 In progress (3/5 plans done) |
 | 3 | Homepage & Design System | ⬜ Not started |
 | 4 | Services & Solutions Pages | ⬜ Not started |
 | 5 | Industries, Trust Pages & Lead Capture | ⬜ Not started |
@@ -50,6 +50,10 @@ See: `.planning/PROJECT.md` (updated 2026-05-26)
 - scopePublished() enforces is_published=true AND (published_at IS NULL OR published_at <= NOW()) on all content models
 - SeoMeta table uses title/description columns (not seo_title/seo_description); NavItem uses opens_new_tab (not opens_in_new_tab)
 - All public GET API controllers are standalone (no base class); 14 no-auth routes registered in api.php
+- ApiKeyMiddleware uses hash_equals() for timing-safe X-API-Key validation; registered as 'api.key' alias
+- POST /api/leads: api.key + throttle:5,60 + honeypot + 24hr duplicate detection + queued jobs (Resend + n8n)
+- Filament v5: $navigationGroup must be string|UnitEnum|null; $navigationIcon must be string|BackedEnum|null
+- Jobs dispatch only for non-duplicate leads; FireLeadWebhookJob is no-op when N8N URL is empty
 
 ## Artifacts
 
