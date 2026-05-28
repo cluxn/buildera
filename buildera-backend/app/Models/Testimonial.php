@@ -16,6 +16,7 @@ class Testimonial extends Model
         'rating',
         'service_tags',
         'industry_tags',
+        'solution_slug',
         'is_featured',
         'is_published',
         'sort_order',

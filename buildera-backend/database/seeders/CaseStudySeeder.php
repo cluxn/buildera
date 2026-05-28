@@ -1,0 +1,158 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\CaseStudy;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class CaseStudySeeder extends Seeder
+{
+    use WithoutModelEvents;
+
+    public function run(): void
+    {
+        $caseStudies = [
+            [
+                'title'              => 'Custom ERP System for Saharsh Packaging',
+                'slug'               => 'custom-erp-system-for-saharsh-packaging',
+                'client_name'        => 'Saharsh Packaging',
+                'industry'           => 'manufacturing',
+                'challenge'          => 'Saharsh Packaging was managing production orders, raw material procurement, and dispatch on disconnected spreadsheets. Inventory counts happened manually at month-end, and the sales team was routinely promising delivery timelines the production floor couldn\'t meet because nobody had visibility across departments.',
+                'solution'           => 'We built a custom ERP covering production order management, inventory tracking with real-time stock levels, purchase order workflows, and a dispatch dashboard. The system unified data across sales, warehouse, and accounts — eliminating the end-of-month reconciliation sprint.',
+                'results'            => '60% reduction in stockouts within 3 months. Month-end close cut from 4 days to under 8 hours. Zero inter-department data disputes since go-live.',
+                'featured_image'     => null,
+                'featured_image_alt' => null,
+                'service_tags'       => ['software-development'],
+                'industry_tags'      => ['manufacturing'],
+                'solution_slug'      => 'erp',
+                'is_featured'        => true,
+                'is_published'       => true,
+                'published_at'       => now()->subMonths(5),
+            ],
+            [
+                'title'              => 'Hotel Management SaaS for Ease My Hotel',
+                'slug'               => 'hotel-management-saas-for-ease-my-hotel',
+                'client_name'        => 'Ease My Hotel',
+                'industry'           => 'hospitality',
+                'challenge'          => 'Ease My Hotel\'s independent hotel clients were running reservations on pen and paper, coordinating housekeeping via WhatsApp, and generating revenue reports manually from booking registers. The platform needed to serve multiple hotel properties from a single SaaS dashboard with per-property data isolation.',
+                'solution'           => 'We designed and built a multi-tenant SaaS platform covering front desk reservations, OTA channel sync, housekeeping task management, F&B billing integration, and a revenue analytics dashboard. Each hotel gets their own isolated workspace with role-based staff access.',
+                'results'            => 'Platform acquired 18 hotel clients in its first 6 months. Average check-in time dropped from 12 minutes to under 2 minutes. Revenue per available room (RevPAR) improved by 23% across pilot properties using the yield management features.',
+                'featured_image'     => null,
+                'featured_image_alt' => null,
+                'service_tags'       => ['software-development'],
+                'industry_tags'      => ['hospitality'],
+                'solution_slug'      => 'hotels-resorts',
+                'is_featured'        => true,
+                'is_published'       => true,
+                'published_at'       => now()->subMonths(4),
+            ],
+            [
+                'title'              => 'MVP Development for Equi Brief',
+                'slug'               => 'mvp-development-for-equi-brief',
+                'client_name'        => 'Equi Brief',
+                'industry'           => 'finance',
+                'challenge'          => 'The Equi Brief founding team had a validated concept for a platform connecting equity research analysts with institutional investors, but no technical co-founder. They needed a production-ready MVP in 90 days to present to seed-stage investors — built on a scalable architecture that wouldn\'t need to be rewritten at Series A.',
+                'solution'           => 'We delivered the MVP in 11 weeks: analyst profile pages with track record, an investor discovery feed with preference-based matching, a secure document sharing layer for research reports, and an admin panel for KYC verification. Multi-tenancy and audit logging were built in from day one.',
+                'results'            => 'MVP presented to investors at 11 weeks — 3 weeks ahead of deadline. Equi Brief closed their seed round 60 days after launch. Platform scaled to 140 active analysts in the first quarter with zero architectural rewrites.',
+                'featured_image'     => null,
+                'featured_image_alt' => null,
+                'service_tags'       => ['software-development'],
+                'industry_tags'      => ['finance'],
+                'solution_slug'      => 'project-mgmt',
+                'is_featured'        => true,
+                'is_published'       => true,
+                'published_at'       => now()->subMonths(3),
+            ],
+            [
+                'title'              => 'Insurance CRM for PV Krishnan Associates',
+                'slug'               => 'insurance-crm-for-pv-krishnan-associates',
+                'client_name'        => 'PV Krishnan Associates',
+                'industry'           => 'finance',
+                'challenge'          => 'PV Krishnan Associates, a mid-sized insurance advisory firm, was tracking 1,200+ client policies across multiple carriers in spreadsheets. Policy renewal reminders were sent manually, client communication history lived in individual agent inboxes, and the MD had no consolidated view of portfolio health or renewal revenue coming due.',
+                'solution'           => 'We built a custom CRM tailored to insurance workflows: policy lifecycle tracking with carrier integration points, automated renewal reminder sequences via email and WhatsApp 90/30/7 days out, a client 360 view aggregating policies, claims, and communication history, and an MD dashboard showing renewal revenue by month.',
+                'results'            => 'Policy renewal rate improved from 71% to 89% in the first year. Zero missed renewal reminders since launch. MD now runs the weekly portfolio review from the dashboard in 20 minutes — previously a 3-hour manual exercise.',
+                'featured_image'     => null,
+                'featured_image_alt' => null,
+                'service_tags'       => ['software-development'],
+                'industry_tags'      => ['finance'],
+                'solution_slug'      => 'crm',
+                'is_featured'        => false,
+                'is_published'       => true,
+                'published_at'       => now()->subMonths(6),
+            ],
+            [
+                'title'              => 'E-Commerce Website for Aroma Monk',
+                'slug'               => 'e-commerce-website-for-aroma-monk',
+                'client_name'        => 'Aroma Monk',
+                'industry'           => 'retail',
+                'challenge'          => 'Aroma Monk, a premium perfume and essential oil brand, was taking wholesale B2B orders via phone and WhatsApp while their retail D2C sales were limited to a basic social media presence. They needed a single website that served both retail customers and wholesale distributors — with catalogue browsing, product filtering by fragrance family, and a separate wholesale inquiry workflow.',
+                'solution'           => 'We built a dual-channel e-commerce site: a public retail storefront with fragrance family filtering, product bundles, and Razorpay checkout, plus a password-protected wholesale portal with trade pricing, MOQ controls, and a structured inquiry form that routed to the B2B sales team.',
+                'results'            => '3x increase in wholesale inquiry volume within 90 days. D2C average order value up 40% due to bundle recommendations. Retail team saved 8 hours per week previously spent on WhatsApp order management.',
+                'featured_image'     => null,
+                'featured_image_alt' => null,
+                'service_tags'       => ['website-development'],
+                'industry_tags'      => ['retail'],
+                'solution_slug'      => 'lead-mgmt',
+                'is_featured'        => false,
+                'is_published'       => true,
+                'published_at'       => now()->subMonths(4),
+            ],
+            [
+                'title'              => 'Industrial B2B Website for SRJ Industries',
+                'slug'               => 'industrial-b2b-website-for-srj-industries',
+                'client_name'        => 'SRJ Industries',
+                'industry'           => 'manufacturing',
+                'challenge'          => 'SRJ Industries manufactures PHE (Plate Heat Exchanger) plates and gaskets for industrial clients globally. Their existing web presence was a decade-old static page with no product catalogue, no inquiry routing, and no SEO visibility — meaning international buyers searching for PHE plate suppliers were landing on competitors instead.',
+                'solution'           => 'We designed and built a product-led B2B website with a structured PHE product catalogue (filterable by material, pressure rating, and compatible OEM brands), a technical specifications download system, and a structured inquiry form that captured application details to help the sales team respond with accurate quotations.',
+                'results'            => 'Organic search impressions up 340% in 6 months. International inquiry volume increased from 3-4 per month to 22 per month. Average quotation turnaround improved by 2 days due to better inquiry data capture.',
+                'featured_image'     => null,
+                'featured_image_alt' => null,
+                'service_tags'       => ['website-development'],
+                'industry_tags'      => ['manufacturing'],
+                'solution_slug'      => 'vendor-mgmt',
+                'is_featured'        => false,
+                'is_published'       => true,
+                'published_at'       => now()->subMonths(5),
+            ],
+            [
+                'title'              => 'Liquor Shop Stock Management SaaS — Barrel Books',
+                'slug'               => 'liquor-shop-stock-management-saas-barrel-books',
+                'client_name'        => 'Barrel Books',
+                'industry'           => 'retail',
+                'challenge'          => 'Indian liquor shop owners were managing daily stock purchases, transfers between locations, and excise compliance on paper registers. End-of-day stock counts took 45 minutes, discrepancies were common and unresolvable, and owners with multiple shops had no consolidated view across locations.',
+                'solution'           => 'We built Barrel Books — a SaaS platform tailored to Indian liquor retail: barcode-based stock intake, automated daily stock reconciliation, inter-store transfer tracking, excise purchase register export in the format required by UP State Excise, and a mobile dashboard showing real-time stock and daily sales across all locations.',
+                'results'            => 'End-of-day reconciliation cut from 45 minutes to under 8 minutes. Stock discrepancy rate dropped 94% in the first month. Platform launched publicly and acquired 35 paying shops in the first 4 months at ₹599/month per location.',
+                'featured_image'     => null,
+                'featured_image_alt' => null,
+                'service_tags'       => ['software-development'],
+                'industry_tags'      => ['retail'],
+                'solution_slug'      => 'warehouse-mgmt',
+                'is_featured'        => false,
+                'is_published'       => true,
+                'published_at'       => now()->subMonths(3),
+            ],
+            [
+                'title'              => 'Export Showcase Website for GNC Exports',
+                'slug'               => 'export-showcase-website-for-gnc-exports',
+                'client_name'        => 'GNC Exports',
+                'industry'           => 'manufacturing',
+                'challenge'          => 'GNC Exports manufactures industrial fabrics and technical textiles for global export markets. Their buyers — procurement managers in Europe, the Middle East, and Southeast Asia — expect detailed product specifications, certifications, and a professional digital presence. GNC\'s previous website failed to communicate product quality and lacked the structured inquiry flow international buyers expected.',
+                'solution'           => 'We built a bilingual product showcase website with a structured technical textiles catalogue (filterable by application and material), downloadable product spec sheets and certifications, an international inquiry form capturing destination country and application details, and a supplier credibility section featuring manufacturing facility photos, capacity data, and ISO certification display.',
+                'results'            => 'International website traffic up 280% within 3 months of launch. Export inquiry volume increased from 5 to 31 qualified inquiries per month. First major European distributor contract signed within 5 months of website launch.',
+                'featured_image'     => null,
+                'featured_image_alt' => null,
+                'service_tags'       => ['website-development'],
+                'industry_tags'      => ['manufacturing'],
+                'solution_slug'      => 'supply-chain',
+                'is_featured'        => false,
+                'is_published'       => true,
+                'published_at'       => now()->subMonths(2),
+            ],
+        ];
+
+        foreach ($caseStudies as $data) {
+            CaseStudy::create($data);
+        }
+    }
+}

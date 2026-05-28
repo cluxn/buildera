@@ -21,6 +21,10 @@ class TestimonialController
             $query->whereJsonContains('industry_tags', $industry);
         }
 
+        if (request()->has('solution')) {
+            $query->where('solution_slug', request('solution'));
+        }
+
         return response()->json($query->get());
     }
 }

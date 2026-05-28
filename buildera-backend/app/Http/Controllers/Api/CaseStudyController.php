@@ -15,6 +15,14 @@ class CaseStudyController
             $query->where('industry', request('industry'));
         }
 
+        if (request()->has('service')) {
+            $query->whereJsonContains('service_tags', request('service'));
+        }
+
+        if (request()->has('solution')) {
+            $query->where('solution_slug', request('solution'));
+        }
+
         return response()->json($query->get());
     }
 

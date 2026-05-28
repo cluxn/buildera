@@ -23,6 +23,7 @@ class CaseStudy extends Model
         'featured_image_alt',
         'service_tags',
         'industry_tags',
+        'solution_slug',
         'is_featured',
         'is_published',
         'published_at',
