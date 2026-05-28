@@ -1,48 +1,41 @@
 "use client"
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import { IconX } from '@tabler/icons-react'
-import { SETTINGS_FALLBACK } from '@/lib/api'
-import type { Settings } from '@/lib/api'
 
-export function NudgeBanner() {
-  const [settings, setSettings] = useState<Settings>(SETTINGS_FALLBACK)
-  const [dismissed, setDismissed] = useState(false)
+interface Props {
+  enabled: boolean
+  text: string
+  link: string
+  expiresAt: string
+}
 
-  useEffect(() => {
-    if (sessionStorage.getItem('nudge-banner-dismissed')) {
-      setDismissed(true)
-      return
-    }
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/settings`)
-      .then(r => r.json())
-      .then(data => setSettings({ ...SETTINGS_FALLBACK, ...data }))
-      .catch(() => {})
-  }, [])
+export function NudgeBanner({ enabled, text, link, expiresAt }: Props) {
+  const [dismissed, setDismissed] = useState(
+    typeof window !== 'undefined' && !!sessionStorage.getItem('nudge-banner-dismissed')
+  )
 
   const handleDismiss = () => {
     setDismissed(true)
     sessionStorage.setItem('nudge-banner-dismissed', '1')
   }
 
-  const isExpired = settings.nudge_banner_expires_at
-    ? new Date() > new Date(settings.nudge_banner_expires_at)
-    : false
+  const isExpired = expiresAt ? new Date() > new Date(expiresAt) : false
 
-  if (dismissed || !settings.nudge_banner_enabled || isExpired || !settings.nudge_banner_text) {
+  if (dismissed || !enabled || isExpired || !text) {
     return null
   }
 
   return (
     <div className="relative z-50 bg-[var(--brand-primary)] text-white text-sm py-2.5 px-4 text-center">
       <div className="container mx-auto max-w-7xl flex items-center justify-center gap-4">
-        {settings.nudge_banner_link ? (
-          <Link href={settings.nudge_banner_link} className="hover:underline font-medium">
-            {settings.nudge_banner_text}
+        {link ? (
+          <Link href={link} className="hover:underline font-medium">
+            {text}
           </Link>
         ) : (
-          <span className="font-medium">{settings.nudge_banner_text}</span>
+          <span className="font-medium">{text}</span>
         )}
         <button
           onClick={handleDismiss}

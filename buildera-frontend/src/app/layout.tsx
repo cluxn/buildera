@@ -8,6 +8,7 @@ import { WhatsAppWidget } from "@/components/ui/WhatsAppWidget";
 import { FloatingCTA } from "@/components/ui/FloatingCTA";
 import { NudgeBanner } from "@/components/ui/NudgeBanner";
 import { PopupManager } from "@/components/ui/PopupManager";
+import { fetchSettings, SETTINGS_FALLBACK } from "@/lib/api";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,11 +21,13 @@ export const metadata: Metadata = {
   description: "We build what your business needs to grow.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const settings = await fetchSettings().catch(() => SETTINGS_FALLBACK)
+
   return (
     <html lang="en" className={inter.variable}>
       <body className="antialiased" suppressHydrationWarning>
@@ -34,7 +37,12 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <NudgeBanner />
+        <NudgeBanner
+          enabled={settings.nudge_banner_enabled}
+          text={settings.nudge_banner_text}
+          link={settings.nudge_banner_link}
+          expiresAt={settings.nudge_banner_expires_at}
+        />
         <SiteNav />
         <main id="main-content">{children}</main>
         <SiteFooter />
