@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
 import {
   IconWorldWww,
   IconCloud,
@@ -10,12 +9,49 @@ import {
   IconCode,
   IconUsers,
   IconExternalLink,
+  IconBuildingFactory2,
+  IconShoppingCart,
+  IconPlaneDeparture,
+  IconBuildingBank,
+  IconHeart,
+  IconUserCheck,
+  IconBook,
+  IconScale,
+  IconLeaf,
+  IconShieldCheck,
+  IconCpu,
+  IconLayoutDashboard,
+  IconTruck,
+  IconBuildingWarehouse,
+  IconAddressBook,
+  IconChartBar,
+  IconTarget,
+  IconDatabase,
+  IconWallet,
+  IconChecklist,
+  IconTool,
+  IconPackage,
+  IconBottle,
+  IconFileAnalytics,
+  IconRoute,
+  IconBuildingSkyscraper,
+  IconMessageCircle,
+  IconCalendarEvent,
+  IconNews,
+  IconBook2,
+  IconMessage,
+  IconHelp,
+  IconLock,
+  IconFileText,
+  IconArrowRight,
 } from "@tabler/icons-react"
 import { motion, AnimatePresence } from "motion/react"
 import type { NavItem } from "@/lib/api"
 import type { ServiceMenuItem } from "./SiteNav"
 
-const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
+type IconComponent = React.ComponentType<{ className?: string }>
+
+const ICON_MAP: Record<string, IconComponent> = {
   IconWorldWww,
   IconCloud,
   IconSettings,
@@ -24,53 +60,80 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   IconUsers,
 }
 
-const INDUSTRIES_NAV = [
-  { label: "Manufacturing", href: "/industries/manufacturing", desc: "Production, ERP & supply chain" },
-  { label: "Retail & eCommerce", href: "/industries/retail", desc: "Inventory, CRM & commerce" },
-  { label: "Travel & Hospitality", href: "/industries/travel-hospitality", desc: "PMS, OTA & guest experience" },
-  { label: "FinTech", href: "/industries/fintech", desc: "Compliance, payments & reporting" },
-  { label: "Healthcare", href: "/industries/healthcare", desc: "HMS, patient portals & billing" },
-  { label: "HRTech", href: "/industries/hr-tech", desc: "Payroll, onboarding & performance" },
-  { label: "EdTech", href: "/industries/ed-tech", desc: "LMS, admissions & batch management" },
-  { label: "LegalTech", href: "/industries/legal-tech", desc: "Case management & billing" },
-  { label: "Cleantech", href: "/industries/cleantech", desc: "ESG tracking & sustainability data" },
-  { label: "InsurTech", href: "/industries/insur-tech", desc: "Policy admin & claims automation" },
-  { label: "Software & Hi-Tech", href: "/industries/software-hi-tech", desc: "SaaS, APIs & dev teams" },
-] as const
+interface IndustryItem {
+  label: string
+  href: string
+  desc: string
+  icon: IconComponent
+}
 
-const SOLUTION_NAV_FALLBACK = [
-  { label: "Operations Management", href: "/solutions/operations-management" },
-  { label: "Supply Chain", href: "/solutions/supply-chain" },
-  { label: "Warehouse Management", href: "/solutions/warehouse-management" },
-  { label: "HR Management", href: "/solutions/hr-management" },
-  { label: "CRM", href: "/solutions/crm" },
-  { label: "Sales Management", href: "/solutions/sales-management" },
-  { label: "Lead Management", href: "/solutions/lead-management" },
-  { label: "ERP", href: "/solutions/erp" },
-  { label: "Financial Management", href: "/solutions/financial-management" },
-  { label: "Project Management", href: "/solutions/project-management" },
-  { label: "IndiaMart Automation", href: "/solutions/india-mart-automation" },
-  { label: "Manufacturing & Production", href: "/solutions/manufacturing-production" },
-  { label: "Inventory Management", href: "/solutions/inventory-management" },
-  { label: "Liquor Shop Management", href: "/solutions/liquor-shop-management" },
-] as const
+interface SolutionItem {
+  label: string
+  href: string
+  icon: IconComponent
+}
 
-const WORK_NAV_FALLBACK = [
-  { label: "Case Studies", href: "/case-studies", desc: "Real projects, measurable outcomes" },
-  { label: "How We Work", href: "/how-we-work", desc: "Scoped → Built → Shipped → Supported" },
-  { label: "About Buildera", href: "/about", desc: "10+ years, 800+ projects, Kanpur-based" },
-  { label: "Testimonials", href: "/testimonials", desc: "What our clients say" },
-  { label: "Book a Discovery Call", href: "/contact", desc: "Free 30-min scoping session" },
-] as const
+interface WorkItem {
+  label: string
+  href: string
+  desc: string
+  icon: IconComponent
+}
 
-const RESOURCES_NAV_FALLBACK = [
-  { label: "Blog", href: "/blog", desc: "Tech insights for decision-makers" },
-  { label: "Guides", href: "/guides", desc: "How-to guides for your stack" },
-  { label: "Contact Us", href: "/contact", desc: "Talk to a solution expert" },
-  { label: "FAQ", href: "/faq", desc: "Pricing, timelines, and process" },
-  { label: "Privacy Policy", href: "/privacy-policy", desc: "" },
-  { label: "Terms of Service", href: "/terms", desc: "" },
-] as const
+interface ResourceItem {
+  label: string
+  href: string
+  desc: string
+  icon: IconComponent
+}
+
+const INDUSTRIES_NAV: IndustryItem[] = [
+  { label: "Manufacturing",      href: "/industries/manufacturing",      desc: "Production, ERP & supply chain",       icon: IconBuildingFactory2 },
+  { label: "Retail & eCommerce", href: "/industries/retail",             desc: "Inventory, CRM & commerce",            icon: IconShoppingCart },
+  { label: "Travel & Hospitality",href: "/industries/travel-hospitality",desc: "PMS, OTA & guest experience",          icon: IconPlaneDeparture },
+  { label: "FinTech",            href: "/industries/fintech",            desc: "Compliance, payments & reporting",     icon: IconBuildingBank },
+  { label: "Healthcare",         href: "/industries/healthcare",         desc: "HMS, patient portals & billing",       icon: IconHeart },
+  { label: "HRTech",             href: "/industries/hr-tech",            desc: "Payroll, onboarding & performance",    icon: IconUserCheck },
+  { label: "EdTech",             href: "/industries/ed-tech",            desc: "LMS, admissions & batch management",   icon: IconBook },
+  { label: "LegalTech",          href: "/industries/legal-tech",         desc: "Case management & billing",            icon: IconScale },
+  { label: "Cleantech",          href: "/industries/cleantech",          desc: "ESG tracking & sustainability data",   icon: IconLeaf },
+  { label: "InsurTech",          href: "/industries/insur-tech",         desc: "Policy admin & claims automation",     icon: IconShieldCheck },
+  { label: "Software & Hi-Tech", href: "/industries/software-hi-tech",  desc: "SaaS, APIs & dev teams",               icon: IconCpu },
+]
+
+const SOLUTION_NAV_FALLBACK: SolutionItem[] = [
+  { label: "Operations Management",     href: "/solutions/operations-management",   icon: IconLayoutDashboard },
+  { label: "Supply Chain",              href: "/solutions/supply-chain",            icon: IconTruck },
+  { label: "Warehouse Management",      href: "/solutions/warehouse-management",    icon: IconBuildingWarehouse },
+  { label: "HR Management",             href: "/solutions/hr-management",           icon: IconUsers },
+  { label: "CRM",                       href: "/solutions/crm",                     icon: IconAddressBook },
+  { label: "Sales Management",          href: "/solutions/sales-management",        icon: IconChartBar },
+  { label: "Lead Management",           href: "/solutions/lead-management",         icon: IconTarget },
+  { label: "ERP",                       href: "/solutions/erp",                     icon: IconDatabase },
+  { label: "Financial Management",      href: "/solutions/financial-management",    icon: IconWallet },
+  { label: "Project Management",        href: "/solutions/project-management",      icon: IconChecklist },
+  { label: "IndiaMart Automation",      href: "/solutions/india-mart-automation",   icon: IconRobot },
+  { label: "Manufacturing & Production",href: "/solutions/manufacturing-production",icon: IconTool },
+  { label: "Inventory Management",      href: "/solutions/inventory-management",    icon: IconPackage },
+  { label: "Liquor Shop Management",    href: "/solutions/liquor-shop-management",  icon: IconBottle },
+]
+
+const WORK_NAV_FALLBACK: WorkItem[] = [
+  { label: "Case Studies",         href: "/case-studies", desc: "Real projects, measurable outcomes",      icon: IconFileAnalytics },
+  { label: "How We Work",          href: "/how-we-work",  desc: "Scoped → Built → Shipped → Supported",   icon: IconRoute },
+  { label: "About Buildera",       href: "/about",        desc: "10+ years, 800+ projects, Kanpur-based", icon: IconBuildingSkyscraper },
+  { label: "Testimonials",         href: "/testimonials", desc: "What our clients say",                   icon: IconMessageCircle },
+  { label: "Book a Discovery Call",href: "/contact",      desc: "Free 30-min scoping session",            icon: IconCalendarEvent },
+]
+
+const RESOURCES_NAV_FALLBACK: ResourceItem[] = [
+  { label: "Blog",            href: "/blog",           desc: "Tech insights for decision-makers", icon: IconNews },
+  { label: "Guides",          href: "/guides",         desc: "How-to guides for your stack",      icon: IconBook2 },
+  { label: "Contact Us",      href: "/contact",        desc: "Talk to a solution expert",         icon: IconMessage },
+  { label: "FAQ",             href: "/faq",            desc: "Pricing, timelines, and process",   icon: IconHelp },
+  { label: "Privacy Policy",  href: "/privacy-policy", desc: "",                                  icon: IconLock },
+  { label: "Terms of Service",href: "/terms",          desc: "",                                  icon: IconFileText },
+]
 
 const PRODUCTS_NAV = [
   {
@@ -78,14 +141,12 @@ const PRODUCTS_NAV = [
     href: "https://barrelbooks.com/",
     desc: "Liquor shop management — daily stocks, purchases & transfers",
     logo: "/products/barrelbooks-logo.svg",
-    color: "hsl(217 91% 60%)",
   },
   {
     name: "Ease My Hotel",
     href: "https://easemyhotel.io/",
     desc: "Hotel & Airbnb management software for independent properties",
     logo: "/products/easemyhotel-logo.png",
-    color: "hsl(243 72% 50%)",
   },
 ] as const
 
@@ -130,6 +191,8 @@ export function MegaDropdown({
           onMouseLeave={onMouseLeave}
         >
           <div className="px-6 py-6">
+
+            {/* ── Services ── */}
             {activePanel === "Services" && (
               <div className="grid grid-cols-3 gap-6">
                 {servicesMenu.map((service) => {
@@ -163,86 +226,119 @@ export function MegaDropdown({
               </div>
             )}
 
+            {/* ── Industries ── */}
             {activePanel === "Industries" && (
-              <div className="grid grid-cols-3 gap-3">
-                {INDUSTRIES_NAV.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="flex flex-col gap-0.5 p-3 rounded-lg hover:bg-[var(--brand-surface)] transition-colors group"
-                  >
-                    <span className="text-sm font-semibold text-foreground group-hover:text-[var(--brand-primary)] transition-colors">
-                      {item.label}
-                    </span>
-                    <span className="text-xs text-muted-foreground">{item.desc}</span>
-                  </Link>
-                ))}
-              </div>
-            )}
-
-            {activePanel === "Solutions" && (
               <div className="grid grid-cols-3 gap-2">
+                {INDUSTRIES_NAV.map((item) => {
+                  const Icon = item.icon
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="flex items-start gap-3 p-3 rounded-lg border border-border hover:border-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-colors group"
+                    >
+                      <div className="w-7 h-7 rounded-md bg-[var(--brand-surface)] group-hover:bg-[var(--brand-primary)] flex items-center justify-center flex-shrink-0 transition-colors mt-0.5">
+                        <Icon className="size-4 text-[var(--brand-primary)] group-hover:text-white transition-colors" />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold text-foreground group-hover:text-[var(--brand-primary)] transition-colors leading-tight">
+                          {item.label}
+                        </p>
+                        <p className="text-xs text-muted-foreground mt-0.5 leading-snug">{item.desc}</p>
+                      </div>
+                    </Link>
+                  )
+                })}
+              </div>
+            )}
+
+            {/* ── Solutions ── */}
+            {activePanel === "Solutions" && (
+              <div className="grid grid-cols-3 gap-1.5">
                 {(solutionItems.length > 0
-                  ? solutionItems.map((item) => ({ label: item.label, href: item.url }))
+                  ? solutionItems.map((item) => ({ label: item.label, href: item.url, icon: IconArrowRight as IconComponent }))
                   : SOLUTION_NAV_FALLBACK
-                ).map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="flex items-center p-3 rounded-lg hover:bg-[var(--brand-surface)] transition-colors group min-h-[44px]"
-                  >
-                    <span className="text-sm font-medium text-foreground group-hover:text-[var(--brand-primary)] transition-colors">
-                      {item.label}
-                    </span>
-                  </Link>
-                ))}
+                ).map((item) => {
+                  const Icon = item.icon
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg border border-border hover:border-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-colors group min-h-[44px]"
+                    >
+                      <Icon className="size-4 text-[var(--brand-primary)] shrink-0" />
+                      <span className="text-sm font-medium text-foreground group-hover:text-[var(--brand-primary)] transition-colors">
+                        {item.label}
+                      </span>
+                    </Link>
+                  )
+                })}
               </div>
             )}
 
+            {/* ── Work ── */}
             {activePanel === "Work" && (
-              <div className="grid grid-cols-2 gap-3 min-w-[400px]">
+              <div className="grid grid-cols-2 gap-2 min-w-[400px]">
                 {(workItems.length > 0
-                  ? workItems.map((i) => ({ label: i.label, href: i.url, desc: "" }))
+                  ? workItems.map((i) => ({ label: i.label, href: i.url, desc: "", icon: IconArrowRight as IconComponent }))
                   : WORK_NAV_FALLBACK
-                ).map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="flex flex-col gap-0.5 px-4 py-3 rounded-lg hover:bg-[var(--brand-surface)] transition-colors group"
-                  >
-                    <span className="text-sm font-semibold text-foreground group-hover:text-[var(--brand-primary)] transition-colors">
-                      {item.label}
-                    </span>
-                    {item.desc && (
-                      <span className="text-xs text-muted-foreground">{item.desc}</span>
-                    )}
-                  </Link>
-                ))}
+                ).map((item) => {
+                  const Icon = item.icon
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="flex items-start gap-3 px-3 py-3 rounded-lg border border-border hover:border-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-colors group"
+                    >
+                      <div className="w-7 h-7 rounded-md bg-[var(--brand-surface)] group-hover:bg-[var(--brand-primary)] flex items-center justify-center flex-shrink-0 transition-colors mt-0.5">
+                        <Icon className="size-4 text-[var(--brand-primary)] group-hover:text-white transition-colors" />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold text-foreground group-hover:text-[var(--brand-primary)] transition-colors">
+                          {item.label}
+                        </p>
+                        {item.desc && (
+                          <p className="text-xs text-muted-foreground mt-0.5">{item.desc}</p>
+                        )}
+                      </div>
+                    </Link>
+                  )
+                })}
               </div>
             )}
 
+            {/* ── Resources ── */}
             {activePanel === "Resources" && (
-              <div className="grid grid-cols-2 gap-3 min-w-[400px]">
+              <div className="grid grid-cols-2 gap-2 min-w-[400px]">
                 {(resourceItems.length > 0
-                  ? resourceItems.map((i) => ({ label: i.label, href: i.url, desc: "" }))
+                  ? resourceItems.map((i) => ({ label: i.label, href: i.url, desc: "", icon: IconArrowRight as IconComponent }))
                   : RESOURCES_NAV_FALLBACK
-                ).map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="flex flex-col gap-0.5 px-4 py-3 rounded-lg hover:bg-[var(--brand-surface)] transition-colors group"
-                  >
-                    <span className="text-sm font-semibold text-foreground group-hover:text-[var(--brand-primary)] transition-colors">
-                      {item.label}
-                    </span>
-                    {item.desc && (
-                      <span className="text-xs text-muted-foreground">{item.desc}</span>
-                    )}
-                  </Link>
-                ))}
+                ).map((item) => {
+                  const Icon = item.icon
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="flex items-start gap-3 px-3 py-3 rounded-lg border border-border hover:border-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-colors group"
+                    >
+                      <div className="w-7 h-7 rounded-md bg-[var(--brand-surface)] group-hover:bg-[var(--brand-primary)] flex items-center justify-center flex-shrink-0 transition-colors mt-0.5">
+                        <Icon className="size-4 text-[var(--brand-primary)] group-hover:text-white transition-colors" />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold text-foreground group-hover:text-[var(--brand-primary)] transition-colors">
+                          {item.label}
+                        </p>
+                        {item.desc && (
+                          <p className="text-xs text-muted-foreground mt-0.5">{item.desc}</p>
+                        )}
+                      </div>
+                    </Link>
+                  )
+                })}
               </div>
             )}
 
+            {/* ── Our Products ── */}
             {activePanel === "Our Products" && (
               <div className="flex flex-col gap-2 min-w-[420px]">
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-1 px-1">
@@ -256,9 +352,7 @@ export function MegaDropdown({
                     rel="noopener noreferrer"
                     className="flex items-center gap-4 p-4 rounded-xl border border-border hover:border-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-all group"
                   >
-                    <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 overflow-hidden bg-white border border-border"
-                    >
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 overflow-hidden bg-white border border-border">
                       <img
                         src={product.logo}
                         alt={`${product.name} logo`}
@@ -278,6 +372,7 @@ export function MegaDropdown({
                 ))}
               </div>
             )}
+
           </div>
         </motion.div>
       )}

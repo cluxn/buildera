@@ -4,35 +4,20 @@ import { useState, useEffect } from 'react'
 import { motion } from 'motion/react'
 import { IconBrandWhatsapp } from '@tabler/icons-react'
 
-export function WhatsAppWidget() {
-  const [whatsappNumber, setWhatsappNumber] = useState('')
-  const [isEnabled, setIsEnabled] = useState(false)
+interface Props {
+  number: string
+  enabled: boolean
+}
+
+export function WhatsAppWidget({ number, enabled }: Props) {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    // Fetch settings to get whatsapp_number and whatsapp_enabled
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/settings`)
-      .then((r) => r.json())
-      .then((data) => {
-        setWhatsappNumber(data?.whatsapp_number ?? '')
-        // Use whatsapp_enabled field; if missing, treat as enabled when number is non-empty
-        setIsEnabled(
-          typeof data?.whatsapp_enabled === 'boolean'
-            ? data.whatsapp_enabled
-            : Boolean(data?.whatsapp_number)
-        )
-      })
-      .catch(() => {
-        // API unavailable — stay hidden
-      })
-
-    // Delay visibility to prevent CLS on initial load
     const timer = setTimeout(() => setIsVisible(true), 3000)
     return () => clearTimeout(timer)
   }, [])
 
-  // Render null if: settings not loaded, number is empty, or widget is disabled
-  if (!isVisible || !whatsappNumber || !isEnabled) {
+  if (!isVisible || !number || !enabled) {
     return null
   }
 
@@ -44,7 +29,7 @@ export function WhatsAppWidget() {
       transition={{ type: 'spring', stiffness: 300, damping: 25 }}
     >
       <a
-        href={`https://wa.me/${whatsappNumber}`}
+        href={`https://wa.me/${number}`}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"
