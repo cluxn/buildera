@@ -14,7 +14,7 @@ interface Props {
   navItems: NavItem[]
 }
 
-const NAV_PANELS = ["Services", "Industries", "Solutions", "Work", "Resources", "Our Products"] as const
+const NAV_PANELS = ["Services", "Industries", "Solutions", "Work", "Resources", "Products"] as const
 
 // Pixel width for each dropdown panel
 const PANEL_WIDTHS: Record<string, number> = {
@@ -23,7 +23,7 @@ const PANEL_WIDTHS: Record<string, number> = {
   Solutions: 720,
   Work: 460,
   Resources: 460,
-  "Our Products": 480,
+  Products: 480,
 }
 
 export function SiteNavClient({ servicesMenu, navItems }: Props) {

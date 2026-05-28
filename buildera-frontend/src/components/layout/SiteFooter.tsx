@@ -204,7 +204,7 @@ export async function SiteFooter() {
           </div>
 
           {/* Columns 2–3: Services — spans 2 cols with 2 internal sub-columns */}
-          <div className="lg:col-span-2 flex flex-col gap-4 lg:border-r lg:border-slate-700 lg:pr-8">
+          <div className="lg:col-span-2 flex flex-col gap-4 lg:pr-8">
             <h3 className="text-sm font-semibold text-white uppercase tracking-wider">Services</h3>
             <div className="grid grid-cols-2 gap-x-8">
               {/* Left sub-column */}
