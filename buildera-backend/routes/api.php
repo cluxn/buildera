@@ -32,6 +32,7 @@ Route::get('/search', [SearchController::class, 'index']);
 // Blog posts
 Route::get('/blog-posts', [BlogPostController::class, 'index']);
 Route::get('/blog-posts/{slug}', [BlogPostController::class, 'show']);
+Route::get('/blog-categories', [BlogPostController::class, 'categories']);
 
 // Case studies
 Route::get('/case-studies', [CaseStudyController::class, 'index']);

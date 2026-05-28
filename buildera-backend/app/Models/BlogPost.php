@@ -24,6 +24,7 @@ class BlogPost extends Model
         'tags',
         'status',
         'is_published',
+        'is_featured',
         'published_at',
         'seo_title',
         'seo_description',
@@ -34,15 +35,25 @@ class BlogPost extends Model
     protected $casts = [
         'tags'         => 'array',
         'is_published' => 'boolean',
+        'is_featured'  => 'boolean',
         'published_at' => 'datetime',
         'views'        => 'integer',
     ];
+
+    protected $appends = ['reading_time'];
 
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('title')
-            ->saveSlugsTo('slug');
+            ->saveSlugsTo('slug')
+            ->doNotGenerateSlugsOnUpdate();
+    }
+
+    public function getReadingTimeAttribute(): int
+    {
+        $wordCount = str_word_count(strip_tags($this->body ?? ''));
+        return max(1, (int) ceil($wordCount / 200));
     }
 
     public function author(): BelongsTo

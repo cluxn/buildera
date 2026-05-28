@@ -14,6 +14,7 @@ class Author extends Model
     protected $fillable = [
         'name',
         'slug',
+        'role',
         'bio',
         'avatar',
         'twitter_url',

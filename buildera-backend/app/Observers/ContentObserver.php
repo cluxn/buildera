@@ -15,6 +15,8 @@ class ContentObserver
     {
         $map = [
             \App\Models\BlogPost::class    => 'blog_posts',
+            \App\Models\Author::class      => 'blog_posts',
+            \App\Models\Category::class    => 'blog_posts',
             \App\Models\CaseStudy::class   => 'case_studies',
             \App\Models\Guide::class       => 'guides',
             \App\Models\Testimonial::class => 'testimonials',

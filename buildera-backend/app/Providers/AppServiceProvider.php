@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Author;
 use App\Models\BlogPost;
+use App\Models\Category;
 use App\Models\CaseStudy;
 use App\Models\Guide;
 use App\Models\Lead;
@@ -40,6 +42,8 @@ class AppServiceProvider extends ServiceProvider
 
         // Register content observers — fires RevalidationJob on save/delete for ISR cache purge
         BlogPost::observe(ContentObserver::class);
+        Author::observe(ContentObserver::class);
+        Category::observe(ContentObserver::class);
         CaseStudy::observe(ContentObserver::class);
         Guide::observe(ContentObserver::class);
         Testimonial::observe(ContentObserver::class);
