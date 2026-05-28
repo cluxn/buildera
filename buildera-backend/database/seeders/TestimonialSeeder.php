@@ -287,7 +287,10 @@ class TestimonialSeeder extends Seeder
         ];
 
         foreach ($testimonials as $data) {
-            Testimonial::create($data);
+            Testimonial::updateOrCreate(
+                ['client_name' => $data['client_name'], 'client_company' => $data['client_company']],
+                $data
+            );
         }
     }
 }

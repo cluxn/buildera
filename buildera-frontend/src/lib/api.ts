@@ -144,3 +144,90 @@ export async function fetchCaseStudies(
     next: { tags: ['case-studies'], revalidate: 3600 },
   } as RequestInit).catch(() => [])
 }
+
+// ─── Blog Types ───────────────────────────────────────────────────────────────
+
+export type BlogPost = {
+  id: number; title: string; slug: string; excerpt: string;
+  category: string; tags: string[]; image_path: string | null; image_alt: string | null;
+  reading_time: number; published_at: string;
+  author: { name: string; avatar: string | null } | null;
+}
+export type BlogPostDetail = BlogPost & {
+  body: string; seo_title: string | null; seo_description: string | null;
+  author: { name: string; bio: string | null; role: string | null; linkedin_url: string | null; avatar: string | null } | null;
+}
+export type BlogListResponse = {
+  data: BlogPost[]; current_page: number; last_page: number; per_page: number; total: number;
+}
+export type BlogCategory = { id: number; name: string; slug: string }
+
+export async function getBlogPosts(page = 1, category?: string): Promise<BlogListResponse> {
+  const params = new URLSearchParams({ page: String(page) })
+  if (category) params.set('category', category)
+  return fetchFromApi<BlogListResponse>(`/api/blog-posts?${params}`, { next: { tags: ['blog_posts'], revalidate: 3600 } } as RequestInit)
+    .catch(() => ({ data: [], current_page: 1, last_page: 1, per_page: 12, total: 0 }))
+}
+export async function getBlogPost(slug: string): Promise<BlogPostDetail | null> {
+  return fetchFromApi<BlogPostDetail>(`/api/blog-posts/${slug}`, { next: { tags: ['blog_posts'], revalidate: 3600 } } as RequestInit)
+    .catch(() => null)
+}
+export async function getBlogCategories(): Promise<BlogCategory[]> {
+  return fetchFromApi<BlogCategory[]>('/api/blog-categories', { next: { tags: ['blog_posts'], revalidate: 86400 } } as RequestInit)
+    .catch(() => [])
+}
+
+// ─── Content Types ────────────────────────────────────────────────────────────
+
+export type ContentCaseStudy = {
+  id: number; title: string; slug: string; client_name: string | null;
+  industry: string; hero_image: string | null; hero_image_alt: string | null;
+  key_metrics: { label: string; value: string }[]; published_at: string;
+}
+export type ContentCaseStudyDetail = ContentCaseStudy & {
+  problem: string; solution: string; results: string;
+  testimonial_quote: string | null; testimonial_author: string | null;
+  seo_title: string | null; seo_description: string | null;
+}
+export type ContentCaseStudyListResponse = { data: ContentCaseStudy[]; current_page: number; last_page: number; per_page: number; total: number }
+
+export type Guide = {
+  id: number; title: string; slug: string; category: string;
+  description: string; resource_type: string;
+  cover_image: string | null; cover_image_alt: string | null; published_at: string;
+}
+export type GuideDetail = Guide & { body: string; external_link: string | null; seo_title: string | null; seo_description: string | null }
+export type GuideListResponse = { data: Guide[]; current_page: number; last_page: number; per_page: number; total: number }
+
+export type Testimonial = {
+  id: number; quote: string; client_name: string; job_title: string | null;
+  company: string | null; company_logo: string | null;
+  star_rating: number; service_category: string | null; industry: string | null; is_featured: boolean;
+}
+
+export async function getContentCaseStudies(page = 1, industry?: string): Promise<ContentCaseStudyListResponse> {
+  const params = new URLSearchParams({ page: String(page) })
+  if (industry) params.set('industry', industry)
+  return fetchFromApi<ContentCaseStudyListResponse>(`/api/case-studies?${params}`, { next: { tags: ['case_studies'], revalidate: 3600 } } as RequestInit)
+    .catch(() => ({ data: [], current_page: 1, last_page: 1, per_page: 12, total: 0 }))
+}
+export async function getContentCaseStudy(slug: string): Promise<ContentCaseStudyDetail | null> {
+  return fetchFromApi<ContentCaseStudyDetail>(`/api/case-studies/${slug}`, { next: { tags: ['case_studies'], revalidate: 3600 } } as RequestInit)
+    .catch(() => null)
+}
+export async function getGuides(page = 1, category?: string, resourceType?: string): Promise<GuideListResponse> {
+  const params = new URLSearchParams({ page: String(page) })
+  if (category) params.set('category', category)
+  if (resourceType) params.set('resource_type', resourceType)
+  return fetchFromApi<GuideListResponse>(`/api/guides?${params}`, { next: { tags: ['guides'], revalidate: 3600 } } as RequestInit)
+    .catch(() => ({ data: [], current_page: 1, last_page: 1, per_page: 12, total: 0 }))
+}
+export async function getGuide(slug: string): Promise<GuideDetail | null> {
+  return fetchFromApi<GuideDetail>(`/api/guides/${slug}`, { next: { tags: ['guides'], revalidate: 3600 } } as RequestInit)
+    .catch(() => null)
+}
+export async function getTestimonialsPage(serviceCategory?: string): Promise<Testimonial[]> {
+  const params = serviceCategory ? `?service_category=${encodeURIComponent(serviceCategory)}` : ''
+  return fetchFromApi<Testimonial[]>(`/api/testimonials${params}`, { next: { tags: ['testimonials'], revalidate: 3600 } } as RequestInit)
+    .catch(() => [])
+}

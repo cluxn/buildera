@@ -152,7 +152,7 @@ class CaseStudySeeder extends Seeder
         ];
 
         foreach ($caseStudies as $data) {
-            CaseStudy::create($data);
+            CaseStudy::updateOrCreate(['slug' => $data['slug']], $data);
         }
     }
 }
