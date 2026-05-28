@@ -13,7 +13,7 @@ export function ServiceProcess({ steps }: Props) {
             Our Delivery Process
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
-            A transparent, milestone-driven process so you always know what's happening and what's coming next.
+            A transparent, milestone-driven process so you always know what&apos;s happening and what&apos;s coming next.
           </p>
         </div>
         <SequentialSteps steps={steps} />

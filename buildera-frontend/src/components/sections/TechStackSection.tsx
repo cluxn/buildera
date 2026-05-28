@@ -2,23 +2,143 @@
 
 import { useState } from "react"
 import { cn } from "@/lib/utils"
+import {
+  siReact, siNextdotjs, siTypescript, siTailwindcss, siVuedotjs, siAngular,
+  siVite, siShadcnui, siLaravel, siNodedotjs, siPhp, siExpress, siFastify,
+  siNestjs, siWordpress, siStrapi, siSanity, siContentful, siPayloadcms,
+  siGhost, siWoocommerce, siShopify, siStripe, siRazorpay, siPaypal,
+  siGooglecloud, siDigitalocean, siHostinger, siCloudflare, siGithubactions,
+  siJenkins, siCircleci, siGitlab, siBitbucket, siArgo, siDocker,
+  siKubernetes, siTerraform, siAnsible, siHelm, siNginx, siGrafana,
+  siPrometheus, siDatadog, siNewrelic, siSentry, siUptimekuma, siClaude,
+  siMeta, siOllama, siGooglegemini, siMistralai, siAnthropic, siLangchain,
+  siCrewai, siHaystack, siN8n, siZapier, siMake, siHubspot, siMailchimp,
+  siAirtable, siDialogflow, siMysql, siPostgresql, siMongodb, siRedis,
+  siElasticsearch, siSqlite, siFlutter, siExpo, siSwift, siKotlin,
+  siCapacitor, siPython, siDjango, siFastapi, siGo, siGraphql, siTrpc,
+  siSwagger,
+} from "simple-icons"
 
-interface Tech {
-  name: string
-  color: string
+type SiIcon = { path: string; hex: string }
+
+const ICON_MAP: Record<string, SiIcon> = {
+  "React": siReact,
+  "Next.js": siNextdotjs,
+  "TypeScript": siTypescript,
+  "Tailwind CSS": siTailwindcss,
+  "Vue.js": siVuedotjs,
+  "Angular": siAngular,
+  "Vite": siVite,
+  "shadcn/ui": siShadcnui,
+  "Laravel": siLaravel,
+  "Node.js": siNodedotjs,
+  "PHP 8": siPhp,
+  "Express.js": siExpress,
+  "Fastify": siFastify,
+  "Nest.js": siNestjs,
+  "WordPress": siWordpress,
+  "Strapi": siStrapi,
+  "Sanity": siSanity,
+  "Contentful": siContentful,
+  "Payload CMS": siPayloadcms,
+  "Ghost": siGhost,
+  "WooCommerce": siWoocommerce,
+  "Shopify": siShopify,
+  "Stripe": siStripe,
+  "Razorpay": siRazorpay,
+  "PayPal": siPaypal,
+  "Google Cloud": siGooglecloud,
+  "DigitalOcean": siDigitalocean,
+  "Hostinger VPS": siHostinger,
+  "Cloudflare": siCloudflare,
+  "GitHub Actions": siGithubactions,
+  "Jenkins": siJenkins,
+  "CircleCI": siCircleci,
+  "GitLab CI": siGitlab,
+  "Bitbucket Pipelines": siBitbucket,
+  "ArgoCD": siArgo,
+  "Docker": siDocker,
+  "Kubernetes": siKubernetes,
+  "Terraform": siTerraform,
+  "Ansible": siAnsible,
+  "Helm": siHelm,
+  "Nginx": siNginx,
+  "Grafana": siGrafana,
+  "Prometheus": siPrometheus,
+  "Datadog": siDatadog,
+  "New Relic": siNewrelic,
+  "Sentry": siSentry,
+  "Uptime Kuma": siUptimekuma,
+  "Claude (Anthropic)": siClaude,
+  "Llama 3": siMeta,
+  "Ollama": siOllama,
+  "Gemini": siGooglegemini,
+  "Mistral": siMistralai,
+  "LangChain": siLangchain,
+  "CrewAI": siCrewai,
+  "Haystack": siHaystack,
+  "n8n": siN8n,
+  "Zapier": siZapier,
+  "Make (Integromat)": siMake,
+  "HubSpot": siHubspot,
+  "Mailchimp": siMailchimp,
+  "Airtable": siAirtable,
+  "Dialogflow": siDialogflow,
+  "MySQL": siMysql,
+  "PostgreSQL": siPostgresql,
+  "MongoDB": siMongodb,
+  "Redis": siRedis,
+  "Elasticsearch": siElasticsearch,
+  "SQLite": siSqlite,
+  "Flutter": siFlutter,
+  "Expo": siExpo,
+  "Swift (iOS)": siSwift,
+  "Kotlin (Android)": siKotlin,
+  "Capacitor": siCapacitor,
+  "Python": siPython,
+  "Django": siDjango,
+  "FastAPI": siFastapi,
+  "Go": siGo,
+  "GraphQL": siGraphql,
+  "tRPC": siTrpc,
+  "OpenAPI / Swagger": siSwagger,
+  "pgvector": siPostgresql,
+  "FAISS": siMeta,
+  "React Native": siReact,
+  "Anthropic SDK": siAnthropic,
 }
 
-interface SubCategory {
-  id: string
-  label: string
-  techs: Tech[]
+function TechIcon({ name, color }: { name: string; color: string }) {
+  const icon = ICON_MAP[name]
+  if (icon) {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        width={16}
+        height={16}
+        fill={`#${icon.hex}`}
+        aria-hidden="true"
+        className="shrink-0"
+      >
+        <path d={icon.path} />
+      </svg>
+    )
+  }
+  const letters = name.replace(/[^A-Za-z0-9]/g, "").slice(0, 2).toUpperCase()
+  return (
+    <span
+      className="shrink-0 inline-flex items-center justify-center rounded text-[8px] font-bold leading-none"
+      style={{ width: 16, height: 16, backgroundColor: color + "28", color }}
+      aria-hidden="true"
+    >
+      {letters}
+    </span>
+  )
 }
 
-interface ServiceCategory {
-  id: string
-  label: string
-  subCategories: SubCategory[]
-}
+interface Tech { name: string; color: string }
+interface SubCategory { id: string; label: string; techs: Tech[] }
+interface ServiceCategory { id: string; label: string; subCategories: SubCategory[] }
 
 const TECH_DATA: ServiceCategory[] = [
   {
@@ -179,7 +299,7 @@ const TECH_DATA: ServiceCategory[] = [
           { name: "Datadog", color: "#632CA6" },
           { name: "New Relic", color: "#1CE783" },
           { name: "Sentry", color: "#362D59" },
-          { name: "Uptime Robot", color: "#3BD671" },
+          { name: "Uptime Kuma", color: "#5CDD8B" },
         ],
       },
     ],
@@ -197,7 +317,7 @@ const TECH_DATA: ServiceCategory[] = [
           { name: "Gemini", color: "#4285F4" },
           { name: "Llama 3", color: "#0467DF" },
           { name: "Mistral", color: "#FF7000" },
-          { name: "Grok", color: "#1DA1F2" },
+          { name: "Ollama", color: "#000000" },
         ],
       },
       {
@@ -210,6 +330,7 @@ const TECH_DATA: ServiceCategory[] = [
           { name: "AutoGen", color: "#0078D4" },
           { name: "Haystack", color: "#4CAF50" },
           { name: "Flowise", color: "#7B68EE" },
+          { name: "Anthropic SDK", color: "#D97757" },
         ],
       },
       {
@@ -231,6 +352,9 @@ const TECH_DATA: ServiceCategory[] = [
           { name: "n8n", color: "#EA4B71" },
           { name: "Zapier", color: "#FF4A00" },
           { name: "Make (Integromat)", color: "#6D00CC" },
+          { name: "Airtable", color: "#18BFFF" },
+          { name: "HubSpot", color: "#FF7A59" },
+          { name: "Mailchimp", color: "#FFE01B" },
           { name: "Voiceflow", color: "#5865F2" },
           { name: "Botpress", color: "#1F8DD6" },
           { name: "Dialogflow", color: "#FF6F00" },
@@ -309,6 +433,7 @@ export function TechStackSection() {
   return (
     <section className="py-20 bg-white border-t border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
         {/* Heading */}
         <div className="text-center mb-12">
           <p className="text-xs font-medium uppercase tracking-widest text-[var(--brand-primary)] mb-3">
@@ -322,9 +447,9 @@ export function TechStackSection() {
           </p>
         </div>
 
-        {/* Service category tabs */}
+        {/* Service category tabs — centered */}
         <div className="relative mb-8">
-          <div className="flex gap-0 overflow-x-auto scrollbar-hide border-b border-border">
+          <div className="flex justify-center gap-0 overflow-x-auto scrollbar-hide border-b border-border">
             {TECH_DATA.map((service, idx) => (
               <button
                 key={service.id}
@@ -345,8 +470,8 @@ export function TechStackSection() {
           </div>
         </div>
 
-        {/* Sub-category pills */}
-        <div className="flex flex-wrap gap-2 mb-10">
+        {/* Sub-category pills — centered */}
+        <div className="flex flex-wrap justify-center gap-2 mb-10">
           {currentService.subCategories.map((sub, idx) => (
             <button
               key={sub.id}
@@ -363,24 +488,21 @@ export function TechStackSection() {
           ))}
         </div>
 
-        {/* Tech grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+        {/* Tech pills — centered flex-wrap */}
+        <div className="flex flex-wrap justify-center gap-3">
           {currentSubCat.techs.map((tech) => (
             <div
               key={tech.name}
-              className="flex items-center gap-2.5 px-4 py-3 rounded-xl border border-border bg-white hover:border-[var(--brand-primary)] hover:shadow-sm transition-all duration-150 group"
+              className="inline-flex items-center gap-2.5 px-4 py-3 rounded-xl border border-border bg-white hover:border-[var(--brand-primary)] hover:shadow-sm transition-all duration-150 group"
             >
-              <span
-                className="shrink-0 size-2.5 rounded-full"
-                style={{ backgroundColor: tech.color }}
-                aria-hidden="true"
-              />
-              <span className="text-xs font-medium text-foreground group-hover:text-[var(--brand-primary)] transition-colors leading-tight">
+              <TechIcon name={tech.name} color={tech.color} />
+              <span className="text-xs font-medium text-foreground group-hover:text-[var(--brand-primary)] transition-colors leading-tight whitespace-nowrap">
                 {tech.name}
               </span>
             </div>
           ))}
         </div>
+
       </div>
     </section>
   )

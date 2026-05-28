@@ -102,7 +102,7 @@ export function SolutionsGridSection() {
           transition={{ delay: 0.4, duration: 0.5 }}
         >
           <a href="/book-a-call" className="btn-primary">
-            Found Your Problem? Let's Build the Fix →
+            Found Your Problem? Let&apos;s Build the Fix →
           </a>
         </motion.div>
 
