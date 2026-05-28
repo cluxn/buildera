@@ -50,13 +50,13 @@ export const websiteDevelopmentServices: ServicePageData[] = [
     categorySlug: 'website-development',
     slug: 'ecommerce-websites',
     heroHeadline: 'E-Commerce That Sells While You Sleep',
-    heroSubheadline: 'Stop losing sales to a clunky checkout and an inventory system that doesn't sync. We build e-commerce stores that are fast, beautiful, and connected to your operations.',
+    heroSubheadline: "Stop losing sales to a clunky checkout and an inventory system that doesn't sync. We build e-commerce stores that are fast, beautiful, and connected to your operations.",
     heroCta: 'Book a Free Call',
     heroStat: { value: 40, suffix: '%', label: 'Avg Revenue Increase' },
     painPoints: [
       'Cart abandonment is draining revenue — a slow or complicated checkout costs you 7 in 10 buyers.',
       'Manual inventory tracking means overselling, stockouts, and hours of reconciliation every week.',
-      'Your store isn't optimised for mobile — and 70% of purchases now happen on phones.',
+      'Your store isn\'t optimised for mobile — and 70% of purchases now happen on phones.',
     ],
     outcomeCards: [
       { title: 'Optimised Checkout Flow', description: 'Fewer steps, faster loading, and multiple payment options mean buyers complete the purchase.', metric: '35% fewer abandoned carts' },
@@ -100,7 +100,7 @@ export const websiteDevelopmentServices: ServicePageData[] = [
     painPoints: [
       'Spreadsheets are running operations that should have real software — and they break when you scale.',
       'Your team wastes hours on manual processes that a properly built app would automate in seconds.',
-      'Off-the-shelf tools don't fit your workflow — you end up workarounding them instead of using them.',
+      'Off-the-shelf tools don\'t fit your workflow — you end up workarounding them instead of using them.',
     ],
     outcomeCards: [
       { title: 'Custom Business Logic', description: 'Every rule, approval flow, and exception your business runs on — encoded precisely into the app.' },
