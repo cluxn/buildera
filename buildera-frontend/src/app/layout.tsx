@@ -4,6 +4,8 @@ import "@/lib/env";
 import "./globals.css";
 import { SiteNav } from "@/components/layout/SiteNav";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { WhatsAppWidget } from "@/components/ui/WhatsAppWidget";
+import { FloatingCTA } from "@/components/ui/FloatingCTA";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,6 +35,8 @@ export default function RootLayout({
         <SiteNav />
         <main id="main-content">{children}</main>
         <SiteFooter />
+        <WhatsAppWidget />
+        <FloatingCTA />
       </body>
     </html>
   );

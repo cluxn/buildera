@@ -7,7 +7,7 @@ import {
 import { Separator } from "@/components/ui/separator"
 import { fetchFooterLinks, fetchSettings } from "@/lib/api"
 import type { FooterLink } from "@/lib/api"
-import { cn } from "@/lib/utils"
+import { NewsletterForm } from "@/components/sections/NewsletterForm"
 
 // ─── Services sub-columns (grouped sub-service links) ────────────────────────
 
@@ -275,7 +275,6 @@ export async function SiteFooter() {
         <Separator className="bg-slate-700" />
 
         {/* ── Newsletter strip ── */}
-        {/* action="#" is an intentional Phase 3 visual stub — POST /api/subscribers wiring deferred to Phase 5 plan 05-04 */}
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-6 py-8">
           <div className="flex flex-col gap-1">
             <p className="text-sm font-semibold text-white">
@@ -285,27 +284,7 @@ export async function SiteFooter() {
               Get the latest insights on technology trends and business growth.
             </p>
           </div>
-          <form
-            action="#"
-            className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto"
-          >
-            <input
-              type="email"
-              name="email"
-              required
-              placeholder="Enter your email"
-              aria-label="Email address for newsletter"
-              className={cn(
-                "bg-slate-800 border border-slate-700 text-white placeholder-slate-500",
-                "rounded-lg px-4 py-2.5 text-sm min-h-[48px]",
-                "focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary)] focus:border-transparent",
-                "w-full sm:w-64"
-              )}
-            />
-            <button type="submit" className="btn-primary whitespace-nowrap !px-5">
-              Subscribe
-            </button>
-          </form>
+          <NewsletterForm />
         </div>
 
         <Separator className="bg-slate-700" />
