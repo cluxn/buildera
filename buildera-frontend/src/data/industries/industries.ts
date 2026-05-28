@@ -7,7 +7,19 @@ export const industries: IndustryPageData[] = [
     heroHeadline: 'Smart Manufacturing Software for Modern Indian Factories',
     heroSubheadline: 'Stop losing revenue to production downtime, quality failures, and supply chain chaos. We build custom manufacturing software that gives you real-time visibility across every stage of production — from raw material to dispatch.',
     heroStat: { value: '40%', label: 'Faster Production Cycles' },
+    heroStats: [
+      { value: '40%', label: 'Faster Production Cycles' },
+      { value: '60%', label: 'Reduction in Downtime' },
+      { value: '30%', label: 'Lower Scrap Rate' },
+      { value: '2x', label: 'Faster Management Reporting' },
+    ],
     overview: 'Indian manufacturers face mounting pressure from rising input costs, quality demands, and delivery timelines. Buildera builds purpose-built software that eliminates manual tracking, connects your plant floor to your finance team, and gives you the data to make faster decisions.',
+    benefits: [
+      'Real-time production visibility from factory floor to boardroom',
+      'Custom-built for Indian manufacturing workflows and compliance',
+      'Integrates with existing ERP, machinery, and IoT sensors',
+      'Dedicated support team through every phase of deployment',
+    ],
     challenges: [
       { title: 'No Real-Time Production Visibility', description: 'Floor supervisors track output on whiteboards. Management reviews yesterday\'s numbers in Excel tonight. Decisions are always a day late.' },
       { title: 'Quality Defects Caught Too Late', description: 'Quality checks at end-of-line mean entire batches are scrapped. In-process defects go undetected until they\'ve multiplied.' },
@@ -35,7 +47,19 @@ export const industries: IndustryPageData[] = [
     heroHeadline: 'Retail Software That Sells More While You Sleep',
     heroSubheadline: 'From inventory sync to customer engagement, we build the custom software that keeps retail and eCommerce businesses ahead of competition — and keeps customers coming back.',
     heroStat: { value: '3x', label: 'More Online Revenue' },
+    heroStats: [
+      { value: '3x', label: 'More Online Revenue' },
+      { value: '40%', label: 'Higher Customer Retention' },
+      { value: '60%', label: 'Less Manual Reconciliation' },
+      { value: '2–4 wks', label: 'Typical Delivery Timeline' },
+    ],
     overview: 'Retail is won and lost on customer experience and operational efficiency. Buildera builds systems that unify your inventory, automate customer follow-ups, and give you the visibility to make smarter buying decisions — before you overstock or run dry.',
+    benefits: [
+      'Unified inventory sync across all online and offline channels',
+      'Customer retention and loyalty automation built in from day one',
+      'Works with Shopify, WooCommerce, or fully custom storefronts',
+      'Launched and supported by our in-house development team',
+    ],
     challenges: [
       { title: 'Inventory Inaccuracy Killing Margins', description: 'Stockouts lose you the sale. Overstock ties up cash. Without real-time inventory sync across channels, you\'re always guessing.' },
       { title: 'Cart Abandonment You Can\'t Recover', description: 'Customers drop off at checkout and nobody follows up. Revenue walks out the door every hour.' },
@@ -63,7 +87,19 @@ export const industries: IndustryPageData[] = [
     heroHeadline: 'Hospitality Software That Fills Rooms and Delights Guests',
     heroSubheadline: 'From hotel PMS to OTA channel management and automated guest communication, Buildera builds systems that increase occupancy, reduce manual workload, and deliver the guest experience that earns 5-star reviews.',
     heroStat: { value: '85%+', label: 'Occupancy Achieved' },
+    heroStats: [
+      { value: '85%+', label: 'Occupancy Rate Achieved' },
+      { value: '35%', label: 'Direct Bookings Increase' },
+      { value: '50%', label: 'Faster Check-in Process' },
+      { value: '4.8★', label: 'Avg Guest Rating' },
+    ],
     overview: 'Hotels, resorts, and vacation rental operators in India lose revenue daily to inefficient channel management, manual check-in processes, and missed upsell opportunities. Buildera builds the operational backbone that keeps rooms full and guests happy.',
+    benefits: [
+      'Reduces OTA commission by converting guests to direct bookings',
+      'Single dashboard for all channels, room types, and staff tasks',
+      'Automated guest communication that feels genuinely personal',
+      'Connects to all major OTA platforms and GDS channel managers',
+    ],
     challenges: [
       { title: 'OTA Dependency Eating Your Margins', description: 'Booking.com and MakeMyTrip take 15-25% commission. You have no direct booking engine strong enough to shift the balance.' },
       { title: 'Fragmented Property Management', description: 'Front desk, housekeeping, F&B, and maintenance each use different tools that don\'t talk to each other. Every handover is a gap.' },
@@ -89,7 +125,19 @@ export const industries: IndustryPageData[] = [
     heroHeadline: 'Financial Software That Moves at the Speed of Your Business',
     heroSubheadline: 'Custom fintech solutions for payment processing, portfolio management, compliance reporting, and financial workflow automation — built to the exacting standards the financial sector demands.',
     heroStat: { value: '70%', label: 'Less Manual Processing' },
+    heroStats: [
+      { value: '70%', label: 'Less Manual Processing' },
+      { value: '99.9%', label: 'System Uptime' },
+      { value: '48hr', label: 'Compliance Report Generation' },
+      { value: '5x', label: 'Faster Reconciliation' },
+    ],
     overview: 'Financial services businesses face a uniquely demanding environment: strict compliance requirements, zero tolerance for errors, and customers who expect instant digital experiences. Buildera builds secure, auditable financial software that reduces manual workload without cutting corners on compliance.',
+    benefits: [
+      'Built to RBI, SEBI, and GST compliance standards from day one',
+      'Bank-grade data security with full role-based access controls',
+      'Automates reconciliation across UPI, NEFT, RTGS, and card rails',
+      'Comprehensive audit trail for regulatory inspection readiness',
+    ],
     challenges: [
       { title: 'Regulatory Compliance Burden', description: 'New RBI guidelines, GST requirements, and reporting mandates create compliance overhead that grows faster than your team. Manual compliance is a liability.' },
       { title: 'Payment Processing Complexity', description: 'Reconciling payments across UPI, NEFT, RTGS, and card networks takes your finance team hours every day — hours that could go to strategy.' },
@@ -115,7 +163,19 @@ export const industries: IndustryPageData[] = [
     heroHeadline: 'Healthcare Technology That Puts Patients First',
     heroSubheadline: 'Custom hospital management systems, patient portals, appointment scheduling, and practice management software that reduces administrative burden so your clinical team can focus on patients — not paperwork.',
     heroStat: { value: '50%', label: 'Less Administrative Overhead' },
+    heroStats: [
+      { value: '50%', label: 'Less Admin Overhead' },
+      { value: '30%', label: 'Fewer No-Shows' },
+      { value: '8x', label: 'Faster Record Retrieval' },
+      { value: '95%', label: 'Claims Acceptance Rate' },
+    ],
     overview: 'Healthcare providers — from multi-specialty hospitals to single-specialty clinics — lose significant revenue to no-shows, billing errors, and administrative inefficiency. Buildera builds HIPAA-aligned practice management software that digitises operations without disrupting clinical workflow.',
+    benefits: [
+      'Designed around Indian healthcare regulatory requirements',
+      'Reduces staff time on administrative tasks by up to 50%',
+      'Automated patient communication improves satisfaction scores',
+      'Works for clinics, multi-specialty hospitals, and diagnostics',
+    ],
     challenges: [
       { title: 'Appointment Chaos and No-Shows', description: 'Manual appointment booking leads to scheduling conflicts, double bookings, and 20-30% no-show rates with no automated reminder system to recover them.' },
       { title: 'Paper-Based Medical Records', description: 'Patient histories across paper files take staff 10 minutes to locate before each consultation. Critical information gets missed at the point of care.' },
@@ -141,7 +201,19 @@ export const industries: IndustryPageData[] = [
     heroHeadline: 'HR Software That Lets Your Team Focus on People, Not Paperwork',
     heroSubheadline: 'Automate payroll inputs, onboarding workflows, leave tracking, and performance reviews. Custom HR software built for Indian SMBs that need more than Excel and WhatsApp to manage a growing team.',
     heroStat: { value: '60%', label: 'Faster Employee Onboarding' },
+    heroStats: [
+      { value: '60%', label: 'Faster Onboarding' },
+      { value: '80%', label: 'Fewer Payroll Errors' },
+      { value: '100%', label: 'Compliance Tracking Coverage' },
+      { value: '3x', label: 'HR Team Productivity' },
+    ],
     overview: 'As Indian businesses scale, HR processes that worked at 20 employees break at 100. Buildera builds custom HR platforms that automate the administrative layer — giving HR teams time to focus on talent development, culture, and retention.',
+    benefits: [
+      'Handles PF, ESIC, and state-specific labour law compliance automatically',
+      'Employee self-service portal reduces HR team queries by 60%',
+      'Full onboarding to exit employee lifecycle management',
+      'Built for Indian multi-state operations and compliance',
+    ],
     challenges: [
       { title: 'Payroll Input Errors and Delays', description: 'Collecting attendance data, leave records, and variable pay manually from 8 different sources before payroll cutoff is a monthly crisis — and errors reach employees\' pay slips.' },
       { title: 'Onboarding That Takes Weeks', description: 'New hires wait days for laptops, access credentials, and training materials. A chaotic start sets the tone for the entire employment relationship.' },
@@ -167,7 +239,19 @@ export const industries: IndustryPageData[] = [
     heroHeadline: 'EdTech Platforms That Teach Better and Scale Faster',
     heroSubheadline: 'Learning management systems, student portals, course management, and online payment gateways for education businesses that want to reach more students without adding headcount.',
     heroStat: { value: '10x', label: 'Student Capacity Without Added Staff' },
+    heroStats: [
+      { value: '10x', label: 'Student Capacity, Same Team' },
+      { value: '85%', label: 'Course Completion Rate' },
+      { value: '40%', label: 'Fee Collection Automated' },
+      { value: '3x', label: 'Lead-to-Enrolment Conversion' },
+    ],
     overview: 'Education businesses — from coaching institutes to corporate training companies — face a common challenge: the processes that worked for 500 students break at 5,000. Buildera builds the technology infrastructure that lets education businesses scale without scaling their admin team.',
+    benefits: [
+      'Scales from 500 to 50,000 students without adding admin headcount',
+      'Unified LMS with integrated payment gateway and batch management',
+      'Automated lead nurturing and admission conversion workflows',
+      'Built for coaching institutes, schools, and corporate L&D teams',
+    ],
     challenges: [
       { title: 'Student Engagement Drops Off Online', description: 'Moving courses online without the right LMS means students disengage after lesson two. Completion rates drop to single digits without engagement mechanics.' },
       { title: 'Batch Management Chaos', description: 'Running multiple batches across subjects, levels, and formats in Excel means someone is always in the wrong batch, missing content, or not receiving updates.' },
@@ -193,7 +277,19 @@ export const industries: IndustryPageData[] = [
     heroHeadline: 'Legal Software That Reduces Risk and Saves Billable Hours',
     heroSubheadline: 'Case management, document automation, client billing, deadline tracking, and compliance monitoring — custom legal software that eliminates administrative overhead so your lawyers can focus on law.',
     heroStat: { value: '30%', label: 'More Billable Hours Recovered' },
+    heroStats: [
+      { value: '30%', label: 'More Billable Hours Recovered' },
+      { value: '90%', label: 'Fewer Missed Deadlines' },
+      { value: '5x', label: 'Faster Document Retrieval' },
+      { value: '100%', label: 'Audit Trail Coverage' },
+    ],
     overview: 'Law firms and legal departments in India face a growing crisis: mounting caseloads, complex compliance requirements, and manual processes that eat into the billable hours that drive revenue. Buildera builds legal technology that automates the administrative layer without compromising client confidentiality.',
+    benefits: [
+      'Complete matter lifecycle management in one secure system',
+      'Automated deadline alerts for court dates and regulatory filings',
+      'Client confidentiality built into every layer of the architecture',
+      'Works for law firms, in-house legal teams, and compliance departments',
+    ],
     challenges: [
       { title: 'Case Files Spread Across Email and Folders', description: 'Finding the right version of a document during a client call takes 10 minutes and damages confidence. Version control on shared drives is non-existent.' },
       { title: 'Deadline Management Is Manual', description: 'Court dates, statute of limitations deadlines, and filing dates tracked in personal calendars. A missed deadline is a professional negligence claim.' },
@@ -219,7 +315,19 @@ export const industries: IndustryPageData[] = [
     heroHeadline: 'Cleantech Software That Makes Sustainability Measurable',
     heroSubheadline: 'Carbon tracking, energy monitoring, ESG reporting, and sustainability dashboards. We build the data infrastructure that helps cleantech companies prove and scale their environmental impact.',
     heroStat: { value: '45%', label: 'Faster ESG Reporting Cycles' },
+    heroStats: [
+      { value: '45%', label: 'Faster ESG Reporting' },
+      { value: '70%', label: 'Less Manual Data Collection' },
+      { value: '100%', label: 'Regulatory Coverage' },
+      { value: '3x', label: 'More Projects Per Team' },
+    ],
     overview: 'Cleantech and sustainability businesses face a unique challenge: they need to measure the impact they\'re creating, report it to investors and regulators, and manage complex project portfolios — all with software that hasn\'t caught up to their needs. Buildera builds custom platforms that bring rigour to sustainability data.',
+    benefits: [
+      'Automated data collection from IoT sensors, spreadsheets, and partners',
+      'Regulatory-grade audit trails for BRSR, GRI, and custom ESG frameworks',
+      'Multi-site project portfolio management in a single dashboard',
+      'Transforms months of manual ESG reporting into automated workflows',
+    ],
     challenges: [
       { title: 'Manual Data Collection From Multiple Sources', description: 'Energy consumption data, carbon footprint calculations, and waste metrics come from sensors, spreadsheets, and partner reports that never arrive in the same format.' },
       { title: 'ESG Reporting Takes Months', description: 'Annual sustainability reports that should take days take months because the underlying data is unstructured, inconsistently collected, and manually verified.' },
@@ -245,7 +353,19 @@ export const industries: IndustryPageData[] = [
     heroHeadline: 'Insurance Software That Closes More Policies, Faster',
     heroSubheadline: 'Policy management, claims automation, lead nurturing, and broker portals — custom InsurTech solutions that reduce manual processing and dramatically speed up policy issuance and claims settlement.',
     heroStat: { value: '65%', label: 'Faster Claims Processing' },
+    heroStats: [
+      { value: '65%', label: 'Faster Claims Processing' },
+      { value: '40%', label: 'More Policies Per Agent' },
+      { value: '3hr', label: 'Avg Lead Response Time' },
+      { value: '25%', label: 'Higher Renewal Rates' },
+    ],
     overview: 'Insurance businesses in India are under pressure from digital-first competitors while still running on manual processes built for a different era. Buildera builds the technology that lets insurers and brokers compete on experience and speed — not just price.',
+    benefits: [
+      'Reduces policy administration time from hours to minutes',
+      'Automated lead follow-up within the critical 24-hour conversion window',
+      'Full audit trail for IRDAI and regulatory compliance',
+      'Integrates with existing systems without a complete replacement',
+    ],
     challenges: [
       { title: 'Manual Policy Administration', description: 'Policy renewals, endorsements, and cancellations handled via email and phone calls create a bottleneck that limits how many policies your team can manage.' },
       { title: 'Lead Follow-Up That Happens Too Late', description: 'Insurance leads have a 24-hour window. Most brokers follow up 3 days later, after the prospect has already purchased elsewhere.' },
@@ -271,7 +391,19 @@ export const industries: IndustryPageData[] = [
     heroHeadline: 'Build Your Next Product on Infrastructure That Scales',
     heroSubheadline: 'From SaaS platforms to API integrations and developer tools, Buildera provides the technical talent and architecture expertise to ship software products that grow with your ambition — and your customer base.',
     heroStat: { value: '3x', label: 'Faster Time to Market' },
+    heroStats: [
+      { value: '3x', label: 'Faster Time to Market' },
+      { value: '60%', label: 'Reduction in Technical Debt' },
+      { value: '99.99%', label: 'Infrastructure Uptime' },
+      { value: '50%', label: 'Lower Dev Cost vs In-House' },
+    ],
     overview: 'Software and technology companies face a different set of challenges from other industries: technical debt accumulates faster, hiring skilled engineers is hard, and the cost of a bad architectural decision compounds with every new feature. Buildera provides the technical expertise to make the right decisions early.',
+    benefits: [
+      'Senior engineers with product thinking, not just task execution',
+      'Architecture-first approach designed to scale with your user base',
+      'Integrations with Salesforce, SAP, Tally, Zoho, and 40+ systems',
+      'CI/CD and DevOps engineering built in from the first sprint',
+    ],
     challenges: [
       { title: 'Technical Debt Slowing Velocity', description: 'Shortcuts taken to hit an early launch date accumulate into a codebase where every new feature takes twice as long to build as it should.' },
       { title: 'Infrastructure Scaling Crises', description: 'Your platform worked fine at 1,000 users. At 50,000, it falls over. Retrofitting scalability costs 10x more than designing for it from the start.' },

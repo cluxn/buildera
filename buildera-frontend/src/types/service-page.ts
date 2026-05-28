@@ -90,7 +90,9 @@ export interface IndustryPageData {
   heroHeadline: string
   heroSubheadline: string
   heroStat: { value: string; label: string }
+  heroStats?: Array<{ value: string; label: string }>
   overview: string
+  benefits?: string[]
   challenges: IndustryChallenge[]
   solutions: IndustrySolutionRef[]
   services: IndustryServiceRef[]
