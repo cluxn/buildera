@@ -23,6 +23,20 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   IconUsers,
 }
 
+const INDUSTRIES_NAV = [
+  { label: "Manufacturing", href: "/industries/manufacturing", desc: "Production, ERP & supply chain" },
+  { label: "Retail & eCommerce", href: "/industries/retail", desc: "Inventory, CRM & commerce" },
+  { label: "Travel & Hospitality", href: "/industries/travel-hospitality", desc: "PMS, OTA & guest experience" },
+  { label: "FinTech", href: "/industries/fintech", desc: "Compliance, payments & reporting" },
+  { label: "Healthcare", href: "/industries/healthcare", desc: "HMS, patient portals & billing" },
+  { label: "HRTech", href: "/industries/hr-tech", desc: "Payroll, onboarding & performance" },
+  { label: "EdTech", href: "/industries/ed-tech", desc: "LMS, admissions & batch management" },
+  { label: "LegalTech", href: "/industries/legal-tech", desc: "Case management & billing" },
+  { label: "Cleantech", href: "/industries/cleantech", desc: "ESG tracking & sustainability data" },
+  { label: "InsurTech", href: "/industries/insur-tech", desc: "Policy admin & claims automation" },
+  { label: "Software & Hi-Tech", href: "/industries/software-hi-tech", desc: "SaaS, APIs & dev teams" },
+] as const
+
 const SOLUTION_NAV_FALLBACK = [
   { label: "Operations Management", href: "/solutions/operations-management" },
   { label: "Supply Chain", href: "/solutions/supply-chain" },
@@ -39,7 +53,6 @@ const SOLUTION_NAV_FALLBACK = [
 ] as const
 
 const WORK_NAV_FALLBACK = [
-  { label: "Industries We Serve", href: "/industries", desc: "Healthcare, retail, logistics, finance & more" },
   { label: "Case Studies", href: "/case-studies", desc: "Real projects, measurable outcomes" },
   { label: "How We Work", href: "/how-we-work", desc: "Scoped → Built → Shipped → Supported" },
   { label: "About Buildera", href: "/about", desc: "6+ years, 150+ projects, Kanpur-based" },
@@ -88,7 +101,7 @@ export function MegaDropdown({
           exit={{ opacity: 0, y: -8 }}
           transition={{ duration: 0.15, ease: "easeOut" }}
           className={
-            activePanel === "Services" || activePanel === "Solutions"
+            activePanel === "Services" || activePanel === "Solutions" || activePanel === "Industries"
               ? "absolute left-0 right-0 top-full bg-white border-t border-border shadow-lg"
               : "absolute top-full bg-white border border-border shadow-xl rounded-xl min-w-[460px]"
           }
@@ -101,7 +114,7 @@ export function MegaDropdown({
           onMouseLeave={onMouseLeave}
         >
           <div className={
-            activePanel === "Services" || activePanel === "Solutions"
+            activePanel === "Services" || activePanel === "Solutions" || activePanel === "Industries"
               ? "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"
               : "px-6 py-6"
           }>
@@ -132,6 +145,23 @@ export function MegaDropdown({
                     </div>
                   )
                 })}
+              </div>
+            )}
+
+            {activePanel === "Industries" && (
+              <div className="grid grid-cols-4 gap-3">
+                {INDUSTRIES_NAV.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="flex flex-col gap-0.5 p-3 rounded-lg hover:bg-[var(--brand-surface)] transition-colors group"
+                  >
+                    <span className="text-sm font-semibold text-foreground group-hover:text-[var(--brand-primary)] transition-colors">
+                      {item.label}
+                    </span>
+                    <span className="text-xs text-muted-foreground">{item.desc}</span>
+                  </Link>
+                ))}
               </div>
             )}
 

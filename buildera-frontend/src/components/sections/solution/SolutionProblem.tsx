@@ -6,7 +6,7 @@ export function SolutionProblem({ points }: Props) {
       <div className="container mx-auto px-8 max-w-7xl">
         <div className="text-center mb-14">
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">The Challenge</p>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Does This Sound Like <span className="text-[var(--brand-primary)]">Your Business?</span></h2>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Does This Sound Like Your Business?</h2>
           <p className="text-muted-foreground max-w-xl mx-auto">These are the problems we solve every week for SMBs across India.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

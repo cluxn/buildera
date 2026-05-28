@@ -5,12 +5,12 @@ interface Props { cards: OutcomeCard[] }
 
 export function ServiceOutcomeCards({ cards }: Props) {
   return (
-    <section className="py-20 bg-background">
+    <section className="py-20 bg-[var(--brand-surface)]">
       <div className="container mx-auto px-8 max-w-7xl">
         <div className="text-center mb-14">
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">What You Get</p>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-            The Outcomes <span className="text-[var(--brand-primary)]">We Deliver</span>
+            The Outcomes We Deliver
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
             Every engagement is measured against real business outcomes — not just task completion.

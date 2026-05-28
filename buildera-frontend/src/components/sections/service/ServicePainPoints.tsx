@@ -2,7 +2,7 @@ interface Props { points: string[] }
 
 export function ServicePainPoints({ points }: Props) {
   return (
-    <section className="py-20 bg-[var(--brand-surface)]">
+    <section className="py-20 bg-background">
       <div className="container mx-auto px-8 max-w-7xl">
         <div className="text-center mb-14">
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">Common Challenges</p>
@@ -13,7 +13,7 @@ export function ServicePainPoints({ points }: Props) {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {points.map((point, i) => (
-            <div key={i} className="bg-background rounded-xl p-6 border border-border">
+            <div key={i} className="bg-[var(--brand-surface)] rounded-xl p-6 border border-border">
               <span className="text-2xl font-bold text-[var(--brand-primary)] mb-3 block">0{i + 1}</span>
               <p className="text-base text-foreground">{point}</p>
             </div>

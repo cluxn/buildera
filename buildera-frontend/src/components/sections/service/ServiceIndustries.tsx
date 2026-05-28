@@ -21,14 +21,14 @@ const INDUSTRIES = [
 
 export function ServiceIndustries() {
   return (
-    <section className="py-20 bg-background">
+    <section className="py-20 bg-[var(--brand-surface)]">
       <div className="container mx-auto px-8 max-w-7xl">
         <div className="text-center mb-14">
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
             Industries We Serve
           </p>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-            Built for <span className="text-[var(--brand-primary)]">Every Industry</span>
+            Built for Every Industry
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
             Deep domain expertise across sectors — so you work with a team that already understands your business context.

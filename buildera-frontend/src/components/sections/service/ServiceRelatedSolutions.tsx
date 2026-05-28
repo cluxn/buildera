@@ -29,7 +29,7 @@ export function ServiceRelatedSolutions({ solutions }: Props) {
   if (!solutions.length) return null
 
   return (
-    <section className="py-16 bg-[var(--brand-surface)]">
+    <section className="py-16 bg-background">
       <div className="container mx-auto px-8 max-w-7xl">
         <p className="text-xs font-medium uppercase tracking-widest text-[var(--brand-primary)] mb-4">
           Related Solutions
@@ -42,7 +42,7 @@ export function ServiceRelatedSolutions({ solutions }: Props) {
             <Link
               key={slug}
               href={`/solutions/${slug}`}
-              className="bg-background border border-border rounded-xl p-4 hover:border-[var(--brand-primary)] transition-colors text-sm font-medium"
+              className="bg-[var(--brand-surface)] border border-border rounded-xl p-4 hover:border-[var(--brand-primary)] transition-colors text-sm font-medium"
             >
               {SOLUTION_LABELS[slug] ?? slug}
             </Link>

@@ -15,7 +15,21 @@ interface Props {
   navItems: NavItem[]
 }
 
-type AccordionGroup = "Services" | "Solutions" | "Work" | "Resources"
+type AccordionGroup = "Services" | "Solutions" | "Industries" | "Work" | "Resources"
+
+const INDUSTRIES_MOBILE = [
+  { label: "Manufacturing", href: "/industries/manufacturing" },
+  { label: "Retail & eCommerce", href: "/industries/retail" },
+  { label: "Travel & Hospitality", href: "/industries/travel-hospitality" },
+  { label: "FinTech", href: "/industries/fintech" },
+  { label: "Healthcare", href: "/industries/healthcare" },
+  { label: "HRTech", href: "/industries/hr-tech" },
+  { label: "EdTech", href: "/industries/ed-tech" },
+  { label: "LegalTech", href: "/industries/legal-tech" },
+  { label: "Cleantech", href: "/industries/cleantech" },
+  { label: "InsurTech", href: "/industries/insur-tech" },
+  { label: "Software & Hi-Tech", href: "/industries/software-hi-tech" },
+]
 
 export function MobileNavDrawer({ isOpen, onClose, servicesMenu, navItems }: Props) {
   const [openGroup, setOpenGroup] = useState<AccordionGroup | null>(null)
@@ -181,6 +195,48 @@ export function MobileNavDrawer({ isOpen, onClose, servicesMenu, navItems }: Pro
                             Solutions coming soon.
                           </li>
                         )}
+                      </ul>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Industries accordion */}
+              <div className="border-b border-border">
+                <button
+                  className="flex items-center justify-between w-full px-4 py-3 min-h-[48px] text-sm font-medium text-foreground hover:text-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-colors"
+                  onClick={() => toggleGroup("Industries")}
+                  aria-expanded={openGroup === "Industries"}
+                >
+                  <span>Industries</span>
+                  <IconChevronDown
+                    className={cn(
+                      "size-4 transition-transform duration-200",
+                      openGroup === "Industries" ? "rotate-180" : ""
+                    )}
+                  />
+                </button>
+                <AnimatePresence>
+                  {openGroup === "Industries" && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: "easeOut" }}
+                      className="overflow-hidden"
+                    >
+                      <ul className="pb-3 px-4">
+                        {INDUSTRIES_MOBILE.map((item) => (
+                          <li key={item.href}>
+                            <Link
+                              href={item.href}
+                              onClick={onClose}
+                              className="block text-sm text-muted-foreground hover:text-[var(--brand-primary)] transition-colors py-2 min-h-[40px] flex items-center"
+                            >
+                              {item.label}
+                            </Link>
+                          </li>
+                        ))}
                       </ul>
                     </motion.div>
                   )}

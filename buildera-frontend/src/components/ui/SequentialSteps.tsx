@@ -14,35 +14,59 @@ export function SequentialSteps({ steps }: Props) {
   const prefersReducedMotion = useReducedMotion()
 
   return (
-    <div ref={ref}>
+    <div ref={ref} className="flex flex-col gap-12">
       {steps.map((step, i) => {
-        const isLast = i === steps.length - 1
+        const isEven = i % 2 === 0
         return (
-          <div key={step.stepNumber} className="relative">
-            <motion.div
-              className="flex gap-4 mb-8"
-              initial={prefersReducedMotion ? false : { opacity: 0, x: -16 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ delay: i * 0.12, duration: 0.4, ease: "easeOut" }}
-            >
-              <div className="w-12 h-12 rounded-full bg-[var(--brand-primary)] text-white flex items-center justify-center font-bold text-xl flex-shrink-0">
-                {step.stepNumber}
+          <motion.div
+            key={step.stepNumber}
+            className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 24 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: i * 0.15, duration: 0.45, ease: "easeOut" }}
+          >
+            {/* Visual card — alternates left / right */}
+            <div className={isEven ? "md:order-first" : "md:order-last"}>
+              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-[var(--brand-primary)] to-[hsl(242,75%,45%)] p-8 min-h-[180px] flex flex-col justify-between">
+                {/* Decorative circles */}
+                <div className="absolute -top-6 -right-6 w-32 h-32 rounded-full bg-white/10" />
+                <div className="absolute -bottom-8 -left-4 w-24 h-24 rounded-full bg-white/5" />
+                <div className="absolute top-4 left-4 w-8 h-8 rounded-full bg-white/15" />
+
+                {/* Step number */}
+                <span
+                  className="relative text-6xl font-black leading-none select-none"
+                  style={{ color: "rgba(255,255,255,0.18)" }}
+                >
+                  {String(step.stepNumber).padStart(2, "0")}
+                </span>
+
+                {/* Step label */}
+                <div className="relative">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-white/60 mb-1">
+                    Step {step.stepNumber}
+                  </p>
+                  <p className="text-white font-semibold text-lg leading-snug">
+                    {step.title}
+                  </p>
+                </div>
               </div>
-              <div>
-                <h4 className="text-xl font-semibold">{step.title}</h4>
-                <p className="text-base text-muted-foreground mt-1">{step.description}</p>
+            </div>
+
+            {/* Text content */}
+            <div className={isEven ? "md:order-last" : "md:order-first"}>
+              <div className="flex items-center gap-3 mb-4">
+                <span className="w-8 h-8 rounded-full bg-[hsl(217_91%_60%/12%)] text-[var(--brand-primary)] flex items-center justify-center text-sm font-bold flex-shrink-0">
+                  {step.stepNumber}
+                </span>
+                <div className="h-px flex-1 bg-border" />
               </div>
-            </motion.div>
-            {!isLast && (
-              <motion.div
-                className="absolute left-6 top-12 w-0.5 h-8 bg-[var(--brand-primary)]"
-                initial={prefersReducedMotion ? false : { scaleY: 0 }}
-                animate={isInView ? { scaleY: 1 } : {}}
-                transition={{ delay: i * 0.12 + 0.4, duration: 0.3, ease: "easeOut" }}
-                style={{ transformOrigin: "top" }}
-              />
-            )}
-          </div>
+              <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
+              <p className="text-base text-muted-foreground leading-relaxed">
+                {step.description}
+              </p>
+            </div>
+          </motion.div>
         )
       })}
     </div>

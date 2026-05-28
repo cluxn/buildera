@@ -68,6 +68,35 @@ export interface TestimonialData {
   rating: number
 }
 
+export interface IndustryChallenge {
+  title: string
+  description: string
+}
+
+export interface IndustrySolutionRef {
+  slug: string
+  label: string
+}
+
+export interface IndustryServiceRef {
+  categorySlug: string
+  label: string
+  description: string
+}
+
+export interface IndustryPageData {
+  slug: string
+  name: string
+  heroHeadline: string
+  heroSubheadline: string
+  heroStat: { value: string; label: string }
+  overview: string
+  challenges: IndustryChallenge[]
+  solutions: IndustrySolutionRef[]
+  services: IndustryServiceRef[]
+  ctaHeadline: string
+}
+
 export interface CaseStudyData {
   id: number
   title: string

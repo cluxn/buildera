@@ -9,25 +9,81 @@ import { fetchFooterLinks, fetchSettings } from "@/lib/api"
 import type { FooterLink } from "@/lib/api"
 import { cn } from "@/lib/utils"
 
+// ─── Services sub-columns (grouped sub-service links) ────────────────────────
+
+type FooterServiceGroup = { group: string; services: { label: string; url: string }[] }
+
+const FOOTER_SERVICES_LEFT: FooterServiceGroup[] = [
+  {
+    group: 'Website Development',
+    services: [
+      { label: 'Custom Websites', url: '/services/website-development/custom-websites' },
+      { label: 'E-Commerce Websites', url: '/services/website-development/ecommerce-websites' },
+      { label: 'App Development', url: '/services/website-development/app-development' },
+      { label: 'Progressive Web Apps', url: '/services/website-development/progressive-web-apps' },
+    ],
+  },
+  {
+    group: 'DevOps & Cloud',
+    services: [
+      { label: 'Cloud Infrastructure', url: '/services/devops-development/cloud-infrastructure' },
+      { label: 'CI/CD Pipeline', url: '/services/devops-development/ci-cd-pipeline' },
+      { label: 'Cloud Management', url: '/services/devops-development/cloud-management' },
+      { label: 'Server Monitoring', url: '/services/devops-development/server-monitoring' },
+    ],
+  },
+  {
+    group: 'Hire a Developer',
+    services: [
+      { label: 'Dedicated Teams', url: '/services/hire-a-developer/dedicated-teams' },
+      { label: 'Flexible Engagement', url: '/services/hire-a-developer/flexible-engagement' },
+      { label: 'End-to-End Support', url: '/services/hire-a-developer/end-to-end-support' },
+    ],
+  },
+]
+
+const FOOTER_SERVICES_RIGHT: FooterServiceGroup[] = [
+  {
+    group: 'Salesforce',
+    services: [
+      { label: 'Salesforce CRM', url: '/services/salesforce-development/crm' },
+      { label: 'Marketing Cloud', url: '/services/salesforce-development/marketing-cloud' },
+      { label: 'Service Cloud', url: '/services/salesforce-development/service-cloud' },
+      { label: 'Commerce Cloud', url: '/services/salesforce-development/commerce-cloud' },
+      { label: 'Experience Cloud', url: '/services/salesforce-development/experience-cloud' },
+    ],
+  },
+  {
+    group: 'AI Agent Dev',
+    services: [
+      { label: 'AI Agent Integration', url: '/services/ai-agent-development/ai-agent-integration' },
+      { label: 'Custom API Integration', url: '/services/ai-agent-development/custom-api-integration' },
+      { label: 'Business Optimization', url: '/services/ai-agent-development/business-optimization' },
+      { label: 'AI Chatbots', url: '/services/ai-agent-development/ai-chatbots' },
+    ],
+  },
+  {
+    group: 'Software Dev',
+    services: [
+      { label: 'ERP Development', url: '/services/software-development/erp-development' },
+      { label: 'CRM Development', url: '/services/software-development/crm-development' },
+      { label: 'SaaS Development', url: '/services/software-development/saas-development' },
+      { label: 'MVP Development', url: '/services/software-development/mvp-development' },
+    ],
+  },
+]
+
 // ─── Hardcoded fallback links (used when API returns empty) ──────────────────
 
 const HARDCODED_FOOTER_LINKS: Record<FooterLink["column"], { label: string; url: string }[]> = {
-  services: [
-    { label: "Website Development", url: "/services/website-development" },
-    { label: "Salesforce Development", url: "/services/salesforce-development" },
-    { label: "DevOps Development", url: "/services/devops-development" },
-    { label: "AI Agent Development", url: "/services/ai-agent-development" },
-    { label: "Software Development", url: "/services/software-development" },
-    { label: "Hire a Developer", url: "/services/hire-a-developer" },
-  ],
+  services: [],
   solutions: [
-    { label: "CRM Solutions", url: "/solutions/crm-solutions" },
-    { label: "E-Commerce", url: "/solutions/ecommerce" },
-    { label: "AI Automation", url: "/solutions/ai-automation" },
-    { label: "Cloud Infrastructure", url: "/solutions/cloud-infrastructure" },
-    { label: "ERP Systems", url: "/solutions/erp-systems" },
-    { label: "SaaS Development", url: "/solutions/saas-development" },
-    { label: "View All Solutions", url: "/solutions" },
+    { label: "CRM Solutions", url: "/solutions/crm" },
+    { label: "ERP Solution", url: "/solutions/erp" },
+    { label: "Lead Management", url: "/solutions/lead-mgmt" },
+    { label: "Operations Management", url: "/solutions/operations-mgmt" },
+    { label: "HR Management", url: "/solutions/hr-mgmt" },
+    { label: "Warehouse Management", url: "/solutions/warehouse-mgmt" },
   ],
   company: [
     { label: "About Us", url: "/about" },
@@ -53,7 +109,7 @@ const COLUMN_LABELS: Record<FooterLink["column"], string> = {
   resources: "Resources",
 }
 
-const COLUMNS: FooterLink["column"][] = ["services", "solutions", "company", "resources"]
+const NON_SERVICE_COLUMNS: FooterLink["column"][] = ["solutions", "company", "resources"]
 
 // ─── SiteFooter ──────────────────────────────────────────────────────────────
 
@@ -92,12 +148,11 @@ export async function SiteFooter() {
     <footer className="bg-slate-900 text-slate-300">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-        {/* ── Top section: logo+info + 4 link columns ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 py-16">
+        {/* ── Top section: logo+info + 5 link columns (services spans 2) ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-6 gap-10 py-16">
 
           {/* Column 1: Brand + contact + social */}
           <div className="lg:col-span-1 flex flex-col gap-4">
-            {/* Logo — gradient text wordmark */}
             <Link href="/" className="w-fit">
               <span
                 className="font-bold text-[1.2rem] tracking-tight select-none"
@@ -117,8 +172,6 @@ export async function SiteFooter() {
               {settings.footer_tagline || "We build custom software, Salesforce solutions, AI agents, and dedicated dev teams for Indian SMBs that demand accountability and results."}
             </p>
 
-
-            {/* Social icons */}
             <div className="flex gap-3 mt-1">
               <a
                 href={settings.linkedin_url || "https://linkedin.com/company/buildera"}
@@ -150,8 +203,53 @@ export async function SiteFooter() {
             </div>
           </div>
 
-          {/* Columns 2-5: Link columns */}
-          {COLUMNS.map((column) => (
+          {/* Columns 2–3: Services — spans 2 cols with 2 internal sub-columns */}
+          <div className="lg:col-span-2 flex flex-col gap-4 lg:border-r lg:border-slate-700 lg:pr-8">
+            <h3 className="text-sm font-semibold text-white uppercase tracking-wider">Services</h3>
+            <div className="grid grid-cols-2 gap-x-8">
+              {/* Left sub-column */}
+              <div className="flex flex-col gap-5">
+                {FOOTER_SERVICES_LEFT.map((group) => (
+                  <div key={group.group}>
+                    <p className="text-[10px] font-semibold uppercase tracking-widest text-slate-500 mb-1.5">
+                      {group.group}
+                    </p>
+                    <ul className="flex flex-col gap-1.5">
+                      {group.services.map((link) => (
+                        <li key={link.url}>
+                          <Link href={link.url} className="text-xs text-slate-400 hover:text-white transition-colors">
+                            {link.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+              {/* Right sub-column */}
+              <div className="flex flex-col gap-5">
+                {FOOTER_SERVICES_RIGHT.map((group) => (
+                  <div key={group.group}>
+                    <p className="text-[10px] font-semibold uppercase tracking-widest text-slate-500 mb-1.5">
+                      {group.group}
+                    </p>
+                    <ul className="flex flex-col gap-1.5">
+                      {group.services.map((link) => (
+                        <li key={link.url}>
+                          <Link href={link.url} className="text-xs text-slate-400 hover:text-white transition-colors">
+                            {link.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Columns 4–6: Solutions · Company · Resources */}
+          {NON_SERVICE_COLUMNS.map((column) => (
             <div key={column} className="flex flex-col gap-4">
               <h3 className="text-sm font-semibold text-white uppercase tracking-wider">
                 {COLUMN_LABELS[column]}

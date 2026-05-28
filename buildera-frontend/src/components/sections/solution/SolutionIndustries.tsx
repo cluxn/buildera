@@ -28,7 +28,7 @@ export function SolutionIndustries() {
             Who This Is For
           </p>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-            Built for <span className="text-[var(--brand-primary)]">Every Industry</span>
+            Built for Every Industry
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
             Deep domain expertise across sectors — so you work with a team that already understands your business context.

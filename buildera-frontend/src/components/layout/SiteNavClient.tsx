@@ -14,7 +14,7 @@ interface Props {
   navItems: NavItem[]
 }
 
-const NAV_PANELS = ["Services", "Solutions", "Work", "Resources"] as const
+const NAV_PANELS = ["Services", "Industries", "Solutions", "Work", "Resources"] as const
 
 export function SiteNavClient({ servicesMenu, navItems }: Props) {
   const [isScrolled, setIsScrolled] = useState(false)

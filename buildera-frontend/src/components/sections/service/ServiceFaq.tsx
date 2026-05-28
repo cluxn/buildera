@@ -5,12 +5,12 @@ interface Props { items: FaqItem[]; headline?: string }
 
 export function ServiceFaq({ items }: Props) {
   return (
-    <section className="py-20 bg-[var(--brand-surface)]">
+    <section className="py-20 bg-background">
       <div className="container mx-auto px-8 max-w-7xl">
         <div className="text-center mb-14">
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">FAQ</p>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-            Frequently Asked <span className="text-[var(--brand-primary)]">Questions</span>
+            Frequently Asked Questions
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
             Answers to the questions we hear most often before a project starts.

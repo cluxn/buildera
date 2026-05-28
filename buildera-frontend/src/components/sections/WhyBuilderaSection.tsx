@@ -34,7 +34,23 @@ export function WhyBuilderaSection() {
             viewport={{ once: true }}
             transition={{ delay: 0, duration: 0.5 }}
           >
-            <AnimatedRingStat value={98} suffix="%" label="Client Satisfaction" className="w-[120px]" />
+            <div className="flex flex-col items-center justify-center gap-6 p-6 rounded-lg border border-border bg-card h-full">
+              <AnimatedRingStat value={98} suffix="%" label="Client Satisfaction" className="w-[120px]" />
+              <div className="w-full border-t border-border pt-4 flex flex-col gap-3">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">Projects Delivered</span>
+                  <span className="font-semibold text-foreground">150+</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">Happy Clients</span>
+                  <span className="font-semibold text-foreground">50+</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">Years of Experience</span>
+                  <span className="font-semibold text-foreground">5+</span>
+                </div>
+              </div>
+            </div>
           </motion.div>
           <motion.div
             className="h-full"

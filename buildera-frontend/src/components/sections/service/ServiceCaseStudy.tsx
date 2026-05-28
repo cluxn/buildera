@@ -9,7 +9,7 @@ export function ServiceCaseStudy({ caseStudy }: Props) {
   if (!caseStudy) return null
 
   return (
-    <section className="py-16 bg-background">
+    <section className="py-16 bg-[var(--brand-surface)]">
       <div className="container mx-auto px-8 max-w-7xl">
         <p className="text-xs font-medium uppercase tracking-widest text-[var(--brand-primary)] mb-4">
           Client Story
