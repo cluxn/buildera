@@ -16,13 +16,13 @@ export function ServiceOutcomeCards({ cards }: Props) {
             Every engagement is measured against real business outcomes — not just task completion.
           </p>
         </div>
-        <StaggeredRevealGrid className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <StaggeredRevealGrid className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           {cards.map((card, i) => (
-            <div key={i} className="rounded-xl p-6" style={{ background: 'var(--brand-glass)', backdropFilter: 'blur(12px)', border: '1px solid hsl(217 91% 60% / 15%)' }}>
+            <div key={i} className="flex flex-col rounded-xl p-6 h-full" style={{ background: 'var(--brand-glass)', backdropFilter: 'blur(12px)', border: '1px solid hsl(217 91% 60% / 15%)' }}>
               <h4 className="text-lg font-semibold mb-2">{card.title}</h4>
-              <p className="text-sm text-muted-foreground mb-3">{card.description}</p>
+              <p className="text-sm text-muted-foreground mb-3 flex-1">{card.description}</p>
               {card.metric && (
-                <span className="text-sm font-medium bg-[hsl(217_91%_60%/10%)] text-[var(--brand-primary)] px-2 py-1 rounded-full">{card.metric}</span>
+                <span className="mt-auto self-start text-sm font-medium bg-[hsl(217_91%_60%/10%)] text-[var(--brand-primary)] px-2 py-1 rounded-full">{card.metric}</span>
               )}
             </div>
           ))}
