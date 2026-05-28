@@ -30,7 +30,7 @@ export function IndustryHero({ data }: Props) {
               {data.heroSubheadline}
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link href="/book-a-call" className="btn-primary inline-flex items-center gap-2">
+              <Link href="/contact" className="btn-primary inline-flex items-center gap-2">
                 Book a Free Call
                 <IconArrowRight className="w-4 h-4" />
               </Link>

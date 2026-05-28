@@ -24,7 +24,7 @@ export function AboutCta() {
         </p>
 
         <Link
-          href="/book-a-call"
+          href="/contact"
           className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-white text-[var(--brand-primary)] font-semibold text-base hover:opacity-90 transition-opacity"
         >
           Book a Free Call

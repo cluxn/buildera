@@ -154,7 +154,7 @@ export default function IndustriesListingPage() {
           <p className="text-muted-foreground max-w-xl mx-auto mb-8">
             We work across sectors. If you have a business problem that software can solve, we&apos;d like to hear about it.
           </p>
-          <Link href="/book-a-call" className="btn-primary">
+          <Link href="/contact" className="btn-primary">
             Book a Free Discovery Call
           </Link>
         </div>

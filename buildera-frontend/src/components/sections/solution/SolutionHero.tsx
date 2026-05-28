@@ -37,7 +37,7 @@ export function SolutionHero({ data }: Props) {
             <p className="text-lg text-muted-foreground max-w-xl mb-8">
               {data.heroSubheadline}
             </p>
-            <Link href="/book-a-call" className="btn-primary">
+            <Link href="/contact" className="btn-primary">
               Book a Free Call
             </Link>
           </div>

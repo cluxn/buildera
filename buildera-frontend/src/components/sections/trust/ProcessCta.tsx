@@ -13,7 +13,7 @@ export function ProcessCta() {
 
         <div className="flex flex-wrap justify-center gap-4 mb-8">
           <Link
-            href="/book-a-call"
+            href="/contact"
             className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-[var(--brand-primary)] text-white font-semibold text-base hover:opacity-90 transition-opacity"
           >
             Book a Free Call

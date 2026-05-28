@@ -85,7 +85,7 @@ export function MiniLeadForm({
           Our team will review your enquiry and reach out shortly.
         </p>
         <Link
-          href="/book-a-call"
+          href="/contact"
           className="text-xs text-[var(--brand-primary)] underline underline-offset-2 hover:opacity-80 transition"
         >
           Want a faster response? Book a call directly →

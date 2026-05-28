@@ -23,7 +23,7 @@ export function PopupManager() {
           headline={settings.popup_exit_headline || 'Wait — Before You Go'}
           subtext={settings.popup_exit_subtext || 'Book a free 15-minute discovery call. No commitment, no sales pitch.'}
           ctaLabel={settings.popup_exit_cta || 'Book a Free Call'}
-          ctaHref="/book-a-call"
+          ctaHref="/contact"
           showForm={true}
         />
       )}

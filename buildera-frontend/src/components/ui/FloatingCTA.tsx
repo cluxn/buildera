@@ -41,7 +41,7 @@ export function FloatingCTA() {
       transition={{ type: 'spring', stiffness: 300, damping: 25 }}
     >
       <Link
-        href="/book-a-call"
+        href="/contact"
         className="relative flex items-center gap-2 px-5 py-3 rounded-full shadow-lg text-white text-sm font-semibold"
         style={{
           background: 'linear-gradient(135deg, var(--brand-primary) 0%, #4f46e5 100%)',

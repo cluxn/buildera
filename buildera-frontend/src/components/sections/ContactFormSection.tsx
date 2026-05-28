@@ -295,14 +295,14 @@ export function ContactFormSection() {
                 <p className="text-white font-semibold text-sm mb-1">⚡ Fast Response</p>
                 <p className="text-white/70 text-xs leading-relaxed">
                   Typically within <strong className="text-white">24 hours</strong>. Urgent?{" "}
-                  <a href="/book-a-call" className="text-white underline underline-offset-2 hover:text-white/80 transition-colors">
+                  <a href="/contact" className="text-white underline underline-offset-2 hover:text-white/80 transition-colors">
                     Book a call directly
                   </a>.
                 </p>
               </div>
 
               {/* CTA */}
-              <a href="/book-a-call" className="btn-white mt-auto w-full">
+              <a href="/contact" className="btn-white mt-auto w-full">
                 Book a Free Discovery Call
               </a>
             </div>

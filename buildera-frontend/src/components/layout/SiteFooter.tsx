@@ -92,13 +92,11 @@ const HARDCODED_FOOTER_LINKS: Record<FooterLink["column"], { label: string; url:
     { label: "How We Work", url: "/how-we-work" },
     { label: "Case Studies", url: "/case-studies" },
     { label: "Testimonials", url: "/testimonials" },
-    { label: "FAQ", url: "/faq" },
   ],
   resources: [
     { label: "Blog", url: "/blog" },
     { label: "Guides", url: "/guides" },
     { label: "Contact Us", url: "/contact" },
-    { label: "Book a Call", url: "/book-a-call" },
     { label: "Privacy Policy", url: "/privacy-policy" },
     { label: "Terms", url: "/terms" },
   ],

@@ -36,13 +36,9 @@ import {
   IconRoute,
   IconBuildingSkyscraper,
   IconMessageCircle,
-  IconCalendarEvent,
   IconNews,
   IconBook2,
   IconMessage,
-  IconHelp,
-  IconLock,
-  IconFileText,
   IconArrowRight,
 } from "@tabler/icons-react"
 import { motion, AnimatePresence } from "motion/react"
@@ -119,20 +115,16 @@ const SOLUTION_NAV_FALLBACK: SolutionItem[] = [
 ]
 
 const WORK_NAV_FALLBACK: WorkItem[] = [
-  { label: "Case Studies",         href: "/case-studies", desc: "Real projects, measurable outcomes",      icon: IconFileAnalytics },
-  { label: "How We Work",          href: "/how-we-work",  desc: "Scoped → Built → Shipped → Supported",   icon: IconRoute },
-  { label: "About Buildera",       href: "/about",        desc: "10+ years, 800+ projects, Kanpur-based", icon: IconBuildingSkyscraper },
-  { label: "Testimonials",         href: "/testimonials", desc: "What our clients say",                   icon: IconMessageCircle },
-  { label: "Book a Discovery Call",href: "/contact",      desc: "Free 30-min scoping session",            icon: IconCalendarEvent },
+  { label: "Case Studies",   href: "/case-studies", desc: "Real projects, measurable outcomes",      icon: IconFileAnalytics },
+  { label: "How We Work",    href: "/how-we-work",  desc: "Scoped → Built → Shipped → Supported",   icon: IconRoute },
+  { label: "About Buildera", href: "/about",        desc: "10+ years, 800+ projects, Kanpur-based", icon: IconBuildingSkyscraper },
+  { label: "Testimonials",   href: "/testimonials", desc: "What our clients say",                   icon: IconMessageCircle },
 ]
 
 const RESOURCES_NAV_FALLBACK: ResourceItem[] = [
-  { label: "Blog",            href: "/blog",           desc: "Tech insights for decision-makers", icon: IconNews },
-  { label: "Guides",          href: "/guides",         desc: "How-to guides for your stack",      icon: IconBook2 },
-  { label: "Contact Us",      href: "/contact",        desc: "Talk to a solution expert",         icon: IconMessage },
-  { label: "FAQ",             href: "/faq",            desc: "Pricing, timelines, and process",   icon: IconHelp },
-  { label: "Privacy Policy",  href: "/privacy-policy", desc: "",                                  icon: IconLock },
-  { label: "Terms of Service",href: "/terms",          desc: "",                                  icon: IconFileText },
+  { label: "Blog",      href: "/blog",    desc: "Tech insights for decision-makers", icon: IconNews },
+  { label: "Guides",    href: "/guides",  desc: "How-to guides for your stack",      icon: IconBook2 },
+  { label: "Contact Us",href: "/contact", desc: "Talk to a solution expert",         icon: IconMessage },
 ]
 
 const PRODUCTS_NAV = [

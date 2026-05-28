@@ -282,7 +282,7 @@ export function ServicesTabSection() {
           viewport={{ once: true }}
           transition={{ delay: 0.4, duration: 0.5 }}
         >
-          <a href="/book-a-call" className="btn-primary">
+          <a href="/contact" className="btn-primary">
             Not Sure Which Fits? Book a Free Call →
           </a>
         </motion.div>
