@@ -8,8 +8,8 @@ progress:
   total_phases: 10
   completed_phases: 4
   total_plans: 21
-  completed_plans: 19
-  percent: 45
+  completed_plans: 20
+  percent: 48
 ---
 
 # Buildera — Project State
@@ -20,14 +20,14 @@ See: `.planning/PROJECT.md` (updated 2026-05-26)
 
 **Core value:** A decision-maker lands on buildera.co — cold or warm — immediately understands what Buildera builds, finds their specific problem reflected in the services/solutions, and books a discovery call.
 
-**Current focus:** Phase 04 — services solutions pages
+**Current focus:** Phase 05 — industries, trust pages & lead capture
 
 ## Phase Status
 
 | Phase | Name | Status |
 |-------|------|--------|
 | 1 | Project Foundation | 📋 Planned (4 plans, 3 waves) |
-| 2 | Backend Core | 🔄 In progress (4/5 plans done) |
+| 2 | Backend Core | ✅ Complete (5/5 plans done) |
 | 3 | Homepage & Design System | ✅ Complete (6/6 plans done) |
 | 4 | Services & Solutions Pages | ✅ Complete (6/6 plans done) |
 | 5 | Industries, Trust Pages & Lead Capture | ⬜ Not started |
