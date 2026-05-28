@@ -147,7 +147,7 @@ export function MiniLeadForm({
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           disabled={isLoading}
-          placeholder="+91 98765 43210"
+          placeholder="+91 82994 06767"
           className={inputClass}
         />
 

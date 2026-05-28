@@ -16,8 +16,8 @@ class SettingsSeeder extends Seeder
             // Company settings
             ['key' => 'company_name',    'value' => 'Buildera',                                   'group' => 'company'],
             ['key' => 'company_tagline', 'value' => 'We Build What Grows Your Business',           'group' => 'company'],
-            ['key' => 'company_phone',   'value' => '+1 (555) 000-0000',                           'group' => 'company'],
-            ['key' => 'company_email',   'value' => 'hello@buildera.co',                           'group' => 'company'],
+            ['key' => 'company_phone',   'value' => '+91 82994 06767',                             'group' => 'company'],
+            ['key' => 'company_email',   'value' => 'info@buildera.co',                            'group' => 'company'],
             ['key' => 'company_address', 'value' => '',                                            'group' => 'company'],
 
             // Social media

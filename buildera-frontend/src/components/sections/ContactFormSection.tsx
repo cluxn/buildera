@@ -161,7 +161,7 @@ export function ContactFormSection() {
                       id="cf-phone"
                       name="phone"
                       type="tel"
-                      placeholder="+91 98765 43210"
+                      placeholder="+91 82994 06767"
                       className="rounded-lg border border-border px-4 py-2.5 text-sm text-foreground placeholder-muted-foreground bg-background focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary)] focus:border-transparent min-h-[48px]"
                     />
                   </div>
@@ -261,8 +261,8 @@ export function ContactFormSection() {
                   </div>
                   <div>
                     <p className="text-white/55 text-xs uppercase tracking-wider font-medium mb-0.5">Email</p>
-                    <a href="mailto:hello@buildera.co" className="text-white font-semibold text-sm hover:text-white/80 transition-colors">
-                      hello@buildera.co
+                    <a href="mailto:info@buildera.co" className="text-white font-semibold text-sm hover:text-white/80 transition-colors">
+                      info@buildera.co
                     </a>
                   </div>
                 </div>
@@ -273,8 +273,8 @@ export function ContactFormSection() {
                   </div>
                   <div>
                     <p className="text-white/55 text-xs uppercase tracking-wider font-medium mb-0.5">Phone</p>
-                    <a href="tel:+919876543210" className="text-white font-semibold text-sm hover:text-white/80 transition-colors">
-                      +91 98765 43210
+                    <a href="tel:+918299406767" className="text-white font-semibold text-sm hover:text-white/80 transition-colors">
+                      +91 82994 06767
                     </a>
                   </div>
                 </div>
