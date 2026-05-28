@@ -30,25 +30,20 @@ export function IndustryChallenges({ challenges, industryName }: Props) {
   return (
     <section className="py-20 bg-[var(--brand-surface)]">
       <div className="container mx-auto px-8 max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+        <div className="text-center mb-14">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
+            Industry Challenges
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+            The Problems We Solve Every Day
+          </h2>
+          <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed">
+            These are the operational bottlenecks we hear from {industryName} businesses week after week. If any resonate, we already know how to fix them.
+          </p>
+        </div>
 
-          {/* Left — intro */}
-          <div className="lg:sticky lg:top-24">
-            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
-              Industry Challenges
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-              The Problems We Solve{' '}
-              <span className="text-[var(--brand-primary)]">Every Day</span>
-            </h2>
-            <p className="text-muted-foreground leading-relaxed">
-              These are the operational bottlenecks we hear from {industryName} businesses week after week. If any resonate, we already know how to fix them.
-            </p>
-            <div className="mt-6 h-1 w-12 rounded-full bg-[var(--brand-primary)]" aria-hidden="true" />
-          </div>
-
-          {/* Right — challenge cards */}
-          <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {challenges.map((c, i) => {
               const Icon = CHALLENGE_ICONS[i % CHALLENGE_ICONS.length]
               return (
@@ -72,7 +67,6 @@ export function IndustryChallenges({ challenges, industryName }: Props) {
               )
             })}
           </div>
-
         </div>
       </div>
     </section>

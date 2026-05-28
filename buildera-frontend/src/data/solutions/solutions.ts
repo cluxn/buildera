@@ -2,7 +2,7 @@ import type { SolutionPageData } from '@/types/service-page'
 
 export const solutions: SolutionPageData[] = [
   {
-    slug: 'operations-mgmt',
+    slug: 'operations-management',
     title: 'Operations Management',
     heroHeadline: 'Stop Running Your Operations on Spreadsheets',
     heroSubheadline: 'Custom operations management software that gives you real-time visibility across your entire business — from orders to deliveries to invoices — in one place.',
@@ -35,7 +35,7 @@ export const solutions: SolutionPageData[] = [
     ctaHeadline: 'Ready to Streamline Your Operations?',
   },
   {
-    slug: 'vendor-mgmt',
+    slug: 'vendor-management',
     title: 'Vendor Management',
     heroHeadline: 'Stop Chasing Vendors With WhatsApp Messages',
     heroSubheadline: 'A custom vendor management portal that centralises POs, tracks deliveries, manages contracts, and flags issues before they become supply disruptions.',
@@ -68,7 +68,7 @@ export const solutions: SolutionPageData[] = [
     ctaHeadline: 'Ready to Take Control of Your Vendor Relationships?',
   },
   {
-    slug: 'ota-channel',
+    slug: 'ota-channel-partner',
     title: 'OTA Channel Partner Management',
     heroHeadline: 'Manage Every OTA Channel From One Dashboard',
     heroSubheadline: 'Stop manually updating rates on Booking.com, Expedia, and MakeMyTrip one by one. A custom channel manager that pushes rate changes and availability across every OTA in real time.',
@@ -134,7 +134,7 @@ export const solutions: SolutionPageData[] = [
     ctaHeadline: 'Ready for Supply Chain That Runs Itself?',
   },
   {
-    slug: 'project-mgmt',
+    slug: 'project-management',
     title: 'Project Management',
     heroHeadline: 'Every Project Delivered On Time — With Full Visibility',
     heroSubheadline: 'A custom project management system that tracks tasks, resources, timelines, and budgets in one place — built for how your teams actually work, not for how a generic tool assumes they work.',
@@ -167,7 +167,7 @@ export const solutions: SolutionPageData[] = [
     ctaHeadline: 'Ready to Deliver Every Project On Time and On Budget?',
   },
   {
-    slug: 'accounting-mgmt',
+    slug: 'accounting-management',
     title: 'Accounting Management',
     heroHeadline: 'Accounts That Close in Hours, Not Days',
     heroSubheadline: 'Automate your invoicing, expense tracking, and financial reporting so your finance team stops spending 40% of their month on data entry and starts on analysis.',
@@ -200,7 +200,7 @@ export const solutions: SolutionPageData[] = [
     ctaHeadline: 'Ready to Cut Your Month-End Close From Days to Hours?',
   },
   {
-    slug: 'warehouse-mgmt',
+    slug: 'warehouse-management',
     title: 'Warehouse Management',
     heroHeadline: 'Know Exactly What\'s in Your Warehouse at Every Moment',
     heroSubheadline: 'A custom WMS that tracks stock from goods-in to dispatch, eliminates picking errors, and gives you real-time inventory accuracy — without expensive enterprise software.',
@@ -233,7 +233,7 @@ export const solutions: SolutionPageData[] = [
     ctaHeadline: 'Ready for a Warehouse That Runs on Accuracy?',
   },
   {
-    slug: 'hotels-resorts',
+    slug: 'hotels-and-resorts',
     title: 'Hotels & Resorts Management',
     heroHeadline: 'Run Your Hotel Like a Chain — At Independent Rates',
     heroSubheadline: 'A custom hotel management system covering reservations, front desk, housekeeping, F&B, and reporting — built for independent hotels and boutique resorts who can\'t afford enterprise PMS pricing.',
@@ -266,7 +266,7 @@ export const solutions: SolutionPageData[] = [
     ctaHeadline: 'Ready to Run Your Hotel With Real Software?',
   },
   {
-    slug: 'financial-mgmt',
+    slug: 'financial-management',
     title: 'Financial Management',
     heroHeadline: 'Financial Decisions Made on Live Data, Not Last Month\'s Reports',
     heroSubheadline: 'Custom financial management software that automates reconciliation, tracks budgets vs actuals in real time, and gives decision-makers the numbers they need without waiting for the finance team.',
@@ -299,7 +299,7 @@ export const solutions: SolutionPageData[] = [
     ctaHeadline: 'Ready to Make Financial Decisions With Confidence?',
   },
   {
-    slug: 'fleet-mgmt',
+    slug: 'fleet-management',
     title: 'Fleet Management',
     heroHeadline: 'Track Every Vehicle, Control Every Cost',
     heroSubheadline: 'A custom fleet management system that tracks vehicle locations, schedules maintenance, controls fuel spend, and gives you the driver behaviour data that reduces accidents and saves on insurance.',
@@ -332,7 +332,7 @@ export const solutions: SolutionPageData[] = [
     ctaHeadline: 'Ready to Control Your Fleet Like a Professional Logistics Operator?',
   },
   {
-    slug: 'vacation-rental',
+    slug: 'airbnb-vacation-rental',
     title: 'Airbnb & Vacation Rental Management',
     heroHeadline: 'Manage 10 Properties Like You\'re Managing 1',
     heroSubheadline: 'A custom vacation rental management platform that automates guest communication, syncs availability across Airbnb and Booking.com, and coordinates housekeeping — so you scale without adding headcount.',
@@ -365,7 +365,7 @@ export const solutions: SolutionPageData[] = [
     ctaHeadline: 'Ready to Scale Your Rental Portfolio Without Scaling Your Workload?',
   },
   {
-    slug: 'hr-mgmt',
+    slug: 'hr-management',
     title: 'HR Management',
     heroHeadline: 'HR That Runs on Processes, Not Post-it Notes',
     heroSubheadline: 'A custom HR management system that handles onboarding, attendance, leave management, payroll inputs, and performance reviews — without spreadsheets, paper forms, or WhatsApp groups.',
@@ -398,7 +398,7 @@ export const solutions: SolutionPageData[] = [
     ctaHeadline: 'Ready to Run HR Like a System, Not a Firefight?',
   },
   {
-    slug: 'lead-mgmt',
+    slug: 'lead-management',
     title: 'Lead Management',
     heroHeadline: 'Stop Losing Leads to Poor Follow-Up',
     heroSubheadline: 'A custom lead management system that captures every enquiry, assigns it to the right person, triggers follow-up sequences, and tells you which source is producing your best customers.',
@@ -431,7 +431,7 @@ export const solutions: SolutionPageData[] = [
     ctaHeadline: 'Ready to Turn Your Lead Flow Into a Predictable Pipeline?',
   },
   {
-    slug: 'sales-mgmt',
+    slug: 'sales-management',
     title: 'Sales Management',
     heroHeadline: 'Sales Targets Your Team Can Actually Hit — With Visibility to Prove It',
     heroSubheadline: 'A custom sales management platform that tracks quotas, monitors rep activity, forecasts revenue, and gives managers the real-time data they need to coach the team, not just report to the board.',
@@ -497,7 +497,7 @@ export const solutions: SolutionPageData[] = [
     ctaHeadline: 'Ready for a CRM That Actually Manages Customer Relationships?',
   },
   {
-    slug: 'india-mart',
+    slug: 'india-mart-automation',
     title: 'IndiaMart Automation',
     heroHeadline: 'Turn IndiaMart Leads Into Customers — Automatically',
     heroSubheadline: 'Stop manually copying IndiaMart enquiries into your CRM. A custom automation that captures every lead, scores it, sends an instant WhatsApp response, and routes it to your sales team — in under 60 seconds.',
@@ -563,7 +563,7 @@ export const solutions: SolutionPageData[] = [
     ctaHeadline: 'Ready to Run Your Business on One System?',
   },
   {
-    slug: 'manufacturing',
+    slug: 'manufacturing-production',
     title: 'Manufacturing & Production Management',
     heroHeadline: 'Production Floor Visibility That Prevents Delays Before They Happen',
     heroSubheadline: 'A custom manufacturing management system that tracks production orders, monitors machine utilisation, manages quality checkpoints, and alerts you to capacity bottlenecks in real time — before they delay a customer delivery.',
@@ -594,5 +594,71 @@ export const solutions: SolutionPageData[] = [
     industriesServed: ['manufacturing'],
     relatedServices: ['software-development', 'ai-agent-development'],
     ctaHeadline: 'Ready to Run Your Production Floor on Real Data?',
+  },
+  {
+    slug: 'inventory-management',
+    title: 'Inventory Management',
+    heroHeadline: 'Brand-Level Inventory Control — With Dead Stock Alerts',
+    heroSubheadline: 'A custom inventory management system that gives you real-time stock visibility across every brand, SKU, and location — with automatic alerts before dead stock drains your working capital.',
+    problemPoints: [
+      'Your team counts stock manually every month — and the numbers never match the purchase records because there is no single source of truth.',
+      'Dead stock piles up silently because nobody has visibility into which SKUs have not moved in 60, 90, or 120 days until it is too late.',
+      'Reorders happen reactively — you either overstock on fast-movers or run dry on high-demand items because there is no demand-driven reorder logic.',
+    ],
+    featureCards: [
+      {
+        title: 'Real-Time Stock Dashboard',
+        description: 'Every SKU, every brand, every location tracked live. Stock levels updated the moment a purchase, transfer, or sale is recorded — no manual counting.',
+        metric: '99%+ inventory accuracy',
+      },
+      {
+        title: 'Dead Stock Alerts',
+        description: 'Automatic alerts when items breach your configured non-movement threshold — 30, 60, or 90 days. Act before dead stock becomes a write-off.',
+      },
+      {
+        title: 'Brand-Level Tracking',
+        description: 'Filter and analyse stock by brand, category, or supplier. Know which brands are performing and which are tying up capital without moving.',
+      },
+      {
+        title: 'Smart Reorder Rules',
+        description: 'Set minimum stock thresholds per SKU. The system triggers a reorder notification automatically — so you never run dry on your bestsellers.',
+      },
+    ],
+    industriesServed: ['retail', 'manufacturing', 'logistics'],
+    relatedServices: ['software-development', 'ai-agent-development'],
+    ctaHeadline: 'Ready to Take Control of Your Inventory?',
+  },
+  {
+    slug: 'liquor-shop-management',
+    title: 'Liquor Shop Management',
+    heroHeadline: 'Manage Your Liquor Shop Like a Professional Chain',
+    heroSubheadline: 'A purpose-built liquor shop management system covering daily stock tracking, purchases, brand-level inventory, excise compliance, and billing — so you always know what you have, what you owe, and what you sold.',
+    problemPoints: [
+      'Daily stock reconciliation is done manually on paper — discrepancies between physical stock and purchase records take hours to trace every week.',
+      'Excise compliance and quota management are tracked in spreadsheets that are always one step behind — creating audit risk and regulatory exposure.',
+      'You have no visibility into which brands are your fastest movers and which are slow stock until you physically walk the shelves.',
+    ],
+    featureCards: [
+      {
+        title: 'Daily Stock & Purchase Tracking',
+        description: 'Every purchase, sale, and transfer recorded in real time. Daily closing stock calculated automatically — no manual reconciliation at end of day.',
+        metric: 'Daily stock in under 5 minutes',
+      },
+      {
+        title: 'Excise & Quota Management',
+        description: 'Quota utilisation tracked against excise limits automatically. Parcha and audit trails maintained digitally — ready for inspection at any time.',
+      },
+      {
+        title: 'Brand & SKU Performance',
+        description: 'Know exactly which brands move fastest, which are slow, and where your capital is tied up. Filter by brand, category, or supplier in seconds.',
+      },
+      {
+        title: 'POS Billing & GST Receipts',
+        description: 'Barcode-based billing at the counter with GST-compliant receipts. FL catalog and BL catalog supported with thermal receipt printing.',
+      },
+    ],
+    industriesServed: ['retail'],
+    relatedServices: ['software-development', 'ai-agent-development'],
+    ctaHeadline: 'Ready to Run Your Liquor Shop on Real Data?',
   },
 ]

@@ -41,8 +41,7 @@ export function IndustrySolutions({ solutions }: Props) {
             Our Solutions
           </p>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-            Purpose-Built Software{' '}
-            <span className="text-[var(--brand-primary)]">For Your Industry</span>
+            Purpose-Built Software for Your Industry
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
             Pre-scoped software modules designed around the exact workflows and data your industry runs on — ready to customise, not start from scratch.

@@ -51,7 +51,7 @@ export function CTASection() {
           transition={{ delay: 0.4, duration: 0.5, ease: "easeOut" }}
         >
           <a
-            href="/book-a-call"
+            href="/contact"
             className="relative inline-flex items-center gap-2 bg-white text-[var(--brand-primary)] font-semibold px-8 py-4 rounded-lg transition-all duration-200 overflow-hidden min-h-[48px] hover:-translate-y-0.5 hover:shadow-[0_8px_24px_hsl(221_83%_53%/40%)]"
           >
             Book a Free Discovery Call

@@ -35,7 +35,7 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.5 }}
             >
-              <Link href="/book-a-call" className="btn-primary">
+              <Link href="/contact" className="btn-primary">
                 Book a Free Call
               </Link>
             </motion.div>
@@ -124,9 +124,9 @@ export function HeroSection() {
                   transition={{ delay: 1.45, duration: 0.4 }}
                 >
                   {[
-                    { value: "150+", label: "Projects" },
-                    { value: "98%", label: "Satisfaction" },
-                    { value: "6 wks", label: "Avg. Delivery" },
+                    { value: "800+", label: "Projects" },
+                    { value: "500+", label: "Clients" },
+                    { value: "10+", label: "Yrs Experience" },
                   ].map((stat) => (
                     <div key={stat.label} className="flex flex-col gap-0.5">
                       <span className="text-base font-bold text-foreground">{stat.value}</span>

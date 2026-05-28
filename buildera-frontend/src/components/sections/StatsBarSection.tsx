@@ -11,24 +11,24 @@ interface Props {
 export function StatsBarSection({ settings }: Props) {
   const stats = [
     {
-      target: parseInt(settings.stat_projects) || 150,
+      target: parseInt(settings.stat_projects) || 800,
       suffix: "+",
       label: "Projects Delivered",
     },
     {
-      target: parseInt(settings.stat_clients) || 50,
+      target: parseInt(settings.stat_clients) || 500,
       suffix: "+",
       label: "Happy Clients",
     },
     {
-      target: parseInt(settings.stat_years) || 6,
+      target: parseInt(settings.stat_years) || 10,
       suffix: "+",
       label: "Years Experience",
     },
     {
-      target: parseInt(settings.stat_satisfaction) || 98,
-      suffix: "%",
-      label: "Client Satisfaction",
+      target: parseInt(settings.stat_satisfaction) || 100,
+      suffix: "+",
+      label: "Industries Served",
     },
   ]
 

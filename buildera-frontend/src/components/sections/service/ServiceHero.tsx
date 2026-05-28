@@ -37,9 +37,9 @@ export function ServiceHero({ data }: Props) {
             <p className="text-lg text-muted-foreground max-w-xl mb-8">
               {data.heroSubheadline}
             </p>
-            <p className="text-sm text-muted-foreground mb-6">150+ Projects · 50+ Clients · 98% Satisfaction</p>
+            <p className="text-sm text-muted-foreground mb-6">800+ Projects · 500+ Clients · 10+ Years Experience</p>
             <div className="flex flex-wrap gap-4">
-              <Link href="/book-a-call" className="btn-primary">
+              <Link href="/contact" className="btn-primary">
                 {data.heroCta}
               </Link>
             </div>

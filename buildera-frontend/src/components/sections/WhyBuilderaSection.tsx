@@ -35,19 +35,19 @@ export function WhyBuilderaSection() {
             transition={{ delay: 0, duration: 0.5 }}
           >
             <div className="flex flex-col items-center justify-center gap-6 p-6 rounded-lg border border-border bg-card h-full">
-              <AnimatedRingStat value={98} suffix="%" label="Client Satisfaction" className="w-[120px]" />
+              <AnimatedRingStat value={100} suffix="+" label="Industries Served" className="w-[120px]" />
               <div className="w-full border-t border-border pt-4 flex flex-col gap-3">
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-muted-foreground">Projects Delivered</span>
-                  <span className="font-semibold text-foreground">150+</span>
+                  <span className="font-semibold text-foreground">800+</span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-muted-foreground">Happy Clients</span>
-                  <span className="font-semibold text-foreground">50+</span>
+                  <span className="font-semibold text-foreground">500+</span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-muted-foreground">Years of Experience</span>
-                  <span className="font-semibold text-foreground">5+</span>
+                  <span className="font-semibold text-foreground">10+</span>
                 </div>
               </div>
             </div>

@@ -80,10 +80,12 @@ const HARDCODED_FOOTER_LINKS: Record<FooterLink["column"], { label: string; url:
   solutions: [
     { label: "CRM Solutions", url: "/solutions/crm" },
     { label: "ERP Solution", url: "/solutions/erp" },
-    { label: "Lead Management", url: "/solutions/lead-mgmt" },
-    { label: "Operations Management", url: "/solutions/operations-mgmt" },
-    { label: "HR Management", url: "/solutions/hr-mgmt" },
-    { label: "Warehouse Management", url: "/solutions/warehouse-mgmt" },
+    { label: "Lead Management", url: "/solutions/lead-management" },
+    { label: "Operations Management", url: "/solutions/operations-management" },
+    { label: "HR Management", url: "/solutions/hr-management" },
+    { label: "Warehouse Management", url: "/solutions/warehouse-management" },
+    { label: "Inventory Management", url: "/solutions/inventory-management" },
+    { label: "Liquor Shop Management", url: "/solutions/liquor-shop-management" },
   ],
   company: [
     { label: "About Us", url: "/about" },

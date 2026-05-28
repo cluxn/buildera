@@ -20,6 +20,8 @@ import {
   IconRobot,
   IconBriefcase,
   IconTool,
+  IconStack2,
+  IconBottle,
 } from "@tabler/icons-react"
 import { SolutionTile } from "@/components/ui/SolutionTile"
 
@@ -42,6 +44,8 @@ const SOLUTIONS = [
   { name: "India Mart Automation", slug: "india-mart-automation", icon: <IconRobot className="size-5" /> },
   { name: "ERP", slug: "erp", icon: <IconBriefcase className="size-5" /> },
   { name: "Manufacturing/Production", slug: "manufacturing-production", icon: <IconTool className="size-5" /> },
+  { name: "Inventory Management", slug: "inventory-management", icon: <IconStack2 className="size-5" /> },
+  { name: "Liquor Shop Management", slug: "liquor-shop-management", icon: <IconBottle className="size-5" /> },
 ]
 
 export function SolutionsGridSection() {
@@ -101,7 +105,7 @@ export function SolutionsGridSection() {
           viewport={{ once: true }}
           transition={{ delay: 0.4, duration: 0.5 }}
         >
-          <a href="/book-a-call" className="btn-primary">
+          <a href="/contact" className="btn-primary">
             Found Your Problem? Let&apos;s Build the Fix →
           </a>
         </motion.div>

@@ -18,7 +18,7 @@ export function ServiceOutcomeCards({ cards }: Props) {
         </div>
         <StaggeredRevealGrid className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           {cards.map((card, i) => (
-            <div key={i} className="flex flex-col rounded-xl p-6 h-full" style={{ background: 'var(--brand-glass)', backdropFilter: 'blur(12px)', border: '1px solid hsl(217 91% 60% / 15%)' }}>
+            <div key={i} className="flex flex-col rounded-xl p-6 h-full bg-card border border-border">
               <h4 className="text-lg font-semibold mb-2">{card.title}</h4>
               <p className="text-sm text-muted-foreground mb-3 flex-1">{card.description}</p>
               {card.metric && (

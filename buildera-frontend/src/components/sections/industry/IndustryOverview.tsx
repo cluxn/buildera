@@ -37,8 +37,7 @@ export function IndustryOverview({ data }: Props) {
               Why Buildera
             </p>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-6 leading-tight">
-              Built Specifically for{' '}
-              <span className="text-[var(--brand-primary)]">{data.name} Businesses</span>
+              Built Specifically for {data.name} Businesses
             </h2>
             <p className="text-muted-foreground mb-8 leading-relaxed">{data.overview}</p>
 
@@ -56,7 +55,7 @@ export function IndustryOverview({ data }: Props) {
             )}
 
             <Link
-              href="/book-a-call"
+              href="/contact"
               className="inline-flex items-center gap-2 text-[var(--brand-primary)] font-semibold hover:gap-3 transition-all"
             >
               Book a Free Discovery Call
@@ -70,11 +69,11 @@ export function IndustryOverview({ data }: Props) {
               className="rounded-2xl border border-border/60 overflow-hidden"
               style={{ background: 'var(--brand-glass)', backdropFilter: 'blur(16px)' }}
             >
-              <div className="px-7 py-5 border-b border-border/60 bg-[var(--brand-primary)]">
-                <p className="text-xs font-semibold uppercase tracking-widest text-white/70 mb-1">
+              <div className="px-7 py-5 border-b border-border/60 bg-[var(--brand-surface)]">
+                <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-1">
                   What You Get
                 </p>
-                <h3 className="text-lg font-bold text-white">End-to-End {data.name} Software</h3>
+                <h3 className="text-lg font-bold text-foreground">End-to-End {data.name} Software</h3>
               </div>
               <div className="px-7 py-6 space-y-5">
                 {DELIVERY_STEPS.map((step, i) => (

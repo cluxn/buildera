@@ -27,11 +27,11 @@ export const industries: IndustryPageData[] = [
       { title: 'Manual Data Entry Across Systems', description: 'Your team re-enters the same data in five different places. Every duplication is a chance for error — and a cost you\'re absorbing silently.' },
     ],
     solutions: [
-      { slug: 'manufacturing', label: 'Manufacturing & Production Management' },
-      { slug: 'operations-mgmt', label: 'Operations Management' },
+      { slug: 'manufacturing-production', label: 'Manufacturing & Production Management' },
+      { slug: 'operations-management', label: 'Operations Management' },
       { slug: 'supply-chain', label: 'Supply Chain Management' },
-      { slug: 'vendor-mgmt', label: 'Vendor Management' },
-      { slug: 'warehouse-mgmt', label: 'Warehouse Management' },
+      { slug: 'vendor-management', label: 'Vendor Management' },
+      { slug: 'warehouse-management', label: 'Warehouse Management' },
       { slug: 'erp', label: 'ERP Solution' },
     ],
     services: [
@@ -67,11 +67,11 @@ export const industries: IndustryPageData[] = [
       { title: 'Zero Customer Retention System', description: 'You have customer data scattered across receipts, WhatsApp chats, and Excel. No system turns one-time buyers into repeat revenue.' },
     ],
     solutions: [
-      { slug: 'lead-mgmt', label: 'Lead Management' },
-      { slug: 'sales-mgmt', label: 'Sales Management' },
+      { slug: 'lead-management', label: 'Lead Management' },
+      { slug: 'sales-management', label: 'Sales Management' },
       { slug: 'crm', label: 'CRM Solution' },
-      { slug: 'india-mart', label: 'IndiaMart Automation' },
-      { slug: 'warehouse-mgmt', label: 'Warehouse Management' },
+      { slug: 'india-mart-automation', label: 'IndiaMart Automation' },
+      { slug: 'warehouse-management', label: 'Warehouse Management' },
       { slug: 'erp', label: 'ERP Solution' },
     ],
     services: [
@@ -107,10 +107,10 @@ export const industries: IndustryPageData[] = [
       { title: 'No Guest Communication System', description: 'Pre-arrival emails, check-in instructions, and feedback requests are sent manually — or not at all. Guest relationships end at checkout.' },
     ],
     solutions: [
-      { slug: 'hotels-resorts', label: 'Hotels & Resorts Management' },
-      { slug: 'ota-channel', label: 'OTA Channel Partner Management' },
-      { slug: 'vacation-rental', label: 'Airbnb & Vacation Rental Management' },
-      { slug: 'operations-mgmt', label: 'Operations Management' },
+      { slug: 'hotels-and-resorts', label: 'Hotels & Resorts Management' },
+      { slug: 'ota-channel-partner', label: 'OTA Channel Partner Management' },
+      { slug: 'airbnb-vacation-rental', label: 'Airbnb & Vacation Rental Management' },
+      { slug: 'operations-management', label: 'Operations Management' },
     ],
     services: [
       { categorySlug: 'software-development', label: 'Custom Software Development', description: 'Property management systems, booking engines, and channel managers built for your property type.' },
@@ -145,10 +145,10 @@ export const industries: IndustryPageData[] = [
       { title: 'Manual Reconciliation', description: 'Bank statement reconciliation done in Excel is error-prone and days late. By the time you spot a discrepancy, it\'s already a problem.' },
     ],
     solutions: [
-      { slug: 'financial-mgmt', label: 'Financial Management' },
-      { slug: 'accounting-mgmt', label: 'Accounting Management' },
+      { slug: 'financial-management', label: 'Financial Management' },
+      { slug: 'accounting-management', label: 'Accounting Management' },
       { slug: 'crm', label: 'CRM Solution' },
-      { slug: 'lead-mgmt', label: 'Lead Management' },
+      { slug: 'lead-management', label: 'Lead Management' },
     ],
     services: [
       { categorySlug: 'software-development', label: 'Custom Software Development', description: 'Secure fintech platforms with built-in audit trails, role-based access, and compliance reporting.' },
@@ -183,10 +183,10 @@ export const industries: IndustryPageData[] = [
       { title: 'Fragmented Patient Communication', description: 'Appointment reminders, discharge instructions, and follow-up care are managed via individual WhatsApp messages. Nothing is tracked, nothing is automated.' },
     ],
     solutions: [
-      { slug: 'operations-mgmt', label: 'Operations Management' },
-      { slug: 'lead-mgmt', label: 'Lead Management' },
-      { slug: 'accounting-mgmt', label: 'Accounting Management' },
-      { slug: 'hr-mgmt', label: 'HR Management' },
+      { slug: 'operations-management', label: 'Operations Management' },
+      { slug: 'lead-management', label: 'Lead Management' },
+      { slug: 'accounting-management', label: 'Accounting Management' },
+      { slug: 'hr-management', label: 'HR Management' },
     ],
     services: [
       { categorySlug: 'software-development', label: 'Custom Software Development', description: 'Hospital information systems, clinic management platforms, and patient portals built for Indian healthcare workflows.' },
@@ -221,10 +221,10 @@ export const industries: IndustryPageData[] = [
       { title: 'No Visibility Into Attrition Risk', description: 'You find out an employee is leaving when they hand in their notice — not three months earlier when the warning signs were visible in engagement data.' },
     ],
     solutions: [
-      { slug: 'hr-mgmt', label: 'HR Management' },
-      { slug: 'operations-mgmt', label: 'Operations Management' },
-      { slug: 'lead-mgmt', label: 'Lead Management' },
-      { slug: 'accounting-mgmt', label: 'Accounting Management' },
+      { slug: 'hr-management', label: 'HR Management' },
+      { slug: 'operations-management', label: 'Operations Management' },
+      { slug: 'lead-management', label: 'Lead Management' },
+      { slug: 'accounting-management', label: 'Accounting Management' },
     ],
     services: [
       { categorySlug: 'software-development', label: 'Custom Software Development', description: 'Custom HRMS platforms with payroll input automation, leave management, and compliance tracking.' },
@@ -259,10 +259,10 @@ export const industries: IndustryPageData[] = [
       { title: 'No Scalable Content Delivery', description: 'Recorded content lives on YouTube, notes on WhatsApp, and live sessions on Zoom. There\'s no unified student experience — and no usage data.' },
     ],
     solutions: [
-      { slug: 'lead-mgmt', label: 'Lead Management' },
+      { slug: 'lead-management', label: 'Lead Management' },
       { slug: 'crm', label: 'CRM Solution' },
-      { slug: 'operations-mgmt', label: 'Operations Management' },
-      { slug: 'accounting-mgmt', label: 'Accounting Management' },
+      { slug: 'operations-management', label: 'Operations Management' },
+      { slug: 'accounting-management', label: 'Accounting Management' },
     ],
     services: [
       { categorySlug: 'software-development', label: 'Custom Software Development', description: 'Custom LMS platforms, student portals, batch management systems, and assessment engines.' },
@@ -297,9 +297,9 @@ export const industries: IndustryPageData[] = [
       { title: 'No Client Communication Trail', description: 'Client communications across email, WhatsApp, and phone are not centralised. If a matter goes to dispute, you can\'t reconstruct the advice timeline.' },
     ],
     solutions: [
-      { slug: 'project-mgmt', label: 'Project Management' },
-      { slug: 'lead-mgmt', label: 'Lead Management' },
-      { slug: 'accounting-mgmt', label: 'Accounting Management' },
+      { slug: 'project-management', label: 'Project Management' },
+      { slug: 'lead-management', label: 'Lead Management' },
+      { slug: 'accounting-management', label: 'Accounting Management' },
       { slug: 'crm', label: 'CRM Solution' },
     ],
     services: [
@@ -335,10 +335,10 @@ export const industries: IndustryPageData[] = [
       { title: 'Stakeholder Reporting Credibility', description: 'Investors and regulators increasingly demand third-party verifiable data. Manual ESG reporting with no audit trail is becoming commercially untenable.' },
     ],
     solutions: [
-      { slug: 'operations-mgmt', label: 'Operations Management' },
-      { slug: 'project-mgmt', label: 'Project Management' },
-      { slug: 'vendor-mgmt', label: 'Vendor Management' },
-      { slug: 'accounting-mgmt', label: 'Accounting Management' },
+      { slug: 'operations-management', label: 'Operations Management' },
+      { slug: 'project-management', label: 'Project Management' },
+      { slug: 'vendor-management', label: 'Vendor Management' },
+      { slug: 'accounting-management', label: 'Accounting Management' },
     ],
     services: [
       { categorySlug: 'software-development', label: 'Custom Software Development', description: 'Carbon tracking platforms, ESG dashboards, and energy management systems with regulatory-grade reporting.' },
@@ -373,10 +373,10 @@ export const industries: IndustryPageData[] = [
       { title: 'No Single View of the Customer', description: 'A customer\'s policies, claims history, communications, and renewal dates live in five different systems. Cross-sell opportunities are invisible.' },
     ],
     solutions: [
-      { slug: 'lead-mgmt', label: 'Lead Management' },
+      { slug: 'lead-management', label: 'Lead Management' },
       { slug: 'crm', label: 'CRM Solution' },
-      { slug: 'financial-mgmt', label: 'Financial Management' },
-      { slug: 'sales-mgmt', label: 'Sales Management' },
+      { slug: 'financial-management', label: 'Financial Management' },
+      { slug: 'sales-management', label: 'Sales Management' },
     ],
     services: [
       { categorySlug: 'software-development', label: 'Custom Software Development', description: 'Policy administration systems, claims management platforms, and broker portals tailored to Indian insurance workflows.' },
@@ -411,9 +411,9 @@ export const industries: IndustryPageData[] = [
       { title: 'Integration Complexity', description: 'Every new enterprise customer wants a different integration — Salesforce, SAP, Tally, Zoho. Building each one from scratch drains your core product team.' },
     ],
     solutions: [
-      { slug: 'project-mgmt', label: 'Project Management' },
-      { slug: 'operations-mgmt', label: 'Operations Management' },
-      { slug: 'lead-mgmt', label: 'Lead Management' },
+      { slug: 'project-management', label: 'Project Management' },
+      { slug: 'operations-management', label: 'Operations Management' },
+      { slug: 'lead-management', label: 'Lead Management' },
       { slug: 'crm', label: 'CRM Solution' },
     ],
     services: [

@@ -14,13 +14,23 @@ interface Props {
   navItems: NavItem[]
 }
 
-const NAV_PANELS = ["Services", "Industries", "Solutions", "Work", "Resources"] as const
+const NAV_PANELS = ["Services", "Industries", "Solutions", "Work", "Resources", "Our Products"] as const
+
+// Pixel width for each dropdown panel
+const PANEL_WIDTHS: Record<string, number> = {
+  Services: 900,
+  Industries: 660,
+  Solutions: 720,
+  Work: 460,
+  Resources: 460,
+  "Our Products": 480,
+}
 
 export function SiteNavClient({ servicesMenu, navItems }: Props) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const [isMobileOpen, setIsMobileOpen] = useState(false)
-  const [dropdownOffset, setDropdownOffset] = useState<{ left: number } | null>(null)
+  const [dropdownOffset, setDropdownOffset] = useState<{ left: number; width: number } | null>(null)
 
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -34,16 +44,15 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
 
   function handleNavMouseEnter(panel: string) {
     if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current)
-    // Clear any pending close so switching between panels doesn't ghost-flash the previous one
     if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current)
 
     const btn = buttonRefs.current[panel]
-    if (btn && (panel === "Work" || panel === "Resources")) {
+    if (btn) {
       const rect = btn.getBoundingClientRect()
       const btnCenter = rect.left + rect.width / 2
-      const dropdownHalfWidth = 230 // half of min-w-[460px]
-      const left = Math.max(8, Math.min(btnCenter - dropdownHalfWidth, window.innerWidth - 468))
-      setDropdownOffset({ left })
+      const w = PANEL_WIDTHS[panel] ?? 460
+      const left = Math.max(8, Math.min(btnCenter - w / 2, window.innerWidth - w - 8))
+      setDropdownOffset({ left, width: w })
     } else {
       setDropdownOffset(null)
     }
@@ -78,7 +87,7 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
 
-            {/* Logo — gradient text wordmark */}
+            {/* Logo */}
             <Link href="/" className="group">
               <span
                 className="font-bold text-[1.2rem] tracking-tight select-none"
@@ -104,7 +113,7 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
                   key={panel}
                   ref={(el) => { buttonRefs.current[panel] = el ?? undefined }}
                   aria-expanded={activeDropdown === panel}
-                  aria-controls={`mega-dropdown-${panel.toLowerCase()}`}
+                  aria-controls={`mega-dropdown-${panel.toLowerCase().replace(/\s+/g, "-")}`}
                   className={cn(
                     "relative px-4 py-2 text-sm font-medium rounded-lg transition-colors min-h-[48px]",
                     activeDropdown === panel
@@ -120,7 +129,7 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
 
             {/* Desktop CTA + Mobile hamburger */}
             <div className="flex items-center gap-3">
-              <Link href="/book-a-call" className="hidden lg:inline-flex btn-primary !min-h-[42px]">
+              <Link href="/contact" className="hidden lg:inline-flex btn-primary !min-h-[42px]">
                 Book a Call
               </Link>
               <button

@@ -42,7 +42,7 @@ export function IndustryCta({ headline, industryName }: Props) {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              href="/book-a-call"
+              href="/contact"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg bg-white text-[var(--brand-primary)] font-bold text-base hover:opacity-90 transition-opacity"
             >
               <IconCalendar className="w-5 h-5" />
