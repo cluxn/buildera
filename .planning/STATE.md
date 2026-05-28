@@ -31,7 +31,7 @@ See: `.planning/PROJECT.md` (updated 2026-05-26)
 | 3 | Homepage & Design System | ✅ Complete (6/6 plans done) |
 | 4 | Services & Solutions Pages | ✅ Complete (6/6 plans done) |
 | 5 | Industries, Trust Pages & Lead Capture | ✅ Complete (5/5 plans done) |
-| 6 | Content — Blog, Case Studies, Guides | ⬜ Not started |
+| 6 | Content — Blog, Case Studies, Guides | 📋 Planned (5 plans, 3 waves) |
 | 7 | SEO, Analytics & Search | ⬜ Not started |
 | 8 | Admin Completeness & Reliability | ⬜ Not started |
 | 9 | Performance & Accessibility | ⬜ Not started |
