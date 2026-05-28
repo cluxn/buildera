@@ -17,6 +17,8 @@ class Testimonial extends Model
         'service_tags',
         'industry_tags',
         'solution_slug',
+        'service_category',
+        'industry',
         'is_featured',
         'is_published',
         'sort_order',
@@ -34,5 +36,10 @@ class Testimonial extends Model
     public function scopePublished(Builder $query): void
     {
         $query->where('is_published', true);
+    }
+
+    public function scopeForService(Builder $query, string $service): void
+    {
+        $query->where('service_category', $service);
     }
 }

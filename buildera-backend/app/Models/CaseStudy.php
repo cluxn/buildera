@@ -24,6 +24,9 @@ class CaseStudy extends Model
         'service_tags',
         'industry_tags',
         'solution_slug',
+        'key_metrics',
+        'testimonial_quote',
+        'testimonial_author',
         'is_featured',
         'is_published',
         'published_at',
@@ -35,6 +38,7 @@ class CaseStudy extends Model
     protected $casts = [
         'service_tags'  => 'array',
         'industry_tags' => 'array',
+        'key_metrics'   => 'array',
         'is_featured'   => 'boolean',
         'is_published'  => 'boolean',
         'published_at'  => 'datetime',
@@ -44,7 +48,8 @@ class CaseStudy extends Model
     {
         return SlugOptions::create()
             ->generateSlugsFrom('title')
-            ->saveSlugsTo('slug');
+            ->saveSlugsTo('slug')
+            ->doNotGenerateSlugsOnUpdate();
     }
 
     public function scopePublished(Builder $query): void

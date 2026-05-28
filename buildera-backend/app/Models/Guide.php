@@ -14,11 +14,15 @@ class Guide extends Model
     protected $fillable = [
         'title',
         'slug',
+        'category',
+        'resource_type',
+        'description',
         'excerpt',
         'body',
         'featured_image',
         'featured_image_alt',
-        'category',
+        'cover_image_alt',
+        'external_link',
         'tags',
         'is_published',
         'published_at',
@@ -37,7 +41,8 @@ class Guide extends Model
     {
         return SlugOptions::create()
             ->generateSlugsFrom('title')
-            ->saveSlugsTo('slug');
+            ->saveSlugsTo('slug')
+            ->doNotGenerateSlugsOnUpdate();
     }
 
     public function scopePublished(Builder $query): void
