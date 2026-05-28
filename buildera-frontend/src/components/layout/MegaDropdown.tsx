@@ -190,32 +190,35 @@ export function MegaDropdown({
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4 px-1">
                   What We Build For You
                 </p>
-                <div className="grid grid-cols-3 gap-6">
+                <div className="grid grid-cols-3 gap-3">
                   {servicesMenu.map((service) => {
                     const IconComponent = ICON_MAP[service.icon]
                     return (
-                      <div key={service.slug} className="flex flex-col gap-2">
+                      <div key={service.slug} className="rounded-lg border border-border hover:border-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-colors group">
                         <Link
                           href={`/services/${service.slug}`}
-                          className="flex items-center gap-2 font-semibold text-foreground hover:text-[var(--brand-primary)] transition-colors"
+                          className="flex items-center gap-2.5 px-3 pt-3 pb-2"
                         >
-                          {IconComponent && (
-                            <IconComponent className="size-5 text-[var(--brand-primary)] shrink-0" />
-                          )}
-                          <span className="text-sm">{service.category}</span>
+                          <div className="w-7 h-7 rounded-md bg-[var(--brand-surface)] group-hover:bg-[var(--brand-primary)] flex items-center justify-center flex-shrink-0 transition-colors">
+                            {IconComponent && (
+                              <IconComponent className="size-4 text-[var(--brand-primary)] group-hover:text-white transition-colors" />
+                            )}
+                          </div>
+                          <span className="text-sm font-semibold text-foreground group-hover:text-[var(--brand-primary)] transition-colors leading-tight">
+                            {service.category}
+                          </span>
                         </Link>
-                        <ul className="flex flex-col gap-1 pl-7">
+                        <div className="border-t border-border mx-3 mb-3 pt-2 flex flex-col gap-1">
                           {service.subServices.map((sub) => (
-                            <li key={sub.slug}>
-                              <Link
-                                href={`/services/${service.slug}/${sub.slug}`}
-                                className="text-xs text-muted-foreground hover:text-[var(--brand-primary)] transition-colors"
-                              >
-                                {sub.name}
-                              </Link>
-                            </li>
+                            <Link
+                              key={sub.slug}
+                              href={`/services/${service.slug}/${sub.slug}`}
+                              className="text-xs text-muted-foreground hover:text-[var(--brand-primary)] transition-colors py-0.5"
+                            >
+                              {sub.name}
+                            </Link>
                           ))}
-                        </ul>
+                        </div>
                       </div>
                     )
                   })}
@@ -229,14 +232,14 @@ export function MegaDropdown({
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4 px-1">
                   Industries We Serve
                 </p>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-3 gap-3">
                   {INDUSTRIES_NAV.map((item) => {
                     const Icon = item.icon
                     return (
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="flex items-start gap-3 p-3 rounded-lg border border-border hover:border-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-colors group"
+                        className="flex items-start gap-3 p-4 rounded-lg border border-border hover:border-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-colors group"
                       >
                         <div className="w-7 h-7 rounded-md bg-[var(--brand-surface)] group-hover:bg-[var(--brand-primary)] flex items-center justify-center flex-shrink-0 transition-colors mt-0.5">
                           <Icon className="size-4 text-[var(--brand-primary)] group-hover:text-white transition-colors" />
@@ -260,7 +263,7 @@ export function MegaDropdown({
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4 px-1">
                   Solutions We Deliver
                 </p>
-                <div className="grid grid-cols-3 gap-1.5">
+                <div className="grid grid-cols-3 gap-2.5">
                   {(solutionItems.length > 0
                     ? solutionItems.map((item) => ({ label: item.label, href: item.url, icon: IconArrowRight as IconComponent }))
                     : SOLUTION_NAV_FALLBACK
@@ -270,10 +273,12 @@ export function MegaDropdown({
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg border border-border hover:border-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-colors group min-h-[44px]"
+                        className="flex items-center gap-3 px-4 py-3 rounded-lg border border-border hover:border-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-colors group"
                       >
-                        <Icon className="size-4 text-[var(--brand-primary)] shrink-0" />
-                        <span className="text-sm font-medium text-foreground group-hover:text-[var(--brand-primary)] transition-colors">
+                        <div className="w-7 h-7 rounded-md bg-[var(--brand-surface)] group-hover:bg-[var(--brand-primary)] flex items-center justify-center flex-shrink-0 transition-colors">
+                          <Icon className="size-4 text-[var(--brand-primary)] group-hover:text-white transition-colors" />
+                        </div>
+                        <span className="text-sm font-medium text-foreground group-hover:text-[var(--brand-primary)] transition-colors leading-tight">
                           {item.label}
                         </span>
                       </Link>
@@ -289,7 +294,7 @@ export function MegaDropdown({
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4 px-1">
                   Our Work & Company
                 </p>
-                <div className="grid grid-cols-2 gap-2 min-w-[400px]">
+                <div className="grid grid-cols-2 gap-3 min-w-[400px]">
                   {(workItems.length > 0
                     ? workItems.map((i) => ({ label: i.label, href: i.url, desc: "", icon: IconArrowRight as IconComponent }))
                     : WORK_NAV_FALLBACK
@@ -299,7 +304,7 @@ export function MegaDropdown({
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="flex items-start gap-3 px-3 py-3 rounded-lg border border-border hover:border-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-colors group"
+                        className="flex items-start gap-3 px-4 py-4 rounded-lg border border-border hover:border-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-colors group"
                       >
                         <div className="w-7 h-7 rounded-md bg-[var(--brand-surface)] group-hover:bg-[var(--brand-primary)] flex items-center justify-center flex-shrink-0 transition-colors mt-0.5">
                           <Icon className="size-4 text-[var(--brand-primary)] group-hover:text-white transition-colors" />
@@ -325,7 +330,7 @@ export function MegaDropdown({
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4 px-1">
                   Learn & Connect
                 </p>
-                <div className="grid grid-cols-2 gap-2 min-w-[400px]">
+                <div className="grid grid-cols-2 gap-3 min-w-[400px]">
                   {(resourceItems.length > 0
                     ? resourceItems.map((i) => ({ label: i.label, href: i.url, desc: "", icon: IconArrowRight as IconComponent }))
                     : RESOURCES_NAV_FALLBACK
@@ -335,7 +340,7 @@ export function MegaDropdown({
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="flex items-start gap-3 px-3 py-3 rounded-lg border border-border hover:border-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-colors group"
+                        className="flex items-start gap-3 px-4 py-4 rounded-lg border border-border hover:border-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-colors group"
                       >
                         <div className="w-7 h-7 rounded-md bg-[var(--brand-surface)] group-hover:bg-[var(--brand-primary)] flex items-center justify-center flex-shrink-0 transition-colors mt-0.5">
                           <Icon className="size-4 text-[var(--brand-primary)] group-hover:text-white transition-colors" />

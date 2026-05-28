@@ -3,7 +3,17 @@
 import { useState } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "motion/react"
-import { IconX, IconChevronDown, IconExternalLink } from "@tabler/icons-react"
+import {
+  IconX,
+  IconChevronDown,
+  IconExternalLink,
+  IconWorldWww,
+  IconCloud,
+  IconSettings,
+  IconRobot,
+  IconCode,
+  IconUsers,
+} from "@tabler/icons-react"
 import { cn } from "@/lib/utils"
 import type { NavItem } from "@/lib/api"
 import type { ServiceMenuItem } from "./SiteNav"
@@ -16,6 +26,17 @@ interface Props {
 }
 
 type AccordionGroup = "Services" | "Solutions" | "Industries" | "Work" | "Resources" | "Our Products"
+
+type IconComponent = React.ComponentType<{ className?: string }>
+
+const ICON_MAP: Record<string, IconComponent> = {
+  IconWorldWww,
+  IconCloud,
+  IconSettings,
+  IconRobot,
+  IconCode,
+  IconUsers,
+}
 
 const INDUSTRIES_MOBILE = [
   { label: "Manufacturing", href: "/industries/manufacturing" },
@@ -88,15 +109,15 @@ export function MobileNavDrawer({ isOpen, onClose, servicesMenu, navItems }: Pro
     return (
       <div className="border-b border-border">
         <button
-          className="flex items-center justify-between w-full px-4 py-3 min-h-[48px] text-sm font-medium text-foreground hover:text-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-colors"
+          className="flex items-center justify-between w-full px-5 py-3.5 min-h-[52px] text-sm font-semibold text-foreground hover:text-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-colors"
           onClick={() => toggleGroup(group)}
           aria-expanded={openGroup === group}
         >
           <span>{label}</span>
           <IconChevronDown
             className={cn(
-              "size-4 transition-transform duration-200",
-              openGroup === group ? "rotate-180" : ""
+              "size-4 text-muted-foreground transition-transform duration-200",
+              openGroup === group ? "rotate-180 text-[var(--brand-primary)]" : ""
             )}
           />
         </button>
@@ -114,6 +135,20 @@ export function MobileNavDrawer({ isOpen, onClose, servicesMenu, navItems }: Pro
           )}
         </AnimatePresence>
       </div>
+    )
+  }
+
+  /* Shared flat link row used by Solutions, Industries, Work, Resources */
+  function FlatLink({ href, label }: { href: string; label: string }) {
+    return (
+      <Link
+        href={href}
+        onClick={onClose}
+        className="flex items-center px-5 py-3 min-h-[48px] text-sm text-foreground hover:text-[var(--brand-primary)] hover:bg-[var(--brand-surface)] border-b border-border last:border-0 transition-colors"
+      >
+        <span className="w-1.5 h-1.5 rounded-full bg-[var(--brand-primary)] opacity-50 mr-3 flex-shrink-0" />
+        {label}
+      </Link>
     )
   }
 
@@ -141,121 +176,121 @@ export function MobileNavDrawer({ isOpen, onClose, servicesMenu, navItems }: Pro
             aria-modal="true"
             aria-label="Navigation menu"
           >
-            <div className="flex justify-between items-center p-4 border-b border-border">
-              <button
+            {/* Header */}
+            <div className="flex justify-between items-center px-5 py-4 border-b border-border">
+              <Link
+                href="/"
                 onClick={onClose}
-                className="flex items-center justify-center min-h-[48px] min-w-[48px] text-foreground hover:text-[var(--brand-primary)] transition-colors rounded-lg"
-                aria-label="Close navigation menu"
+                className="font-bold text-lg select-none"
+                style={{
+                  backgroundImage: "linear-gradient(135deg, hsl(217,91%,60%) 0%, hsl(242,75%,40%) 100%)",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  color: "transparent",
+                }}
               >
-                <IconX className="size-6" />
-              </button>
-              <Link href="/" onClick={onClose} className="text-xl font-bold text-foreground hover:text-[var(--brand-primary)] transition-colors">
                 Buildera
               </Link>
+              <button
+                onClick={onClose}
+                className="flex items-center justify-center min-h-[44px] min-w-[44px] text-foreground hover:text-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-colors rounded-lg"
+                aria-label="Close navigation menu"
+              >
+                <IconX className="size-5" />
+              </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto py-2">
+            <div className="flex-1 overflow-y-auto">
 
+              {/* ── Services ── */}
               <AccordionSection group="Services" label="Services">
-                <div className="pb-3">
-                  {servicesMenu.map((service) => (
-                    <div key={service.slug} className="px-4 py-2">
-                      <Link
-                        href={`/services/${service.slug}`}
-                        onClick={onClose}
-                        className="block text-sm font-semibold text-foreground hover:text-[var(--brand-primary)] transition-colors py-1 min-h-[40px] flex items-center"
+                <div className="pb-2">
+                  {servicesMenu.map((service, i) => {
+                    const IconComponent = ICON_MAP[service.icon]
+                    return (
+                      <div
+                        key={service.slug}
+                        className={cn("px-5 py-3", i < servicesMenu.length - 1 && "border-b border-border")}
                       >
-                        {service.category}
-                      </Link>
-                      <ul className="pl-3 mt-1 flex flex-col gap-1">
-                        {service.subServices.map((sub) => (
-                          <li key={sub.slug}>
-                            <Link
-                              href={`/services/${service.slug}/${sub.slug}`}
-                              onClick={onClose}
-                              className="block text-xs text-muted-foreground hover:text-[var(--brand-primary)] transition-colors py-1 min-h-[36px] flex items-center"
-                            >
-                              {sub.name}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                        <Link
+                          href={`/services/${service.slug}`}
+                          onClick={onClose}
+                          className="flex items-center gap-2.5 min-h-[36px] group"
+                        >
+                          {IconComponent && (
+                            <div className="w-6 h-6 rounded-md bg-[var(--brand-surface)] flex items-center justify-center flex-shrink-0">
+                              <IconComponent className="size-3.5 text-[var(--brand-primary)]" />
+                            </div>
+                          )}
+                          <span className="text-sm font-semibold text-foreground group-hover:text-[var(--brand-primary)] transition-colors">
+                            {service.category}
+                          </span>
+                        </Link>
+                        <ul className="mt-1.5 flex flex-col pl-9">
+                          {service.subServices.map((sub) => (
+                            <li key={sub.slug}>
+                              <Link
+                                href={`/services/${service.slug}/${sub.slug}`}
+                                onClick={onClose}
+                                className="flex items-center text-sm text-muted-foreground hover:text-[var(--brand-primary)] transition-colors py-1.5 min-h-[36px]"
+                              >
+                                {sub.name}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )
+                  })}
+                </div>
+              </AccordionSection>
+
+              {/* ── Solutions ── */}
+              <AccordionSection group="Solutions" label="Solutions">
+                <div>
+                  {SOLUTIONS_MOBILE.map((item) => (
+                    <FlatLink key={item.href} href={item.href} label={item.label} />
                   ))}
                 </div>
               </AccordionSection>
 
-              <AccordionSection group="Solutions" label="Solutions">
-                <ul className="pb-3 px-4">
-                  {SOLUTIONS_MOBILE.map((item) => (
-                    <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        onClick={onClose}
-                        className="block text-sm text-muted-foreground hover:text-[var(--brand-primary)] transition-colors py-2 min-h-[40px] flex items-center"
-                      >
-                        {item.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </AccordionSection>
-
+              {/* ── Industries ── */}
               <AccordionSection group="Industries" label="Industries">
-                <ul className="pb-3 px-4">
+                <div>
                   {INDUSTRIES_MOBILE.map((item) => (
-                    <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        onClick={onClose}
-                        className="block text-sm text-muted-foreground hover:text-[var(--brand-primary)] transition-colors py-2 min-h-[40px] flex items-center"
-                      >
-                        {item.label}
-                      </Link>
-                    </li>
+                    <FlatLink key={item.href} href={item.href} label={item.label} />
                   ))}
-                </ul>
+                </div>
               </AccordionSection>
 
+              {/* ── Work ── */}
               <AccordionSection group="Work" label="Work">
-                <ul className="pb-3 px-4">
-                  {(workItems.length > 0 ? workItems.map((item) => ({ label: item.label, href: item.url })) : defaultWorkItems).map(
-                    (item) => (
-                      <li key={item.href}>
-                        <Link
-                          href={item.href}
-                          onClick={onClose}
-                          className="block text-sm text-muted-foreground hover:text-[var(--brand-primary)] transition-colors py-2 min-h-[40px] flex items-center"
-                        >
-                          {item.label}
-                        </Link>
-                      </li>
-                    )
-                  )}
-                </ul>
+                <div>
+                  {(workItems.length > 0
+                    ? workItems.map((item) => ({ label: item.label, href: item.url }))
+                    : defaultWorkItems
+                  ).map((item) => (
+                    <FlatLink key={item.href} href={item.href} label={item.label} />
+                  ))}
+                </div>
               </AccordionSection>
 
+              {/* ── Resources ── */}
               <AccordionSection group="Resources" label="Resources">
-                <ul className="pb-3 px-4">
+                <div>
                   {(resourceItems.length > 0
                     ? resourceItems.map((item) => ({ label: item.label, href: item.url }))
                     : defaultResourceItems
                   ).map((item) => (
-                    <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        onClick={onClose}
-                        className="block text-sm text-muted-foreground hover:text-[var(--brand-primary)] transition-colors py-2 min-h-[40px] flex items-center"
-                      >
-                        {item.label}
-                      </Link>
-                    </li>
+                    <FlatLink key={item.href} href={item.href} label={item.label} />
                   ))}
-                </ul>
+                </div>
               </AccordionSection>
 
+              {/* ── Our Products ── */}
               <AccordionSection group="Our Products" label="Our Products">
-                <div className="pb-3 px-4 flex flex-col gap-2">
+                <div className="px-5 py-3 flex flex-col gap-2.5 pb-4">
                   {PRODUCTS_MOBILE.map((item) => (
                     <a
                       key={item.href}
@@ -263,13 +298,15 @@ export function MobileNavDrawer({ isOpen, onClose, servicesMenu, navItems }: Pro
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={onClose}
-                      className="flex items-start gap-3 py-2"
+                      className="flex items-start gap-3 p-3.5 rounded-lg border border-border hover:border-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-colors group"
                     >
-                      <div className="flex-1">
-                        <span className="flex items-center gap-1 text-sm font-medium text-foreground hover:text-[var(--brand-primary)] transition-colors">
-                          {item.label}
-                          <IconExternalLink className="size-3 text-muted-foreground" />
-                        </span>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-sm font-semibold text-foreground group-hover:text-[var(--brand-primary)] transition-colors">
+                            {item.label}
+                          </span>
+                          <IconExternalLink className="size-3.5 text-muted-foreground flex-shrink-0" />
+                        </div>
                         <p className="text-xs text-muted-foreground mt-0.5">{item.desc}</p>
                       </div>
                     </a>
@@ -279,11 +316,12 @@ export function MobileNavDrawer({ isOpen, onClose, servicesMenu, navItems }: Pro
 
             </div>
 
-            <div className="mt-auto p-4 border-t border-border">
+            {/* CTA */}
+            <div className="p-5 border-t border-border">
               <Link
                 href="/contact"
                 onClick={onClose}
-                className="flex items-center justify-center w-full text-center bg-[var(--brand-primary)] text-white py-3 rounded-lg font-medium min-h-[48px] hover:bg-[var(--brand-primary-dark)] transition-colors text-sm"
+                className="flex items-center justify-center w-full bg-[var(--brand-primary)] text-white py-3.5 rounded-lg font-semibold min-h-[52px] hover:bg-[var(--brand-primary-dark)] transition-colors text-sm"
               >
                 Book a Free Call
               </Link>
