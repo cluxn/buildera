@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "motion/react"
 import { IconX, IconChevronDown } from "@tabler/icons-react"
-import { cn, toSlug } from "@/lib/utils"
+import { cn } from "@/lib/utils"
 import type { NavItem } from "@/lib/api"
 import type { ServiceMenuItem } from "./SiteNav"
 
@@ -129,18 +129,22 @@ export function MobileNavDrawer({ isOpen, onClose, servicesMenu, navItems }: Pro
                       <div className="pb-3">
                         {servicesMenu.map((service) => (
                           <div key={service.slug} className="px-4 py-2">
-                            <span className="block text-sm font-semibold text-foreground py-1 min-h-[40px] flex items-center cursor-default">
+                            <Link
+                              href={`/services/${service.slug}`}
+                              onClick={onClose}
+                              className="block text-sm font-semibold text-foreground hover:text-[var(--brand-primary)] transition-colors py-1 min-h-[40px] flex items-center"
+                            >
                               {service.category}
-                            </span>
+                            </Link>
                             <ul className="pl-3 mt-1 flex flex-col gap-1">
                               {service.subServices.map((sub) => (
-                                <li key={sub}>
+                                <li key={sub.slug}>
                                   <Link
-                                    href={`/services/${service.slug}/${toSlug(sub)}`}
+                                    href={`/services/${service.slug}/${sub.slug}`}
                                     onClick={onClose}
                                     className="block text-xs text-muted-foreground hover:text-[var(--brand-primary)] transition-colors py-1 min-h-[36px] flex items-center"
                                   >
-                                    {sub}
+                                    {sub.name}
                                   </Link>
                                 </li>
                               ))}

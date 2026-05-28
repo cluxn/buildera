@@ -6,6 +6,7 @@ import { SolutionsGridSection } from "@/components/sections/SolutionsGridSection
 import { ClientLogosMarquee } from "@/components/sections/ClientLogosMarquee"
 import { WhyBuilderaSection } from "@/components/sections/WhyBuilderaSection"
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection"
+import { TechStackSection } from "@/components/sections/TechStackSection"
 import { CaseStudiesPreview } from "@/components/sections/CaseStudiesPreview"
 import { ContactFormSection } from "@/components/sections/ContactFormSection"
 import { CTASection } from "@/components/sections/CTASection"
@@ -22,6 +23,7 @@ export default async function HomePage() {
       <ClientLogosMarquee />
       <WhyBuilderaSection />
       <TestimonialsSection />
+      <TechStackSection />
       <CaseStudiesPreview />
       <ContactFormSection />
       <CTASection />

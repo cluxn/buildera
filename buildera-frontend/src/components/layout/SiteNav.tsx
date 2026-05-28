@@ -1,11 +1,16 @@
 import { fetchNavItems } from "@/lib/api"
 import { SiteNavClient } from "./SiteNavClient"
 
+export interface SubServiceItem {
+  name: string
+  slug: string
+}
+
 export interface ServiceMenuItem {
   category: string
   icon: string
   slug: string
-  subServices: readonly string[]
+  subServices: readonly SubServiceItem[]
 }
 
 export const SERVICES_MENU: readonly ServiceMenuItem[] = [
@@ -13,37 +18,67 @@ export const SERVICES_MENU: readonly ServiceMenuItem[] = [
     category: "Website Development",
     icon: "IconWorldWww",
     slug: "website-development",
-    subServices: ["Custom Websites", "E-Commerce", "App Development", "PWA"],
+    subServices: [
+      { name: "Custom Websites", slug: "custom-websites" },
+      { name: "E-Commerce", slug: "ecommerce-websites" },
+      { name: "App Development", slug: "app-development" },
+      { name: "Progressive Web Apps", slug: "progressive-web-apps" },
+    ],
   },
   {
     category: "Salesforce Development",
     icon: "IconCloud",
     slug: "salesforce-development",
-    subServices: ["CRM", "Marketing Cloud", "Service Cloud", "Commerce Cloud", "Experience Cloud"],
+    subServices: [
+      { name: "CRM", slug: "crm" },
+      { name: "Marketing Cloud", slug: "marketing-cloud" },
+      { name: "Service Cloud", slug: "service-cloud" },
+      { name: "Commerce Cloud", slug: "commerce-cloud" },
+      { name: "Experience Cloud", slug: "experience-cloud" },
+    ],
   },
   {
     category: "DevOps Development",
     icon: "IconSettings",
     slug: "devops-development",
-    subServices: ["Cloud Infrastructure", "CI/CD Pipeline", "Cloud Mgmt", "Server Monitoring"],
+    subServices: [
+      { name: "Cloud Infrastructure", slug: "cloud-infrastructure" },
+      { name: "CI/CD Pipeline", slug: "ci-cd-pipeline" },
+      { name: "Cloud Management", slug: "cloud-management" },
+      { name: "Server Monitoring", slug: "server-monitoring" },
+    ],
   },
   {
     category: "AI Agent Development",
     icon: "IconRobot",
     slug: "ai-agent-development",
-    subServices: ["AI Agent Dev", "Custom API Integration", "Business Optimization", "AI Chatbots"],
+    subServices: [
+      { name: "AI Agent Integration", slug: "ai-agent-integration" },
+      { name: "Custom API Integration", slug: "custom-api-integration" },
+      { name: "Business Optimization", slug: "business-optimization" },
+      { name: "AI Chatbots", slug: "ai-chatbots" },
+    ],
   },
   {
     category: "Software Development",
     icon: "IconCode",
     slug: "software-development",
-    subServices: ["ERP", "CRM Dev", "SaaS", "MVP Development"],
+    subServices: [
+      { name: "ERP Development", slug: "erp-development" },
+      { name: "CRM Development", slug: "crm-development" },
+      { name: "SaaS Development", slug: "saas-development" },
+      { name: "MVP Development", slug: "mvp-development" },
+    ],
   },
   {
     category: "Hire a Developer",
     icon: "IconUsers",
     slug: "hire-a-developer",
-    subServices: ["Dedicated Teams", "Flexible Engagement", "End-to-End Support"],
+    subServices: [
+      { name: "Dedicated Teams", slug: "dedicated-teams" },
+      { name: "Flexible Engagement", slug: "flexible-engagement" },
+      { name: "End-to-End Support", slug: "end-to-end-support" },
+    ],
   },
 ] as const
 

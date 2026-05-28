@@ -39,7 +39,7 @@ const SERVICES_DATA: ServiceCategory[] = [
       },
       {
         name: "E-Commerce",
-        slug: "e-commerce",
+        slug: "ecommerce-websites",
         description: "Full-featured online stores with payment integration and inventory management.",
       },
       {
@@ -48,8 +48,8 @@ const SERVICES_DATA: ServiceCategory[] = [
         description: "Web apps that solve real business problems with clean, maintainable code.",
       },
       {
-        name: "PWA",
-        slug: "pwa",
+        name: "Progressive Web Apps",
+        slug: "progressive-web-apps",
         description: "Progressive Web Apps that work offline and deliver app-like experiences on the web.",
       },
     ],
@@ -102,8 +102,8 @@ const SERVICES_DATA: ServiceCategory[] = [
         description: "Automated deployment pipelines that ship code faster with fewer human errors.",
       },
       {
-        name: "Cloud Mgmt",
-        slug: "cloud-mgmt",
+        name: "Cloud Management",
+        slug: "cloud-management",
         description: "Ongoing management, cost optimization, and security hardening of your cloud environment.",
       },
       {
@@ -119,8 +119,8 @@ const SERVICES_DATA: ServiceCategory[] = [
     slug: "ai-agent-development",
     subServices: [
       {
-        name: "AI Agent Dev",
-        slug: "ai-agent-dev",
+        name: "AI Agent Integration",
+        slug: "ai-agent-integration",
         description: "Custom AI agents that automate multi-step business processes end to end.",
       },
       {
@@ -146,18 +146,18 @@ const SERVICES_DATA: ServiceCategory[] = [
     slug: "software-development",
     subServices: [
       {
-        name: "ERP",
-        slug: "erp",
+        name: "ERP Development",
+        slug: "erp-development",
         description: "Custom ERP systems that unify finance, inventory, HR, and operations in one platform.",
       },
       {
-        name: "CRM Dev",
-        slug: "crm-dev",
+        name: "CRM Development",
+        slug: "crm-development",
         description: "Bespoke CRM solutions built around your specific sales process and customer lifecycle.",
       },
       {
-        name: "SaaS",
-        slug: "saas",
+        name: "SaaS Development",
+        slug: "saas-development",
         description: "Scalable SaaS products architected for multi-tenancy, fast onboarding, and recurring revenue.",
       },
       {
