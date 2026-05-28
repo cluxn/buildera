@@ -55,6 +55,19 @@ export interface Settings {
   stat_clients: string
   stat_years: string
   stat_satisfaction: string
+  // Popup settings
+  popup_exit_enabled: boolean
+  popup_exit_headline: string
+  popup_exit_subtext: string
+  popup_exit_cta: string
+  popup_idle_enabled: boolean
+  popup_idle_headline: string
+  popup_idle_subtext: string
+  // Nudge banner settings
+  nudge_banner_enabled: boolean
+  nudge_banner_text: string
+  nudge_banner_link: string
+  nudge_banner_expires_at: string
 }
 
 export const SETTINGS_FALLBACK: Settings = {
@@ -73,6 +86,17 @@ export const SETTINGS_FALLBACK: Settings = {
   stat_clients: '50',
   stat_years: '6',
   stat_satisfaction: '98',
+  popup_exit_enabled: false,
+  popup_exit_headline: '',
+  popup_exit_subtext: '',
+  popup_exit_cta: '',
+  popup_idle_enabled: false,
+  popup_idle_headline: '',
+  popup_idle_subtext: '',
+  nudge_banner_enabled: false,
+  nudge_banner_text: '',
+  nudge_banner_link: '',
+  nudge_banner_expires_at: '',
 }
 
 export async function fetchNavItems(): Promise<NavItem[]> {
