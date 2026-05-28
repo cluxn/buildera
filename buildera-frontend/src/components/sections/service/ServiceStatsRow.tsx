@@ -5,9 +5,9 @@ interface Props {
 }
 
 const STATIC_STATS = [
-  { value: '50+', label: 'Satisfied Clients' },
+  { value: '500+', label: 'Satisfied Clients' },
   { value: '98%', label: 'Client Satisfaction' },
-  { value: '5+', label: 'Years of Experience' },
+  { value: '10+', label: 'Years of Experience' },
 ]
 
 export function ServiceStatsRow({ heroStat }: Props) {
