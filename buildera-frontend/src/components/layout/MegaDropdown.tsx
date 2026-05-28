@@ -111,15 +111,12 @@ export function MegaDropdown({
                   const IconComponent = ICON_MAP[service.icon]
                   return (
                     <div key={service.slug} className="flex flex-col gap-2">
-                      <Link
-                        href={`/services/${service.slug}`}
-                        className="flex items-center gap-2 font-semibold text-foreground hover:text-[var(--brand-primary)] transition-colors group"
-                      >
+                      <span className="flex items-center gap-2 font-semibold text-foreground cursor-default">
                         {IconComponent && (
                           <IconComponent className="size-5 text-[var(--brand-primary)] shrink-0" />
                         )}
                         <span className="text-sm">{service.category}</span>
-                      </Link>
+                      </span>
                       <ul className="flex flex-col gap-1 pl-7">
                         {service.subServices.map((sub) => (
                           <li key={sub}>

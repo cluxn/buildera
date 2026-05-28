@@ -1,4 +1,3 @@
-import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { SolutionHero } from '@/components/sections/solution/SolutionHero'
 import { SolutionProblem } from '@/components/sections/solution/SolutionProblem'
 import { SolutionFeatures } from '@/components/sections/solution/SolutionFeatures'
@@ -18,11 +17,10 @@ interface Props {
 export function SolutionDetailLayout({ data, testimonials, caseStudy }: Props) {
   return (
     <main>
-      <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Solutions', href: '/solutions' }, { label: data.title }]} />
       <SolutionHero data={data} />
       <SolutionProblem points={data.problemPoints} />
       <SolutionFeatures title={data.title} cards={data.featureCards} />
-      <SolutionIndustries industries={data.industriesServed} />
+      <SolutionIndustries />
       <SolutionRelatedServices services={data.relatedServices} />
       {caseStudy && <SolutionCaseStudy caseStudy={caseStudy} />}
       {testimonials.length > 0 && <SolutionTestimonials testimonials={testimonials} />}

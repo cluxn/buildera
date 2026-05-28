@@ -1,40 +1,53 @@
 import Link from 'next/link'
+import {
+  IconCoin, IconUsers, IconSchool, IconShoppingCart, IconScale,
+  IconBuildingFactory2, IconHeartbeat, IconLeaf, IconShieldCheck,
+  IconPlane, IconCode,
+} from '@tabler/icons-react'
 
-const INDUSTRY_LABELS: Record<string, string> = {
-  manufacturing: 'Manufacturing',
-  retail: 'Retail & E-Commerce',
-  hospitality: 'Hospitality',
-  logistics: 'Logistics',
-  finance: 'Finance',
-  healthcare: 'Healthcare',
-  'real-estate': 'Real Estate',
-  'professional-services': 'Professional Services',
-}
+const INDUSTRIES = [
+  { slug: 'fintech',           label: 'FinTech',               desc: 'Secure, AI-driven financial solutions',         Icon: IconCoin },
+  { slug: 'hr-tech',           label: 'HRTech',                desc: 'Next-gen HR automation & analytics',            Icon: IconUsers },
+  { slug: 'ed-tech',           label: 'EdTech',                desc: 'Scalable, data-smart learning platforms',       Icon: IconSchool },
+  { slug: 'retail',            label: 'Retail & eCommerce',    desc: 'Seamless, insight-led commerce solutions',      Icon: IconShoppingCart },
+  { slug: 'legal-tech',        label: 'LegalTech',             desc: 'Tech-driven, intelligent process automation',   Icon: IconScale },
+  { slug: 'manufacturing',     label: 'Manufacturing',          desc: 'Smart, data-powered manufacturing & automation',Icon: IconBuildingFactory2 },
+  { slug: 'healthcare',        label: 'Healthcare',             desc: 'Compliance-driven, AI-enabled healthcare',      Icon: IconHeartbeat },
+  { slug: 'cleantech',         label: 'Cleantech',              desc: 'Data-driven sustainability & greentech',        Icon: IconLeaf },
+  { slug: 'insur-tech',        label: 'InsurTech',              desc: 'Smart, ML-based insurance innovation',          Icon: IconShieldCheck },
+  { slug: 'travel-hospitality',label: 'Travel & Hospitality',  desc: 'Digital, AI-assisted guest experiences',        Icon: IconPlane },
+  { slug: 'software-hi-tech',  label: 'Software & Hi-Tech',    desc: 'Future-ready, AI-powered software innovation',  Icon: IconCode },
+]
 
-interface Props {
-  industries: string[]
-}
-
-export function ServiceIndustries({ industries }: Props) {
-  if (!industries.length) return null
-
+export function ServiceIndustries() {
   return (
-    <section className="py-16 bg-background">
+    <section className="py-20 bg-background">
       <div className="container mx-auto px-8 max-w-7xl">
-        <p className="text-xs font-medium uppercase tracking-widest text-[var(--brand-primary)] mb-4">
-          Industries We Serve
-        </p>
-        <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-12">
-          Built for Your Industry
-        </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {industries.map((slug) => (
+        <div className="text-center mb-14">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
+            Industries We Serve
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+            Built for <span className="text-[var(--brand-primary)]">Every Industry</span>
+          </h2>
+          <p className="text-muted-foreground max-w-xl mx-auto">
+            Deep domain expertise across sectors — so you work with a team that already understands your business context.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {INDUSTRIES.map(({ slug, label, desc, Icon }) => (
             <Link
               key={slug}
               href={`/industries/${slug}`}
-              className="bg-background border border-border rounded-xl p-4 hover:border-[var(--brand-primary)] transition-colors text-sm font-medium"
+              className="flex items-start gap-4 p-5 rounded-xl border border-border bg-background hover:border-[var(--brand-primary)] hover:shadow-sm transition-all group"
             >
-              {INDUSTRY_LABELS[slug] ?? slug}
+              <span className="w-10 h-10 rounded-lg bg-[hsl(217_91%_60%/10%)] text-[var(--brand-primary)] flex items-center justify-center flex-shrink-0 group-hover:bg-[var(--brand-primary)] group-hover:text-white transition-colors">
+                <Icon size={20} />
+              </span>
+              <div>
+                <p className="text-sm font-semibold text-foreground">{label}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">{desc}</p>
+              </div>
             </Link>
           ))}
         </div>

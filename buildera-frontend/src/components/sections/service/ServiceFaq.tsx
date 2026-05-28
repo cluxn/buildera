@@ -1,36 +1,27 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import type { FaqItem } from '@/types/service-page'
 
-interface Props {
-  items: FaqItem[]
-  headline?: string
-}
+interface Props { items: FaqItem[]; headline?: string }
 
-export function ServiceFaq({ items, headline }: Props) {
+export function ServiceFaq({ items }: Props) {
   return (
-    <section className="py-16 bg-[var(--brand-surface)]">
+    <section className="py-20 bg-[var(--brand-surface)]">
       <div className="container mx-auto px-8 max-w-7xl">
-        <p className="text-xs font-medium uppercase tracking-widest text-[var(--brand-primary)] mb-4">
-          Frequently Asked Questions
-        </p>
-        {headline && (
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-12">{headline}</h2>
-        )}
-        <div className="max-w-3xl">
+        <div className="text-center mb-14">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">FAQ</p>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+            Frequently Asked <span className="text-[var(--brand-primary)]">Questions</span>
+          </h2>
+          <p className="text-muted-foreground max-w-xl mx-auto">
+            Answers to the questions we hear most often before a project starts.
+          </p>
+        </div>
+        <div className="max-w-3xl mx-auto">
           <Accordion>
             {items.map((item, i) => (
               <AccordionItem key={i} value={`item-${i}`}>
-                <AccordionTrigger className="text-xl font-semibold text-left">
-                  {item.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-base text-muted-foreground">
-                  {item.answer}
-                </AccordionContent>
+                <AccordionTrigger className="text-xl font-semibold text-left">{item.question}</AccordionTrigger>
+                <AccordionContent className="text-base text-muted-foreground">{item.answer}</AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>

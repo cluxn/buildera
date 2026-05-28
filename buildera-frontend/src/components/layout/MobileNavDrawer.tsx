@@ -115,13 +115,9 @@ export function MobileNavDrawer({ isOpen, onClose, servicesMenu, navItems }: Pro
                       <div className="pb-3">
                         {servicesMenu.map((service) => (
                           <div key={service.slug} className="px-4 py-2">
-                            <Link
-                              href={`/services/${service.slug}`}
-                              onClick={onClose}
-                              className="block text-sm font-semibold text-foreground hover:text-[var(--brand-primary)] transition-colors py-1 min-h-[40px] flex items-center"
-                            >
+                            <span className="block text-sm font-semibold text-foreground py-1 min-h-[40px] flex items-center cursor-default">
                               {service.category}
-                            </Link>
+                            </span>
                             <ul className="pl-3 mt-1 flex flex-col gap-1">
                               {service.subServices.map((sub) => (
                                 <li key={sub}>

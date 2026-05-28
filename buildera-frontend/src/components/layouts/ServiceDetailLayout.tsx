@@ -1,4 +1,3 @@
-import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { VideoEmbed } from '@/components/ui/VideoEmbed'
 import { ServiceHero } from '@/components/sections/service/ServiceHero'
 import { ServicePainPoints } from '@/components/sections/service/ServicePainPoints'
@@ -25,20 +24,12 @@ export function ServiceDetailLayout({ data, testimonials, caseStudy }: Props) {
 
   return (
     <main>
-      <Breadcrumb
-        items={[
-          { label: 'Home', href: '/' },
-          { label: 'Services', href: '/services' },
-          { label: categoryLabel, href: `/services/${data.categorySlug}` },
-          { label: data.heroHeadline },
-        ]}
-      />
       <ServiceHero data={data} />
       <ServicePainPoints points={data.painPoints} />
       <ServiceOutcomeCards cards={data.outcomeCards} />
       <ServiceProcess steps={data.processSteps} />
       {data.videoUrl && <VideoEmbed url={data.videoUrl} />}
-      <ServiceIndustries industries={data.industriesServed} />
+      <ServiceIndustries />
       <ServiceRelatedSolutions solutions={data.relatedSolutions} />
       {caseStudy && <ServiceCaseStudy caseStudy={caseStudy} />}
       {testimonials.length > 0 && <ServiceTestimonials testimonials={testimonials} />}
