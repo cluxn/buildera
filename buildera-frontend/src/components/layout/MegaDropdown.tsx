@@ -77,14 +77,14 @@ const PRODUCTS_NAV = [
     name: "Barrel Books",
     href: "https://barrelbooks.com/",
     desc: "Liquor shop management — daily stocks, purchases & transfers",
-    initial: "B",
+    logo: "/products/barrelbooks-logo.svg",
     color: "hsl(217 91% 60%)",
   },
   {
     name: "Ease My Hotel",
     href: "https://easemyhotel.io/",
     desc: "Hotel & Airbnb management software for independent properties",
-    initial: "E",
+    logo: "/products/easemyhotel-logo.png",
     color: "hsl(243 72% 50%)",
   },
 ] as const
@@ -257,10 +257,13 @@ export function MegaDropdown({
                     className="flex items-center gap-4 p-4 rounded-xl border border-border hover:border-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-all group"
                   >
                     <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center text-white text-lg font-bold flex-shrink-0"
-                      style={{ background: product.color }}
+                      className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 overflow-hidden bg-white border border-border"
                     >
-                      {product.initial}
+                      <img
+                        src={product.logo}
+                        alt={`${product.name} logo`}
+                        className="w-full h-full object-contain"
+                      />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-1.5">

@@ -302,10 +302,7 @@ export function ContactFormSection() {
               </div>
 
               {/* CTA */}
-              <a
-                href="/book-a-call"
-                className="mt-auto block w-full text-center bg-white text-[var(--brand-primary)] font-semibold py-3.5 rounded-xl text-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_hsl(221_83%_53%/40%)]"
-              >
+              <a href="/book-a-call" className="btn-white mt-auto w-full">
                 Book a Free Discovery Call
               </a>
             </div>
