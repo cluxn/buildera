@@ -16,20 +16,12 @@ export function IndustryCta({ headline, industryName }: Props) {
         <p className="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
           Book a free 30-minute call. We&apos;ll map your exact bottleneck and recommend the right solution — no sales pressure, no obligation.
         </p>
-        <div className="flex flex-wrap justify-center gap-4">
-          <Link
-            href="/book-a-call"
-            className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-white text-[var(--brand-primary)] font-semibold hover:opacity-90 transition-opacity"
-          >
-            Book a Free Call
-          </Link>
-          <Link
-            href="/case-studies"
-            className="inline-flex items-center justify-center px-6 py-3 rounded-lg border border-white/40 text-white font-semibold hover:bg-white/10 transition-colors"
-          >
-            View Our Work
-          </Link>
-        </div>
+        <Link
+          href="/book-a-call"
+          className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-white text-[var(--brand-primary)] font-semibold hover:opacity-90 transition-opacity"
+        >
+          Book a Free Call
+        </Link>
       </div>
     </section>
   )

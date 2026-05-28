@@ -28,12 +28,17 @@ export function TechShowcase({ technologies }: Props) {
   return (
     <section className="py-16 bg-[var(--brand-surface)]">
       <div className="container mx-auto px-8 max-w-7xl">
-        <p className="text-xs font-medium uppercase tracking-widest text-[var(--brand-primary)] mb-4">
-          Our Technology Stack
-        </p>
-        <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-12">
-          Technologies We Use
-        </h2>
+        <div className="text-center mb-14">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
+            Our Technology Stack
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+            Technologies We Use
+          </h2>
+          <p className="text-muted-foreground max-w-xl mx-auto">
+            The tools and frameworks we use to build reliable, scalable solutions — chosen for performance, maintainability, and fit.
+          </p>
+        </div>
         <div className="space-y-6">
           {grouped.map((group) => (
             <div key={group.category}>

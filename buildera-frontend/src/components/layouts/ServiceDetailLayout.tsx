@@ -6,7 +6,6 @@ import { ServiceOutcomeCards } from '@/components/sections/service/ServiceOutcom
 import { ServiceProcess } from '@/components/sections/service/ServiceProcess'
 import { ServiceMidCta } from '@/components/sections/service/ServiceMidCta'
 import { TechShowcase } from '@/components/sections/service/TechShowcase'
-import { ServiceRelatedSolutions } from '@/components/sections/service/ServiceRelatedSolutions'
 import { ServiceCaseStudy } from '@/components/sections/service/ServiceCaseStudy'
 import { ServiceTestimonials } from '@/components/sections/service/ServiceTestimonials'
 import { ServiceIndustries } from '@/components/sections/service/ServiceIndustries'
@@ -45,10 +44,7 @@ export function ServiceDetailLayout({ data, testimonials, caseStudy }: Props) {
       {/* 7 — Tech Stack (bg: surface) */}
       <TechShowcase technologies={data.technologies} />
 
-      {/* 8 — Related Solutions (bg: background) */}
-      <ServiceRelatedSolutions solutions={data.relatedSolutions} />
-
-      {/* 9 — Case Study (bg: surface) */}
+      {/* 8 — Case Study (bg: surface) */}
       {caseStudy && <ServiceCaseStudy caseStudy={caseStudy} />}
 
       {/* 10 — Testimonials (bg: background) */}

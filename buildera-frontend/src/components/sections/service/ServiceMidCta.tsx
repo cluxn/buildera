@@ -19,20 +19,12 @@ export function ServiceMidCta() {
               Book a free 30-minute call. We&apos;ll map your biggest bottleneck and recommend the right solution — no sales pressure, no obligation.
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-            <Link
-              href="/book-a-call"
-              className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-white text-[var(--brand-primary)] font-semibold hover:opacity-90 transition-opacity whitespace-nowrap"
-            >
-              Book a Free Call
-            </Link>
-            <Link
-              href="/case-studies"
-              className="inline-flex items-center justify-center px-6 py-3 rounded-lg border border-white/40 text-white font-semibold hover:bg-white/10 transition-colors whitespace-nowrap"
-            >
-              View Our Work
-            </Link>
-          </div>
+          <Link
+            href="/book-a-call"
+            className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-white text-[var(--brand-primary)] font-semibold hover:opacity-90 transition-opacity whitespace-nowrap shrink-0"
+          >
+            Book a Free Call
+          </Link>
         </div>
       </div>
     </section>
