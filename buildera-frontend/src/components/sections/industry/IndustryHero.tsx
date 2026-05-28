@@ -33,10 +33,7 @@ export function IndustryHero({ data }: Props) {
               {data.heroSubheadline}
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link
-                href="/book-a-call"
-                className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-[var(--brand-primary)] text-white font-semibold hover:opacity-90 transition-opacity"
-              >
+              <Link href="/book-a-call" className="btn-primary">
                 Book a Free Call
               </Link>
               <Link

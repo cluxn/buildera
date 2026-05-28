@@ -37,15 +37,12 @@ export function ServiceHero({ data }: Props) {
             <p className="text-lg text-muted-foreground max-w-xl mb-8">
               {data.heroSubheadline}
             </p>
-            <div className="flex flex-wrap gap-4 mb-8">
-              <Link
-                href="/book-a-call"
-                className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-[var(--brand-primary)] text-white font-semibold hover:opacity-90 transition-opacity"
-              >
+            <p className="text-sm text-muted-foreground mb-6">150+ Projects · 50+ Clients · 98% Satisfaction</p>
+            <div className="flex flex-wrap gap-4">
+              <Link href="/book-a-call" className="btn-primary">
                 {data.heroCta}
               </Link>
             </div>
-            <p className="text-sm text-muted-foreground">150+ Projects · 50+ Clients · 98% Satisfaction</p>
           </div>
 
           {/* Right — outcomes card */}
