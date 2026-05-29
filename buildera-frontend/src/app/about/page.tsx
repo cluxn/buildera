@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import { generateSeoMetadata } from '@/lib/seo'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { AboutHero } from '@/components/sections/trust/AboutHero'
+import { AboutStory } from '@/components/sections/trust/AboutStory'
 import { ValuesSection } from '@/components/sections/trust/ValuesSection'
-import { TeamSection } from '@/components/sections/trust/TeamSection'
 import { AboutCta } from '@/components/sections/trust/AboutCta'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -19,8 +19,8 @@ export default function AboutPage() {
     <main>
       <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'About Us' }]} />
       <AboutHero />
+      <AboutStory />
       <ValuesSection />
-      <TeamSection />
       <AboutCta />
     </main>
   )

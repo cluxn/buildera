@@ -1,4 +1,5 @@
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
+import { HowWeWorkHero } from '@/components/sections/trust/HowWeWorkHero'
 import { ProcessTimeline } from '@/components/sections/trust/ProcessTimeline'
 import { ProcessCta } from '@/components/sections/trust/ProcessCta'
 
@@ -17,6 +18,7 @@ export default function HowWeWorkPage() {
   return (
     <main>
       <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'How We Work' }]} />
+      <HowWeWorkHero />
       <ProcessTimeline />
       <ProcessCta />
     </main>

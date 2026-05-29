@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 interface Props {
   currentPage: number
@@ -11,6 +11,7 @@ interface Props {
 
 export function BlogPagination({ currentPage, lastPage, baseUrl, category }: Props) {
   const router = useRouter()
+  const searchParams = useSearchParams()
 
   if (lastPage <= 1) return null
 
@@ -18,6 +19,8 @@ export function BlogPagination({ currentPage, lastPage, baseUrl, category }: Pro
     const params = new URLSearchParams()
     if (page > 1) params.set('page', String(page))
     if (category) params.set('category', category)
+    const q = searchParams.get('q')
+    if (q) params.set('q', q)
     const qs = params.toString()
     router.push(qs ? `${baseUrl}?${qs}` : baseUrl)
   }

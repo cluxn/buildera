@@ -73,12 +73,25 @@ const FOOTER_SERVICES_RIGHT: FooterServiceGroup[] = [
   },
 ]
 
+// ─── Industries column (static) ──────────────────────────────────────────────
+
+const FOOTER_INDUSTRIES = [
+  { label: "Manufacturing", url: "/industries/manufacturing" },
+  { label: "Retail & eCommerce", url: "/industries/retail" },
+  { label: "Healthcare & Pharma", url: "/industries/healthcare" },
+  { label: "Finance & BFSI", url: "/industries/finance" },
+  { label: "Logistics & Supply Chain", url: "/industries/logistics" },
+  { label: "Hospitality & Tourism", url: "/industries/hospitality" },
+  { label: "Education & EdTech", url: "/industries/education" },
+  { label: "Real Estate", url: "/industries/real-estate" },
+]
+
 // ─── Hardcoded fallback links (used when API returns empty) ──────────────────
 
 const HARDCODED_FOOTER_LINKS: Record<FooterLink["column"], { label: string; url: string }[]> = {
   services: [],
   solutions: [
-    { label: "CRM Solutions", url: "/solutions/crm" },
+    { label: "CRM Solution", url: "/solutions/crm" },
     { label: "ERP Solution", url: "/solutions/erp" },
     { label: "Lead Management", url: "/solutions/lead-management" },
     { label: "Operations Management", url: "/solutions/operations-management" },
@@ -95,16 +108,16 @@ const HARDCODED_FOOTER_LINKS: Record<FooterLink["column"], { label: string; url:
   ],
   resources: [
     { label: "Blog", url: "/blog" },
-    { label: "Guides", url: "/guides" },
+    { label: "Guides & Resources", url: "/guides" },
     { label: "Contact Us", url: "/contact" },
-    { label: "Privacy Policy", url: "/privacy-policy" },
-    { label: "Terms", url: "/terms" },
+    { label: "FAQ", url: "/faq" },
+    { label: "Book a Call", url: "/book-a-call" },
   ],
 }
 
 const COLUMN_LABELS: Record<FooterLink["column"], string> = {
   services: "Services",
-  solutions: "Solutions",
+  solutions: "Products",
   company: "Company",
   resources: "Resources",
 }
@@ -148,8 +161,8 @@ export async function SiteFooter() {
     <footer className="bg-slate-900 text-slate-300">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-        {/* ── Top section: logo+info + 5 link columns (services spans 2) ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-6 gap-10 py-16">
+        {/* ── Top section: logo+info + 6 link columns (services spans 2) ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-7 gap-10 py-16">
 
           {/* Column 1: Brand + contact + social */}
           <div className="lg:col-span-1 flex flex-col gap-4">
@@ -248,7 +261,21 @@ export async function SiteFooter() {
             </div>
           </div>
 
-          {/* Columns 4–6: Solutions · Company · Resources */}
+          {/* Column 4: Industries */}
+          <div className="flex flex-col gap-4">
+            <h3 className="text-sm font-semibold text-white uppercase tracking-wider">Industries</h3>
+            <ul className="flex flex-col gap-2.5">
+              {FOOTER_INDUSTRIES.map((link) => (
+                <li key={link.url}>
+                  <Link href={link.url} className="text-sm text-slate-400 hover:text-white transition-colors">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Columns 5–7: Products · Company · Resources */}
           {NON_SERVICE_COLUMNS.map((column) => (
             <div key={column} className="flex flex-col gap-4">
               <h3 className="text-sm font-semibold text-white uppercase tracking-wider">
@@ -287,7 +314,7 @@ export async function SiteFooter() {
 
         <Separator className="bg-slate-700" />
 
-        {/* ── Bottom bar: copyright · attribution · legal ── */}
+        {/* ── Bottom bar: copyright · attribution ── */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-6 text-xs text-slate-500">
           <p>
             &copy; {currentYear} {settings.company_name}. All rights reserved.
@@ -298,15 +325,6 @@ export async function SiteFooter() {
               Buildera Technologies LLP
             </a>
           </p>
-          <div className="flex items-center gap-4">
-            <Link href="/privacy-policy" className="hover:text-white transition-colors">
-              Privacy Policy
-            </Link>
-            <span className="text-slate-600">&middot;</span>
-            <Link href="/terms" className="hover:text-white transition-colors">
-              Terms
-            </Link>
-          </div>
         </div>
       </div>
     </footer>
