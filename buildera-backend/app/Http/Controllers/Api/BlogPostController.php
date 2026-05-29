@@ -60,6 +60,7 @@ class BlogPostController
             'published_at'    => $post->published_at?->toISOString(),
             'seo_title'       => $post->seo_title,
             'seo_description' => $post->seo_description,
+            'related_content' => $post->related_content ?? [],
             'author'          => $post->author ? [
                 'name'         => $post->author->name,
                 'bio'          => $post->author->bio,

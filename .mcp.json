@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "mysql": {
+      "command": "C:\\Users\\ASUS\\AppData\\Roaming\\uv\\tools\\mysql-mcp-server\\Scripts\\mysql_mcp_server.exe",
+      "env": {
+        "MYSQL_HOST": "207.180.252.239",
+        "MYSQL_PORT": "3306",
+        "MYSQL_USER": "buildera",
+        "MYSQL_PASSWORD": "pRd7J3pxCT7DPdwR",
+        "MYSQL_DATABASE": "buildera"
+      }
+    }
+  }
+}

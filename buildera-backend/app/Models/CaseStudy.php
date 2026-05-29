@@ -33,15 +33,17 @@ class CaseStudy extends Model
         'seo_title',
         'seo_description',
         'seo_og_image',
+        'related_content',
     ];
 
     protected $casts = [
-        'service_tags'  => 'array',
-        'industry_tags' => 'array',
-        'key_metrics'   => 'array',
-        'is_featured'   => 'boolean',
-        'is_published'  => 'boolean',
-        'published_at'  => 'datetime',
+        'service_tags'    => 'array',
+        'industry_tags'   => 'array',
+        'key_metrics'     => 'array',
+        'related_content' => 'array',
+        'is_featured'     => 'boolean',
+        'is_published'    => 'boolean',
+        'published_at'    => 'datetime',
     ];
 
     public function getSlugOptions(): SlugOptions

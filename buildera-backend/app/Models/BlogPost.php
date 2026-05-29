@@ -30,14 +30,16 @@ class BlogPost extends Model
         'seo_description',
         'seo_og_image',
         'views',
+        'related_content',
     ];
 
     protected $casts = [
-        'tags'         => 'array',
-        'is_published' => 'boolean',
-        'is_featured'  => 'boolean',
-        'published_at' => 'datetime',
-        'views'        => 'integer',
+        'tags'            => 'array',
+        'related_content' => 'array',
+        'is_published'    => 'boolean',
+        'is_featured'     => 'boolean',
+        'published_at'    => 'datetime',
+        'views'           => 'integer',
     ];
 
     protected $appends = ['reading_time'];

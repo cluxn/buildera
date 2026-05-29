@@ -53,6 +53,7 @@ class GuideController
             'external_link'   => $g->external_link,
             'seo_title'       => $g->seo_title,
             'seo_description' => $g->seo_description,
+            'related_content' => $g->related_content ?? [],
             'published_at'    => $g->published_at?->toISOString(),
         ]);
     }

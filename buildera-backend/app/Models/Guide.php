@@ -29,12 +29,14 @@ class Guide extends Model
         'seo_title',
         'seo_description',
         'seo_og_image',
+        'related_content',
     ];
 
     protected $casts = [
-        'tags'         => 'array',
-        'is_published' => 'boolean',
-        'published_at' => 'datetime',
+        'tags'            => 'array',
+        'related_content' => 'array',
+        'is_published'    => 'boolean',
+        'published_at'    => 'datetime',
     ];
 
     public function getSlugOptions(): SlugOptions

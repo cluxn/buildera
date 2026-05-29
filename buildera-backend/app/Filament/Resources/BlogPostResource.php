@@ -98,6 +98,26 @@ class BlogPostResource extends Resource
                         ->label('OG Image')
                         ->nullable(),
                 ]),
+                Tabs\Tab::make('Related Content')->schema([
+                    Select::make('related_content')
+                        ->label('Related Items')
+                        ->multiple()
+                        ->options(function () {
+                            $posts = \App\Models\BlogPost::published()
+                                ->pluck('title', 'slug')
+                                ->mapWithKeys(fn ($title, $slug) => ["blog:{$slug}" => "[Blog] {$title}"]);
+                            $cases = \App\Models\CaseStudy::published()
+                                ->pluck('title', 'slug')
+                                ->mapWithKeys(fn ($title, $slug) => ["case:{$slug}" => "[Case Study] {$title}"]);
+                            $guides = \App\Models\Guide::published()
+                                ->pluck('title', 'slug')
+                                ->mapWithKeys(fn ($title, $slug) => ["guide:{$slug}" => "[Guide] {$title}"]);
+                            return $posts->merge($cases)->merge($guides)->all();
+                        })
+                        ->searchable()
+                        ->helperText('Format: type:slug — e.g. blog:my-post, case:client-x, guide:checklist-y')
+                        ->columnSpanFull(),
+                ]),
             ])->columnSpanFull(),
         ]);
     }

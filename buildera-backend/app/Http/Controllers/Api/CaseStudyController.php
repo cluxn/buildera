@@ -56,6 +56,7 @@ class CaseStudyController
             'testimonial_author' => $s->testimonial_author,
             'seo_title'          => $s->seo_title,
             'seo_description'    => $s->seo_description,
+            'related_content'    => $s->related_content ?? [],
             'published_at'       => $s->published_at?->toISOString(),
         ]);
     }
