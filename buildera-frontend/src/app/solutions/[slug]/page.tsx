@@ -4,6 +4,7 @@ import { SolutionDetailLayout } from '@/components/layouts/SolutionDetailLayout'
 import { solutions } from '@/data/solutions/solutions'
 import { fetchTestimonials, fetchCaseStudies } from '@/lib/api'
 import { generateSeoMetadata } from '@/lib/seo'
+import { JsonLd } from '@/components/ui/JsonLd'
 
 export function generateStaticParams() {
   return solutions.map((s) => ({ slug: s.slug }))
@@ -34,11 +35,24 @@ export default async function SolutionDetailPage({ params }: Props) {
     fetchCaseStudies({ solution: slug }),
   ])
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://buildera.co'
+  const solutionSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: solution!.title,
+    description: solution!.heroSubheadline,
+    provider: { '@type': 'Organization', name: 'Buildera', url: siteUrl },
+    url: `${siteUrl}/solutions/${slug}`,
+  }
+
   return (
-    <SolutionDetailLayout
-      data={solution}
-      testimonials={testimonials.slice(0, 2)}
-      caseStudy={caseStudies[0] ?? null}
-    />
+    <>
+      <JsonLd data={solutionSchema} />
+      <SolutionDetailLayout
+        data={solution!}
+        testimonials={testimonials.slice(0, 2)}
+        caseStudy={caseStudies[0] ?? null}
+      />
+    </>
   )
 }

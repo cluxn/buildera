@@ -8,6 +8,7 @@ import { AuthorBio } from '@/components/blog/AuthorBio'
 import { RelatedPosts } from '@/components/blog/RelatedPosts'
 import { MiniLeadForm } from '@/components/ui/MiniLeadForm'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
+import { JsonLd } from '@/components/ui/JsonLd'
 import Link from 'next/link'
 
 type Props = { params: Promise<{ slug: string }> }
@@ -45,8 +46,23 @@ export default async function BlogPostPage({ params }: Props) {
     .filter((p) => p.slug !== slug && p.category === post.category)
     .slice(0, 3)
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://buildera.co'
+  const blogSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.excerpt || '',
+    image: post.image_path || `${siteUrl}/og-image.png`,
+    author: { '@type': 'Person', name: post.author?.name || 'Buildera Team' },
+    publisher: { '@type': 'Organization', name: 'Buildera', logo: { '@type': 'ImageObject', url: `${siteUrl}/icon.svg` } },
+    datePublished: post.published_at || new Date().toISOString(),
+    dateModified: post.published_at || new Date().toISOString(),
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `${siteUrl}/blog/${post.slug}` },
+  }
+
   return (
     <main>
+      <JsonLd data={blogSchema} />
       <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Blog', href: '/blog' }, { label: post.title }]} />
       <BlogDetailHero post={post} />
 

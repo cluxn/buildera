@@ -4,6 +4,7 @@ import { ServiceDetailLayout } from '@/components/layouts/ServiceDetailLayout'
 import { allServices, SERVICE_NAMES, CATEGORY_LABELS } from '@/data/services/index'
 import { fetchTestimonials, fetchCaseStudies } from '@/lib/api'
 import { generateSeoMetadata } from '@/lib/seo'
+import { JsonLd } from '@/components/ui/JsonLd'
 
 export function generateStaticParams() {
   return allServices.map((s) => ({ category: s.categorySlug, slug: s.slug }))
@@ -39,11 +40,29 @@ export default async function ServiceDetailPage({ params }: Props) {
     fetchCaseStudies({ service: category }),
   ])
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://buildera.co'
+  const serviceName = SERVICE_NAMES[slug] ?? slug.replace(/-/g, ' ')
+  const categoryLabel = CATEGORY_LABELS[category] ?? category.replace(/-/g, ' ')
+
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: serviceName,
+    description: `Expert ${serviceName} services for SMBs.`,
+    provider: { '@type': 'Organization', name: 'Buildera', url: siteUrl },
+    url: `${siteUrl}/services/${category}/${slug}`,
+    serviceType: categoryLabel,
+    areaServed: 'Worldwide',
+  }
+
   return (
-    <ServiceDetailLayout
-      data={service}
-      testimonials={testimonials.slice(0, 2)}
-      caseStudy={caseStudies[0] ?? null}
-    />
+    <>
+      <JsonLd data={serviceSchema} />
+      <ServiceDetailLayout
+        data={service}
+        testimonials={testimonials.slice(0, 2)}
+        caseStudy={caseStudies[0] ?? null}
+      />
+    </>
   )
 }

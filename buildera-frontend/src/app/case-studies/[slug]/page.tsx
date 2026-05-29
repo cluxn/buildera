@@ -7,6 +7,7 @@ import { ResultMetricCard } from '@/components/content/ResultMetricCard'
 import { BlogCtaBanner } from '@/components/sections/BlogCtaBanner'
 import { MiniLeadForm } from '@/components/ui/MiniLeadForm'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
+import { JsonLd } from '@/components/ui/JsonLd'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -30,8 +31,20 @@ export default async function CaseStudyDetailPage({ params }: Props) {
   const study = await getContentCaseStudy(slug)
   if (!study) notFound()
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://buildera.co'
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: study.title,
+    image: study.hero_image || `${siteUrl}/og-image.png`,
+    author: { '@type': 'Organization', name: 'Buildera' },
+    publisher: { '@type': 'Organization', name: 'Buildera', logo: { '@type': 'ImageObject', url: `${siteUrl}/icon.svg` } },
+    datePublished: study.published_at || new Date().toISOString(),
+  }
+
   return (
     <main>
+      <JsonLd data={articleSchema} />
       <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Case Studies', href: '/case-studies' }, { label: study.title }]} />
 
       {/* Hero */}
