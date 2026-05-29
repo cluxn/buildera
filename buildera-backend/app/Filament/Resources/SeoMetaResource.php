@@ -9,6 +9,8 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
+use Filament\Notifications\Notification;
+use Filament\Tables\Actions\Action as TableAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
@@ -109,6 +111,21 @@ class SeoMetaResource extends Resource
                         'guide'      => 'Guide',
                         'page'       => 'Static Page',
                     ]),
+            ])
+            ->headerActions([
+                TableAction::make('regenerate_sitemap')
+                    ->label('Regenerate Sitemap')
+                    ->icon('heroicon-o-arrow-path')
+                    ->color('gray')
+                    ->action(function () {
+                        foreach (['blog_posts', 'case_studies', 'guides'] as $tag) {
+                            dispatch(new \App\Jobs\RevalidationJob($tag));
+                        }
+                        Notification::make()
+                            ->title('Sitemap regeneration triggered.')
+                            ->success()
+                            ->send();
+                    }),
             ])
             ->actions([
                 EditAction::make(),
