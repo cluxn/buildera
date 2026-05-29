@@ -39,6 +39,23 @@ class SettingsSeeder extends Seeder
 
             // Footer
             ['key' => 'footer_copyright', 'value' => '© 2025 Buildera. All rights reserved.', 'group' => 'footer'],
+
+            // Analytics & Scripts (ADM-12)
+            ['key' => 'ga4_measurement_id',      'value' => '', 'group' => 'analytics'],
+            ['key' => 'clarity_project_id',       'value' => '', 'group' => 'analytics'],
+            ['key' => 'facebook_pixel_id',        'value' => '', 'group' => 'analytics'],
+            ['key' => 'linkedin_insight_id',      'value' => '', 'group' => 'analytics'],
+            ['key' => 'google_ads_conversion_id', 'value' => '', 'group' => 'analytics'],
+            ['key' => 'gsc_verification_tag',     'value' => '', 'group' => 'analytics'],
+            ['key' => 'custom_head_scripts',      'value' => '', 'group' => 'analytics'],
+            ['key' => 'custom_body_scripts',      'value' => '', 'group' => 'analytics'],
+
+            // Nudge Banner (ADM-13)
+            ['key' => 'nudge_banner_enabled',     'value' => '0',       'group' => 'website'],
+            ['key' => 'nudge_banner_text',        'value' => '',        'group' => 'website'],
+            ['key' => 'nudge_banner_link',        'value' => '',        'group' => 'website'],
+            ['key' => 'nudge_banner_expires_at',  'value' => '',        'group' => 'website'],
+            ['key' => 'nudge_banner_bg_color',    'value' => '#1a56db', 'group' => 'website'],
         ];
 
         foreach ($settings as $setting) {
