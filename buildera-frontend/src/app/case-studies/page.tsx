@@ -1,13 +1,17 @@
 import type { Metadata } from 'next'
 import { getContentCaseStudies } from '@/lib/api'
+import { generateSeoMetadata } from '@/lib/seo'
 import { CaseStudyCard } from '@/components/content/CaseStudyCard'
 import { IndustryFilterTabs } from '@/components/content/IndustryFilterTabs'
 import { BlogPagination } from '@/components/blog/BlogPagination'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 
-export const metadata: Metadata = {
-  title: 'Case Studies | Buildera',
-  description: 'Real-world outcomes from Buildera projects across manufacturing, retail, finance, and more.',
+export async function generateMetadata(): Promise<Metadata> {
+  return generateSeoMetadata('page', 'case-studies', {
+    title: 'Case Studies — Buildera',
+    description: 'Real-world outcomes from Buildera projects across manufacturing, retail, finance, and more.',
+    path: '/case-studies',
+  })
 }
 
 type Props = { searchParams: Promise<{ industry?: string; page?: string }> }

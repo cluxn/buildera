@@ -1,13 +1,17 @@
 import type { Metadata } from 'next'
 import { getGuides } from '@/lib/api'
+import { generateSeoMetadata } from '@/lib/seo'
 import { GuideCard } from '@/components/content/GuideCard'
 import { ResourceTypeFilterTabs } from '@/components/content/ResourceTypeFilterTabs'
 import { BlogPagination } from '@/components/blog/BlogPagination'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 
-export const metadata: Metadata = {
-  title: 'Guides & Resources | Buildera',
-  description: 'Practical guides, checklists, and templates for SMB software decisions.',
+export async function generateMetadata(): Promise<Metadata> {
+  return generateSeoMetadata('page', 'guides', {
+    title: 'Guides & Resources — Buildera',
+    description: 'Practical guides, checklists, and templates for SMB software decisions.',
+    path: '/guides',
+  })
 }
 
 type Props = { searchParams: Promise<{ category?: string; resource_type?: string; page?: string }> }

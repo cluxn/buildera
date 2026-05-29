@@ -1,13 +1,17 @@
 import type { Metadata } from 'next'
 import { getBlogPosts, getBlogCategories } from '@/lib/api'
+import { generateSeoMetadata } from '@/lib/seo'
 import { BlogPostCard } from '@/components/blog/BlogPostCard'
 import { CategoryFilterTabs } from '@/components/blog/CategoryFilterTabs'
 import { BlogPagination } from '@/components/blog/BlogPagination'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 
-export const metadata: Metadata = {
-  title: 'Blog | Buildera',
-  description: 'Insights on software development, Salesforce, DevOps, and AI automation for Indian SMBs.',
+export async function generateMetadata(): Promise<Metadata> {
+  return generateSeoMetadata('page', 'blog', {
+    title: 'Blog — IT Insights from Buildera',
+    description: "Read Buildera's blog for practical guides, case studies, and IT insights for SMB decision-makers.",
+    path: '/blog',
+  })
 }
 
 type Props = { searchParams: Promise<{ category?: string; page?: string }> }
