@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { generateSeoMetadata } from '@/lib/seo'
 import { fetchSettings } from '@/lib/api'
+import { JsonLd } from '@/components/ui/JsonLd'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { ContactHero } from '@/components/sections/contact/ContactHero'
 import { ContactForm } from '@/components/sections/contact/ContactForm'
@@ -16,9 +17,24 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function ContactPage() {
   const settings = await fetchSettings()
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://buildera.co'
+
+  const localBusinessSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: settings.company_name || 'Buildera',
+    url: siteUrl,
+    telephone: settings.company_phone || '',
+    email: settings.company_email || '',
+    address: { '@type': 'PostalAddress', streetAddress: settings.company_address || '' },
+    priceRange: '$$',
+    openingHours: 'Mo-Fr 09:00-18:00',
+    image: `${siteUrl}/og-image.png`,
+  }
 
   return (
     <main>
+      <JsonLd data={localBusinessSchema} />
       <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Contact Us' }]} />
       <ContactHero />
 

@@ -19,10 +19,10 @@ const NAV_PANELS = ["Services", "Industries", "Solutions", "Work", "Resources", 
 // Pixel width for each dropdown panel
 const PANEL_WIDTHS: Record<string, number> = {
   Services: 900,
-  Industries: 660,
+  Industries: 780,
   Solutions: 720,
-  Work: 460,
-  Resources: 460,
+  Work: 580,
+  Resources: 540,
   Products: 480,
 }
 
