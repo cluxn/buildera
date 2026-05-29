@@ -169,7 +169,7 @@ export default async function ServiceCategoryPage({ params }: Props) {
         <div className="container mx-auto px-8 max-w-3xl text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to get started?</h2>
           <p className="text-muted-foreground mb-8">
-            Book a free 30-minute discovery call. We'll map your requirements and tell you exactly what's possible.
+            Book a free 30-minute discovery call. We&apos;ll map your requirements and tell you exactly what&apos;s possible.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

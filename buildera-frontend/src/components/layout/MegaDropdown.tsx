@@ -1,5 +1,6 @@
 ﻿"use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import {
   IconWorldWww,
@@ -375,9 +376,12 @@ export function MegaDropdown({
                     className="flex items-center gap-4 p-4 rounded-xl hover:bg-[var(--brand-surface)] transition-all group"
                   >
                     <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 overflow-hidden bg-white border border-border">
-                      <img
+                      <Image
                         src={product.logo}
                         alt={`${product.name} logo`}
+                        width={48}
+                        height={48}
+                        sizes="48px"
                         className="w-full h-full object-contain"
                       />
                     </div>
