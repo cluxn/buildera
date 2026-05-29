@@ -41,9 +41,9 @@ export interface FooterLink {
 
 export interface Settings {
   company_name: string
-  email: string
-  phone: string
-  address: string
+  company_email: string
+  company_phone: string
+  company_address: string
   calendly_url: string
   whatsapp_number: string
   whatsapp_enabled: boolean
@@ -85,9 +85,9 @@ export interface Settings {
 
 export const SETTINGS_FALLBACK: Settings = {
   company_name: 'Buildera',
-  email: '',
-  phone: '',
-  address: '',
+  company_email: '',
+  company_phone: '',
+  company_address: '',
   calendly_url: '',
   whatsapp_number: '',
   whatsapp_enabled: false,
