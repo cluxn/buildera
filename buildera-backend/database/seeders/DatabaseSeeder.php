@@ -29,5 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CaseStudySeeder::class);
         $this->call(GuideSeeder::class);
         $this->call(TestimonialSeeder::class);
+        $this->call(PartnerBadgeSeeder::class);
     }
 }
