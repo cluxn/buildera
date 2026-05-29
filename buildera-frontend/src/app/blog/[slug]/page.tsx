@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 import { getBlogPost, getBlogPosts } from '@/lib/api'
 import { BlogDetailHero } from '@/components/blog/BlogDetailHero'
 import { InlineNewsletterBlock } from '@/components/blog/InlineNewsletterBlock'
@@ -64,51 +65,54 @@ export default async function BlogPostPage({ params }: Props) {
     <main>
       <JsonLd data={blogSchema} />
       <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Blog', href: '/blog' }, { label: post.title }]} />
+      {/* Above-fold hero renders immediately — no Suspense wrapper */}
       <BlogDetailHero post={post} />
 
-      <article className="container mx-auto px-8 max-w-3xl py-12">
-        <div className="my-10">
-          <MiniLeadForm
-            sourceForm="mini-cta"
-            headline="Get a Free Software Consultation"
+      <Suspense fallback={<div className="animate-pulse h-96 bg-muted rounded mx-auto max-w-3xl my-12" />}>
+        <article className="container mx-auto px-8 max-w-3xl py-12">
+          <div className="my-10">
+            <MiniLeadForm
+              sourceForm="mini-cta"
+              headline="Get a Free Software Consultation"
+            />
+          </div>
+
+          <div
+            className="prose prose-slate prose-lg max-w-none"
+            dangerouslySetInnerHTML={{ __html: post.body }}
           />
-        </div>
 
-        <div
-          className="prose prose-slate prose-lg max-w-none"
-          dangerouslySetInnerHTML={{ __html: post.body }}
-        />
+          <InlineNewsletterBlock />
+          <BlogCtaBanner />
+        </article>
 
-        <InlineNewsletterBlock />
-        <BlogCtaBanner />
-      </article>
+        {post.author && (
+          <div className="container mx-auto px-8 max-w-3xl pb-12">
+            <AuthorBio author={post.author} />
+          </div>
+        )}
 
-      {post.author && (
-        <div className="container mx-auto px-8 max-w-3xl pb-12">
-          <AuthorBio author={post.author} />
-        </div>
-      )}
+        {relatedPosts.length > 0 && (
+          <section className="bg-[var(--brand-surface)] py-16">
+            <div className="container mx-auto px-8">
+              <RelatedPosts posts={relatedPosts} />
+            </div>
+          </section>
+        )}
 
-      {relatedPosts.length > 0 && (
-        <section className="bg-[var(--brand-surface)] py-16">
-          <div className="container mx-auto px-8">
-            <RelatedPosts posts={relatedPosts} />
+        <section className="py-20 bg-background text-center">
+          <div className="container mx-auto px-8 max-w-2xl">
+            <h2 className="text-3xl font-bold mb-4">Ready to Build Something?</h2>
+            <p className="text-muted-foreground mb-8">Book a free discovery call and let&apos;s talk about your project.</p>
+            <Link
+              href="/book-a-call"
+              className="inline-flex items-center px-8 py-4 bg-[var(--brand-primary)] text-white font-semibold rounded-xl hover:bg-[var(--brand-primary-dark)] transition-colors"
+            >
+              Book a Free Call
+            </Link>
           </div>
         </section>
-      )}
-
-      <section className="py-20 bg-background text-center">
-        <div className="container mx-auto px-8 max-w-2xl">
-          <h2 className="text-3xl font-bold mb-4">Ready to Build Something?</h2>
-          <p className="text-muted-foreground mb-8">Book a free discovery call and let&apos;s talk about your project.</p>
-          <Link
-            href="/book-a-call"
-            className="inline-flex items-center px-8 py-4 bg-[var(--brand-primary)] text-white font-semibold rounded-xl hover:bg-[var(--brand-primary-dark)] transition-colors"
-          >
-            Book a Free Call
-          </Link>
-        </div>
-      </section>
+      </Suspense>
     </main>
   )
 }

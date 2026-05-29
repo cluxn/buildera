@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getContentCaseStudy, getContentCaseStudies } from '@/lib/api'
@@ -47,7 +48,7 @@ export default async function CaseStudyDetailPage({ params }: Props) {
       <JsonLd data={articleSchema} />
       <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Case Studies', href: '/case-studies' }, { label: study.title }]} />
 
-      {/* Hero */}
+      {/* Above-fold hero renders immediately — no Suspense wrapper */}
       <section className="py-16 bg-background">
         <div className="container mx-auto px-8 max-w-4xl">
           <span className="inline-block text-xs bg-[var(--brand-primary)] text-white px-2 py-0.5 rounded-full font-semibold mb-4 capitalize">
@@ -70,73 +71,75 @@ export default async function CaseStudyDetailPage({ params }: Props) {
         </div>
       </section>
 
-      {/* Problem */}
-      <section className="py-12 bg-[var(--brand-surface)]">
-        <div className="container mx-auto px-8 max-w-3xl">
-          <h2 className="text-2xl font-bold mb-6">The Problem</h2>
-          <div className="prose prose-slate prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: study.problem }} />
-        </div>
-      </section>
-
-      {/* Solution */}
-      <section className="py-12 bg-background">
-        <div className="container mx-auto px-8 max-w-3xl">
-          <h2 className="text-2xl font-bold mb-6">Our Solution</h2>
-          <div className="prose prose-slate prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: study.solution }} />
-        </div>
-      </section>
-
-      {/* Results + metrics */}
-      <section className="py-12 bg-[var(--brand-surface)]">
-        <div className="container mx-auto px-8 max-w-3xl">
-          <h2 className="text-2xl font-bold mb-6">The Results</h2>
-          <div className="prose prose-slate prose-lg max-w-none mb-8" dangerouslySetInnerHTML={{ __html: study.results }} />
-          {study.key_metrics.length > 0 && (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-              {study.key_metrics.map((m, i) => (
-                <ResultMetricCard key={i} label={m.label} value={m.value} />
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* Mid-page lead form */}
-      <section className="py-12 bg-background">
-        <div className="container mx-auto px-8 max-w-2xl">
-          <MiniLeadForm sourceForm="mini-cta" headline="Want Results Like These for Your Business?" />
-        </div>
-      </section>
-
-      {/* CTA banner */}
-      <div className="container mx-auto px-8 max-w-3xl pb-8">
-        <BlogCtaBanner />
-      </div>
-
-      {/* Testimonial quote */}
-      {study.testimonial_quote && (
+      <Suspense fallback={<div className="animate-pulse h-96 bg-muted rounded mx-auto max-w-3xl my-12" />}>
+        {/* Problem */}
         <section className="py-12 bg-[var(--brand-surface)]">
           <div className="container mx-auto px-8 max-w-3xl">
-            <blockquote className="border-l-4 border-[var(--brand-primary)] pl-6 italic text-lg">
-              &ldquo;{study.testimonial_quote}&rdquo;
-            </blockquote>
-            {study.testimonial_author && (
-              <p className="text-sm text-muted-foreground mt-3 pl-6">— {study.testimonial_author}</p>
+            <h2 className="text-2xl font-bold mb-6">The Problem</h2>
+            <div className="prose prose-slate prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: study.problem }} />
+          </div>
+        </section>
+
+        {/* Solution */}
+        <section className="py-12 bg-background">
+          <div className="container mx-auto px-8 max-w-3xl">
+            <h2 className="text-2xl font-bold mb-6">Our Solution</h2>
+            <div className="prose prose-slate prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: study.solution }} />
+          </div>
+        </section>
+
+        {/* Results + metrics */}
+        <section className="py-12 bg-[var(--brand-surface)]">
+          <div className="container mx-auto px-8 max-w-3xl">
+            <h2 className="text-2xl font-bold mb-6">The Results</h2>
+            <div className="prose prose-slate prose-lg max-w-none mb-8" dangerouslySetInnerHTML={{ __html: study.results }} />
+            {study.key_metrics.length > 0 && (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                {study.key_metrics.map((m, i) => (
+                  <ResultMetricCard key={i} label={m.label} value={m.value} />
+                ))}
+              </div>
             )}
           </div>
         </section>
-      )}
 
-      {/* Full bottom CTA */}
-      <section className="py-20 bg-background text-center">
-        <div className="container mx-auto px-8 max-w-2xl">
-          <h2 className="text-3xl font-bold mb-4">Ready to Build Your Success Story?</h2>
-          <p className="text-muted-foreground mb-8">Book a free discovery call and let&apos;s explore what&apos;s possible for your business.</p>
-          <Link href="/book-a-call" className="inline-flex items-center px-8 py-4 bg-[var(--brand-primary)] text-white font-semibold rounded-xl hover:bg-[var(--brand-primary-dark)] transition-colors">
-            Book a Free Call
-          </Link>
+        {/* Mid-page lead form */}
+        <section className="py-12 bg-background">
+          <div className="container mx-auto px-8 max-w-2xl">
+            <MiniLeadForm sourceForm="mini-cta" headline="Want Results Like These for Your Business?" />
+          </div>
+        </section>
+
+        {/* CTA banner */}
+        <div className="container mx-auto px-8 max-w-3xl pb-8">
+          <BlogCtaBanner />
         </div>
-      </section>
+
+        {/* Testimonial quote */}
+        {study.testimonial_quote && (
+          <section className="py-12 bg-[var(--brand-surface)]">
+            <div className="container mx-auto px-8 max-w-3xl">
+              <blockquote className="border-l-4 border-[var(--brand-primary)] pl-6 italic text-lg">
+                &ldquo;{study.testimonial_quote}&rdquo;
+              </blockquote>
+              {study.testimonial_author && (
+                <p className="text-sm text-muted-foreground mt-3 pl-6">— {study.testimonial_author}</p>
+              )}
+            </div>
+          </section>
+        )}
+
+        {/* Full bottom CTA */}
+        <section className="py-20 bg-background text-center">
+          <div className="container mx-auto px-8 max-w-2xl">
+            <h2 className="text-3xl font-bold mb-4">Ready to Build Your Success Story?</h2>
+            <p className="text-muted-foreground mb-8">Book a free discovery call and let&apos;s explore what&apos;s possible for your business.</p>
+            <Link href="/book-a-call" className="inline-flex items-center px-8 py-4 bg-[var(--brand-primary)] text-white font-semibold rounded-xl hover:bg-[var(--brand-primary-dark)] transition-colors">
+              Book a Free Call
+            </Link>
+          </div>
+        </section>
+      </Suspense>
     </main>
   )
 }
