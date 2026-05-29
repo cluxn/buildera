@@ -10,19 +10,18 @@ export function FloatingCTA() {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    // Fetch settings to check floating_cta_enabled
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/settings`)
-      .then((r) => r.json())
-      .then((data) => {
-        // If settings don't have this field, default to always showing
+    const load = async () => {
+      try {
+        const r = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/settings`)
+        const data = await r.json()
         if (typeof data?.floating_cta_enabled === 'boolean') {
           setIsEnabled(data.floating_cta_enabled)
         }
-        // else: keep default true
-      })
-      .catch(() => {
+      } catch {
         // API unavailable — keep default (show)
-      })
+      }
+    }
+    load()
 
     // Slightly after WhatsApp widget (3s) to stagger entrance
     const timer = setTimeout(() => setIsVisible(true), 5000)

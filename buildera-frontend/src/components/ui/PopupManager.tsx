@@ -10,10 +10,16 @@ export function PopupManager() {
   const [settings, setSettings] = useState<Settings>(SETTINGS_FALLBACK)
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/settings`)
-      .then(r => r.json())
-      .then(data => setSettings({ ...SETTINGS_FALLBACK, ...data }))
-      .catch(() => {})
+    const load = async () => {
+      try {
+        const r = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/settings`)
+        const data = await r.json()
+        setSettings({ ...SETTINGS_FALLBACK, ...data })
+      } catch {
+        // API unavailable — use fallback silently
+      }
+    }
+    load()
   }, [])
 
   return (

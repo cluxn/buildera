@@ -3,7 +3,7 @@
 import { motion } from "motion/react"
 
 const LINE_1 = "We Build Software"
-const LINE_2 = "For Indian SMBs"
+const LINE_2 = "That Drives Growth"
 
 export function HeroHeadline() {
   return (

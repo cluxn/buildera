@@ -25,7 +25,7 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
             >
-              Custom software, Salesforce, AI agents, and dedicated dev teams — built for Indian SMBs that need real accountability, fixed scopes, and technology that actually ships.
+              Custom software, Salesforce, AI agents, and dedicated dev teams — built for growth-focused businesses that demand accountability, fixed scopes, and technology that actually ships.
             </motion.p>
 
             {/* CTA buttons */}

@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Link from "next/link"
 import {
@@ -116,7 +116,7 @@ const SOLUTION_NAV_FALLBACK: SolutionItem[] = [
 
 const WORK_NAV_FALLBACK: WorkItem[] = [
   { label: "Case Studies",   href: "/case-studies", desc: "Real projects, measurable outcomes",      icon: IconFileAnalytics },
-  { label: "How We Work",    href: "/how-we-work",  desc: "Scoped → Built → Shipped → Supported",   icon: IconRoute },
+  { label: "How We Work",    href: "/how-we-work",  desc: "Scoped â†’ Built â†’ Shipped â†’ Supported",   icon: IconRoute },
   { label: "About Buildera", href: "/about",        desc: "10+ years, 800+ projects, Kanpur-based", icon: IconBuildingSkyscraper },
   { label: "Testimonials",   href: "/testimonials", desc: "What our clients say",                   icon: IconMessageCircle },
 ]
@@ -131,7 +131,7 @@ const PRODUCTS_NAV = [
   {
     name: "Barrel Books",
     href: "https://barrelbooks.com/",
-    desc: "Liquor shop management — daily stocks, purchases & transfers",
+    desc: "Liquor shop management â€” daily stocks, purchases & transfers",
     logo: "/products/barrelbooks-logo.svg",
   },
   {
@@ -184,7 +184,7 @@ export function MegaDropdown({
         >
           <div className="px-6 py-6">
 
-            {/* ── Services ── */}
+            {/* â”€â”€ Services â”€â”€ */}
             {activePanel === "Services" && (
               <>
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4 px-1">
@@ -194,7 +194,7 @@ export function MegaDropdown({
                   {servicesMenu.map((service) => {
                     const IconComponent = ICON_MAP[service.icon]
                     return (
-                      <div key={service.slug} className="rounded-lg border border-border hover:border-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-colors group">
+                      <div key={service.slug} className="rounded-lg hover:bg-[var(--brand-surface)] transition-colors group">
                         <Link
                           href={`/services/${service.slug}`}
                           className="flex items-center gap-2.5 px-3 pt-3 pb-2"
@@ -226,7 +226,7 @@ export function MegaDropdown({
               </>
             )}
 
-            {/* ── Industries ── */}
+            {/* â”€â”€ Industries â”€â”€ */}
             {activePanel === "Industries" && (
               <>
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4 px-1">
@@ -239,7 +239,7 @@ export function MegaDropdown({
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="flex items-start gap-3 p-4 rounded-lg border border-border hover:border-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-colors group"
+                        className="flex items-start gap-3 p-4 rounded-lg hover:bg-[var(--brand-surface)] transition-colors group"
                       >
                         <div className="w-7 h-7 rounded-md bg-[var(--brand-surface)] group-hover:bg-[var(--brand-primary)] flex items-center justify-center flex-shrink-0 transition-colors mt-0.5">
                           <Icon className="size-4 text-[var(--brand-primary)] group-hover:text-white transition-colors" />
@@ -257,7 +257,7 @@ export function MegaDropdown({
               </>
             )}
 
-            {/* ── Solutions ── */}
+            {/* â”€â”€ Solutions â”€â”€ */}
             {activePanel === "Solutions" && (
               <>
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4 px-1">
@@ -273,7 +273,7 @@ export function MegaDropdown({
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="flex items-center gap-3 px-4 py-3 rounded-lg border border-border hover:border-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-colors group"
+                        className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[var(--brand-surface)] transition-colors group"
                       >
                         <div className="w-7 h-7 rounded-md bg-[var(--brand-surface)] group-hover:bg-[var(--brand-primary)] flex items-center justify-center flex-shrink-0 transition-colors">
                           <Icon className="size-4 text-[var(--brand-primary)] group-hover:text-white transition-colors" />
@@ -288,7 +288,7 @@ export function MegaDropdown({
               </>
             )}
 
-            {/* ── Work ── */}
+            {/* â”€â”€ Work â”€â”€ */}
             {activePanel === "Work" && (
               <>
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4 px-1">
@@ -304,7 +304,7 @@ export function MegaDropdown({
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="flex items-start gap-3 px-4 py-4 rounded-lg border border-border hover:border-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-colors group"
+                        className="flex items-start gap-3 px-4 py-4 rounded-lg hover:bg-[var(--brand-surface)] transition-colors group"
                       >
                         <div className="w-7 h-7 rounded-md bg-[var(--brand-surface)] group-hover:bg-[var(--brand-primary)] flex items-center justify-center flex-shrink-0 transition-colors mt-0.5">
                           <Icon className="size-4 text-[var(--brand-primary)] group-hover:text-white transition-colors" />
@@ -324,7 +324,7 @@ export function MegaDropdown({
               </>
             )}
 
-            {/* ── Resources ── */}
+            {/* â”€â”€ Resources â”€â”€ */}
             {activePanel === "Resources" && (
               <>
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4 px-1">
@@ -340,7 +340,7 @@ export function MegaDropdown({
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="flex items-start gap-3 px-4 py-4 rounded-lg border border-border hover:border-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-colors group"
+                        className="flex items-start gap-3 px-4 py-4 rounded-lg hover:bg-[var(--brand-surface)] transition-colors group"
                       >
                         <div className="w-7 h-7 rounded-md bg-[var(--brand-surface)] group-hover:bg-[var(--brand-primary)] flex items-center justify-center flex-shrink-0 transition-colors mt-0.5">
                           <Icon className="size-4 text-[var(--brand-primary)] group-hover:text-white transition-colors" />
@@ -360,7 +360,7 @@ export function MegaDropdown({
               </>
             )}
 
-            {/* ── Products ── */}
+            {/* â”€â”€ Products â”€â”€ */}
             {activePanel === "Products" && (
               <div className="flex flex-col gap-2 min-w-[420px]">
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-3 px-1">
@@ -372,7 +372,7 @@ export function MegaDropdown({
                     href={product.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-4 p-4 rounded-xl border border-border hover:border-[var(--brand-primary)] hover:bg-[var(--brand-surface)] transition-all group"
+                    className="flex items-center gap-4 p-4 rounded-xl hover:bg-[var(--brand-surface)] transition-all group"
                   >
                     <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 overflow-hidden bg-white border border-border">
                       <img

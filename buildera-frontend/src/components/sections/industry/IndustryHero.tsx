@@ -34,12 +34,6 @@ export function IndustryHero({ data }: Props) {
                 Book a Free Call
                 <IconArrowRight className="w-4 h-4" />
               </Link>
-              <Link
-                href="/services"
-                className="inline-flex items-center justify-center px-6 py-3 rounded-lg border border-border text-foreground font-semibold hover:bg-[var(--brand-surface)] transition-colors"
-              >
-                Explore Services
-              </Link>
             </div>
           </div>
 
