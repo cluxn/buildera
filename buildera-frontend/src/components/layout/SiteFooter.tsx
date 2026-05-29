@@ -108,16 +108,14 @@ const HARDCODED_FOOTER_LINKS: Record<FooterLink["column"], { label: string; url:
   ],
   resources: [
     { label: "Blog", url: "/blog" },
-    { label: "Guides & Resources", url: "/guides" },
+    { label: "Guides", url: "/guides" },
     { label: "Contact Us", url: "/contact" },
-    { label: "FAQ", url: "/faq" },
-    { label: "Book a Call", url: "/book-a-call" },
   ],
 }
 
 const COLUMN_LABELS: Record<FooterLink["column"], string> = {
   services: "Services",
-  solutions: "Products",
+  solutions: "Solutions",
   company: "Company",
   resources: "Resources",
 }
@@ -314,17 +312,29 @@ export async function SiteFooter() {
 
         <Separator className="bg-slate-700" />
 
-        {/* ── Bottom bar: copyright · attribution ── */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-6 text-xs text-slate-500">
-          <p>
-            &copy; {currentYear} {settings.company_name}. All rights reserved.
-          </p>
-          <p>
+        {/* ── Bottom bar: attribution · copyright · legal links ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 items-center gap-3 py-6 text-xs text-slate-500">
+          {/* Left */}
+          <p className="lg:text-left text-center">
             Developed and managed by{" "}
             <a href="https://buildera.co" rel="nofollow" className="hover:text-white transition-colors">
               Buildera Technologies LLP
             </a>
           </p>
+          {/* Center */}
+          <p className="text-center">
+            &copy; {currentYear} Buildera. All rights reserved.
+          </p>
+          {/* Right */}
+          <div className="flex items-center justify-center lg:justify-end gap-4">
+            <Link href="/privacy" className="hover:text-white transition-colors">
+              Privacy Policy
+            </Link>
+            <span className="text-slate-700">|</span>
+            <Link href="/terms" className="hover:text-white transition-colors">
+              Terms &amp; Conditions
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

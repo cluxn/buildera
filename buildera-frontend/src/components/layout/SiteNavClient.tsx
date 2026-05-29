@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
-import { IconMenu2 } from "@tabler/icons-react"
+import { IconMenu2, IconPhone } from "@tabler/icons-react"
 import { cn } from "@/lib/utils"
 import { MegaDropdown } from "./MegaDropdown"
 import { MobileNavDrawer } from "./MobileNavDrawer"
@@ -127,8 +127,15 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
               ))}
             </div>
 
-            {/* Mobile hamburger */}
+            {/* Book a Call (desktop) + hamburger (mobile) */}
             <div className="flex items-center gap-3">
+              <Link
+                href="/contact"
+                className="hidden lg:flex items-center gap-2 px-4 py-2 bg-[var(--brand-primary)] text-white text-sm font-semibold rounded-lg hover:bg-[var(--brand-primary-dark)] transition-colors min-h-[40px] whitespace-nowrap"
+              >
+                <IconPhone className="size-4" />
+                Book a Call
+              </Link>
               <button
                 className="lg:hidden flex items-center justify-center min-h-[48px] min-w-[48px] text-foreground hover:text-[var(--brand-primary)] transition-colors"
                 onClick={() => setIsMobileOpen(true)}

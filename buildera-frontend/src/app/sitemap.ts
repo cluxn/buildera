@@ -80,7 +80,6 @@ const STATIC_PATHS: string[] = [
   '/industries',
   '/about',
   '/contact',
-  '/faq',
   '/how-we-work',
   '/book-a-call',
   '/privacy',
