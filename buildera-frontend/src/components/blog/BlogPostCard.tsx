@@ -33,7 +33,7 @@ export function BlogPostCard({ post }: { post: BlogPost }) {
           {post.author && (
             <>
               {post.author.avatar && (
-                <Image src={post.author.avatar} alt={post.author.name} width={20} height={20} className="rounded-full" />
+                <Image src={post.author.avatar} alt={post.author.name} width={20} height={20} sizes="20px" className="rounded-full" />
               )}
               <span className="font-medium text-foreground">{post.author.name}</span>
               <span>·</span>

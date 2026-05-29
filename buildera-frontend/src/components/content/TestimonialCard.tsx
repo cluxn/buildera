@@ -8,7 +8,7 @@ export function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
       <p className="text-base italic mb-4 leading-relaxed">&ldquo;{testimonial.quote}&rdquo;</p>
       {testimonial.company_logo && (
         <div className="mb-3">
-          <Image src={testimonial.company_logo} alt={testimonial.company ?? ''} width={40} height={40} className="object-contain" />
+          <Image src={testimonial.company_logo} alt={testimonial.company ?? ''} width={40} height={40} sizes="40px" className="object-contain" />
         </div>
       )}
       <p className="font-semibold">{testimonial.client_name}</p>

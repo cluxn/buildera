@@ -10,7 +10,7 @@ export function AuthorBio({ author }: { author: Author }) {
   return (
     <div className="bg-[var(--brand-surface)] rounded-2xl p-6 flex gap-4 items-start">
       {author.avatar ? (
-        <Image src={author.avatar} alt={author.name} width={64} height={64} className="rounded-full flex-shrink-0 object-cover" />
+        <Image src={author.avatar} alt={author.name} width={64} height={64} sizes="64px" className="rounded-full flex-shrink-0 object-cover" />
       ) : (
         <div className="w-16 h-16 rounded-full bg-[var(--brand-primary)]/10 flex items-center justify-center flex-shrink-0">
           <IconUser size={32} className="text-[var(--brand-primary)]" />

@@ -138,7 +138,7 @@ export function TestimonialsSection() {
             <div className="lg:w-56 flex-shrink-0 lg:pt-12">
               <div className="flex items-center gap-3 lg:flex-col lg:items-start lg:gap-2">
                 <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-[var(--brand-primary)]/20">
-                  <Image src={featured.avatar} alt={featured.name} width={48} height={48} className="w-full h-full object-cover" />
+                  <Image src={featured.avatar} alt={featured.name} width={48} height={48} sizes="48px" className="w-full h-full object-cover" />
                 </div>
                 <div>
                   <p className="font-semibold text-foreground">{featured.name}</p>
@@ -178,7 +178,7 @@ export function TestimonialsSection() {
 
               <div className="flex items-center gap-3 pt-2 border-t border-border">
                 <div className="w-9 h-9 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-[var(--brand-primary)]/15">
-                  <Image src={t.avatar} alt={t.name} width={36} height={36} className="w-full h-full object-cover" />
+                  <Image src={t.avatar} alt={t.name} width={36} height={36} sizes="36px" className="w-full h-full object-cover" />
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-foreground">{t.name}</p>

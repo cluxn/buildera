@@ -19,7 +19,7 @@ export function BlogDetailHero({ post }: { post: BlogPostDetail }) {
           {post.author && (
             <>
               {post.author.avatar && (
-                <Image src={post.author.avatar} alt={post.author.name} width={24} height={24} className="rounded-full" />
+                <Image src={post.author.avatar} alt={post.author.name} width={24} height={24} sizes="24px" className="rounded-full" />
               )}
               <span className="font-medium text-foreground">{post.author.name}</span>
               <span>·</span>
