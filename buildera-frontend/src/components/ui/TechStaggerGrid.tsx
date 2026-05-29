@@ -43,7 +43,7 @@ interface Props {
 
 export function TechStaggerGrid({ technologies, categoryStartDelay = 0 }: Props) {
   return (
-    <div className="flex flex-wrap gap-3">
+    <div className="flex flex-wrap gap-3 justify-center">
       {technologies.map((tech, i) => {
         const iconKey = tech.icon?.toLowerCase() ?? tech.name.toLowerCase()
         const icon = TECH_ICON_MAP[iconKey] ?? null

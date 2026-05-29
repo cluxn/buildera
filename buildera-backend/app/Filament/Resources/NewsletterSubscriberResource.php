@@ -7,7 +7,7 @@ use App\Models\NewsletterSubscriber;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Tables\Actions\BulkAction;
+use Filament\Actions\BulkAction;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -27,7 +27,7 @@ class NewsletterSubscriberResource extends Resource
     protected static ?int $navigationSort = 2;
 
     /**
-     * Form schema — read-only view (subscribers are created via API, not admin).
+     * Form schema â€” read-only view (subscribers are created via API, not admin).
      */
     public static function form(Schema $schema): Schema
     {
@@ -42,7 +42,7 @@ class NewsletterSubscriberResource extends Resource
     }
 
     /**
-     * Table definition — newsletter subscriber list sorted by most recent subscription.
+     * Table definition â€” newsletter subscriber list sorted by most recent subscription.
      */
     public static function table(Table $table): Table
     {
@@ -54,7 +54,7 @@ class NewsletterSubscriberResource extends Resource
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable()
-                    ->placeholder('—'),
+                    ->placeholder('â€”'),
                 BadgeColumn::make('status')
                     ->colors([
                         'success' => 'subscribed',
@@ -66,7 +66,7 @@ class NewsletterSubscriberResource extends Resource
                 TextColumn::make('unsubscribed_at')
                     ->dateTime()
                     ->sortable()
-                    ->placeholder('—'),
+                    ->placeholder('â€”'),
             ])
             ->defaultSort('subscribed_at', 'desc')
             ->filters([
@@ -102,7 +102,7 @@ class NewsletterSubscriberResource extends Resource
     }
 
     /**
-     * Pages — no Create/Edit pages since subscribers come via API only.
+     * Pages â€” no Create/Edit pages since subscribers come via API only.
      *
      * @return array<string, \Filament\Resources\Pages\PageRegistration>
      */
@@ -114,3 +114,4 @@ class NewsletterSubscriberResource extends Resource
         ];
     }
 }
+

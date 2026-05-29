@@ -131,7 +131,7 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
             <div className="flex items-center gap-3">
               <Link
                 href="/contact"
-                className="hidden lg:flex items-center gap-2 px-4 py-2 bg-[var(--brand-primary)] text-white text-sm font-semibold rounded-lg hover:bg-[var(--brand-primary-dark)] transition-colors min-h-[40px] whitespace-nowrap"
+                className="hidden lg:flex btn-primary items-center gap-2 px-4 py-2 text-sm min-h-[40px] whitespace-nowrap"
               >
                 <IconPhone className="size-4" />
                 Book a Call

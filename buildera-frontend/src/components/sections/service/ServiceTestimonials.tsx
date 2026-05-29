@@ -9,15 +9,20 @@ export function ServiceTestimonials({ testimonials }: Props) {
   if (!testimonials.length) return null
 
   return (
-    <section className="py-16 bg-background">
+    <section className="py-20 bg-background">
       <div className="container mx-auto px-8 max-w-7xl">
-        <p className="text-xs font-medium uppercase tracking-widest text-[var(--brand-primary)] mb-4">
-          What Our Clients Say
-        </p>
-        <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-12">
-          Trusted by Businesses Like Yours
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="text-center mb-14">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
+            Client Results
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+            Trusted by Businesses Like Yours
+          </h2>
+          <p className="text-muted-foreground max-w-xl mx-auto">
+            Real outcomes from real clients — see what working with Buildera looks like in practice.
+          </p>
+        </div>
+        <div className={`grid gap-6 ${testimonials.length === 1 ? 'max-w-2xl mx-auto' : testimonials.length >= 3 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1 md:grid-cols-2'}`}>
           {testimonials.map((t) => (
             <TestimonialCard
               key={t.id}

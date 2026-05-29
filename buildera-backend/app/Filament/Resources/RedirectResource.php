@@ -9,10 +9,10 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -42,7 +42,7 @@ class RedirectResource extends Resource
                 ->maxLength(500)
                 ->placeholder('/new-url or https://...'),
             Select::make('status_code')
-                ->options([301 => '301 — Permanent', 302 => '302 — Temporary'])
+                ->options([301 => '301 â€” Permanent', 302 => '302 â€” Temporary'])
                 ->default(301)
                 ->required(),
             Toggle::make('is_active')
@@ -94,3 +94,4 @@ class RedirectResource extends Resource
         ];
     }
 }
+

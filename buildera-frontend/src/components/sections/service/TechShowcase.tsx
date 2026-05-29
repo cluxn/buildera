@@ -39,16 +39,18 @@ export function TechShowcase({ technologies }: Props) {
             The tools and frameworks we use to build reliable, scalable solutions — chosen for performance, maintainability, and fit.
           </p>
         </div>
-        <div className="space-y-6">
+        <div className="space-y-8">
           {grouped.map((group) => (
-            <div key={group.category}>
-              <h3 className="text-sm font-medium uppercase tracking-widest text-[var(--brand-primary)] mb-3">
+            <div key={group.category} className="text-center">
+              <h3 className="text-sm font-medium uppercase tracking-widest text-[var(--brand-primary)] mb-4">
                 {group.label}
               </h3>
-              <TechStaggerGrid
-                technologies={group.techs}
-                categoryStartDelay={group.idx * 0.1 + 0.1}
-              />
+              <div className="flex flex-wrap gap-3 justify-center">
+                <TechStaggerGrid
+                  technologies={group.techs}
+                  categoryStartDelay={group.idx * 0.1 + 0.1}
+                />
+              </div>
             </div>
           ))}
         </div>

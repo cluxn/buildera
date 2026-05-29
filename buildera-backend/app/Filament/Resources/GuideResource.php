@@ -8,14 +8,14 @@ use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Tabs;
+use Filament\Schemas\Components\Tabs;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -109,7 +109,7 @@ class GuideResource extends Resource
                             return $posts->merge($cases)->merge($guides)->all();
                         })
                         ->searchable()
-                        ->helperText('Format: type:slug — e.g. blog:my-post, case:client-x, guide:checklist-y')
+                        ->helperText('Format: type:slug â€” e.g. blog:my-post, case:client-x, guide:checklist-y')
                         ->columnSpanFull(),
                 ]),
             ])->columnSpanFull(),
@@ -142,3 +142,4 @@ class GuideResource extends Resource
         ];
     }
 }
+

@@ -317,7 +317,7 @@ export async function SiteFooter() {
           {/* Left */}
           <p className="lg:text-left text-center">
             Developed and managed by{" "}
-            <a href="https://buildera.co" rel="nofollow" className="hover:text-white transition-colors">
+            <a href="https://buildera.co" className="hover:text-white transition-colors">
               Buildera Technologies LLP
             </a>
           </p>
