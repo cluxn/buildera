@@ -11,14 +11,16 @@ export function ContactInfo({ whatsappNumber, email }: Props) {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Email */}
         <div className="bg-background rounded-xl p-5 border border-border flex items-start gap-4">
-          <div className="w-10 h-10 rounded-lg bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] flex items-center justify-center shrink-0">
+          {/* A11Y: decorative icon badge — aria-hidden, not a tap target */}
+          <div className="w-10 h-10 rounded-lg bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] flex items-center justify-center shrink-0" aria-hidden="true">
             <IconMail className="w-5 h-5" />
           </div>
           <div>
             <p className="font-semibold text-foreground text-sm mb-1">Email Us</p>
+            {/* A11Y-01: use brand-primary-dark (hsl 221 83% 40%) for small link text on white — passes WCAG AA 4.5:1 */}
             <a
               href={`mailto:${email ?? 'info@buildera.co'}`}
-              className="text-sm text-[var(--brand-primary)] hover:underline"
+              className="text-sm text-[var(--brand-primary-dark)] hover:underline"
             >
               {email ?? 'info@buildera.co'}
             </a>
@@ -27,17 +29,19 @@ export function ContactInfo({ whatsappNumber, email }: Props) {
 
         {/* WhatsApp */}
         <div className="bg-background rounded-xl p-5 border border-border flex items-start gap-4">
-          <div className="w-10 h-10 rounded-lg bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] flex items-center justify-center shrink-0">
+          {/* A11Y: decorative icon badge — aria-hidden, not a tap target */}
+          <div className="w-10 h-10 rounded-lg bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] flex items-center justify-center shrink-0" aria-hidden="true">
             <IconBrandWhatsapp className="w-5 h-5" />
           </div>
           <div>
             <p className="font-semibold text-foreground text-sm mb-1">WhatsApp</p>
             {whatsappNumber ? (
+              /* A11Y-01: brand-primary-dark for small link text on white — WCAG AA */
               <a
                 href={`https://wa.me/${whatsappNumber}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-[var(--brand-primary)] hover:underline"
+                className="text-sm text-[var(--brand-primary-dark)] hover:underline"
               >
                 Chat on WhatsApp
               </a>
@@ -49,7 +53,8 @@ export function ContactInfo({ whatsappNumber, email }: Props) {
 
         {/* Location */}
         <div className="bg-background rounded-xl p-5 border border-border flex items-start gap-4">
-          <div className="w-10 h-10 rounded-lg bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] flex items-center justify-center shrink-0">
+          {/* A11Y: decorative icon badge — aria-hidden, not a tap target */}
+          <div className="w-10 h-10 rounded-lg bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] flex items-center justify-center shrink-0" aria-hidden="true">
             <IconMapPin className="w-5 h-5" />
           </div>
           <div>

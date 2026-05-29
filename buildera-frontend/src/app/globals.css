@@ -144,6 +144,12 @@
     @apply font-sans;
   }
 
+  /* WCAG AA A11Y-05: visible focus ring using brand primary — supplements the faint outline-ring/50 */
+  :focus-visible {
+    outline: 2px solid var(--brand-primary);
+    outline-offset: 2px;
+  }
+
   /* Typography scale — Inter type hierarchy (D-27) */
   .text-display {
     font-size: 3.75rem;

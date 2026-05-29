@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "motion/react"
 import {
@@ -76,6 +76,13 @@ const PRODUCTS_MOBILE = [
 
 export function MobileNavDrawer({ isOpen, onClose, servicesMenu, navItems }: Props) {
   const [openGroup, setOpenGroup] = useState<AccordionGroup | null>(null)
+
+  useEffect(() => {
+    if (!isOpen) return
+    const handleKeyDown = (e: KeyboardEvent) => { if (e.key === "Escape") onClose() }
+    document.addEventListener("keydown", handleKeyDown)
+    return () => document.removeEventListener("keydown", handleKeyDown)
+  }, [isOpen, onClose])
 
   function toggleGroup(group: AccordionGroup) {
     setOpenGroup((prev) => (prev === group ? null : group))
