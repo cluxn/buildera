@@ -23,7 +23,7 @@ Modern website development encompasses far more than front-end design. It includ
       { title: 'Custom Design → Brand Authority', description: 'A distinctive, professional design builds instant credibility with enterprise buyers.' },
       { title: 'CMS Integration → Easy Updates', description: 'Your marketing team updates content, adds blog posts, and launches landing pages without touching code.' },
       { title: 'Conversion Architecture → Direct Revenue', description: 'Strategic CTA placement, trust signals, and lead capture forms optimised for your buyer journey.' },
-      { title: 'Performance Monitoring → Continuous Improvement', description: 'Post-launch analytics dashboards track what's working and where visitors drop off.' },
+      { title: 'Performance Monitoring → Continuous Improvement', description: "Post-launch analytics dashboards track what's working and where visitors drop off." },
     ],
     industries: ['Professional Services', 'SaaS & Technology', 'E-Commerce & Retail', 'Healthcare & Wellness', 'Manufacturing & Industrial', 'Financial Services'],
     faq: [
@@ -64,7 +64,7 @@ A well-implemented Salesforce changes every one of those dynamics. Custom object
       { question: 'How long does a Salesforce implementation take?', answer: 'A standard Sales Cloud implementation for an SMB takes 6–8 weeks. More complex implementations involving custom objects, integrations, or multiple clouds can take 12–16 weeks. We always start with a two-week discovery phase before providing a final timeline.' },
       { question: 'Do we need Salesforce licences before engaging Buildera?', answer: 'We recommend starting the implementation planning process before purchasing licences, as the right licence edition depends on what you need to build. We can advise on edition selection (Starter, Pro Suite, Enterprise) and help you avoid buying more licences than you need initially.' },
       { question: 'Can you migrate data from our current CRM?', answer: 'Yes. We handle data migration from HubSpot, Pipedrive, spreadsheets, and most legacy CRM systems. This includes data cleansing, deduplication, and field mapping. Clean data migration is critical to Salesforce adoption — we treat it as a primary deliverable, not an afterthought.' },
-      { question: 'What is the difference between Salesforce configuration and customisation?', answer: 'Configuration uses point-and-click tools like Flow Builder, validation rules, and custom fields — no code required. Customisation involves writing Apex code or Lightning Web Components for functionality the platform can't deliver declaratively. We always prefer configuration for maintainability.' },
+      { question: 'What is the difference between Salesforce configuration and customisation?', answer: "Configuration uses point-and-click tools like Flow Builder, validation rules, and custom fields — no code required. Customisation involves writing Apex code or Lightning Web Components for functionality the platform can't deliver declaratively. We always prefer configuration for maintainability." },
       { question: 'Will our internal team be able to manage Salesforce after delivery?', answer: 'Yes. Every implementation includes admin-level documentation and a training session for your Salesforce admin. We configure the system to be manageable by a non-developer admin for day-to-day changes, and we\'re available for post-launch support if more complex changes are needed.' },
     ],
     clusterTopics: [
