@@ -184,17 +184,17 @@
 
 ---
 
-## Phase 9: Performance & Accessibility
+## Phase 9: Performance & Accessibility ✅ Complete (2026-05-29)
 **Goal:** PageSpeed ≥ 85 mobile, all Core Web Vitals pass, WCAG AA met — site is fast and accessible on any device.
 
 **Requirements:** PERF-01 → PERF-05, A11Y-01 → A11Y-05, UX-01, UX-02
 
 **Plans:**
-- 09-01: Image audit — every `<Image>` has correct `sizes` prop, `priority` only on above-fold, all uploads served as WebP/AVIF; `optimizePackageImports` verified for `@tabler/icons-react` and `motion`
-- 09-02: Bundle analysis — `next build` output checked; any `"use client"` component outside allowed list (forms, tabs, widgets, analytics) refactored to Server Component; Suspense boundaries on ISR pages
-- 09-03: WCAG AA audit — contrast ratios checked across all colour combinations; 48px touch targets on all mobile interactive elements; all images have alt text; keyboard nav tested on nav, forms, modals; focus indicators visible
-- 09-04: Contact page enhancements (UX-01 — response time guarantee, Google Maps embed, phone); Search-enabled 404 page (UX-02 — search bar + suggested pages)
-- 09-05: Cross-browser + cross-device QA — Chrome, Firefox, Safari, Edge; iPhone SE (smallest mobile), iPad, 1080p desktop; animations perform smoothly; no layout breaks
+- [x] 09-01: Image audit — `motion` in optimizePackageImports, pixel-exact `sizes` on all fixed avatars/logos, `priority` scoped to 3 ISR heroes
+- [x] 09-02: Bundle audit — 37/37 "use client" files justified, Suspense on ISR detail pages, build baseline captured
+- [x] 09-03: WCAG AA — global :focus-visible brand ring, brand-primary-dark for small link text, aria-hidden decorative icons, Escape close on mobile drawer
+- [x] 09-04: ContactInfo phone+timezone, response-time copy reconciled, NotFoundSearch + popular pages on 404
+- [x] 09-05: QA doc + Lighthouse baseline + browser/device matrix (human-approved)
 
 **Success Criteria:**
 1. PageSpeed Insights mobile score ≥ 85 on homepage, service detail page, blog post
