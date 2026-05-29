@@ -1,4 +1,14 @@
+import type { Metadata } from 'next'
+import { generateSeoMetadata } from '@/lib/seo'
 import { fetchSettings } from "@/lib/api"
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateSeoMetadata('homepage', 'homepage', {
+    title: 'Buildera — IT Services & Custom Software',
+    description: 'We build custom software, Salesforce solutions, DevOps pipelines, and AI agents for SMBs.',
+    path: '/',
+  })
+}
 import { HeroSection } from "@/components/sections/HeroSection"
 import { StatsBarSection } from "@/components/sections/StatsBarSection"
 import { ServicesTabSection } from "@/components/sections/ServicesTabSection"

@@ -1,8 +1,14 @@
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 
-export const metadata = {
-  title: 'Privacy Policy | Buildera',
-  description: 'How Buildera collects, uses, and protects your personal information.',
+import type { Metadata } from 'next'
+import { generateSeoMetadata } from '@/lib/seo'
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateSeoMetadata('page', 'privacy', {
+    title: 'Privacy Policy — Buildera',
+    description: "Buildera's privacy policy — how we collect, use, and protect your personal data.",
+    path: '/privacy',
+  })
 }
 
 export default function PrivacyPage() {

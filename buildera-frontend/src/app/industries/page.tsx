@@ -6,10 +6,14 @@ import {
 } from '@tabler/icons-react'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import type { Metadata } from 'next'
+import { generateSeoMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Industries We Serve | Buildera',
-  description: 'Deep domain expertise across 11 industry verticals. Buildera builds custom software for FinTech, Healthcare, Manufacturing, Retail, and more.',
+export async function generateMetadata(): Promise<Metadata> {
+  return generateSeoMetadata('page', 'industries', {
+    title: 'Industries We Serve — Buildera',
+    description: 'Buildera delivers tailored IT solutions for manufacturing, retail, hospitality, logistics, finance, healthcare, real estate, and professional services.',
+    path: '/industries',
+  })
 }
 
 const INDUSTRIES = [

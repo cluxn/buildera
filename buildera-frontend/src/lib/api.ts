@@ -55,6 +55,10 @@ export interface Settings {
   stat_clients: string
   stat_years: string
   stat_satisfaction: string
+  // SEO defaults
+  default_seo_title: string
+  default_seo_description: string
+  og_image: string
   // Popup settings
   popup_exit_enabled: boolean
   popup_exit_headline: string
@@ -68,6 +72,15 @@ export interface Settings {
   nudge_banner_text: string
   nudge_banner_link: string
   nudge_banner_expires_at: string
+  // Analytics & Scripts
+  ga4_measurement_id: string
+  clarity_project_id: string
+  facebook_pixel_id: string
+  linkedin_insight_id: string
+  google_ads_conversion_id: string
+  gsc_verification_tag: string
+  custom_head_scripts: string
+  custom_body_scripts: string
 }
 
 export const SETTINGS_FALLBACK: Settings = {
@@ -86,6 +99,9 @@ export const SETTINGS_FALLBACK: Settings = {
   stat_clients: '50',
   stat_years: '6',
   stat_satisfaction: '98',
+  default_seo_title: 'Buildera — IT Services & Custom Software Development',
+  default_seo_description: 'Buildera builds custom software, Salesforce solutions, DevOps pipelines, and AI agents for growing businesses.',
+  og_image: '',
   popup_exit_enabled: false,
   popup_exit_headline: '',
   popup_exit_subtext: '',
@@ -97,6 +113,31 @@ export const SETTINGS_FALLBACK: Settings = {
   nudge_banner_text: '',
   nudge_banner_link: '',
   nudge_banner_expires_at: '',
+  ga4_measurement_id: '',
+  clarity_project_id: '',
+  facebook_pixel_id: '',
+  linkedin_insight_id: '',
+  google_ads_conversion_id: '',
+  gsc_verification_tag: '',
+  custom_head_scripts: '',
+  custom_body_scripts: '',
+}
+
+export interface SeoMeta {
+  page_type: string
+  page_slug: string | null
+  title: string | null
+  description: string | null
+  og_image: string | null
+  canonical_url: string | null
+  robots: string | null
+  schema_json: Record<string, unknown> | null
+}
+
+export async function fetchSeoMeta(type: string, slug: string): Promise<SeoMeta | null> {
+  return fetchFromApi<SeoMeta>(`/api/seo/${type}/${slug}`, {
+    next: { tags: ['seo_metas'], revalidate: 3600 },
+  } as RequestInit).catch(() => null)
 }
 
 export async function fetchNavItems(): Promise<NavItem[]> {
@@ -226,6 +267,20 @@ export async function getGuide(slug: string): Promise<GuideDetail | null> {
   return fetchFromApi<GuideDetail>(`/api/guides/${slug}`, { next: { tags: ['guides'], revalidate: 3600 } } as RequestInit)
     .catch(() => null)
 }
+export interface SearchResult {
+  id: number
+  title: string
+  slug: string
+  excerpt?: string
+  type: 'blog_post' | 'case_study' | 'guide' | 'service'
+}
+
+export async function fetchSearchResults(query: string): Promise<SearchResult[]> {
+  if (query.length < 2) return []
+  return fetchFromApi<SearchResult[]>(`/api/search?q=${encodeURIComponent(query)}`)
+    .catch(() => [])
+}
+
 export async function getTestimonialsPage(serviceCategory?: string): Promise<Testimonial[]> {
   const params = serviceCategory ? `?service_category=${encodeURIComponent(serviceCategory)}` : ''
   return fetchFromApi<Testimonial[]>(`/api/testimonials${params}`, { next: { tags: ['testimonials'], revalidate: 3600 } } as RequestInit)

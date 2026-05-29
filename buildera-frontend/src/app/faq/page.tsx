@@ -2,10 +2,15 @@ import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { FaqAccordion, FAQ_ITEMS } from '@/components/sections/trust/FaqAccordion'
 import { AboutCta } from '@/components/sections/trust/AboutCta'
 
-export const metadata = {
-  title: 'FAQ | Buildera',
-  description:
-    'Answers to the most common questions about working with Buildera — timelines, pricing, ownership, and more.',
+import type { Metadata } from 'next'
+import { generateSeoMetadata } from '@/lib/seo'
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateSeoMetadata('page', 'faq', {
+    title: 'FAQ — Buildera IT Services',
+    description: "Frequently asked questions about Buildera's services, engagement models, and how we work.",
+    path: '/faq',
+  })
 }
 
 const faqSchema = {

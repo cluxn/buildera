@@ -1,6 +1,16 @@
+import type { Metadata } from 'next'
+import { generateSeoMetadata } from '@/lib/seo'
 import Link from 'next/link'
 import { StaggeredRevealGrid } from '@/components/ui/StaggeredRevealGrid'
 import { solutions } from '@/data/solutions/solutions'
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateSeoMetadata('page', 'solutions', {
+    title: 'Business Solutions — Buildera',
+    description: "Explore Buildera's 18 ready-to-deploy business solutions for operations, finance, HR, CRM, and more.",
+    path: '/solutions',
+  })
+}
 
 export default function SolutionsPage() {
   return (

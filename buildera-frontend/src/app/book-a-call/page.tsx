@@ -3,9 +3,14 @@ import { fetchSettings } from '@/lib/api'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { CalendlyEmbed } from '@/components/sections/contact/CalendlyEmbed'
 
-export const metadata: Metadata = {
-  title: 'Book a Free Discovery Call | Buildera',
-  description: 'Schedule a 30-minute call with the Buildera team. No obligation, no sales pitch.',
+import { generateSeoMetadata } from '@/lib/seo'
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateSeoMetadata('page', 'book-a-call', {
+    title: 'Book a Free Discovery Call — Buildera',
+    description: 'Schedule your free 30-minute discovery call with Buildera. No obligation, just a conversation about your project.',
+    path: '/book-a-call',
+  })
 }
 
 const WHAT_TO_EXPECT = [

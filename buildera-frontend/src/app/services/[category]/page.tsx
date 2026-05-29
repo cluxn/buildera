@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import {
@@ -7,6 +8,7 @@ import {
   CATEGORY_DESCRIPTIONS,
   SERVICE_NAMES,
 } from '@/data/services/index'
+import { generateSeoMetadata } from '@/lib/seo'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 
 export function generateStaticParams() {
@@ -15,6 +17,16 @@ export function generateStaticParams() {
 
 interface Props {
   params: Promise<{ category: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { category } = await params
+  const label = CATEGORY_LABELS[category] ?? category
+  return generateSeoMetadata('service', category, {
+    title: `${label} Services — Buildera`,
+    description: `Buildera provides professional ${label} services for SMBs. Explore our sub-services and see how we deliver results.`,
+    path: `/services/${category}`,
+  })
 }
 
 export default async function ServiceCategoryPage({ params }: Props) {

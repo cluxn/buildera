@@ -9,6 +9,7 @@ use App\Models\CaseStudy;
 use App\Models\Guide;
 use App\Models\Lead;
 use App\Models\NewsletterSubscriber;
+use App\Models\SeoMeta;
 use App\Models\Testimonial;
 use App\Observers\AuditLogObserver;
 use App\Observers\ContentObserver;
@@ -47,5 +48,6 @@ class AppServiceProvider extends ServiceProvider
         CaseStudy::observe(ContentObserver::class);
         Guide::observe(ContentObserver::class);
         Testimonial::observe(ContentObserver::class);
+        SeoMeta::observe(ContentObserver::class);
     }
 }

@@ -1,13 +1,17 @@
 import type { Metadata } from 'next'
+import { generateSeoMetadata } from '@/lib/seo'
 import { fetchSettings } from '@/lib/api'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { ContactHero } from '@/components/sections/contact/ContactHero'
 import { ContactForm } from '@/components/sections/contact/ContactForm'
 import { ContactInfo } from '@/components/sections/contact/ContactInfo'
 
-export const metadata: Metadata = {
-  title: 'Contact Us | Buildera',
-  description: 'Get in touch with Buildera. Tell us what you\'re building and we\'ll respond within 4 business hours with a clear next step.',
+export async function generateMetadata(): Promise<Metadata> {
+  return generateSeoMetadata('page', 'contact', {
+    title: 'Contact Buildera — Book a Free Discovery Call',
+    description: 'Get in touch with Buildera. Book a free discovery call or send a message — we reply within 24 hours.',
+    path: '/contact',
+  })
 }
 
 export default async function ContactPage() {

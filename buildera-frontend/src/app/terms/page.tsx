@@ -1,8 +1,14 @@
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 
-export const metadata = {
-  title: "Terms of Service | Buildera",
-  description: "Terms governing the use of Buildera's website and services.",
+import type { Metadata } from 'next'
+import { generateSeoMetadata } from '@/lib/seo'
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateSeoMetadata('page', 'terms', {
+    title: 'Terms of Service — Buildera',
+    description: "Buildera's terms of service governing use of our website and services.",
+    path: '/terms',
+  })
 }
 
 export default function TermsPage() {

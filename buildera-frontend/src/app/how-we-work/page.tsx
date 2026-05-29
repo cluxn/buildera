@@ -2,10 +2,15 @@ import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { ProcessTimeline } from '@/components/sections/trust/ProcessTimeline'
 import { ProcessCta } from '@/components/sections/trust/ProcessCta'
 
-export const metadata = {
-  title: 'How We Work | Buildera',
-  description:
-    'Our 6-step software delivery process from discovery to launch. No vague timelines, no change-order surprises.',
+import type { Metadata } from 'next'
+import { generateSeoMetadata } from '@/lib/seo'
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateSeoMetadata('page', 'how-we-work', {
+    title: "How We Work — Buildera's Process",
+    description: 'Our 6-step process from discovery to delivery. See how Buildera delivers IT projects on time and on budget.',
+    path: '/how-we-work',
+  })
 }
 
 export default function HowWeWorkPage() {

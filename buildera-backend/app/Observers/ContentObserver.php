@@ -20,7 +20,19 @@ class ContentObserver
             \App\Models\CaseStudy::class   => 'case_studies',
             \App\Models\Guide::class       => 'guides',
             \App\Models\Testimonial::class => 'testimonials',
+            \App\Models\SeoMeta::class     => null, // handled specially below
         ];
+
+        // SeoMeta revalidation depends on page_type
+        if ($model instanceof \App\Models\SeoMeta) {
+            $typeMap = [
+                'homepage'   => 'settings',
+                'blog_post'  => 'blog_posts',
+                'case_study' => 'case_studies',
+                'guide'      => 'guides',
+            ];
+            return $typeMap[$model->page_type] ?? 'seo_metas';
+        }
 
         return $map[get_class($model)] ?? null;
     }

@@ -1,4 +1,14 @@
+import type { Metadata } from 'next'
+import { generateSeoMetadata } from '@/lib/seo'
 import { ServicesTabSection } from '@/components/sections/ServicesTabSection'
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateSeoMetadata('page', 'services', {
+    title: 'IT Services — Buildera',
+    description: "Explore Buildera's 6 service lines: Website Dev, Salesforce, DevOps, AI Agents, Software Dev, and Hire a Developer.",
+    path: '/services',
+  })
+}
 
 export default function ServicesPage() {
   return (
