@@ -7,10 +7,12 @@ use App\Models\NewsletterSubscriber;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Collection;
 
 class NewsletterSubscriberResource extends Resource
 {
@@ -73,6 +75,29 @@ class NewsletterSubscriberResource extends Resource
                         'subscribed'   => 'Subscribed',
                         'unsubscribed' => 'Unsubscribed',
                     ]),
+            ])
+            ->bulkActions([
+                BulkAction::make('export_csv')
+                    ->label('Export CSV')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->action(function (Collection $records) {
+                        $csv = "email,name,status,subscribed_at\n";
+                        foreach ($records as $record) {
+                            $csv .= implode(',', [
+                                '"' . str_replace('"', '""', $record->email) . '"',
+                                '"' . str_replace('"', '""', ($record->name ?? '')) . '"',
+                                '"' . $record->status . '"',
+                                '"' . ($record->subscribed_at ?? '') . '"',
+                            ]) . "\n";
+                        }
+                        return response()->streamDownload(
+                            fn () => print($csv),
+                            'subscribers-' . now()->format('Y-m-d') . '.csv',
+                            ['Content-Type' => 'text/csv']
+                        );
+                    })
+                    ->requiresConfirmation()
+                    ->deselectRecordsAfterCompletion(),
             ]);
     }
 

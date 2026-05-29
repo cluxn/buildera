@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\LeadResource\Pages;
 use App\Models\Lead;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -13,9 +14,11 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class LeadResource extends Resource
 {
@@ -80,15 +83,28 @@ class LeadResource extends Resource
                         'primary' => 'qualified',
                         'danger'  => 'lost',
                     ]),
-                IconColumn::make('is_duplicate')
-                    ->boolean(),
+                TextColumn::make('is_duplicate')
+                    ->badge()
+                    ->formatStateUsing(fn (bool $state): string => $state ? 'Duplicate' : 'Unique')
+                    ->color(fn (bool $state): string => $state ? 'danger' : 'success')
+                    ->label('Duplicate?'),
                 TextColumn::make('submitted_at')
                     ->dateTime()
                     ->sortable(),
             ])
             ->defaultSort('submitted_at', 'desc')
             ->filters([
-                SelectFilter::make('source_form'),
+                SelectFilter::make('source_form')
+                    ->options([
+                        'contact-form' => 'Contact Form',
+                        'mini-cta'     => 'Mini CTA',
+                        'mini-popup'   => 'Mini Popup',
+                        'floating-cta' => 'Floating CTA',
+                        'exit-popup'   => 'Exit Popup',
+                        'inline-blog'  => 'Inline Blog',
+                        'service-cta'  => 'Service CTA',
+                        'homepage-cta' => 'Homepage CTA',
+                    ]),
                 SelectFilter::make('status')->options([
                     'new'        => 'New',
                     'contacted'  => 'Contacted',
@@ -96,6 +112,17 @@ class LeadResource extends Resource
                     'lost'       => 'Lost',
                 ]),
                 TernaryFilter::make('is_duplicate'),
+                Filter::make('submitted_at')
+                    ->form([
+                        DatePicker::make('from')->label('From'),
+                        DatePicker::make('until')->label('Until'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when($data['from'], fn ($q, $d) => $q->whereDate('submitted_at', '>=', $d))
+                            ->when($data['until'], fn ($q, $d) => $q->whereDate('submitted_at', '<=', $d));
+                    })
+                    ->label('Date Range'),
             ]);
     }
 
