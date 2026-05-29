@@ -11,7 +11,7 @@ import { MapEmbed } from '@/components/sections/contact/MapEmbed'
 export async function generateMetadata(): Promise<Metadata> {
   return generateSeoMetadata('page', 'contact', {
     title: 'Contact Buildera — Book a Free Discovery Call',
-    description: 'Get in touch with Buildera. Book a free discovery call or send a message — we reply within 24 hours.',
+    description: 'Get in touch with Buildera. Book a free discovery call or send a message — we reply within 4 business hours.',
     path: '/contact',
   })
 }
@@ -49,7 +49,7 @@ export default async function ContactPage() {
 
             {/* Info panel */}
             <div className="lg:col-span-2">
-              <ContactInfo whatsappNumber={settings.whatsapp_number} />
+              <ContactInfo whatsappNumber={settings.whatsapp_number} email={settings.company_email} phone={settings.company_phone} />
 
               {/* Response guarantee card */}
               <div className="mt-6 bg-[var(--brand-surface)] rounded-xl p-6 border border-border">

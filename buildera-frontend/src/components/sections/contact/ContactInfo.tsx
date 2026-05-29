@@ -1,11 +1,12 @@
-import { IconMail, IconBrandWhatsapp, IconMapPin } from '@tabler/icons-react'
+import { IconMail, IconBrandWhatsapp, IconMapPin, IconPhone } from '@tabler/icons-react'
 
 interface Props {
   whatsappNumber: string
   email?: string
+  phone?: string
 }
 
-export function ContactInfo({ whatsappNumber, email }: Props) {
+export function ContactInfo({ whatsappNumber, email, phone }: Props) {
   return (
     <div className="bg-[var(--brand-surface)] py-8 rounded-xl">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -62,9 +63,30 @@ export function ContactInfo({ whatsappNumber, email }: Props) {
             <p className="text-sm text-muted-foreground">
               India — serving clients remotely and on-site
             </p>
+            <p className="text-xs text-muted-foreground mt-1">IST (UTC+5:30) · Mon–Fri 9am–6pm</p>
           </div>
         </div>
       </div>
+
+      {/* Phone */}
+      {phone && (
+        <div className="mt-4 px-0">
+          <div className="bg-background rounded-xl p-5 border border-border flex items-center gap-4">
+            <div className="w-10 h-10 rounded-lg bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] flex items-center justify-center shrink-0" aria-hidden="true">
+              <IconPhone className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="font-semibold text-foreground text-sm mb-1">Call Us</p>
+              <a
+                href={`tel:${phone}`}
+                className="text-sm text-[var(--brand-primary-dark)] hover:underline min-h-[48px] inline-flex items-center"
+              >
+                {phone}
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
