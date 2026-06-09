@@ -78,7 +78,7 @@ export function AdminSectionTabs() {
             className={cn(
               'px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 transition-colors',
               active
-                ? 'border-[#002BFF] text-[#002BFF]'
+                ? 'border-primary text-primary'
                 : 'border-transparent text-gray-500 hover:text-gray-800 hover:border-gray-300',
             )}
           >

@@ -119,7 +119,7 @@ export function AdminSidebar({ role, unreadLeads }: Props) {
     >
       {/* Logo */}
       <div className="flex items-center gap-2 px-3 py-4 border-b border-gray-100">
-        <div className="w-8 h-8 rounded bg-[#002BFF] flex items-center justify-center flex-shrink-0">
+        <div className="w-8 h-8 rounded bg-primary flex items-center justify-center flex-shrink-0">
           <span className="text-white font-bold text-sm">B</span>
         </div>
         {!collapsed && <span className="font-semibold text-gray-900">Buildera Admin</span>}
@@ -154,7 +154,7 @@ export function AdminSidebar({ role, unreadLeads }: Props) {
                   className={cn(
                     'flex items-center gap-3 px-2 py-2 rounded-md text-sm transition-colors relative',
                     active
-                      ? 'bg-[#EEF1FF] text-[#002BFF] font-medium'
+                      ? 'bg-primary/10 text-primary font-medium'
                       : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                   )}
                 >
