@@ -39,7 +39,7 @@ See: `.planning/PROJECT.md` (updated 2026-05-26)
 
 ## Key Decisions Locked
 
-- Stack: Next.js 15 + Laravel 13 + Filament PHP 5
+- Stack: Next.js 15 + MySQL-direct (mysql2) — no Laravel, no PHP, no Filament
 - UI: shadcn/ui + Tailwind 4 + Inter font + Blue/White palette
 - Deploy: Hostinger (Node.js + PHP + MySQL) — full build first, deploy once at end
 - Content: Hardcoded pages first, admin control added progressively

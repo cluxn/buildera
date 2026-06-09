@@ -6,7 +6,7 @@ export interface SeoMeta {
   canonical_url: string | null; noindex: number; updated_at: string
 }
 export interface Redirect {
-  id: number; from_path: string; to_path: string; redirect_type: '301' | '302'
+  id: number; from_path: string; to_path: string; redirect_type: string
   active: number; hit_count: number; created_at: string
 }
 export interface Script {
@@ -37,18 +37,21 @@ export async function upsertSeoMeta(pagePath: string, data: Partial<SeoMeta>): P
   )
 }
 
+// DB columns: source_path(→from_path), destination_path(→to_path), status_code(→redirect_type), is_active(→active)
+const REDIRECT_SELECT = `id, source_path as from_path, destination_path as to_path, status_code as redirect_type, is_active as active, hit_count, created_at`
+
 export async function listRedirects(): Promise<Redirect[]> {
-  return query<Redirect>('SELECT * FROM redirects ORDER BY created_at DESC')
+  return query<Redirect>(`SELECT ${REDIRECT_SELECT} FROM redirects ORDER BY created_at DESC`)
 }
-export async function createRedirect(from: string, to: string, type: '301'|'302'): Promise<number> {
-  const r = await execute('INSERT INTO redirects (from_path, to_path, redirect_type) VALUES (?,?,?)', [from, to, type])
+export async function createRedirect(from: string, to: string, type: string): Promise<number> {
+  const r = await execute('INSERT INTO redirects (source_path, destination_path, status_code) VALUES (?,?,?)', [from, to, Number(type)])
   return r.insertId
 }
 export async function updateRedirect(id: number, data: Partial<Redirect>): Promise<void> {
-  const allowed = ['from_path','to_path','redirect_type','active']
   const fields: string[] = []; const vals: unknown[] = []
-  for (const k of allowed) {
-    if (k in data) { fields.push(`${k} = ?`); vals.push((data as Record<string, unknown>)[k]) }
+  const map: Record<string, string> = { from_path: 'source_path', to_path: 'destination_path', redirect_type: 'status_code', active: 'is_active' }
+  for (const [codeKey, dbCol] of Object.entries(map)) {
+    if (codeKey in data) { fields.push(`${dbCol} = ?`); vals.push((data as Record<string, unknown>)[codeKey]) }
   }
   if (!fields.length) return
   vals.push(id)
@@ -58,10 +61,10 @@ export async function deleteRedirect(id: number): Promise<void> {
   await execute('DELETE FROM redirects WHERE id = ?', [id])
 }
 export async function incrementRedirectHit(fromPath: string): Promise<void> {
-  await execute('UPDATE redirects SET hit_count = hit_count + 1 WHERE from_path = ? AND active = 1', [fromPath])
+  await execute('UPDATE redirects SET hit_count = hit_count + 1 WHERE source_path = ? AND is_active = 1', [fromPath])
 }
 export async function getActiveRedirects(): Promise<Redirect[]> {
-  return query<Redirect>('SELECT * FROM redirects WHERE active = 1')
+  return query<Redirect>(`SELECT ${REDIRECT_SELECT} FROM redirects WHERE is_active = 1`)
 }
 
 export async function listScripts(locationFilter?: string): Promise<Script[]> {
