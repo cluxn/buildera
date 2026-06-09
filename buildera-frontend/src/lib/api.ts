@@ -12,7 +12,9 @@ export async function fetchFromApi<T>(
   path: string,
   options?: RequestInit,
 ): Promise<T> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${path}`, options);
+  // When NEXT_PUBLIC_API_URL is empty, calls are same-origin (Next.js API routes)
+  const base = process.env.NEXT_PUBLIC_API_URL ?? ''
+  const res = await fetch(`${base}${path}`, options);
   if (!res.ok) {
     throw new ApiError(res.status, `API request failed: ${path}`);
   }
