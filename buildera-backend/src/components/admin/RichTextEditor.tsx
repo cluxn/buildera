@@ -3,12 +3,15 @@
 import { useEditor, EditorContent } from '@tiptap/react'
 import { BubbleMenu } from '@tiptap/react/menus'
 import StarterKit from '@tiptap/starter-kit'
-import Image from '@tiptap/extension-image'
 import Placeholder from '@tiptap/extension-placeholder'
 import type { Editor } from '@tiptap/core'
+import { ImageFigure } from './tiptap/ImageFigure'
+import { Callout } from './tiptap/Callout'
+import { CtaButton } from './tiptap/CtaButton'
 import {
   Bold, Italic, Strikethrough, Code, Heading2, Heading3, Heading4,
   List, ListOrdered, Quote, Link2, ImagePlus, Undo2, Redo2, Minus, SquareCode,
+  Info, Megaphone,
 } from 'lucide-react'
 
 interface Props {
@@ -57,8 +60,7 @@ function setLink(editor: Editor) {
 function addImage(editor: Editor) {
   const url = window.prompt('Image URL')
   if (!url) return
-  const alt = window.prompt('Alt text (for accessibility)') ?? ''
-  editor.chain().focus().setImage({ src: url, alt }).run()
+  editor.chain().focus().setImageFigure({ src: url }).run()
 }
 
 function Toolbar({ editor }: { editor: Editor }) {
@@ -124,6 +126,15 @@ function Toolbar({ editor }: { editor: Editor }) {
       <ToolbarButton title="Image" onClick={() => addImage(editor)}>
         <ImagePlus size={15} />
       </ToolbarButton>
+
+      <Divider />
+
+      <ToolbarButton title="Callout" active={editor.isActive('callout')} onClick={() => editor.chain().focus().setCallout({ variant: 'info' }).run()}>
+        <Info size={15} />
+      </ToolbarButton>
+      <ToolbarButton title="CTA Button" onClick={() => editor.chain().focus().setCtaButton().run()}>
+        <Megaphone size={15} />
+      </ToolbarButton>
     </div>
   )
 }
@@ -134,7 +145,9 @@ export function RichTextEditor({ content, onChange, placeholder }: Props) {
       StarterKit.configure({
         heading: { levels: [2, 3, 4] },
       }),
-      Image.configure({ HTMLAttributes: { class: 'rounded-lg max-w-full' } }),
+      ImageFigure,
+      Callout,
+      CtaButton,
       Placeholder.configure({ placeholder: placeholder ?? 'Write your content…' }),
     ],
     content,

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import type { BlogPost } from '@/db/admin/blog'
 import type { Category } from '@/db/admin/categories'
@@ -15,6 +15,16 @@ interface Props {
 
 const SERVICE_TYPES = ['Website Development','Salesforce Development','DevOps','AI Agent Development','Software Development','Hire a Developer']
 const INDUSTRIES = ['Healthcare','Finance','Retail','Manufacturing','Education','Real Estate','Logistics','Technology','Other']
+
+const STATUS_BADGES: Record<string, { label: string; className: string }> = {
+  DRAFT: { label: 'Draft', className: 'bg-gray-100 text-gray-600' },
+  SUBMITTED: { label: 'Submitted', className: 'bg-amber-100 text-amber-700' },
+  PUBLISHED: { label: 'Published', className: 'bg-green-100 text-green-700' },
+}
+
+function formatSavedTime(date: Date) {
+  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+}
 
 function slugify(t: string) { return t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') }
 
@@ -42,6 +52,12 @@ export function BlogEditor({ post, categories, users }: Props) {
   const [saving, setSaving] = useState(false)
   const [restoreBanner, setRestoreBanner] = useState(false)
   const [savedData, setSavedData] = useState<Record<string, unknown> | null>(null)
+  const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null)
+
+  const wordCount = useMemo(
+    () => content.replace(/<[^>]*>/g, ' ').split(/\s+/).filter(Boolean).length,
+    [content]
+  )
 
   // Autosave check on mount
   useEffect(() => {
@@ -102,6 +118,7 @@ export function BlogEditor({ post, categories, users }: Props) {
       const data = await res.json()
       if (res.ok) {
         localStorage.removeItem(AUTOSAVE_KEY(autoId))
+        setLastSavedAt(new Date())
         if (isNew) router.push(`/admin/blog/${data.id}/edit`)
         else router.refresh()
       }
@@ -111,8 +128,29 @@ export function BlogEditor({ post, categories, users }: Props) {
   const inp = 'w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#002BFF]'
   const label = 'block text-sm font-medium text-gray-700 mb-1'
 
+  const statusBadge = STATUS_BADGES[status] ?? STATUS_BADGES.DRAFT
+
   return (
     <div className="space-y-4">
+      <div className="sticky top-0 z-30 flex items-center justify-between gap-4 rounded-xl border border-gray-200 bg-white/90 backdrop-blur px-5 py-3 shadow-sm">
+        <div className="min-w-0 flex-1">
+          <h1 className="truncate text-sm font-semibold text-gray-900">{title || 'Untitled post'}</h1>
+          <p className="mt-0.5 flex items-center gap-2 text-xs text-gray-400">
+            <span className={`px-1.5 py-0.5 rounded font-medium ${statusBadge.className}`}>{statusBadge.label}</span>
+            <span>{wordCount} words</span>
+            {lastSavedAt && <span>· Saved {formatSavedTime(lastSavedAt)}</span>}
+          </p>
+        </div>
+        <div className="flex shrink-0 gap-3">
+          <button onClick={() => handleSave('DRAFT')} disabled={saving} className="px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 disabled:opacity-60">
+            Save Draft
+          </button>
+          <button onClick={() => handleSave('PUBLISHED')} disabled={saving} className="px-4 py-2 bg-[#002BFF] text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-60">
+            {saving ? 'Saving…' : 'Publish'}
+          </button>
+        </div>
+      </div>
+
       {restoreBanner && (
         <div className="flex items-center gap-4 bg-yellow-50 border border-yellow-200 rounded-lg px-4 py-3">
           <p className="text-sm text-yellow-800 flex-1">You have unsaved changes from a previous session.</p>
@@ -142,7 +180,6 @@ export function BlogEditor({ post, categories, users }: Props) {
           <div className="bg-white rounded-xl border border-gray-200 p-5">
             <label className={label}>Content</label>
             <RichTextEditor content={content} onChange={setContent} placeholder="Write your content here…" />
-            <p className="mt-2 text-xs text-gray-400 text-right">{content.replace(/<[^>]*>/g, ' ').split(/\s+/).filter(Boolean).length} words</p>
           </div>
         </div>
 
@@ -212,15 +249,6 @@ export function BlogEditor({ post, categories, users }: Props) {
               <label className={label}>Meta Description <span className="text-gray-400 font-normal">({metaDescription.length}/160)</span></label>
               <textarea className={inp} maxLength={160} rows={3} value={metaDescription} onChange={e => setMetaDescription(e.target.value)} />
             </div>
-          </div>
-
-          <div className="flex gap-3">
-            <button onClick={() => handleSave('DRAFT')} disabled={saving} className="flex-1 py-2.5 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 disabled:opacity-60">
-              Save Draft
-            </button>
-            <button onClick={() => handleSave('PUBLISHED')} disabled={saving} className="flex-1 py-2.5 bg-[#002BFF] text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-60">
-              {saving ? 'Saving…' : 'Publish'}
-            </button>
           </div>
         </div>
       </div>
