@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import type { BlogPost } from '@/db/admin/blog'
 import type { Category } from '@/db/admin/categories'
+import { RichTextEditor } from './RichTextEditor'
 
 interface User { id: number; name: string; email: string; role: string }
 interface Props {
@@ -140,14 +141,8 @@ export function BlogEditor({ post, categories, users }: Props) {
 
           <div className="bg-white rounded-xl border border-gray-200 p-5">
             <label className={label}>Content</label>
-            <textarea
-              className={`${inp} font-mono text-xs`}
-              rows={20}
-              value={content}
-              onChange={e => setContent(e.target.value)}
-              placeholder="Write your content here (HTML supported)…"
-            />
-            <p className="mt-2 text-xs text-gray-400 text-right">{content.split(/\s+/).filter(Boolean).length} words</p>
+            <RichTextEditor content={content} onChange={setContent} placeholder="Write your content here…" />
+            <p className="mt-2 text-xs text-gray-400 text-right">{content.replace(/<[^>]*>/g, ' ').split(/\s+/).filter(Boolean).length} words</p>
           </div>
         </div>
 
