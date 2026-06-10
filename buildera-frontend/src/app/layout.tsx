@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { headers } from "next/headers";
-import "@/lib/env";
 import "./globals.css";
 import { SiteNav } from "@/components/layout/SiteNav";
 import { SiteFooter } from "@/components/layout/SiteFooter";
@@ -28,54 +26,40 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const headersList = await headers();
-  const pathname = headersList.get("x-pathname") ?? "";
-  const isAdmin = pathname.startsWith("/admin");
-
-  const settings = isAdmin
-    ? SETTINGS_FALLBACK
-    : await fetchSettings().catch(() => SETTINGS_FALLBACK);
+  const settings = await fetchSettings().catch(() => SETTINGS_FALLBACK);
 
   return (
     <html lang="en" className={inter.variable}>
       <body className="antialiased" suppressHydrationWarning>
-        {!isAdmin && (
-          <>
-            <a
-              href="#main-content"
-              className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-[var(--brand-primary)] focus:text-white focus:px-4 focus:py-2 focus:rounded-lg"
-            >
-              Skip to content
-            </a>
-            <NudgeBanner
-              enabled={settings.nudge_banner_enabled}
-              text={settings.nudge_banner_text}
-              link={settings.nudge_banner_link}
-              expiresAt={settings.nudge_banner_expires_at}
-            />
-            <SiteNav />
-          </>
-        )}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-[var(--brand-primary)] focus:text-white focus:px-4 focus:py-2 focus:rounded-lg"
+        >
+          Skip to content
+        </a>
+        <NudgeBanner
+          enabled={settings.nudge_banner_enabled}
+          text={settings.nudge_banner_text}
+          link={settings.nudge_banner_link}
+          expiresAt={settings.nudge_banner_expires_at}
+        />
+        <SiteNav />
         <main id="main-content">{children}</main>
-        {!isAdmin && (
-          <>
-            <SiteFooter />
-            <WhatsAppWidget
-              number={settings.whatsapp_number}
-              enabled={Boolean(settings.whatsapp_number)}
-            />
-            <PopupManager />
-            <ScriptInjector
-              ga4Id={settings.ga4_measurement_id || undefined}
-              clarityId={settings.clarity_project_id || undefined}
-              fbPixelId={settings.facebook_pixel_id || undefined}
-              linkedinId={settings.linkedin_insight_id || undefined}
-              gadsId={settings.google_ads_conversion_id || undefined}
-              gscTag={settings.gsc_verification_tag || undefined}
-            />
-            <CookieConsentBanner />
-          </>
-        )}
+        <SiteFooter />
+        <WhatsAppWidget
+          number={settings.whatsapp_number}
+          enabled={Boolean(settings.whatsapp_number)}
+        />
+        <PopupManager />
+        <ScriptInjector
+          ga4Id={settings.ga4_measurement_id || undefined}
+          clarityId={settings.clarity_project_id || undefined}
+          fbPixelId={settings.facebook_pixel_id || undefined}
+          linkedinId={settings.linkedin_insight_id || undefined}
+          gadsId={settings.google_ads_conversion_id || undefined}
+          gscTag={settings.gsc_verification_tag || undefined}
+        />
+        <CookieConsentBanner />
       </body>
     </html>
   );

@@ -11,13 +11,14 @@ let redirectCache: RedirectRecord[] = []
 let cacheLoadedAt = 0
 const CACHE_TTL_MS = 5 * 60 * 1000
 
-async function getRedirects(baseUrl: string): Promise<RedirectRecord[]> {
+async function getRedirects(): Promise<RedirectRecord[]> {
   const now = Date.now()
   if (redirectCache.length > 0 && now - cacheLoadedAt < CACHE_TTL_MS) {
     return redirectCache
   }
+  const backendUrl = process.env.BACKEND_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? ''
   try {
-    const res = await fetch(`${baseUrl}/api/redirects`, { cache: 'no-store' })
+    const res = await fetch(`${backendUrl}/api/redirects`, { cache: 'no-store' })
     if (res.ok) {
       redirectCache = await res.json()
       cacheLoadedAt = now
@@ -31,12 +32,8 @@ async function getRedirects(baseUrl: string): Promise<RedirectRecord[]> {
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
-  // Set x-pathname header so root layout can detect admin routes
   const response = NextResponse.next()
-  response.headers.set('x-pathname', pathname)
-
-  const baseUrl = `${request.nextUrl.protocol}//${request.nextUrl.host}`
-  const redirects = await getRedirects(baseUrl)
+  const redirects = await getRedirects()
   const match = redirects.find((r) => r.from_path === pathname)
   if (match) {
     const destination = match.to_path.startsWith('http')
