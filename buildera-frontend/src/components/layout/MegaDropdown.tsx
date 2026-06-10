@@ -174,7 +174,7 @@ export function MegaDropdown({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -8 }}
           transition={{ duration: 0.15, ease: "easeOut" }}
-          className="absolute top-full bg-white border border-border shadow-xl rounded-xl overflow-hidden"
+          className="absolute top-full bg-white border border-border shadow-xl rounded-xl overflow-y-auto overscroll-contain max-h-[calc(100vh-5rem)]"
           style={
             dropdownOffset != null
               ? { left: dropdownOffset.left, width: dropdownOffset.width }
