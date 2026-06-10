@@ -117,7 +117,7 @@ const SOLUTION_NAV_FALLBACK: SolutionItem[] = [
 
 const WORK_NAV_FALLBACK: WorkItem[] = [
   { label: "Case Studies",   href: "/case-studies", desc: "Real projects, measurable outcomes",      icon: IconFileAnalytics },
-  { label: "How We Work",    href: "/how-we-work",  desc: "Scoped â†’ Built â†’ Shipped â†’ Supported",   icon: IconRoute },
+  { label: "How We Work",    href: "/how-we-work",  desc: "Scoped → Built → Shipped → Supported",   icon: IconRoute },
   { label: "About Buildera", href: "/about",        desc: "10+ years, 800+ projects, Kanpur-based", icon: IconBuildingSkyscraper },
   { label: "Testimonials",   href: "/testimonials", desc: "What our clients say",                   icon: IconMessageCircle },
 ]
@@ -132,7 +132,7 @@ const PRODUCTS_NAV = [
   {
     name: "Barrel Books",
     href: "https://barrelbooks.com/",
-    desc: "Liquor shop management â€” daily stocks, purchases & transfers",
+    desc: "Liquor shop management — daily stocks, purchases & transfers",
     logo: "/products/barrelbooks-logo.svg",
   },
   {
@@ -185,7 +185,7 @@ export function MegaDropdown({
         >
           <div className="px-6 py-6">
 
-            {/* â”€â”€ Services â”€â”€ */}
+            {/* Services */}
             {activePanel === "Services" && (
               <>
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4 px-1">
@@ -227,7 +227,7 @@ export function MegaDropdown({
               </>
             )}
 
-            {/* â”€â”€ Industries â”€â”€ */}
+            {/* Industries */}
             {activePanel === "Industries" && (
               <>
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4 px-1">
@@ -258,7 +258,7 @@ export function MegaDropdown({
               </>
             )}
 
-            {/* â”€â”€ Solutions â”€â”€ */}
+            {/* Solutions */}
             {activePanel === "Solutions" && (
               <>
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4 px-1">
@@ -289,7 +289,7 @@ export function MegaDropdown({
               </>
             )}
 
-            {/* â”€â”€ Work â”€â”€ */}
+            {/* Work */}
             {activePanel === "Work" && (
               <>
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4 px-1">
@@ -325,7 +325,7 @@ export function MegaDropdown({
               </>
             )}
 
-            {/* â”€â”€ Resources â”€â”€ */}
+            {/* Resources */}
             {activePanel === "Resources" && (
               <>
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4 px-1">
@@ -361,7 +361,7 @@ export function MegaDropdown({
               </>
             )}
 
-            {/* â”€â”€ Products â”€â”€ */}
+            {/* Products */}
             {activePanel === "Products" && (
               <div className="flex flex-col gap-2 min-w-[420px]">
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-3 px-1">

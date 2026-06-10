@@ -25,6 +25,7 @@ export function ExitIntentPopup({ headline, subtext, ctaLabel, ctaHref, showForm
       if (e.clientY <= 0) {
         setIsOpen(true)
         sessionStorage.setItem('exit-popup-shown', '1')
+        document.removeEventListener('mouseleave', handleMouseLeave)
       }
     }
 
