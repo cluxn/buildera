@@ -24,10 +24,9 @@ const SECTION_TABS: { match: (p: string) => boolean; tabs: Tab[] }[] = [
     ],
   },
   {
-    match: (p) => p.startsWith('/admin/leads') || p.startsWith('/admin/meetings'),
+    match: (p) => p.startsWith('/admin/leads'),
     tabs: [
       { label: 'All Leads', href: '/admin/leads' },
-      { label: 'Meetings', href: '/admin/meetings' },
       { label: 'Newsletter', href: '/admin/leads/subscribers' },
     ],
   },

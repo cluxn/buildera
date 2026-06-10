@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 interface Props { settings: Record<string, string> }
 
-const TABS = ['General', 'Social', 'Email (SMTP)', 'Appearance', 'Cookie Consent'] as const
+const TABS = ['General', 'Social', 'Appearance', 'Cookie Consent'] as const
 type Tab = (typeof TABS)[number]
 
 export function SettingsForm({ settings: initial }: Props) {
@@ -12,7 +12,6 @@ export function SettingsForm({ settings: initial }: Props) {
   const [values, setValues] = useState<Record<string, string>>(initial)
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
-  const [showSmtpPass, setShowSmtpPass] = useState(false)
 
   function set(key: string, value: string) { setValues(v => ({ ...v, [key]: value })) }
 
@@ -62,27 +61,6 @@ export function SettingsForm({ settings: initial }: Props) {
             ))}
             <button onClick={() => save(['linkedin_url','twitter_url','facebook_url','instagram_url','youtube_url'])} disabled={saving} className="px-4 py-2 bg-[#002BFF] text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-60">
               {saving ? 'Saving…' : saved ? 'Saved!' : 'Save Social'}
-            </button>
-          </>
-        )}
-
-        {tab === 'Email (SMTP)' && (
-          <>
-            <div className={row}><label className={label}>SMTP Host</label><input className={inp} value={values.smtp_host ?? ''} onChange={e => set('smtp_host', e.target.value)} /></div>
-            <div className={row}><label className={label}>Port</label><input className={inp} type="number" value={values.smtp_port ?? '587'} onChange={e => set('smtp_port', e.target.value)} /></div>
-            <div className={row}><label className={label}>Username</label><input className={inp} value={values.smtp_user ?? ''} onChange={e => set('smtp_user', e.target.value)} /></div>
-            <div className={row}><label className={label}>From Address</label><input className={inp} value={values.smtp_from ?? ''} onChange={e => set('smtp_from', e.target.value)} /></div>
-            <div className={row}>
-              <label className={label}>Password</label>
-              <div className="relative">
-                <input className={inp} type={showSmtpPass ? 'text' : 'password'} value={values.smtp_pass ?? ''} onChange={e => set('smtp_pass', e.target.value)} placeholder={values.smtp_pass ? '•••• saved' : 'Enter password'} />
-                <button type="button" onClick={() => setShowSmtpPass(s => !s)} className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400">
-                  {showSmtpPass ? 'Hide' : 'Show'}
-                </button>
-              </div>
-            </div>
-            <button onClick={() => save(['smtp_host','smtp_port','smtp_user','smtp_from','smtp_pass'])} disabled={saving} className="px-4 py-2 bg-[#002BFF] text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-60">
-              {saving ? 'Saving…' : saved ? 'Saved!' : 'Save SMTP'}
             </button>
           </>
         )}

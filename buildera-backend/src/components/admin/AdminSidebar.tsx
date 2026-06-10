@@ -40,7 +40,7 @@ const navItems: NavItem[] = [
     href: '/admin/leads',
     icon: <Users size={18} />,
     roles: ['SUPER_ADMIN','ADMIN','MARKETING_MANAGER'],
-    matchPaths: ['/admin/leads','/admin/meetings'],
+    matchPaths: ['/admin/leads'],
     badge: true,
   },
   {
