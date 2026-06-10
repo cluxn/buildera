@@ -4,6 +4,7 @@ import { generateSeoMetadata } from '@/lib/seo'
 import { CaseStudyCard } from '@/components/content/CaseStudyCard'
 import { IndustryFilterTabs } from '@/components/content/IndustryFilterTabs'
 import { BlogPagination } from '@/components/blog/BlogPagination'
+import { SortDropdown } from '@/components/blog/SortDropdown'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { Suspense } from 'react'
@@ -16,13 +17,13 @@ export async function generateMetadata(): Promise<Metadata> {
   })
 }
 
-type Props = { searchParams: Promise<{ industry?: string; page?: string; q?: string }> }
+type Props = { searchParams: Promise<{ industry?: string; page?: string; q?: string; sort?: string }> }
 
 export default async function CaseStudiesPage({ searchParams }: Props) {
-  const { industry, page, q } = await searchParams
+  const { industry, page, q, sort } = await searchParams
   const currentPage = parseInt(page ?? '1', 10) || 1
 
-  const studiesData = await getContentCaseStudies(currentPage, industry, q)
+  const studiesData = await getContentCaseStudies(currentPage, industry, q, sort)
 
   return (
     <main>
@@ -38,9 +39,12 @@ export default async function CaseStudiesPage({ searchParams }: Props) {
 
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-8">
             <IndustryFilterTabs activeIndustry={industry ?? ''} />
-            <div className="sm:ml-auto">
+            <div className="sm:ml-auto flex items-center gap-3">
               <Suspense>
                 <SearchInput placeholder="Search case studies..." />
+              </Suspense>
+              <Suspense>
+                <SortDropdown />
               </Suspense>
             </div>
           </div>
@@ -66,7 +70,6 @@ export default async function CaseStudiesPage({ searchParams }: Props) {
               currentPage={studiesData.current_page}
               lastPage={studiesData.last_page}
               baseUrl="/case-studies"
-              category={industry}
             />
           </Suspense>
         </div>

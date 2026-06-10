@@ -4,6 +4,7 @@ import { generateSeoMetadata } from '@/lib/seo'
 import { BlogPostCard } from '@/components/blog/BlogPostCard'
 import { CategoryFilterTabs } from '@/components/blog/CategoryFilterTabs'
 import { BlogPagination } from '@/components/blog/BlogPagination'
+import { SortDropdown } from '@/components/blog/SortDropdown'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { Suspense } from 'react'
@@ -16,14 +17,14 @@ export async function generateMetadata(): Promise<Metadata> {
   })
 }
 
-type Props = { searchParams: Promise<{ category?: string; page?: string; q?: string }> }
+type Props = { searchParams: Promise<{ category?: string; page?: string; q?: string; sort?: string }> }
 
 export default async function BlogPage({ searchParams }: Props) {
-  const { category, page, q } = await searchParams
+  const { category, page, q, sort } = await searchParams
   const currentPage = parseInt(page ?? '1', 10) || 1
 
   const [postsData, categories] = await Promise.all([
-    getBlogPosts(currentPage, category, q),
+    getBlogPosts(currentPage, category, q, sort),
     getBlogCategories(),
   ])
 
@@ -41,9 +42,12 @@ export default async function BlogPage({ searchParams }: Props) {
 
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-8">
             <CategoryFilterTabs categories={categories} activeCategory={category ?? ''} />
-            <div className="sm:ml-auto">
+            <div className="sm:ml-auto flex items-center gap-3">
               <Suspense>
                 <SearchInput placeholder="Search articles..." />
+              </Suspense>
+              <Suspense>
+                <SortDropdown />
               </Suspense>
             </div>
           </div>
@@ -69,7 +73,6 @@ export default async function BlogPage({ searchParams }: Props) {
               currentPage={postsData.current_page}
               lastPage={postsData.last_page}
               baseUrl="/blog"
-              category={category}
             />
           </Suspense>
         </div>

@@ -4,6 +4,7 @@ import { generateSeoMetadata } from '@/lib/seo'
 import { GuideCard } from '@/components/content/GuideCard'
 import { ResourceTypeFilterTabs } from '@/components/content/ResourceTypeFilterTabs'
 import { BlogPagination } from '@/components/blog/BlogPagination'
+import { SortDropdown } from '@/components/blog/SortDropdown'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { Suspense } from 'react'
@@ -16,13 +17,13 @@ export async function generateMetadata(): Promise<Metadata> {
   })
 }
 
-type Props = { searchParams: Promise<{ category?: string; resource_type?: string; page?: string; q?: string }> }
+type Props = { searchParams: Promise<{ category?: string; resource_type?: string; page?: string; q?: string; sort?: string }> }
 
 export default async function GuidesPage({ searchParams }: Props) {
-  const { category, resource_type, page, q } = await searchParams
+  const { category, resource_type, page, q, sort } = await searchParams
   const currentPage = parseInt(page ?? '1', 10) || 1
 
-  const guidesData = await getGuides(currentPage, category, resource_type, q)
+  const guidesData = await getGuides(currentPage, category, resource_type, q, sort)
 
   return (
     <main>
@@ -38,9 +39,12 @@ export default async function GuidesPage({ searchParams }: Props) {
 
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-8">
             <ResourceTypeFilterTabs activeType={resource_type ?? ''} />
-            <div className="sm:ml-auto">
+            <div className="sm:ml-auto flex items-center gap-3">
               <Suspense>
                 <SearchInput placeholder="Search guides..." />
+              </Suspense>
+              <Suspense>
+                <SortDropdown />
               </Suspense>
             </div>
           </div>

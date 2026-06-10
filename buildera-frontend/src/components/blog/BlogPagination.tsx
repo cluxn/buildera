@@ -6,21 +6,18 @@ interface Props {
   currentPage: number
   lastPage: number
   baseUrl: string
-  category?: string
 }
 
-export function BlogPagination({ currentPage, lastPage, baseUrl, category }: Props) {
+export function BlogPagination({ currentPage, lastPage, baseUrl }: Props) {
   const router = useRouter()
   const searchParams = useSearchParams()
 
   if (lastPage <= 1) return null
 
   const go = (page: number) => {
-    const params = new URLSearchParams()
+    const params = new URLSearchParams(searchParams.toString())
     if (page > 1) params.set('page', String(page))
-    if (category) params.set('category', category)
-    const q = searchParams.get('q')
-    if (q) params.set('q', q)
+    else params.delete('page')
     const qs = params.toString()
     router.push(qs ? `${baseUrl}?${qs}` : baseUrl)
   }

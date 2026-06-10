@@ -56,7 +56,7 @@ export function LeadMagnetsClient({ rows, total, perPage, page, status, q }: Pro
     router.refresh()
   }
 
-  const blank: Partial<LeadMagnet> = { title: '', excerpt: '', cta_text: 'Download Free Guide', status: 'DRAFT', read_time_minutes: 5 }
+  const blank: Partial<LeadMagnet> = { title: '', excerpt: '', cta_text: 'Download Free Guide', status: 'DRAFT', read_time_minutes: 5, resource_type: 'article', category: '' }
   const totalPages = Math.ceil(total / perPage)
 
   return (
@@ -105,6 +105,23 @@ export function LeadMagnetsClient({ rows, total, perPage, page, status, q }: Pro
                 <option value="DRAFT">Draft</option>
                 <option value="PUBLISHED">Published</option>
               </select>
+            </div>
+            <div>
+              <label className="text-xs font-medium text-gray-600 mb-1 block">Resource Type</label>
+              <select value={editing.resource_type ?? 'article'} onChange={e => setEditing(p => ({ ...p, resource_type: e.target.value }))}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 capitalize">
+                {RESOURCE_TYPES.map(t => <option key={t} value={t} className="capitalize">{t}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="text-xs font-medium text-gray-600 mb-1 block">Category</label>
+              <input value={editing.category ?? ''} onChange={e => setEditing(p => ({ ...p, category: e.target.value || null }))}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" placeholder="devops" />
+            </div>
+            <div>
+              <label className="text-xs font-medium text-gray-600 mb-1 block">Cover Image URL</label>
+              <input value={editing.cover_image ?? ''} onChange={e => setEditing(p => ({ ...p, cover_image: e.target.value || null }))}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" placeholder="https://…/cover.jpg" />
             </div>
           </div>
           <div className="flex gap-2 justify-end">
