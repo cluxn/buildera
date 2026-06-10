@@ -10,6 +10,7 @@ const STATUS_COLORS: Record<string, string> = {
   DRAFT: 'bg-gray-100 text-gray-600',
   PUBLISHED: 'bg-green-100 text-green-700',
 }
+const RESOURCE_TYPES = ['article', 'template', 'checklist', 'video']
 
 interface Props { rows: LeadMagnet[]; total: number; perPage: number; page: number; status: string; q: string }
 

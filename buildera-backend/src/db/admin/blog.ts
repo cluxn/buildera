@@ -145,13 +145,14 @@ export async function duplicateBlogPost(id: number): Promise<number> {
   })
 }
 
-export async function listPublicBlogPosts(page = 1, perPage = 12, category?: string, q?: string) {
+export async function listPublicBlogPosts(page = 1, perPage = 12, category?: string, q?: string, sort?: string) {
   const offset = (page - 1) * perPage
   const wheres = [`bp.status = 'published'`]
   const vals: unknown[] = []
   if (category) { wheres.push('bp.category = ?'); vals.push(category) }
   if (q) { wheres.push('(bp.title LIKE ? OR bp.excerpt LIKE ?)'); vals.push(`%${q}%`, `%${q}%`) }
   const where = `WHERE ${wheres.join(' AND ')}`
+  const orderBy = sort === 'oldest' ? 'bp.published_at ASC' : sort === 'popular' ? 'bp.views DESC' : 'bp.published_at DESC'
 
   const [rows, countRow] = await Promise.all([
     query<BlogPost>(
@@ -160,7 +161,7 @@ export async function listPublicBlogPosts(page = 1, perPage = 12, category?: str
        bp.published_at, bp.views as view_count, bp.category,
        u.name as author_name
        FROM blog_posts bp LEFT JOIN users u ON u.id = bp.author_id
-       ${where} ORDER BY bp.published_at DESC LIMIT ? OFFSET ?`,
+       ${where} ORDER BY ${orderBy} LIMIT ? OFFSET ?`,
       [...vals, perPage, offset],
     ),
     queryOne<{ total: number }>(

@@ -205,10 +205,11 @@ export type BlogListResponse = {
 }
 export type BlogCategory = { id: number; name: string; slug: string }
 
-export async function getBlogPosts(page = 1, category?: string, q?: string): Promise<BlogListResponse> {
+export async function getBlogPosts(page = 1, category?: string, q?: string, sort?: string): Promise<BlogListResponse> {
   const params = new URLSearchParams({ page: String(page) })
   if (category) params.set('category', category)
   if (q) params.set('q', q)
+  if (sort) params.set('sort', sort)
   return fetchFromApi<BlogListResponse>(`/api/blog-posts?${params}`, { next: { tags: ['blog_posts'], revalidate: 3600 } } as RequestInit)
     .catch(() => ({ data: [], current_page: 1, last_page: 1, per_page: 12, total: 0 }))
 }
@@ -249,10 +250,11 @@ export type Testimonial = {
   star_rating: number; service_category: string | null; industry: string | null; is_featured: boolean;
 }
 
-export async function getContentCaseStudies(page = 1, industry?: string, q?: string): Promise<ContentCaseStudyListResponse> {
+export async function getContentCaseStudies(page = 1, industry?: string, q?: string, sort?: string): Promise<ContentCaseStudyListResponse> {
   const params = new URLSearchParams({ page: String(page) })
   if (industry) params.set('industry', industry)
   if (q) params.set('q', q)
+  if (sort) params.set('sort', sort)
   return fetchFromApi<ContentCaseStudyListResponse>(`/api/case-studies?${params}`, { next: { tags: ['case_studies'], revalidate: 3600 } } as RequestInit)
     .catch(() => ({ data: [], current_page: 1, last_page: 1, per_page: 12, total: 0 }))
 }
@@ -260,11 +262,12 @@ export async function getContentCaseStudy(slug: string): Promise<ContentCaseStud
   return fetchFromApi<ContentCaseStudyDetail>(`/api/case-studies/${slug}`, { next: { tags: ['case_studies'], revalidate: 3600 } } as RequestInit)
     .catch(() => null)
 }
-export async function getGuides(page = 1, category?: string, resourceType?: string, q?: string): Promise<GuideListResponse> {
+export async function getGuides(page = 1, category?: string, resourceType?: string, q?: string, sort?: string): Promise<GuideListResponse> {
   const params = new URLSearchParams({ page: String(page) })
   if (category) params.set('category', category)
   if (resourceType) params.set('resource_type', resourceType)
   if (q) params.set('q', q)
+  if (sort) params.set('sort', sort)
   return fetchFromApi<GuideListResponse>(`/api/guides?${params}`, { next: { tags: ['guides'], revalidate: 3600 } } as RequestInit)
     .catch(() => ({ data: [], current_page: 1, last_page: 1, per_page: 12, total: 0 }))
 }

@@ -8,6 +8,7 @@ export interface CaseStudy {
   result_stats: Record<string, unknown> | null; is_featured: number
   status: 'DRAFT' | 'PUBLISHED'; published_at: string | null
   meta_title: string | null; meta_description: string | null
+  testimonial_quote: string | null; testimonial_author: string | null
   view_count: number; created_at: string; updated_at: string
 }
 
@@ -28,6 +29,7 @@ const SELECT_COLS = `
   published_at,
   seo_title as meta_title,
   seo_description as meta_description,
+  testimonial_quote, testimonial_author,
   view_count, created_at, updated_at
 `
 
@@ -111,14 +113,67 @@ export async function deleteCaseStudy(id: number): Promise<void> {
   await execute('DELETE FROM case_studies WHERE id = ?', [id])
 }
 
-export async function listPublicCaseStudies(page = 1, perPage = 9, industry?: string): Promise<{ rows: CaseStudy[]; total: number }> {
+export async function listPublicCaseStudies(page = 1, perPage = 9, industry?: string, q?: string, sort?: string): Promise<{ rows: CaseStudy[]; total: number }> {
   const wheres = [`is_published = 1`]
   const vals: unknown[] = []
   if (industry) { wheres.push('industry = ?'); vals.push(industry) }
+  if (q) { wheres.push('(title LIKE ? OR client_name LIKE ?)'); vals.push(`%${q}%`, `%${q}%`) }
   const where = `WHERE ${wheres.join(' AND ')}`
+  const orderBy = sort === 'oldest' ? 'published_at ASC' : sort === 'popular' ? 'view_count DESC' : 'is_featured DESC, published_at DESC'
   const [rows, countRow] = await Promise.all([
-    query<CaseStudy>(`SELECT ${SELECT_COLS} FROM case_studies ${where} ORDER BY is_featured DESC, published_at DESC LIMIT ? OFFSET ?`, [...vals, perPage, (page - 1) * perPage]),
+    query<CaseStudy>(`SELECT ${SELECT_COLS} FROM case_studies ${where} ORDER BY ${orderBy} LIMIT ? OFFSET ?`, [...vals, perPage, (page - 1) * perPage]),
     queryOne<{ total: number }>(`SELECT COUNT(*) as total FROM case_studies ${where}`, vals),
   ])
   return { rows, total: countRow?.total ?? 0 }
+}
+
+export async function getCaseStudyBySlug(slug: string): Promise<CaseStudy | null> {
+  const study = await queryOne<CaseStudy>(
+    `SELECT ${SELECT_COLS} FROM case_studies WHERE slug = ? AND is_published = 1`,
+    [slug],
+  )
+  if (study) {
+    await execute('UPDATE case_studies SET view_count = view_count + 1 WHERE id = ?', [study.id])
+  }
+  return study
+}
+
+// ─── Public content shapes (consumed by buildera-frontend /case-studies) ──────
+
+export type ContentCaseStudy = {
+  id: number; title: string; slug: string; client_name: string | null
+  industry: string; hero_image: string | null; hero_image_alt: string | null
+  key_metrics: { label: string; value: string }[]; published_at: string
+}
+export type ContentCaseStudyDetail = ContentCaseStudy & {
+  problem: string; solution: string; results: string
+  testimonial_quote: string | null; testimonial_author: string | null
+  seo_title: string | null; seo_description: string | null
+}
+
+function parseKeyMetrics(raw: CaseStudy['result_stats']): { label: string; value: string }[] {
+  if (!raw) return []
+  try {
+    const parsed = typeof raw === 'string' ? JSON.parse(raw) : raw
+    return Array.isArray(parsed) ? parsed : []
+  } catch {
+    return []
+  }
+}
+
+export function toContentCaseStudy(c: CaseStudy): ContentCaseStudy {
+  return {
+    id: c.id, title: c.title, slug: c.slug, client_name: c.client_name,
+    industry: c.industry ?? '', hero_image: c.cover_image, hero_image_alt: c.cover_image_alt,
+    key_metrics: parseKeyMetrics(c.result_stats), published_at: c.published_at ?? '',
+  }
+}
+
+export function toContentCaseStudyDetail(c: CaseStudy): ContentCaseStudyDetail {
+  return {
+    ...toContentCaseStudy(c),
+    problem: c.challenge ?? '', solution: c.solution ?? '', results: c.outcome ?? '',
+    testimonial_quote: c.testimonial_quote, testimonial_author: c.testimonial_author,
+    seo_title: c.meta_title, seo_description: c.meta_description,
+  }
 }
