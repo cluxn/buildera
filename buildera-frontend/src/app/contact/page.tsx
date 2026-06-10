@@ -6,7 +6,6 @@ import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { ContactHero } from '@/components/sections/contact/ContactHero'
 import { ContactForm } from '@/components/sections/contact/ContactForm'
 import { ContactInfo } from '@/components/sections/contact/ContactInfo'
-import { MapEmbed } from '@/components/sections/contact/MapEmbed'
 
 export async function generateMetadata(): Promise<Metadata> {
   return generateSeoMetadata('page', 'contact', {
@@ -74,11 +73,6 @@ export default async function ContactPage() {
                   <span className="w-1.5 h-1.5 rounded-full bg-green-500 shrink-0" aria-hidden="true" />
                   NDA available before any technical discussion
                 </div>
-              </div>
-
-              {/* Map */}
-              <div className="mt-6">
-                <MapEmbed address={settings.company_address || undefined} />
               </div>
             </div>
           </div>
