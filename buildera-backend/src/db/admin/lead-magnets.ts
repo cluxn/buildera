@@ -69,7 +69,7 @@ export async function deleteLeadMagnet(id: number): Promise<void> {
 }
 
 export async function listPublicLeadMagnets(page = 1, perPage = 9, category?: string, resourceType?: string, q?: string, sort?: string): Promise<{ rows: LeadMagnet[]; total: number }> {
-  const wheres = [`status = 'PUBLISHED'`]
+  const wheres = [`status = 'PUBLISHED'`, `(published_at IS NULL OR published_at <= NOW())`]
   const vals: unknown[] = []
   if (category) { wheres.push('category = ?'); vals.push(category) }
   if (resourceType) { wheres.push('resource_type = ?'); vals.push(resourceType) }
@@ -84,7 +84,7 @@ export async function listPublicLeadMagnets(page = 1, perPage = 9, category?: st
 }
 
 export async function getLeadMagnetBySlug(slug: string): Promise<LeadMagnet | null> {
-  return queryOne<LeadMagnet>(`SELECT * FROM lead_magnets WHERE slug = ? AND status = 'PUBLISHED'`, [slug])
+  return queryOne<LeadMagnet>(`SELECT * FROM lead_magnets WHERE slug = ? AND status = 'PUBLISHED' AND (published_at IS NULL OR published_at <= NOW())`, [slug])
 }
 
 // ─── Public content shapes (consumed by buildera-frontend /guides) ────────────

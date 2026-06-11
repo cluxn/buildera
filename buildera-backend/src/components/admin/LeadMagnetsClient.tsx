@@ -4,13 +4,26 @@ import { useState, useTransition } from 'react'
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import { Edit, Trash2, Plus } from 'lucide-react'
 import type { LeadMagnet } from '@/db/admin/lead-magnets'
+import { RichTextEditor } from './RichTextEditor'
 
 const STATUS_TABS = ['all','DRAFT','PUBLISHED']
 const STATUS_COLORS: Record<string, string> = {
   DRAFT: 'bg-gray-100 text-gray-600',
   PUBLISHED: 'bg-green-100 text-green-700',
+  SCHEDULED: 'bg-blue-100 text-blue-700',
 }
 const RESOURCE_TYPES = ['article', 'template', 'checklist', 'video']
+
+function toDatetimeLocal(value: string): string {
+  const d = new Date(value)
+  if (isNaN(d.getTime())) return ''
+  const pad = (n: number) => String(n).padStart(2, '0')
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`
+}
+
+function isScheduled(row: { status: string; published_at: string | null }) {
+  return row.status === 'PUBLISHED' && !!row.published_at && new Date(row.published_at) > new Date()
+}
 
 interface Props { rows: LeadMagnet[]; total: number; perPage: number; page: number; status: string; q: string }
 
@@ -32,10 +45,14 @@ export function LeadMagnetsClient({ rows, total, perPage, page, status, q }: Pro
   async function save() {
     if (!editing?.title) return
     setSaving(true)
+    const published_at = editing.published_at
+      ? editing.published_at
+      : editing.status === 'PUBLISHED' ? new Date().toISOString() : null
+    const payload = { ...editing, published_at }
     if (editing.id) {
-      await fetch(`/api/admin/lead-magnets/${editing.id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(editing) })
+      await fetch(`/api/admin/lead-magnets/${editing.id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
     } else {
-      await fetch('/api/admin/lead-magnets', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(editing) })
+      await fetch('/api/admin/lead-magnets', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
     }
     setSaving(false)
     setEditing(null)
@@ -83,6 +100,10 @@ export function LeadMagnetsClient({ rows, total, perPage, page, status, q }: Pro
               <textarea value={editing.excerpt ?? ''} onChange={e => setEditing(p => ({ ...p, excerpt: e.target.value || null }))}
                 rows={2} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none" />
             </div>
+            <div className="sm:col-span-2">
+              <label className="text-xs font-medium text-gray-600 mb-1 block">Content</label>
+              <RichTextEditor content={editing.content ?? ''} onChange={html => setEditing(p => ({ ...p, content: html || null }))} placeholder="Write the guide content…" />
+            </div>
             <div>
               <label className="text-xs font-medium text-gray-600 mb-1 block">PDF URL</label>
               <input value={editing.pdf_url ?? ''} onChange={e => setEditing(p => ({ ...p, pdf_url: e.target.value || null }))}
@@ -105,6 +126,12 @@ export function LeadMagnetsClient({ rows, total, perPage, page, status, q }: Pro
                 <option value="DRAFT">Draft</option>
                 <option value="PUBLISHED">Published</option>
               </select>
+            </div>
+            <div>
+              <label className="text-xs font-medium text-gray-600 mb-1 block">Publish Date</label>
+              <input type="datetime-local" value={editing.published_at ? toDatetimeLocal(editing.published_at) : ''}
+                onChange={e => setEditing(p => ({ ...p, published_at: e.target.value ? new Date(e.target.value).toISOString() : null }))}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
             </div>
             <div>
               <label className="text-xs font-medium text-gray-600 mb-1 block">Resource Type</label>
@@ -172,8 +199,8 @@ export function LeadMagnetsClient({ rows, total, perPage, page, status, q }: Pro
                 <td className="px-4 py-3 text-right text-gray-500 hidden lg:table-cell">{row.download_count.toLocaleString()}</td>
                 <td className="px-4 py-3">
                   <button onClick={() => toggleStatus(row.id, row.status)}
-                    className={`text-xs px-2 py-0.5 rounded-full font-medium cursor-pointer hover:opacity-80 transition-opacity ${STATUS_COLORS[row.status] ?? 'bg-gray-100 text-gray-600'}`}>
-                    {row.status}
+                    className={`text-xs px-2 py-0.5 rounded-full font-medium cursor-pointer hover:opacity-80 transition-opacity ${STATUS_COLORS[isScheduled(row) ? 'SCHEDULED' : row.status] ?? 'bg-gray-100 text-gray-600'}`}>
+                    {isScheduled(row) ? 'SCHEDULED' : row.status}
                   </button>
                 </td>
                 <td className="px-4 py-3">

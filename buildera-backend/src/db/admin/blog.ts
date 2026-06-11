@@ -63,7 +63,7 @@ export async function getBlogPost(id: number): Promise<BlogPost | null> {
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
   const post = await queryOne<BlogPost>(
     `SELECT ${SELECT_COLS} FROM blog_posts bp LEFT JOIN users u ON u.id = bp.author_id
-     WHERE bp.slug = ? AND bp.status = 'published'`,
+     WHERE bp.slug = ? AND bp.status = 'published' AND (bp.published_at IS NULL OR bp.published_at <= NOW())`,
     [slug],
   )
   if (post) {
@@ -147,7 +147,7 @@ export async function duplicateBlogPost(id: number): Promise<number> {
 
 export async function listPublicBlogPosts(page = 1, perPage = 12, category?: string, q?: string, sort?: string) {
   const offset = (page - 1) * perPage
-  const wheres = [`bp.status = 'published'`]
+  const wheres = [`bp.status = 'published'`, `(bp.published_at IS NULL OR bp.published_at <= NOW())`]
   const vals: unknown[] = []
   if (category) { wheres.push('bp.category = ?'); vals.push(category) }
   if (q) { wheres.push('(bp.title LIKE ? OR bp.excerpt LIKE ?)'); vals.push(`%${q}%`, `%${q}%`) }

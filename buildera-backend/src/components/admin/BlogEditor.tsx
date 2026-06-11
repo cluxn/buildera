@@ -20,6 +20,7 @@ const STATUS_BADGES: Record<string, { label: string; className: string }> = {
   DRAFT: { label: 'Draft', className: 'bg-gray-100 text-gray-600' },
   SUBMITTED: { label: 'Submitted', className: 'bg-amber-100 text-amber-700' },
   PUBLISHED: { label: 'Published', className: 'bg-green-100 text-green-700' },
+  SCHEDULED: { label: 'Scheduled', className: 'bg-blue-100 text-blue-700' },
 }
 
 function formatSavedTime(date: Date) {
@@ -27,6 +28,13 @@ function formatSavedTime(date: Date) {
 }
 
 function slugify(t: string) { return t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') }
+
+function toDatetimeLocal(value: string): string {
+  const d = new Date(value)
+  if (isNaN(d.getTime())) return ''
+  const pad = (n: number) => String(n).padStart(2, '0')
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`
+}
 
 const AUTOSAVE_KEY = (id: string) => `autosave_blog_${id}`
 
@@ -49,6 +57,7 @@ export function BlogEditor({ post, categories, users }: Props) {
   const [coverImageAlt, setCoverImageAlt] = useState(post?.cover_image_alt ?? '')
   const [metaTitle, setMetaTitle] = useState(post?.meta_title ?? '')
   const [metaDescription, setMetaDescription] = useState(post?.meta_description ?? '')
+  const [publishedAt, setPublishedAt] = useState(post?.published_at ? toDatetimeLocal(post.published_at) : '')
   const [saving, setSaving] = useState(false)
   const [restoreBanner, setRestoreBanner] = useState(false)
   const [savedData, setSavedData] = useState<Record<string, unknown> | null>(null)
@@ -80,10 +89,10 @@ export function BlogEditor({ post, categories, users }: Props) {
   const doAutosave = useCallback(() => {
     if (autosaveTimer.current) clearTimeout(autosaveTimer.current)
     autosaveTimer.current = setTimeout(() => {
-      const data = { title, slug, excerpt, content, status, authorId, categoryId, serviceType, industry, isFeatured, coverImage, coverImageAlt, metaTitle, metaDescription }
+      const data = { title, slug, excerpt, content, status, authorId, categoryId, serviceType, industry, isFeatured, coverImage, coverImageAlt, metaTitle, metaDescription, publishedAt }
       localStorage.setItem(AUTOSAVE_KEY(autoId), JSON.stringify({ savedAt: Date.now(), data }))
     }, 2000)
-  }, [title, slug, excerpt, content, status, authorId, categoryId, serviceType, industry, isFeatured, coverImage, coverImageAlt, metaTitle, metaDescription, autoId])
+  }, [title, slug, excerpt, content, status, authorId, categoryId, serviceType, industry, isFeatured, coverImage, coverImageAlt, metaTitle, metaDescription, publishedAt, autoId])
 
   useEffect(() => { doAutosave() }, [doAutosave])
 
@@ -96,20 +105,26 @@ export function BlogEditor({ post, categories, users }: Props) {
     setStatus(savedData.status as string ?? 'DRAFT')
     setAuthorId(savedData.authorId as string ?? '')
     setCategoryId(savedData.categoryId as string ?? '')
+    setPublishedAt(savedData.publishedAt as string ?? '')
     setRestoreBanner(false)
     localStorage.removeItem(AUTOSAVE_KEY(autoId))
   }
 
   async function handleSave(publishStatus?: string) {
     setSaving(true)
+    const finalStatus = publishStatus ?? status
+    const published_at = publishedAt
+      ? new Date(publishedAt).toISOString()
+      : finalStatus.toUpperCase() === 'PUBLISHED' ? new Date().toISOString() : null
     const payload = {
-      title, slug, excerpt, content, status: publishStatus ?? status,
+      title, slug, excerpt, content, status: finalStatus,
       author_id: authorId ? Number(authorId) : null,
       category_id: categoryId ? Number(categoryId) : null,
       service_type: serviceType || null, industry: industry || null,
       is_featured: isFeatured ? 1 : 0,
       cover_image: coverImage || null, cover_image_alt: coverImageAlt || null,
       meta_title: metaTitle || null, meta_description: metaDescription || null,
+      published_at,
     }
     try {
       const url = isNew ? '/api/admin/blog' : `/api/admin/blog/${post!.id}`
@@ -128,7 +143,9 @@ export function BlogEditor({ post, categories, users }: Props) {
   const inp = 'w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#002BFF]'
   const label = 'block text-sm font-medium text-gray-700 mb-1'
 
-  const statusBadge = STATUS_BADGES[status] ?? STATUS_BADGES.DRAFT
+  const statusKey = status.toUpperCase()
+  const isScheduled = statusKey === 'PUBLISHED' && !!publishedAt && new Date(publishedAt) > new Date()
+  const statusBadge = isScheduled ? STATUS_BADGES.SCHEDULED : (STATUS_BADGES[statusKey] ?? STATUS_BADGES.DRAFT)
 
   return (
     <div className="space-y-4">
@@ -137,6 +154,7 @@ export function BlogEditor({ post, categories, users }: Props) {
           <h1 className="truncate text-sm font-semibold text-gray-900">{title || 'Untitled post'}</h1>
           <p className="mt-0.5 flex items-center gap-2 text-xs text-gray-400">
             <span className={`px-1.5 py-0.5 rounded font-medium ${statusBadge.className}`}>{statusBadge.label}</span>
+            {isScheduled && <span>for {new Date(publishedAt).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}</span>}
             <span>{wordCount} words</span>
             {lastSavedAt && <span>· Saved {formatSavedTime(lastSavedAt)}</span>}
           </p>
@@ -193,6 +211,11 @@ export function BlogEditor({ post, categories, users }: Props) {
                 <option value="SUBMITTED">Submitted</option>
                 <option value="PUBLISHED">Published</option>
               </select>
+            </div>
+            <div>
+              <label className={label}>Publish Date</label>
+              <input type="datetime-local" className={inp} value={publishedAt} onChange={e => setPublishedAt(e.target.value)} />
+              <p className="mt-1 text-xs text-gray-400">Set a future date to schedule this post — it stays hidden until then.</p>
             </div>
             <div>
               <label className={label}>Author</label>

@@ -1,17 +1,27 @@
 'use client'
 
+import { useRef } from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import { BubbleMenu } from '@tiptap/react/menus'
 import StarterKit from '@tiptap/starter-kit'
 import Placeholder from '@tiptap/extension-placeholder'
+import Underline from '@tiptap/extension-underline'
+import TextAlign from '@tiptap/extension-text-align'
+import Youtube from '@tiptap/extension-youtube'
+import { TableKit } from '@tiptap/extension-table'
+import { TextStyle } from '@tiptap/extension-text-style'
+import { Color } from '@tiptap/extension-color'
+import Highlight from '@tiptap/extension-highlight'
 import type { Editor } from '@tiptap/core'
 import { ImageFigure } from './tiptap/ImageFigure'
 import { Callout } from './tiptap/Callout'
 import { CtaButton } from './tiptap/CtaButton'
+import { FontSize } from './tiptap/FontSize'
 import {
-  Bold, Italic, Strikethrough, Code, Heading2, Heading3, Heading4,
+  Bold, Italic, Strikethrough, Code, Heading1, Heading2, Heading3, Heading4, Heading5,
   List, ListOrdered, Quote, Link2, ImagePlus, Undo2, Redo2, Minus, SquareCode,
-  Info, Megaphone,
+  Info, Megaphone, UnderlineIcon, AlignLeft, AlignCenter, AlignRight,
+  Table2, Rows3, Columns3, Trash2, Video as YoutubeIcon, Baseline, Highlighter, Eraser,
 } from 'lucide-react'
 
 interface Props {
@@ -63,6 +73,83 @@ function addImage(editor: Editor) {
   editor.chain().focus().setImageFigure({ src: url }).run()
 }
 
+function addYoutubeVideo(editor: Editor) {
+  const url = window.prompt('YouTube video URL')
+  if (!url) return
+  editor.commands.setYoutubeVideo({ src: url })
+}
+
+const FONT_SIZES = [
+  { label: 'Default', value: '' },
+  { label: 'Small', value: '12px' },
+  { label: 'Normal', value: '16px' },
+  { label: 'Large', value: '20px' },
+  { label: 'X-Large', value: '24px' },
+  { label: 'Huge', value: '32px' },
+]
+
+function FontSizeSelect({ editor }: { editor: Editor }) {
+  const current = (editor.getAttributes('textStyle').fontSize as string | undefined) ?? ''
+  return (
+    <select
+      title="Font size"
+      value={FONT_SIZES.some((f) => f.value === current) ? current : ''}
+      onChange={(e) => {
+        const value = e.target.value
+        if (value) editor.chain().focus().setFontSize(value).run()
+        else editor.chain().focus().unsetFontSize().run()
+      }}
+      className="text-xs border border-gray-200 rounded px-1.5 py-1 text-gray-600 focus:outline-none focus:ring-1 focus:ring-[#002BFF]/30"
+    >
+      {FONT_SIZES.map((f) => (
+        <option key={f.label} value={f.value}>{f.label}</option>
+      ))}
+    </select>
+  )
+}
+
+function ColorButton({ editor, type, icon, title }: {
+  editor: Editor
+  type: 'color' | 'highlight'
+  icon: React.ReactNode
+  title: string
+}) {
+  const inputRef = useRef<HTMLInputElement>(null)
+  const current = type === 'color'
+    ? (editor.getAttributes('textStyle').color as string | undefined)
+    : (editor.getAttributes('highlight').color as string | undefined)
+
+  return (
+    <button
+      type="button"
+      title={title}
+      onClick={() => inputRef.current?.click()}
+      onContextMenu={(e) => {
+        e.preventDefault()
+        if (type === 'color') editor.chain().focus().unsetColor().run()
+        else editor.chain().focus().unsetHighlight().run()
+      }}
+      className="relative p-1.5 rounded transition-colors text-gray-600 hover:bg-gray-100"
+    >
+      {icon}
+      <span
+        className="absolute left-1 right-1 bottom-0.5 h-[3px] rounded-sm"
+        style={{ background: current ?? (type === 'color' ? '#374151' : '#fde047') }}
+      />
+      <input
+        ref={inputRef}
+        type="color"
+        value={current ?? (type === 'color' ? '#374151' : '#fde047')}
+        onChange={(e) => {
+          if (type === 'color') editor.chain().focus().setColor(e.target.value).run()
+          else editor.chain().focus().setHighlight({ color: e.target.value }).run()
+        }}
+        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+      />
+    </button>
+  )
+}
+
 function Toolbar({ editor }: { editor: Editor }) {
   return (
     <div className="sticky top-0 z-10 flex flex-wrap items-center gap-0.5 bg-white border-b border-gray-200 px-2 py-1.5">
@@ -75,6 +162,9 @@ function Toolbar({ editor }: { editor: Editor }) {
 
       <Divider />
 
+      <ToolbarButton title="Heading 1" active={editor.isActive('heading', { level: 1 })} onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}>
+        <Heading1 size={15} />
+      </ToolbarButton>
       <ToolbarButton title="Heading 2" active={editor.isActive('heading', { level: 2 })} onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}>
         <Heading2 size={15} />
       </ToolbarButton>
@@ -83,6 +173,9 @@ function Toolbar({ editor }: { editor: Editor }) {
       </ToolbarButton>
       <ToolbarButton title="Heading 4" active={editor.isActive('heading', { level: 4 })} onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}>
         <Heading4 size={15} />
+      </ToolbarButton>
+      <ToolbarButton title="Heading 5" active={editor.isActive('heading', { level: 5 })} onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}>
+        <Heading5 size={15} />
       </ToolbarButton>
 
       <Divider />
@@ -93,12 +186,36 @@ function Toolbar({ editor }: { editor: Editor }) {
       <ToolbarButton title="Italic" active={editor.isActive('italic')} onClick={() => editor.chain().focus().toggleItalic().run()}>
         <Italic size={15} />
       </ToolbarButton>
+      <ToolbarButton title="Underline" active={editor.isActive('underline')} onClick={() => editor.chain().focus().toggleUnderline().run()}>
+        <UnderlineIcon size={15} />
+      </ToolbarButton>
       <ToolbarButton title="Strikethrough" active={editor.isActive('strike')} onClick={() => editor.chain().focus().toggleStrike().run()}>
         <Strikethrough size={15} />
       </ToolbarButton>
       <ToolbarButton title="Inline code" active={editor.isActive('code')} onClick={() => editor.chain().focus().toggleCode().run()}>
         <Code size={15} />
       </ToolbarButton>
+      <ToolbarButton title="Clear formatting" onClick={() => editor.chain().focus().clearNodes().unsetAllMarks().run()}>
+        <Eraser size={15} />
+      </ToolbarButton>
+
+      <Divider />
+
+      <ToolbarButton title="Align left" active={editor.isActive({ textAlign: 'left' })} onClick={() => editor.chain().focus().setTextAlign('left').run()}>
+        <AlignLeft size={15} />
+      </ToolbarButton>
+      <ToolbarButton title="Align center" active={editor.isActive({ textAlign: 'center' })} onClick={() => editor.chain().focus().setTextAlign('center').run()}>
+        <AlignCenter size={15} />
+      </ToolbarButton>
+      <ToolbarButton title="Align right" active={editor.isActive({ textAlign: 'right' })} onClick={() => editor.chain().focus().setTextAlign('right').run()}>
+        <AlignRight size={15} />
+      </ToolbarButton>
+
+      <Divider />
+
+      <ColorButton editor={editor} type="color" icon={<Baseline size={15} />} title="Text color (right-click to clear)" />
+      <ColorButton editor={editor} type="highlight" icon={<Highlighter size={15} />} title="Highlight color (right-click to clear)" />
+      <FontSizeSelect editor={editor} />
 
       <Divider />
 
@@ -126,6 +243,24 @@ function Toolbar({ editor }: { editor: Editor }) {
       <ToolbarButton title="Image" onClick={() => addImage(editor)}>
         <ImagePlus size={15} />
       </ToolbarButton>
+      <ToolbarButton title="YouTube video" onClick={() => addYoutubeVideo(editor)}>
+        <YoutubeIcon size={15} />
+      </ToolbarButton>
+
+      <Divider />
+
+      <ToolbarButton title="Insert table" onClick={() => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()}>
+        <Table2 size={15} />
+      </ToolbarButton>
+      <ToolbarButton title="Add row" disabled={!editor.can().addRowAfter()} onClick={() => editor.chain().focus().addRowAfter().run()}>
+        <Rows3 size={15} />
+      </ToolbarButton>
+      <ToolbarButton title="Add column" disabled={!editor.can().addColumnAfter()} onClick={() => editor.chain().focus().addColumnAfter().run()}>
+        <Columns3 size={15} />
+      </ToolbarButton>
+      <ToolbarButton title="Delete table" disabled={!editor.can().deleteTable()} onClick={() => editor.chain().focus().deleteTable().run()}>
+        <Trash2 size={15} />
+      </ToolbarButton>
 
       <Divider />
 
@@ -143,8 +278,16 @@ export function RichTextEditor({ content, onChange, placeholder }: Props) {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
-        heading: { levels: [2, 3, 4] },
+        heading: { levels: [1, 2, 3, 4, 5] },
       }),
+      Underline,
+      TextAlign.configure({ types: ['heading', 'paragraph'] }),
+      TextStyle,
+      Color,
+      Highlight.configure({ multicolor: true }),
+      FontSize,
+      Youtube.configure({ width: 640, height: 360, nocookie: true }),
+      TableKit.configure({ table: { resizable: true } }),
       ImageFigure,
       Callout,
       CtaButton,
@@ -173,6 +316,10 @@ export function RichTextEditor({ content, onChange, placeholder }: Props) {
         <button type="button" onClick={() => editor.chain().focus().toggleItalic().run()}
           className={`p-1.5 rounded ${editor.isActive('italic') ? 'bg-white/20 text-white' : 'text-gray-300 hover:bg-white/10'}`} title="Italic">
           <Italic size={14} />
+        </button>
+        <button type="button" onClick={() => editor.chain().focus().toggleUnderline().run()}
+          className={`p-1.5 rounded ${editor.isActive('underline') ? 'bg-white/20 text-white' : 'text-gray-300 hover:bg-white/10'}`} title="Underline">
+          <UnderlineIcon size={14} />
         </button>
         <button type="button" onClick={() => editor.chain().focus().toggleCode().run()}
           className={`p-1.5 rounded ${editor.isActive('code') ? 'bg-white/20 text-white' : 'text-gray-300 hover:bg-white/10'}`} title="Inline code">

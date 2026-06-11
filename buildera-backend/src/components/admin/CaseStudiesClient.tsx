@@ -4,14 +4,27 @@ import { useState, useTransition } from 'react'
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import { Edit, Trash2, Plus, Star } from 'lucide-react'
 import type { CaseStudy } from '@/db/admin/case-studies'
+import { RichTextEditor } from './RichTextEditor'
 
 const STATUS_TABS = ['all','DRAFT','PUBLISHED']
 const STATUS_COLORS: Record<string, string> = {
   DRAFT: 'bg-gray-100 text-gray-600',
   PUBLISHED: 'bg-green-100 text-green-700',
+  SCHEDULED: 'bg-blue-100 text-blue-700',
 }
 const INDUSTRIES = ['Manufacturing','Retail','Logistics','Finance','Healthcare','Technology','E-Commerce','Other']
 const SERVICES = ['website-development','salesforce-dev','devops-dev','ai-agent-dev','software-dev','hire-a-developer']
+
+function toDatetimeLocal(value: string): string {
+  const d = new Date(value)
+  if (isNaN(d.getTime())) return ''
+  const pad = (n: number) => String(n).padStart(2, '0')
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`
+}
+
+function isScheduled(row: { status: string; published_at: string | null }) {
+  return row.status === 'PUBLISHED' && !!row.published_at && new Date(row.published_at) > new Date()
+}
 
 interface Props { rows: CaseStudy[]; total: number; perPage: number; page: number; status: string; q: string }
 
@@ -33,10 +46,14 @@ export function CaseStudiesClient({ rows, total, perPage, page, status, q }: Pro
   async function save() {
     if (!editing?.title) return
     setSaving(true)
+    const published_at = editing.published_at
+      ? editing.published_at
+      : editing.status === 'PUBLISHED' ? new Date().toISOString() : null
+    const payload = { ...editing, published_at }
     if (editing.id) {
-      await fetch(`/api/admin/case-studies/${editing.id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(editing) })
+      await fetch(`/api/admin/case-studies/${editing.id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
     } else {
-      await fetch('/api/admin/case-studies', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(editing) })
+      await fetch('/api/admin/case-studies', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
     }
     setSaving(false)
     setEditing(null)
@@ -93,6 +110,12 @@ export function CaseStudiesClient({ rows, total, perPage, page, status, q }: Pro
               </select>
             </div>
             <div>
+              <label className="text-xs font-medium text-gray-600 mb-1 block">Publish Date</label>
+              <input type="datetime-local" value={editing.published_at ? toDatetimeLocal(editing.published_at) : ''}
+                onChange={e => setEditing(p => ({ ...p, published_at: e.target.value ? new Date(e.target.value).toISOString() : null }))}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
+            </div>
+            <div>
               <label className="text-xs font-medium text-gray-600 mb-1 block">Industry</label>
               <select value={editing.industry ?? ''} onChange={e => setEditing(p => ({ ...p, industry: e.target.value || null }))}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30">
@@ -121,18 +144,15 @@ export function CaseStudiesClient({ rows, total, perPage, page, status, q }: Pro
             </div>
             <div className="sm:col-span-2">
               <label className="text-xs font-medium text-gray-600 mb-1 block">Challenge</label>
-              <textarea value={editing.challenge ?? ''} onChange={e => setEditing(p => ({ ...p, challenge: e.target.value || null }))}
-                rows={3} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none" placeholder="What problem the client faced…" />
+              <RichTextEditor content={editing.challenge ?? ''} onChange={html => setEditing(p => ({ ...p, challenge: html || null }))} placeholder="What problem the client faced…" />
             </div>
             <div className="sm:col-span-2">
               <label className="text-xs font-medium text-gray-600 mb-1 block">Solution</label>
-              <textarea value={editing.solution ?? ''} onChange={e => setEditing(p => ({ ...p, solution: e.target.value || null }))}
-                rows={3} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none" placeholder="What Buildera built…" />
+              <RichTextEditor content={editing.solution ?? ''} onChange={html => setEditing(p => ({ ...p, solution: html || null }))} placeholder="What Buildera built…" />
             </div>
             <div className="sm:col-span-2">
               <label className="text-xs font-medium text-gray-600 mb-1 block">Outcome</label>
-              <textarea value={editing.outcome ?? ''} onChange={e => setEditing(p => ({ ...p, outcome: e.target.value || null }))}
-                rows={3} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none" placeholder="Results achieved…" />
+              <RichTextEditor content={editing.outcome ?? ''} onChange={html => setEditing(p => ({ ...p, outcome: html || null }))} placeholder="Results achieved…" />
             </div>
           </div>
           <div className="flex gap-2 justify-end">
@@ -183,9 +203,9 @@ export function CaseStudiesClient({ rows, total, perPage, page, status, q }: Pro
                 <td className="px-4 py-3 text-gray-500 hidden lg:table-cell">{row.industry ?? '—'}</td>
                 <td className="px-4 py-3">
                   <button onClick={() => toggleStatus(row.id, row.status)}
-                    className={`text-xs px-2 py-0.5 rounded-full font-medium cursor-pointer hover:opacity-80 transition-opacity ${STATUS_COLORS[row.status] ?? 'bg-gray-100 text-gray-600'}`}
+                    className={`text-xs px-2 py-0.5 rounded-full font-medium cursor-pointer hover:opacity-80 transition-opacity ${STATUS_COLORS[isScheduled(row) ? 'SCHEDULED' : row.status] ?? 'bg-gray-100 text-gray-600'}`}
                     title="Click to toggle">
-                    {row.status}
+                    {isScheduled(row) ? 'SCHEDULED' : row.status}
                   </button>
                 </td>
                 <td className="px-4 py-3">

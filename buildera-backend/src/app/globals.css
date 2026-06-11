@@ -18,10 +18,24 @@
   font-weight: 700;
   margin: 1em 0 0.5em;
 }
+.tiptap-content .ProseMirror h1 {
+  font-size: 1.875rem;
+  font-weight: 800;
+  margin: 1.3em 0 0.5em;
+}
 .tiptap-content .ProseMirror h4 {
   font-size: 1.1rem;
   font-weight: 600;
   margin: 1em 0 0.5em;
+}
+.tiptap-content .ProseMirror h5 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 1em 0 0.5em;
+}
+.tiptap-content .ProseMirror mark {
+  border-radius: 0.15em;
+  padding: 0 0.1em;
 }
 .tiptap-content .ProseMirror ul,
 .tiptap-content .ProseMirror ol {
@@ -164,4 +178,41 @@
 }
 .tiptap-content .cta-button-secondary:hover {
   background: #eff6ff;
+}
+
+/* TipTap: table */
+.tiptap-content .ProseMirror .tableWrapper {
+  margin: 1em 0;
+  overflow-x: auto;
+}
+.tiptap-content .ProseMirror table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
+.tiptap-content .ProseMirror th,
+.tiptap-content .ProseMirror td {
+  border: 1px solid #d1d5db;
+  padding: 0.5em 0.75em;
+  text-align: left;
+  vertical-align: top;
+  position: relative;
+}
+.tiptap-content .ProseMirror th {
+  background: #f9fafb;
+  font-weight: 600;
+}
+
+/* TipTap: YouTube embed */
+.tiptap-content .ProseMirror div[data-youtube-video] {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  aspect-ratio: 16 / 9;
+  margin: 1em 0;
+}
+.tiptap-content .ProseMirror div[data-youtube-video] iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5rem;
 }

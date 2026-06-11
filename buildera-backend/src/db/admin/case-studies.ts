@@ -114,7 +114,7 @@ export async function deleteCaseStudy(id: number): Promise<void> {
 }
 
 export async function listPublicCaseStudies(page = 1, perPage = 9, industry?: string, q?: string, sort?: string): Promise<{ rows: CaseStudy[]; total: number }> {
-  const wheres = [`is_published = 1`]
+  const wheres = [`is_published = 1`, `(published_at IS NULL OR published_at <= NOW())`]
   const vals: unknown[] = []
   if (industry) { wheres.push('industry = ?'); vals.push(industry) }
   if (q) { wheres.push('(title LIKE ? OR client_name LIKE ?)'); vals.push(`%${q}%`, `%${q}%`) }
@@ -129,7 +129,7 @@ export async function listPublicCaseStudies(page = 1, perPage = 9, industry?: st
 
 export async function getCaseStudyBySlug(slug: string): Promise<CaseStudy | null> {
   const study = await queryOne<CaseStudy>(
-    `SELECT ${SELECT_COLS} FROM case_studies WHERE slug = ? AND is_published = 1`,
+    `SELECT ${SELECT_COLS} FROM case_studies WHERE slug = ? AND is_published = 1 AND (published_at IS NULL OR published_at <= NOW())`,
     [slug],
   )
   if (study) {
