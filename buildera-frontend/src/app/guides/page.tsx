@@ -29,14 +29,20 @@ export default async function GuidesPage({ searchParams }: Props) {
     <main>
       <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Guides & Resources' }]} />
 
-      <section className="py-20 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl mb-8">
+      <section className="relative overflow-hidden bg-[var(--brand-surface)] border-b border-border py-16 md:py-20">
+        <div className="hero-orb-1" aria-hidden="true" />
+        <div className="hero-orb-2" aria-hidden="true" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">GUIDES & RESOURCES</p>
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">Tools to Help You Make Better Tech Decisions</h1>
             <p className="text-lg text-muted-foreground">Free guides, checklists, and templates from the Buildera team — no fluff.</p>
           </div>
+        </div>
+      </section>
 
+      <section className="py-16 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-8">
             <ResourceTypeFilterTabs activeType={resource_type ?? ''} />
             <div className="sm:ml-auto flex items-center gap-3">

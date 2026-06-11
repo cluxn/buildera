@@ -68,7 +68,9 @@ export default async function TestimonialsPage({ searchParams }: Props) {
       <section className="py-16 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          <ServiceCategoryFilterTabs activeCategory={service_category ?? ''} />
+          <div className="mb-8">
+            <ServiceCategoryFilterTabs activeCategory={service_category ?? ''} />
+          </div>
 
           {testimonials.length === 0 ? (
             <p className="text-muted-foreground text-center py-16">

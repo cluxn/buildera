@@ -29,14 +29,20 @@ export default async function CaseStudiesPage({ searchParams }: Props) {
     <main>
       <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Case Studies' }]} />
 
-      <section className="py-20 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl mb-8">
+      <section className="relative overflow-hidden bg-[var(--brand-surface)] border-b border-border py-16 md:py-20">
+        <div className="hero-orb-1" aria-hidden="true" />
+        <div className="hero-orb-2" aria-hidden="true" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">CASE STUDIES</p>
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">Results We&apos;ve Delivered</h1>
             <p className="text-lg text-muted-foreground">Real projects, real outcomes — from warehouses in Delhi to trading floors in Mumbai.</p>
           </div>
+        </div>
+      </section>
 
+      <section className="py-16 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-8">
             <IndustryFilterTabs activeIndustry={industry ?? ''} />
             <div className="sm:ml-auto flex items-center gap-3">
