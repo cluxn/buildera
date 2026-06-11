@@ -54,7 +54,7 @@ export default async function GuideDetailPage({ params }: Props) {
 
       {/* Above-fold header renders immediately — no Suspense wrapper */}
       <section className="py-16 bg-background">
-        <div className="container mx-auto px-8 max-w-4xl">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-4">
             <span className={`px-2 py-0.5 rounded-full text-xs font-semibold capitalize ${typeColor}`}>
               {guide.resource_type}
@@ -81,7 +81,7 @@ export default async function GuideDetailPage({ params }: Props) {
       <Suspense fallback={<div className="animate-pulse h-96 bg-muted rounded mx-auto max-w-3xl my-12" />}>
         {/* Mini lead form ~33% */}
         <section className="bg-background pb-8">
-          <div className="container mx-auto px-8 max-w-2xl">
+          <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
             <MiniLeadForm
               sourceForm="mini-cta"
               headline="Get This Delivered to Your Inbox"
@@ -92,7 +92,7 @@ export default async function GuideDetailPage({ params }: Props) {
 
         {/* Body */}
         <section className="py-12 bg-background">
-          <div className="container mx-auto px-8 max-w-3xl">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="prose prose-slate prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: guide.body }} />
 
             {guide.external_link && (
@@ -115,7 +115,7 @@ export default async function GuideDetailPage({ params }: Props) {
         {/* Related guides */}
         {relatedGuides.length > 0 && (
           <section className="bg-[var(--brand-surface)] py-16">
-            <div className="container mx-auto px-8">
+            <div className="mx-auto px-4 sm:px-6 lg:px-8">
               <h2 className="text-2xl font-bold mb-6">More Resources</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {relatedGuides.map((g) => <GuideCard key={g.id} guide={g} />)}
@@ -125,7 +125,7 @@ export default async function GuideDetailPage({ params }: Props) {
         )}
 
         <section className="py-20 bg-background text-center">
-          <div className="container mx-auto px-8 max-w-2xl">
+          <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold mb-4">Ready to Apply This in Your Business?</h2>
             <p className="text-muted-foreground mb-8">Book a free call and let&apos;s talk through how this applies to your specific situation.</p>
             <Link href="/book-a-call" className="inline-flex items-center px-8 py-4 bg-[var(--brand-primary)] text-white font-semibold rounded-xl hover:bg-[var(--brand-primary-dark)] transition-colors">

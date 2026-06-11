@@ -28,7 +28,7 @@ export function IndustryOverview({ data }: Props) {
 
   return (
     <section className="py-20 bg-background">
-      <div className="container mx-auto px-8 max-w-7xl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
           {/* Left — why Buildera */}

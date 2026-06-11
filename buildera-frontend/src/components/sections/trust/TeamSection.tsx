@@ -21,7 +21,7 @@ const TEAM = [
 export function TeamSection() {
   return (
     <section className="py-16 bg-background">
-      <div className="container mx-auto px-8 max-w-7xl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
             THE TEAM

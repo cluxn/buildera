@@ -37,7 +37,7 @@ export default async function BookACallPage() {
 
       {/* Hero */}
       <section className="py-12 bg-background text-center">
-        <div className="container mx-auto px-8 max-w-4xl">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--brand-surface)] border border-[var(--brand-primary)]/20 mb-6">
             <span className="w-2 h-2 rounded-full bg-[var(--brand-primary)]" aria-hidden="true" />
             <span className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)]">
@@ -66,14 +66,14 @@ export default async function BookACallPage() {
 
       {/* Calendly embed */}
       <section className="py-8 bg-background">
-        <div className="container mx-auto px-8 max-w-4xl">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <CalendlyEmbed calendlyUrl={settings.calendly_url} />
         </div>
       </section>
 
       {/* What to expect */}
       <section className="py-12 bg-[var(--brand-surface)]">
-        <div className="container mx-auto px-8 max-w-4xl">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-semibold text-center mb-8 text-foreground">What to Expect</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
             {WHAT_TO_EXPECT.map((item, i) => (

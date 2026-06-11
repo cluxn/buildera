@@ -36,7 +36,7 @@ export function AboutStory() {
     <>
       {/* ── Story + Differentiators ── */}
       <section className="py-20 bg-background">
-        <div className="container mx-auto px-8 max-w-7xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
             <div>
@@ -81,7 +81,7 @@ export function AboutStory() {
 
       {/* ── Timeline ── */}
       <section className="py-20 bg-[var(--brand-surface)]">
-        <div className="container mx-auto px-8 max-w-7xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
               Milestones

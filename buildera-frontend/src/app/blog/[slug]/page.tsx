@@ -69,7 +69,7 @@ export default async function BlogPostPage({ params }: Props) {
       <BlogDetailHero post={post} />
 
       <Suspense fallback={<div className="animate-pulse h-96 bg-muted rounded mx-auto max-w-3xl my-12" />}>
-        <article className="container mx-auto px-8 max-w-3xl py-12">
+        <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="my-10">
             <MiniLeadForm
               sourceForm="mini-cta"
@@ -87,21 +87,21 @@ export default async function BlogPostPage({ params }: Props) {
         </article>
 
         {post.author && (
-          <div className="container mx-auto px-8 max-w-3xl pb-12">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
             <AuthorBio author={post.author} />
           </div>
         )}
 
         {relatedPosts.length > 0 && (
           <section className="bg-[var(--brand-surface)] py-16">
-            <div className="container mx-auto px-8">
+            <div className="mx-auto px-4 sm:px-6 lg:px-8">
               <RelatedPosts posts={relatedPosts} />
             </div>
           </section>
         )}
 
         <section className="py-20 bg-background text-center">
-          <div className="container mx-auto px-8 max-w-2xl">
+          <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold mb-4">Ready to Build Something?</h2>
             <p className="text-muted-foreground mb-8">Book a free discovery call and let&apos;s talk about your project.</p>
             <Link

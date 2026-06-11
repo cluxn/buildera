@@ -3,7 +3,7 @@ interface Props { points: string[] }
 export function SolutionProblem({ points }: Props) {
   return (
     <section className="py-20 bg-[var(--brand-surface)]">
-      <div className="container mx-auto px-8 max-w-7xl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">The Challenge</p>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Does This Sound Like Your Business?</h2>

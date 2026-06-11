@@ -50,7 +50,7 @@ export default async function ServiceCategoryPage({ params }: Props) {
 
       {/* Hero */}
       <section className="py-16 bg-background border-b border-border">
-        <div className="container mx-auto px-8 max-w-7xl text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-xs font-medium uppercase tracking-widest text-[var(--brand-primary)] mb-4">
             Services
           </p>
@@ -64,7 +64,7 @@ export default async function ServiceCategoryPage({ params }: Props) {
       {/* Intro */}
       {pillar && (
         <section className="py-20 bg-background">
-          <div className="container mx-auto px-8 max-w-4xl">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="prose prose-lg prose-neutral max-w-none text-muted-foreground leading-relaxed space-y-4">
               {pillar.intro.split('\n\n').map((para, i) => (
                 <p key={i}>{para}</p>
@@ -76,7 +76,7 @@ export default async function ServiceCategoryPage({ params }: Props) {
 
       {/* Sub-service cards */}
       <section className="py-20 bg-[var(--brand-surface)]">
-        <div className="container mx-auto px-8 max-w-7xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold mb-10 text-center">{label} Services</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service) => {
@@ -106,7 +106,7 @@ export default async function ServiceCategoryPage({ params }: Props) {
       {/* Benefits */}
       {pillar && pillar.benefits.length > 0 && (
         <section className="py-20 bg-background">
-          <div className="container mx-auto px-8 max-w-7xl">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold text-center mb-4">Why Invest in {label}?</h2>
             <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-12">
               The business case for getting this right — and the cost of getting it wrong.
@@ -129,7 +129,7 @@ export default async function ServiceCategoryPage({ params }: Props) {
       {/* Why Buildera */}
       {pillar && (
         <section className="py-20 bg-[var(--brand-primary)] text-white">
-          <div className="container mx-auto px-8 max-w-4xl">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold mb-6 text-center">Why Buildera for {label}?</h2>
             <p className="text-lg text-blue-100 leading-relaxed text-center">{pillar.whyBuildera}</p>
             <div className="mt-10 text-center">
@@ -147,7 +147,7 @@ export default async function ServiceCategoryPage({ params }: Props) {
       {/* FAQ */}
       {pillar && pillar.faq.length > 0 && (
         <section className="py-20 bg-background">
-          <div className="container mx-auto px-8 max-w-4xl">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
             <div className="divide-y divide-border">
               {pillar.faq.map((item) => (
@@ -166,7 +166,7 @@ export default async function ServiceCategoryPage({ params }: Props) {
 
       {/* Final CTA */}
       <section className="py-20 bg-[var(--brand-surface)]">
-        <div className="container mx-auto px-8 max-w-3xl text-center">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to get started?</h2>
           <p className="text-muted-foreground mb-8">
             Book a free 30-minute discovery call. We&apos;ll map your requirements and tell you exactly what&apos;s possible.

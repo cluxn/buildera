@@ -14,7 +14,7 @@ export function AboutHero() {
       <div className="hero-orb-1" aria-hidden="true" />
       <div className="hero-orb-2" aria-hidden="true" />
 
-      <div className="relative container mx-auto px-8 max-w-7xl">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* ── Top label ── */}
         <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-6">

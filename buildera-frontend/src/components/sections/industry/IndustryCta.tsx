@@ -12,7 +12,7 @@ const TRUST_SIGNALS = [
 export function IndustryCta({ headline, industryName }: Props) {
   return (
     <section className="py-24" style={{ background: 'linear-gradient(135deg, var(--brand-gradient-from), var(--brand-gradient-to))' }}>
-      <div className="container mx-auto px-8 max-w-7xl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Trust signals */}
         <div className="flex flex-wrap justify-center gap-8 mb-14">

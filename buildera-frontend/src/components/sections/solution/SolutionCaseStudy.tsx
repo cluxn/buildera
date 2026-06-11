@@ -7,7 +7,7 @@ export function SolutionCaseStudy({ caseStudy }: Props) {
   if (!caseStudy) return null
   return (
     <section className="py-16 bg-[var(--brand-surface)]">
-      <div className="container mx-auto px-8 max-w-7xl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <p className="text-xs font-medium uppercase tracking-widest text-[var(--brand-primary)] mb-4">Client Story</p>
         <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-12">From Challenge to Result</h2>
         <div className="bg-background border border-border rounded-2xl p-8">

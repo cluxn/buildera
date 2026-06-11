@@ -6,7 +6,7 @@ export function ServiceMidCta() {
       className="py-16"
       style={{ background: 'linear-gradient(135deg, var(--brand-gradient-from), var(--brand-gradient-to))' }}
     >
-      <div className="container mx-auto px-8 max-w-7xl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-white/70 mb-3">

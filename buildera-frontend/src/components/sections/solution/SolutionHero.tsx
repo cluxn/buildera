@@ -22,7 +22,7 @@ export function SolutionHero({ data }: Props) {
       <div className="hero-orb-1" aria-hidden="true" />
       <div className="hero-orb-2" aria-hidden="true" />
 
-      <div className="container mx-auto px-8 max-w-7xl relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
           {/* Left */}

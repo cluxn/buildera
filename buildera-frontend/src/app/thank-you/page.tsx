@@ -30,7 +30,7 @@ export default async function ThankYouPage() {
   return (
     <main>
       <section className="py-24 bg-background text-center">
-        <div className="container mx-auto px-8 max-w-2xl">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Success icon */}
           <IconCircleCheck className="w-20 h-20 text-green-500 mx-auto mb-8" aria-hidden="true" />
 

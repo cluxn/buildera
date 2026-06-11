@@ -129,7 +129,7 @@ export default async function SearchPage({ searchParams }: Props) {
       <Breadcrumb items={[{ label: 'Search' }]} />
 
       <section className="py-16 bg-background border-b border-border">
-        <div className="container mx-auto px-8 max-w-3xl text-center">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl font-bold tracking-tight mb-8">Search Buildera</h1>
           <Suspense>
             <SearchInput placeholder="Search services, blog posts, guides..." />
@@ -138,7 +138,7 @@ export default async function SearchPage({ searchParams }: Props) {
       </section>
 
       <section className="py-16 bg-background">
-        <div className="container mx-auto px-8 max-w-3xl">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <Suspense fallback={<p className="text-muted-foreground text-center py-16">Searching...</p>}>
             <Results q={q} />
           </Suspense>

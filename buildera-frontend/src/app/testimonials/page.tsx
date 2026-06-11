@@ -29,7 +29,7 @@ export default async function TestimonialsPage({ searchParams }: Props) {
         <div className="hero-orb-1" aria-hidden="true" />
         <div className="hero-orb-2" aria-hidden="true" />
 
-        <div className="relative container mx-auto px-8 max-w-7xl">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end pb-16 border-b border-border">
             <div>
               <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-4">
@@ -66,7 +66,7 @@ export default async function TestimonialsPage({ searchParams }: Props) {
 
       {/* ── Filter + Grid ── */}
       <section className="py-16 bg-background">
-        <div className="container mx-auto px-8 max-w-7xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           <ServiceCategoryFilterTabs activeCategory={service_category ?? ''} />
 

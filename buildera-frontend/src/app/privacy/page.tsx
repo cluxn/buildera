@@ -15,7 +15,7 @@ export default function PrivacyPage() {
   return (
     <main>
       <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Privacy Policy' }]} />
-      <article className="container mx-auto px-8 max-w-4xl py-16">
+      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <header className="mb-12">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3">Privacy Policy</h1>
           <p className="text-sm text-muted-foreground">Last updated: January 2025 &middot; Effective: January 2025</p>

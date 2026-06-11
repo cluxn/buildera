@@ -108,7 +108,7 @@ export default function IndustriesListingPage() {
 
       {/* Hero */}
       <section className="py-20 bg-background">
-        <div className="container mx-auto px-8 max-w-7xl text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
             Domain Expertise
           </p>
@@ -123,7 +123,7 @@ export default function IndustriesListingPage() {
 
       {/* Industry grid */}
       <section className="py-20 bg-[var(--brand-surface)]">
-        <div className="container mx-auto px-8 max-w-7xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {INDUSTRIES.map(({ slug, name, desc, stat, Icon }) => (
               <Link
@@ -151,7 +151,7 @@ export default function IndustriesListingPage() {
 
       {/* CTA */}
       <section className="py-20 bg-background">
-        <div className="container mx-auto px-8 max-w-7xl text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
             Don&apos;t See Your Industry?
           </h2>

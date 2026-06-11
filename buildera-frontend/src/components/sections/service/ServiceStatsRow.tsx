@@ -18,7 +18,7 @@ export function ServiceStatsRow({ heroStat }: Props) {
 
   return (
     <section className="py-10 bg-[var(--brand-surface)] border-y border-border">
-      <div className="container mx-auto px-8 max-w-7xl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((stat, i) => (
             <div

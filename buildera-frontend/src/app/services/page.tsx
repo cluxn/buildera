@@ -14,7 +14,7 @@ export default function ServicesPage() {
   return (
     <main>
       <section className="py-20 bg-background">
-        <div className="container mx-auto px-8 max-w-7xl text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-xs font-medium uppercase tracking-widest text-[var(--brand-primary)] mb-4">
             Services
           </p>

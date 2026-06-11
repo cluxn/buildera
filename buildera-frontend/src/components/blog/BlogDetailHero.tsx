@@ -8,7 +8,7 @@ function formatDate(iso: string) {
 export function BlogDetailHero({ post }: { post: BlogPostDetail }) {
   return (
     <section className="bg-background py-16">
-      <div className="container mx-auto px-8 max-w-4xl">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <span className="inline-block text-xs bg-[var(--brand-primary)] text-white px-2 py-0.5 rounded-full font-semibold mb-4 capitalize">
           {post.category?.replace(/-/g, ' ')}
         </span>

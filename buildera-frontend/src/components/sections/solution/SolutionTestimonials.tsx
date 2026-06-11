@@ -7,7 +7,7 @@ export function SolutionTestimonials({ testimonials }: Props) {
   if (!testimonials.length) return null
   return (
     <section className="py-16 bg-background">
-      <div className="container mx-auto px-8 max-w-7xl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <p className="text-xs font-medium uppercase tracking-widest text-[var(--brand-primary)] mb-4">What Our Clients Say</p>
         <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-12">Trusted by Businesses Like Yours</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -6,7 +6,7 @@ export function AboutCta() {
       className="py-24"
       style={{ background: 'linear-gradient(135deg, var(--brand-gradient-from), var(--brand-gradient-to))' }}
     >
-      <div className="container mx-auto px-8 max-w-7xl text-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <p className="text-xs font-semibold uppercase tracking-widest text-white/60 mb-4">
           READY TO BUILD?
         </p>

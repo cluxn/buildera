@@ -30,7 +30,7 @@ export default async function CaseStudiesPage({ searchParams }: Props) {
       <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Case Studies' }]} />
 
       <section className="py-20 bg-background">
-        <div className="container mx-auto px-8 max-w-7xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mb-8">
             <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">CASE STUDIES</p>
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">Results We&apos;ve Delivered</h1>

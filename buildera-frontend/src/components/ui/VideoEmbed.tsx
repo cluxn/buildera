@@ -30,7 +30,7 @@ export function VideoEmbed({ url }: Props) {
 
   return (
     <section className="py-16">
-      <div className="container mx-auto px-8 max-w-4xl">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="aspect-video rounded-xl overflow-hidden shadow-lg">
           <iframe
             src={embedUrl}
