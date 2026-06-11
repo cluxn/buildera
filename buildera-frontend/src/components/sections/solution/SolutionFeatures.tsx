@@ -14,10 +14,10 @@ export function SolutionFeatures({ title, cards }: Props) {
         </div>
         <StaggeredRevealGrid className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {cards.map((card, i) => (
-            <div key={i} className="bg-background border border-border rounded-xl p-6">
+            <div key={i} className="h-full flex flex-col bg-background border border-border rounded-xl p-6">
               <h4 className="text-lg font-semibold mb-2">{card.title}</h4>
               <p className="text-sm text-muted-foreground mb-3">{card.description}</p>
-              {card.metric && <span className="text-sm font-medium bg-[hsl(217_91%_60%/10%)] text-[var(--brand-primary)] px-2 py-1 rounded-full">{card.metric}</span>}
+              {card.metric && <span className="mt-auto inline-block self-start text-sm font-medium bg-[hsl(217_91%_60%/10%)] text-[var(--brand-primary)] px-2 py-1 rounded-full">{card.metric}</span>}
             </div>
           ))}
         </StaggeredRevealGrid>

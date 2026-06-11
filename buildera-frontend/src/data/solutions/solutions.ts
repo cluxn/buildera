@@ -20,14 +20,17 @@ export const solutions: SolutionPageData[] = [
       {
         title: 'Automated Workflow Engine',
         description: 'Define your business rules once. The system routes tasks, triggers approvals, and sends notifications automatically.',
+        metric: 'Hours of manual routing eliminated',
       },
       {
         title: 'Cross-Department Data Sync',
         description: 'Sales, warehouse, finance, and logistics all work from the same live data. Silos eliminated, miscommunication gone.',
+        metric: 'One source of truth, always',
       },
       {
         title: 'Custom Reporting & Analytics',
         description: 'Daily operations reports, weekly performance summaries, and on-demand analytics — generated automatically from your live data.',
+        metric: 'Reports generated automatically',
       },
     ],
     industriesServed: ['manufacturing', 'logistics', 'retail', 'hospitality'],
@@ -53,14 +56,17 @@ export const solutions: SolutionPageData[] = [
       {
         title: 'Vendor Performance Scorecards',
         description: 'Automatic scoring on delivery accuracy, lead time, and quality. Route more orders to your best vendors automatically.',
+        metric: 'Orders routed to top vendors',
       },
       {
         title: 'Three-Way Invoice Matching',
         description: 'PO, delivery receipt, and invoice matched automatically. Discrepancies flagged before payment — not after.',
+        metric: 'Discrepancies caught before payment',
       },
       {
         title: 'Vendor Self-Service Portal',
         description: 'Vendors log in to view their POs, upload invoices, and check payment status — without calling your team.',
+        metric: 'Fewer status-check calls',
       },
     ],
     industriesServed: ['manufacturing', 'retail', 'logistics', 'hospitality'],
@@ -86,14 +92,17 @@ export const solutions: SolutionPageData[] = [
       {
         title: 'Centralised Booking Inbox',
         description: 'Every booking from every channel lands in one inbox. Confirmations, modifications, and cancellations handled from one place.',
+        metric: 'All bookings, one inbox',
       },
       {
         title: 'OTA Revenue Attribution',
         description: 'See exactly how much revenue each OTA generates, at what average rate, after commission costs. Know where to invest your inventory.',
+        metric: 'Know your best-margin channel',
       },
       {
         title: 'Yield Management Rules',
         description: 'Automate pricing based on occupancy thresholds. When occupancy hits 80%, rates rise automatically — no manual intervention needed.',
+        metric: 'Pricing adjusts automatically',
       },
     ],
     industriesServed: ['hospitality'],
@@ -119,14 +128,17 @@ export const solutions: SolutionPageData[] = [
       {
         title: 'Demand Forecasting',
         description: 'AI-driven demand forecasts built on your historical sales, seasonality, and current order pipeline. Reorder before you run out.',
+        metric: 'Reorder before you run out',
       },
       {
         title: 'Supplier Lead Time Monitoring',
         description: 'Automatic alerts when a supplier\'s actual lead time deviates from their SLA. React to delays before they hit your customers.',
+        metric: 'Delays flagged before impact',
       },
       {
         title: 'Inventory Optimisation',
         description: 'Dynamic safety stock calculations that balance holding cost against stockout risk. Less capital tied up, fewer stockouts.',
+        metric: 'Less capital tied up',
       },
     ],
     industriesServed: ['manufacturing', 'logistics', 'retail'],
@@ -152,14 +164,17 @@ export const solutions: SolutionPageData[] = [
       {
         title: 'Resource Allocation & Utilisation',
         description: 'See which team members are over-allocated and which have capacity before assigning new work. No more burnout from poor planning.',
+        metric: 'No more burnout from overload',
       },
       {
         title: 'Automated Status Reports',
         description: 'Weekly project status reports generated and distributed automatically from live task data. No manual writing, always accurate.',
+        metric: 'Zero manual reporting',
       },
       {
         title: 'Scope Change Management',
         description: 'Client change requests captured, costed, and approved in the system — with automatic impact on timeline and budget calculated.',
+        metric: 'Budget impact calculated instantly',
       },
     ],
     industriesServed: ['professional-services', 'manufacturing', 'finance', 'logistics'],
@@ -185,14 +200,17 @@ export const solutions: SolutionPageData[] = [
       {
         title: 'Real-Time Cash Flow Dashboard',
         description: 'Outstanding receivables, upcoming payables, and projected cash position visible today — not next month after reconciliation.',
+        metric: 'Cash position visible today',
       },
       {
         title: 'Expense Approval Workflows',
         description: 'Expenses submitted via mobile, routed for approval by policy, and posted to the correct cost centre automatically.',
+        metric: 'Approvals routed automatically',
       },
       {
         title: 'Financial Reporting Automation',
         description: 'P&L, balance sheet, and cash flow statement generated from live data on demand. Month-end becomes a review, not a production exercise.',
+        metric: 'Month-end becomes a review',
       },
     ],
     industriesServed: ['professional-services', 'manufacturing', 'retail', 'finance'],
@@ -218,14 +236,17 @@ export const solutions: SolutionPageData[] = [
       {
         title: 'Barcode & QR Code Scanning',
         description: 'Mobile scanning for goods receipt, put-away, and picking. Eliminates manual entry errors at every touchpoint.',
+        metric: 'Zero manual entry errors',
       },
       {
         title: 'Smart Pick Routing',
         description: 'Optimised pick routes that minimise travel time in the warehouse. The same orders picked in 30% less time.',
+        metric: '30% less picking time',
       },
       {
         title: 'Slow-Moving Stock Alerts',
         description: 'Automatic alerts when SKUs haven\'t moved in your configured threshold. Act before dead stock becomes a write-off.',
+        metric: 'Act before write-offs',
       },
     ],
     industriesServed: ['manufacturing', 'retail', 'logistics'],
@@ -251,14 +272,17 @@ export const solutions: SolutionPageData[] = [
       {
         title: 'Housekeeping Task Management',
         description: 'Room status updated in real time via mobile. Housekeeping knows which rooms to clean, in what order, and marks them ready from their phone.',
+        metric: 'Real-time room status',
       },
       {
         title: 'F&B & Restaurant Integration',
         description: 'Restaurant bills posted directly to the room account. Zero manual transcription, zero billing disputes at checkout.',
+        metric: 'Zero billing disputes',
       },
       {
         title: 'Revenue & Occupancy Analytics',
         description: 'RevPAR, ADR, and occupancy trends visible daily. Dynamic rate recommendations based on booking pace and competitor rates.',
+        metric: 'Dynamic rate recommendations',
       },
     ],
     industriesServed: ['hospitality'],
@@ -284,14 +308,17 @@ export const solutions: SolutionPageData[] = [
       {
         title: 'Multi-Entity Consolidation',
         description: 'Financials across multiple business units consolidated automatically — with elimination entries, intercompany reconciliation, and minority interest calculated.',
+        metric: 'Consolidation in minutes, not weeks',
       },
       {
         title: 'Approval Workflow Automation',
         description: 'Expense and payment approval chains configured by policy, executed automatically. Urgent approvals escalated after a defined wait period.',
+        metric: 'Urgent approvals auto-escalated',
       },
       {
         title: 'Treasury & Cash Management',
         description: 'Bank balance visibility, payment scheduling, and 13-week cash flow forecasting — updated from live receivables and payables data.',
+        metric: '13-week cash flow forecast',
       },
     ],
     industriesServed: ['finance', 'professional-services', 'manufacturing'],
@@ -317,14 +344,17 @@ export const solutions: SolutionPageData[] = [
       {
         title: 'Predictive Maintenance Scheduling',
         description: 'Service reminders triggered by mileage, engine hours, or time intervals. Maintenance scheduled before breakdown — not after.',
+        metric: 'Maintenance before breakdown',
       },
       {
         title: 'Fuel Card & Expense Integration',
         description: 'Fuel spend captured at point of sale, matched to vehicle and trip automatically. Anomalies flagged without anyone reviewing receipts.',
+        metric: 'Anomalies flagged automatically',
       },
       {
         title: 'Driver Behaviour Analytics',
         description: 'Speeding, harsh braking, and idle time tracked per driver. Safety scores used for coaching and insurance premium negotiations.',
+        metric: 'Lower insurance premiums',
       },
     ],
     industriesServed: ['logistics', 'manufacturing', 'retail'],
@@ -350,14 +380,17 @@ export const solutions: SolutionPageData[] = [
       {
         title: 'Multi-Platform Calendar Sync',
         description: 'Block a date on one platform and it blocks everywhere instantly. Double-bookings become structurally impossible.',
+        metric: 'Double-bookings impossible',
       },
       {
         title: 'Automated Housekeeping Scheduling',
         description: 'Checkout triggers a cleaning task automatically. Housekeeping gets a mobile notification with the property, the checklist, and the next check-in time.',
+        metric: 'Cleaning tasks auto-triggered',
       },
       {
         title: 'Dynamic Pricing Engine',
         description: 'Rates adjust automatically based on demand, seasonality, and competitor pricing. You earn more per booking without manual rate management.',
+        metric: 'Earn more per booking',
       },
     ],
     industriesServed: ['hospitality', 'retail'],
@@ -383,14 +416,17 @@ export const solutions: SolutionPageData[] = [
       {
         title: 'Attendance & Leave Management',
         description: 'Mobile clock-in/out, leave requests approved via app, and leave balances updated in real time — no spreadsheet reconciliation required.',
+        metric: 'Zero spreadsheet reconciliation',
       },
       {
         title: 'Payroll Input Automation',
         description: 'Attendance, overtime, and leave data feeds directly into your payroll calculation — reducing manual data entry and payroll errors.',
+        metric: 'Fewer payroll errors',
       },
       {
         title: 'Continuous Performance Tracking',
         description: 'Quarterly goals set, check-ins logged, and performance scores calculated continuously — so annual reviews summarise a year of data, not a manager\'s recent memory.',
+        metric: 'A year of data, not memory',
       },
     ],
     industriesServed: ['manufacturing', 'retail', 'professional-services', 'hospitality'],
@@ -416,14 +452,17 @@ export const solutions: SolutionPageData[] = [
       {
         title: 'Automated Follow-Up Sequences',
         description: 'New lead gets an instant WhatsApp acknowledgment, a call reminder at hour 2, and an email nurture sequence — automatically.',
+        metric: 'Hot leads never go cold',
       },
       {
         title: 'Lead Source Attribution',
         description: 'Every converted customer traced back to the exact source and campaign. Know which ₹1,000 of ad spend produces a customer.',
+        metric: 'Know what ad spend converts',
       },
       {
         title: 'Pipeline & Conversion Reporting',
         description: 'Stage-by-stage conversion rates, time-in-stage, and rep performance visible at a glance. Know where leads are dying and fix it.',
+        metric: 'See where leads are dying',
       },
     ],
     industriesServed: ['retail', 'professional-services', 'manufacturing', 'finance'],
@@ -449,14 +488,17 @@ export const solutions: SolutionPageData[] = [
       {
         title: 'Rep Activity Tracking',
         description: 'Calls made, meetings booked, proposals sent — tracked daily per rep. Managers coach with data, not impressions.',
+        metric: 'Coach with data, not guesswork',
       },
       {
         title: 'Quota & Territory Management',
         description: 'Quotas assigned by rep, territory, or product line. Progress tracked in real time so reps always know where they stand.',
+        metric: 'Real-time quota progress',
       },
       {
         title: 'Deal Win/Loss Analysis',
         description: 'Every closed-lost deal tagged with a reason. Patterns surface automatically — and inform product, pricing, and sales process changes.',
+        metric: 'Patterns surface automatically',
       },
     ],
     industriesServed: ['professional-services', 'manufacturing', 'retail', 'finance'],
@@ -482,14 +524,17 @@ export const solutions: SolutionPageData[] = [
       {
         title: 'Automated Customer Touchpoints',
         description: 'Birthday messages, renewal reminders, post-purchase check-ins — triggered automatically based on your relationship rules.',
+        metric: 'Triggered automatically, every time',
       },
       {
         title: 'Upsell & Retention Scoring',
         description: 'Customers scored on engagement, purchase frequency, and contract renewal probability. Focus your attention where the revenue is.',
+        metric: 'Focus where revenue is',
       },
       {
         title: 'Customer Health Monitoring',
         description: 'Alerts when a customer\'s engagement drops below threshold — before they churn, not after.',
+        metric: 'Catch churn before it happens',
       },
     ],
     industriesServed: ['professional-services', 'retail', 'finance', 'manufacturing'],
@@ -515,14 +560,17 @@ export const solutions: SolutionPageData[] = [
       {
         title: 'Automated WhatsApp Response',
         description: 'Every enquiry gets an instant WhatsApp message with your product details and a booking link — while your team sleeps, you\'re already engaging.',
+        metric: 'Engaging leads while you sleep',
       },
       {
         title: 'Lead Qualification Scoring',
         description: 'Enquiries scored by buyer intent, location, and order size signals. Reps focus on the top 20% that convert 80% of the revenue.',
+        metric: 'Reps focus on the top 20%',
       },
       {
         title: 'IndiaMart-to-CRM Sync',
         description: 'All enquiries, responses, and outcomes synced to your CRM automatically. Full lead history without a single manual entry.',
+        metric: 'Zero manual entry',
       },
     ],
     industriesServed: ['manufacturing', 'retail'],
@@ -548,14 +596,17 @@ export const solutions: SolutionPageData[] = [
       {
         title: 'Module-by-Module Implementation',
         description: 'We build and deliver one module at a time so you see value every 6-8 weeks — not after a 12-month implementation.',
+        metric: 'Value every 6-8 weeks',
       },
       {
         title: 'Custom Workflow & Approval Engine',
         description: 'Your specific approval chains, exception rules, and business logic encoded exactly — not a generic workaround.',
+        metric: 'Your rules, not a workaround',
       },
       {
         title: 'Real-Time Business Intelligence',
         description: 'Executive dashboard with KPIs across every function — from inventory turns to DSO to employee utilisation — updated live.',
+        metric: 'Live KPIs, every function',
       },
     ],
     industriesServed: ['manufacturing', 'retail', 'logistics', 'hospitality'],
@@ -581,14 +632,17 @@ export const solutions: SolutionPageData[] = [
       {
         title: 'Capacity Planning & Scheduling',
         description: 'Machine capacity, shift schedules, and order priorities fed into an optimised production schedule. Bottlenecks surfaced before they delay shipments.',
+        metric: 'Bottlenecks surfaced early',
       },
       {
         title: 'In-Process Quality Control',
         description: 'Quality checkpoints enforced at each production stage. Defects caught and logged at origin — not at final inspection.',
+        metric: 'Defects caught at origin',
       },
       {
         title: 'Material Requirements Planning',
         description: 'Finished goods targets drive automatic raw material requirements. Procurement triggered before stock runs out — not after machines stop.',
+        metric: 'Procurement triggered automatically',
       },
     ],
     industriesServed: ['manufacturing'],
@@ -614,14 +668,17 @@ export const solutions: SolutionPageData[] = [
       {
         title: 'Dead Stock Alerts',
         description: 'Automatic alerts when items breach your configured non-movement threshold — 30, 60, or 90 days. Act before dead stock becomes a write-off.',
+        metric: 'Act before write-offs',
       },
       {
         title: 'Brand-Level Tracking',
         description: 'Filter and analyse stock by brand, category, or supplier. Know which brands are performing and which are tying up capital without moving.',
+        metric: 'See what\'s tying up capital',
       },
       {
         title: 'Smart Reorder Rules',
         description: 'Set minimum stock thresholds per SKU. The system triggers a reorder notification automatically — so you never run dry on your bestsellers.',
+        metric: 'Never run dry on bestsellers',
       },
     ],
     industriesServed: ['retail', 'manufacturing', 'logistics'],
@@ -647,14 +704,17 @@ export const solutions: SolutionPageData[] = [
       {
         title: 'Excise & Quota Management',
         description: 'Quota utilisation tracked against excise limits automatically. Parcha and audit trails maintained digitally — ready for inspection at any time.',
+        metric: 'Audit-ready, always',
       },
       {
         title: 'Brand & SKU Performance',
         description: 'Know exactly which brands move fastest, which are slow, and where your capital is tied up. Filter by brand, category, or supplier in seconds.',
+        metric: 'Know your fastest movers',
       },
       {
         title: 'POS Billing & GST Receipts',
         description: 'Barcode-based billing at the counter with GST-compliant receipts. FL catalog and BL catalog supported with thermal receipt printing.',
+        metric: 'GST-compliant in seconds',
       },
     ],
     industriesServed: ['retail'],

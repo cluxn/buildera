@@ -16,17 +16,23 @@ interface IdlePopupProps {
 export function IdlePopup({ headline, subtext, idleMs = 45000 }: IdlePopupProps) {
   const [isOpen, setIsOpen] = useState(false)
 
+  const dismiss = () => {
+    setIsOpen(false)
+    localStorage.setItem('idle-popup-dismissed', '1')
+  }
+
   useEffect(() => {
-    // Check sessionStorage BEFORE setting up idle detection — prevents re-fire
-    if (sessionStorage.getItem('idle-popup-shown')) return
+    // Once the user has dismissed the popup (any session), never show it again
+    if (localStorage.getItem('idle-popup-dismissed')) return
 
     let timer: ReturnType<typeof setTimeout>
 
     const resetTimer = () => {
+      if (localStorage.getItem('idle-popup-dismissed')) return
       clearTimeout(timer)
       timer = setTimeout(() => {
+        if (localStorage.getItem('idle-popup-dismissed')) return
         setIsOpen(true)
-        sessionStorage.setItem('idle-popup-shown', '1')
       }, idleMs)
     }
 
@@ -42,7 +48,7 @@ export function IdlePopup({ headline, subtext, idleMs = 45000 }: IdlePopupProps)
 
   useEffect(() => {
     if (!isOpen) return
-    const handleKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setIsOpen(false) }
+    const handleKey = (e: KeyboardEvent) => { if (e.key === 'Escape') dismiss() }
     document.addEventListener('keydown', handleKey)
     return () => document.removeEventListener('keydown', handleKey)
   }, [isOpen])
@@ -56,7 +62,7 @@ export function IdlePopup({ headline, subtext, idleMs = 45000 }: IdlePopupProps)
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setIsOpen(false)}
+            onClick={dismiss}
           />
           <motion.div
             className="relative bg-background border border-border rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl"
@@ -67,7 +73,7 @@ export function IdlePopup({ headline, subtext, idleMs = 45000 }: IdlePopupProps)
           >
             <button
               aria-label="Close"
-              onClick={() => setIsOpen(false)}
+              onClick={dismiss}
               className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition"
             >
               <IconX className="w-5 h-5" />
