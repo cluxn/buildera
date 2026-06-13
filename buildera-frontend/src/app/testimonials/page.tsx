@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { getTestimonialsPage } from '@/lib/api'
 import { TestimonialCard } from '@/components/content/TestimonialCard'
 import { ServiceCategoryFilterTabs } from '@/components/content/ServiceCategoryFilterTabs'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { PageHero } from '@/components/sections/PageHero'
 import { generateSeoMetadata } from '@/lib/seo'
+import { CTASection } from '@/components/sections/CTASection'
 
 export async function generateMetadata(): Promise<Metadata> {
   return generateSeoMetadata('page', 'testimonials', {
@@ -54,28 +54,13 @@ export default async function TestimonialsPage({ searchParams }: Props) {
             </div>
           )}
 
-          {/* ── CTA strip ── */}
-          <div className="mt-20 p-10 rounded-2xl bg-[var(--brand-surface)] border border-border text-center">
-            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
-              Work With Us
-            </p>
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-4">
-              Ready to Become Our Next Success Story?
-            </h2>
-            <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-              Book a free 30-minute discovery call. No sales pitch — just an honest conversation about
-              your project and whether we&apos;re the right fit.
-            </p>
-            <Link
-              href="/book-a-call"
-              className="inline-flex items-center px-8 py-4 bg-[var(--brand-primary)] text-white font-semibold rounded-xl hover:bg-[var(--brand-primary-dark)] transition-colors"
-            >
-              Book a Free Discovery Call
-            </Link>
-          </div>
-
         </div>
       </section>
+
+      <CTASection
+        heading="Ready to Become Our Next Success Story?"
+        description="Book a free 30-minute discovery call. No sales pitch — just an honest conversation about your project and whether we're the right fit."
+      />
     </main>
   )
 }
