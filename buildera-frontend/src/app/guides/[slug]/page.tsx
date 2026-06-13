@@ -4,9 +4,8 @@ import { Suspense } from 'react'
 import Image from 'next/image'
 import { getGuide, getGuides } from '@/lib/api'
 import { GuideCard } from '@/components/content/GuideCard'
-import { BlogCtaBanner } from '@/components/sections/BlogCtaBanner'
+import { GuideDownloadForm } from '@/components/content/GuideDownloadForm'
 import { CTASection } from '@/components/sections/CTASection'
-import { MiniLeadForm } from '@/components/ui/MiniLeadForm'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { IconExternalLink } from '@tabler/icons-react'
 
@@ -52,7 +51,7 @@ export default async function GuideDetailPage({ params }: Props) {
     <main>
       <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Guides', href: '/guides' }, { label: guide.title }]} />
 
-      {/* Above-fold header renders immediately — no Suspense wrapper */}
+      {/* Above-fold header */}
       <section className="py-16 bg-background">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-4">
@@ -79,18 +78,8 @@ export default async function GuideDetailPage({ params }: Props) {
       </section>
 
       <Suspense fallback={<div className="animate-pulse h-96 bg-muted rounded mx-auto max-w-3xl my-12" />}>
-        {/* Mini lead form ~33% */}
-        <section className="bg-background pb-8">
-          <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-            <MiniLeadForm
-              sourceForm="mini-cta"
-              headline="Get This Delivered to Your Inbox"
-              subtext="We'll send you this guide along with more practical resources for SMB decision-makers."
-            />
-          </div>
-        </section>
 
-        {/* Body */}
+        {/* Guide body */}
         <section className="py-12 bg-background">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="prose prose-slate prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: guide.body ?? '' }} />
@@ -107,15 +96,20 @@ export default async function GuideDetailPage({ params }: Props) {
                 </a>
               </div>
             )}
-
-            <BlogCtaBanner />
           </div>
         </section>
 
+        {/* Download form — left: form, right: guide image */}
+        <GuideDownloadForm
+          guideTitle={guide.title}
+          coverImage={guide.cover_image}
+          sourceForm="guide-download"
+        />
+
         {/* Related guides */}
         {relatedGuides.length > 0 && (
-          <section className="bg-[var(--brand-surface)] py-16">
-            <div className="mx-auto px-4 sm:px-6 lg:px-8">
+          <section className="bg-background py-16">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <h2 className="text-2xl font-bold mb-6">More Resources</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {relatedGuides.map((g) => <GuideCard key={g.id} guide={g} />)}
