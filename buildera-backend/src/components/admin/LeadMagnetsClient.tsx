@@ -5,6 +5,7 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import { Edit, Trash2, Plus, Download } from 'lucide-react'
 import type { LeadMagnet } from '@/db/admin/lead-magnets'
 import { RichTextEditor } from './RichTextEditor'
+import { ImageUploadField } from './ImageUploadField'
 
 const STATUS_TABS = ['all','DRAFT','PUBLISHED']
 const STATUS_COLORS: Record<string, string> = {
@@ -49,13 +50,21 @@ export function LeadMagnetsClient({ rows, total, perPage, page, status, q }: Pro
     startTransition(() => router.push(`${pathname}?${p}`))
   }
 
-  async function save() {
+  async function save(action: 'draft' | 'schedule' | 'publish') {
     if (!editing?.title) return
+    if (action === 'schedule') {
+      if (!editing.published_at || new Date(editing.published_at) <= new Date()) {
+        alert('Set a future date/time in the Schedule Date field to schedule.')
+        return
+      }
+    }
     setSaving(true)
-    const published_at = editing.published_at
-      ? editing.published_at
-      : editing.status === 'PUBLISHED' ? new Date().toISOString() : null
-    const payload = { ...editing, published_at }
+    const status: LeadMagnet['status'] = action === 'draft' ? 'DRAFT' : 'PUBLISHED'
+    const published_at =
+      action === 'publish' ? new Date().toISOString() :
+      action === 'schedule' ? editing.published_at :
+      editing.published_at ?? null
+    const payload = { ...editing, status, published_at }
     if (editing.id) {
       await fetch(`/api/admin/lead-magnets/${editing.id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
     } else {
@@ -87,10 +96,12 @@ export function LeadMagnetsClient({ rows, total, perPage, page, status, q }: Pro
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold text-gray-900">Guides & Lead Magnets</h1>
-        <button onClick={() => setEditing(blank)}
-          className="flex items-center gap-1.5 px-4 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:opacity-90 transition-opacity">
-          <Plus size={15} /> New Guide
-        </button>
+        {editing === null && (
+          <button onClick={() => setEditing(blank)}
+            className="flex items-center gap-1.5 px-4 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:opacity-90 transition-opacity">
+            <Plus size={15} /> New Guide
+          </button>
+        )}
       </div>
 
       {editing !== null && (
@@ -127,18 +138,11 @@ export function LeadMagnetsClient({ rows, total, perPage, page, status, q }: Pro
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
             </div>
             <div>
-              <label className="text-xs font-medium text-gray-600 mb-1 block">Status</label>
-              <select value={editing.status ?? 'DRAFT'} onChange={e => setEditing(p => ({ ...p, status: e.target.value as LeadMagnet['status'] }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30">
-                <option value="DRAFT">Draft</option>
-                <option value="PUBLISHED">Published</option>
-              </select>
-            </div>
-            <div>
-              <label className="text-xs font-medium text-gray-600 mb-1 block">Publish Date</label>
+              <label className="text-xs font-medium text-gray-600 mb-1 block">Schedule Date <span className="text-gray-400">(required for Schedule)</span></label>
               <input type="datetime-local" value={editing.published_at ? toDatetimeLocal(editing.published_at) : ''}
                 onChange={e => setEditing(p => ({ ...p, published_at: e.target.value ? new Date(e.target.value).toISOString() : null }))}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
+              <p className="mt-1 text-xs text-gray-400">Leave blank to publish immediately. Set a future date/time and click Schedule.</p>
             </div>
             <div>
               <label className="text-xs font-medium text-gray-600 mb-1 block">Resource Type</label>
@@ -152,17 +156,24 @@ export function LeadMagnetsClient({ rows, total, perPage, page, status, q }: Pro
               <input value={editing.category ?? ''} onChange={e => setEditing(p => ({ ...p, category: e.target.value || null }))}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" placeholder="devops" />
             </div>
-            <div>
-              <label className="text-xs font-medium text-gray-600 mb-1 block">Cover Image URL</label>
-              <input value={editing.cover_image ?? ''} onChange={e => setEditing(p => ({ ...p, cover_image: e.target.value || null }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" placeholder="https://…/cover.jpg" />
-            </div>
+            <ImageUploadField label="Cover Image" value={editing.cover_image ?? ''} onChange={url => setEditing(p => ({ ...p, cover_image: url || null }))} />
           </div>
-          <div className="flex gap-2 justify-end">
-            <button onClick={() => setEditing(null)} className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">Cancel</button>
-            <button onClick={save} disabled={saving || !editing.title}
+          <div className="flex gap-2 justify-end flex-wrap">
+            <button onClick={() => setEditing(null)} className="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100">Cancel</button>
+            {editing.slug && (
+              <a href={`/guides/${editing.slug}`} target="_blank" rel="noopener" className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">Preview</a>
+            )}
+            <button onClick={() => save('draft')} disabled={saving || !editing.title}
+              className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-40">
+              Save Draft
+            </button>
+            <button onClick={() => save('schedule')} disabled={saving || !editing.title}
+              className="px-3 py-1.5 text-sm border border-blue-300 text-blue-700 rounded-lg hover:bg-blue-50 disabled:opacity-40">
+              Schedule
+            </button>
+            <button onClick={() => save('publish')} disabled={saving || !editing.title}
               className="px-4 py-1.5 bg-primary text-white text-sm rounded-lg hover:opacity-90 disabled:opacity-40 transition-opacity">
-              {saving ? 'Saving…' : 'Save'}
+              {saving ? 'Saving…' : 'Publish'}
             </button>
           </div>
         </div>

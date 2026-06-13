@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import type { BlogPost } from '@/db/admin/blog'
 import type { Category } from '@/db/admin/categories'
 import { RichTextEditor } from './RichTextEditor'
+import { ImageUploadField } from './ImageUploadField'
 
 interface User { id: number; name: string; email: string; role: string }
 interface Props {
@@ -110,12 +111,19 @@ export function BlogEditor({ post, categories, users }: Props) {
     localStorage.removeItem(AUTOSAVE_KEY(autoId))
   }
 
-  async function handleSave(publishStatus?: string) {
+  async function handleSave(action: 'draft' | 'schedule' | 'publish') {
+    if (action === 'schedule') {
+      if (!publishedAt || new Date(publishedAt) <= new Date()) {
+        alert('Set a future date/time in the Publish Date field to schedule.')
+        return
+      }
+    }
     setSaving(true)
-    const finalStatus = publishStatus ?? status
-    const published_at = publishedAt
-      ? new Date(publishedAt).toISOString()
-      : finalStatus.toUpperCase() === 'PUBLISHED' ? new Date().toISOString() : null
+    const finalStatus = action === 'draft' ? 'DRAFT' : 'PUBLISHED'
+    const published_at =
+      action === 'publish' ? new Date().toISOString() :
+      action === 'schedule' ? new Date(publishedAt).toISOString() :
+      publishedAt ? new Date(publishedAt).toISOString() : null
     const payload = {
       title, slug, excerpt, content, status: finalStatus,
       author_id: authorId ? Number(authorId) : null,
@@ -154,16 +162,27 @@ export function BlogEditor({ post, categories, users }: Props) {
           <h1 className="truncate text-sm font-semibold text-gray-900">{title || 'Untitled post'}</h1>
           <p className="mt-0.5 flex items-center gap-2 text-xs text-gray-400">
             <span className={`px-1.5 py-0.5 rounded font-medium ${statusBadge.className}`}>{statusBadge.label}</span>
-            {isScheduled && <span>for {new Date(publishedAt).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}</span>}
+            {isScheduled && <span>for {new Date(publishedAt).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}</span>}
             <span>{wordCount} words</span>
             {lastSavedAt && <span>· Saved {formatSavedTime(lastSavedAt)}</span>}
           </p>
         </div>
-        <div className="flex shrink-0 gap-3">
-          <button onClick={() => handleSave('DRAFT')} disabled={saving} className="px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 disabled:opacity-60">
+        <div className="flex shrink-0 gap-2">
+          <button onClick={() => router.push('/admin/blog')} className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100">
+            Cancel
+          </button>
+          {slug && (
+            <a href={`/blog/${slug}`} target="_blank" rel="noopener" className="px-3 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50">
+              Preview
+            </a>
+          )}
+          <button onClick={() => handleSave('draft')} disabled={saving} className="px-3 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 disabled:opacity-60">
             Save Draft
           </button>
-          <button onClick={() => handleSave('PUBLISHED')} disabled={saving} className="px-4 py-2 bg-[#002BFF] text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-60">
+          <button onClick={() => handleSave('schedule')} disabled={saving} className="px-3 py-2 border border-blue-300 text-blue-700 text-sm font-medium rounded-lg hover:bg-blue-50 disabled:opacity-60">
+            Schedule
+          </button>
+          <button onClick={() => handleSave('publish')} disabled={saving} className="px-3 py-2 bg-[#002BFF] text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-60">
             {saving ? 'Saving…' : 'Publish'}
           </button>
         </div>
@@ -210,6 +229,7 @@ export function BlogEditor({ post, categories, users }: Props) {
                 <option value="DRAFT">Draft</option>
                 <option value="SUBMITTED">Submitted</option>
                 <option value="PUBLISHED">Published</option>
+                <option value="SCHEDULED">Scheduled</option>
               </select>
             </div>
             <div>
@@ -252,11 +272,7 @@ export function BlogEditor({ post, categories, users }: Props) {
           </div>
 
           <div className="bg-white rounded-xl border border-gray-200 p-5 space-y-4">
-            <div>
-              <label className={label}>Cover Image URL</label>
-              <input className={inp} value={coverImage} onChange={e => setCoverImage(e.target.value)} placeholder="/uploads/..." />
-              {coverImage && <img src={coverImage} alt="Cover" className="mt-2 w-full h-24 object-cover rounded-lg" />}
-            </div>
+            <ImageUploadField label="Cover Image" value={coverImage} onChange={setCoverImage} placeholder="/uploads/..." />
             <div>
               <label className={label}>Cover Image Alt</label>
               <input className={inp} value={coverImageAlt} onChange={e => setCoverImageAlt(e.target.value)} />
