@@ -4,6 +4,7 @@ import { fetchTestimonials } from '@/lib/api'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { AboutHero } from '@/components/sections/trust/AboutHero'
 import { AboutStory } from '@/components/sections/trust/AboutStory'
+import { MilestoneTimeline } from '@/components/sections/trust/MilestoneTimeline'
 import { ValuesSection } from '@/components/sections/trust/ValuesSection'
 import { ClientTestimonials } from '@/components/sections/ClientTestimonials'
 import { AboutCta } from '@/components/sections/trust/AboutCta'
@@ -24,6 +25,7 @@ export default async function AboutPage() {
       <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'About Us' }]} />
       <AboutHero />
       <AboutStory />
+      <MilestoneTimeline />
       <ValuesSection />
       <ClientTestimonials testimonials={testimonials.slice(0, 3)} />
       <AboutCta />
