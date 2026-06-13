@@ -16,9 +16,9 @@ async function getRedirects(): Promise<RedirectRecord[]> {
   if (redirectCache.length > 0 && now - cacheLoadedAt < CACHE_TTL_MS) {
     return redirectCache
   }
-  const backendUrl = process.env.BACKEND_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? ''
+  const origin = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
   try {
-    const res = await fetch(`${backendUrl}/api/redirects`, { cache: 'no-store' })
+    const res = await fetch(`${origin}/api/redirects`, { cache: 'no-store' })
     if (res.ok) {
       redirectCache = await res.json()
       cacheLoadedAt = now
