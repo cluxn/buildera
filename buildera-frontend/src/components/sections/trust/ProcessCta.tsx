@@ -18,12 +18,6 @@ export function ProcessCta() {
           >
             Book a Free Call
           </Link>
-          <Link
-            href="/case-studies"
-            className="inline-flex items-center justify-center px-8 py-4 rounded-lg border border-white/30 text-white font-semibold text-base hover:bg-white/10 transition-colors"
-          >
-            See Our Work
-          </Link>
         </div>
 
         <p className="text-sm text-white/70">
