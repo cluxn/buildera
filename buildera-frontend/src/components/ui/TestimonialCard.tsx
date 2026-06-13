@@ -12,7 +12,7 @@ interface Props {
 
 export function TestimonialCard({ quote, name, title, company, rating, className }: Props) {
   return (
-    <div className={cn("bg-white border border-border rounded-xl p-6 flex flex-col gap-4 shadow-sm", className)}>
+    <div className={cn("bg-white border border-border rounded-xl p-6 flex flex-col gap-4 shadow-sm h-full", className)}>
       <div className="flex gap-1">
         {Array.from({ length: 5 }).map((_, i) => (
           <IconStar
@@ -26,7 +26,7 @@ export function TestimonialCard({ quote, name, title, company, rating, className
           />
         ))}
       </div>
-      <blockquote className="text-foreground text-base leading-relaxed">
+      <blockquote className="text-foreground text-sm leading-relaxed line-clamp-5 flex-1">
         &ldquo;{quote}&rdquo;
       </blockquote>
       <div className="mt-auto">

@@ -32,7 +32,7 @@ export function ClientTestimonials({ testimonials }: Props) {
 
         <div className="marquee-track">
           {items.map((t, idx) => (
-            <div key={idx} className="w-[320px] sm:w-[360px] flex-shrink-0 px-3">
+            <div key={idx} className="w-[320px] sm:w-[360px] flex-shrink-0 px-3 h-[260px]">
               <TestimonialCard
                 quote={t.quote}
                 name={t.person_name}
