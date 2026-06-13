@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { IconCheck } from '@tabler/icons-react'
 import type { IndustryPageData } from '@/types/service-page'
 
 interface Props { data: IndustryPageData }
@@ -12,71 +11,23 @@ export function IndustryHero({ data }: Props) {
       <div className="hero-orb-1" aria-hidden="true" />
       <div className="hero-orb-2" aria-hidden="true" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20 md:py-28">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="flex flex-col items-center text-center gap-6 py-20 md:py-28">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)]">
+            {data.name} Solutions
+          </p>
 
-          {/* Left */}
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-4">
-              {data.name} Solutions
-            </p>
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-6 text-foreground">
-              {data.heroHeadline}
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-xl mb-8 leading-relaxed">
-              {data.heroSubheadline}
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Link href="/contact" className="btn-primary inline-flex items-center">
-                Book a Free Call
-              </Link>
-            </div>
-          </div>
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] text-foreground">
+            {data.heroHeadline}
+          </h1>
 
-          {/* Right — glass card */}
-          <div className="hidden lg:block">
-            <div className="relative">
-              <div
-                className="absolute -inset-4 rounded-3xl pointer-events-none"
-                style={{ background: 'radial-gradient(ellipse at 60% 40%, hsl(217 91% 60% / 12%), transparent 70%)' }}
-                aria-hidden="true"
-              />
-              <div
-                className="relative rounded-2xl p-6 border border-border/60"
-                style={{ background: 'var(--brand-glass)', backdropFilter: 'blur(16px)' }}
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-[11px] font-semibold uppercase tracking-widest text-[var(--brand-primary)]">
-                    Industry Impact
-                  </span>
-                  <span className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-500" aria-hidden="true" />
-                    Proven Results
-                  </span>
-                </div>
+          <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
+            {data.heroSubheadline}
+          </p>
 
-                <div className="rounded-xl bg-[var(--brand-primary)] text-white px-5 py-4 mb-5">
-                  <span className="text-4xl font-bold">{data.heroStat.value}</span>
-                  <p className="text-sm font-medium opacity-90 mt-1">{data.heroStat.label}</p>
-                </div>
-
-                <p className="text-sm text-muted-foreground leading-relaxed mb-5">{data.overview}</p>
-
-                {data.benefits && data.benefits.length > 0 && (
-                  <ul className="space-y-2.5">
-                    {data.benefits.slice(0, 3).map((b, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-sm">
-                        <div className="w-4 h-4 rounded-full bg-[var(--brand-primary)]/15 flex items-center justify-center shrink-0 mt-0.5">
-                          <IconCheck className="w-2.5 h-2.5 text-[var(--brand-primary)]" />
-                        </div>
-                        <span className="text-foreground leading-snug">{b}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            </div>
-          </div>
+          <Link href="/contact" className="btn-primary">
+            Book a Free Call
+          </Link>
         </div>
       </div>
 
