@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { verifySession } from '@/backend/auth/session'
 import { listBlogPosts, createBlogPost } from '@/db/admin/blog'
+import { revalidateFrontend } from '@/backend/revalidate'
 
 export async function GET(request: NextRequest) {
   const session = await verifySession()
@@ -20,5 +21,6 @@ export async function POST(request: NextRequest) {
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   const body = await request.json()
   const id = await createBlogPost(body)
+  await revalidateFrontend('blog_posts')
   return NextResponse.json({ id }, { status: 201 })
 }
