@@ -31,7 +31,7 @@ export function SolutionIndustries() {
             Built for Every Industry
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
-            Deep domain expertise across sectors — so you work with a team that already understands your business context.
+            Deep domain expertise across sectors — a team that already understands your business.
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">

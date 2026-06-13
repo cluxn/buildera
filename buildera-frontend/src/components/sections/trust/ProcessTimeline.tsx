@@ -70,8 +70,8 @@ export function ProcessTimeline() {
             From Discovery to Delivery — A Process That Actually Works
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Most software projects fail because requirements are vague, timelines are fiction, and
-            the client finds out too late. We&apos;ve designed our process to eliminate all three.
+            Most software projects fail from vague requirements and fictional timelines.
+            Our process eliminates both.
           </p>
         </div>
 

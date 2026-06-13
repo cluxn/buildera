@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { IndustryLayout } from '@/components/layouts/IndustryLayout'
 import { getIndustryBySlug, INDUSTRY_SLUGS } from '@/data/industries/industries'
 import { generateSeoMetadata } from '@/lib/seo'
+import { fetchTestimonials } from '@/lib/api'
 
 export function generateStaticParams() {
   return INDUSTRY_SLUGS.map((slug) => ({ slug }))
@@ -27,5 +28,6 @@ export default async function IndustryPage({ params }: Props) {
   const { slug } = await params
   const data = getIndustryBySlug(slug)
   if (!data) notFound()
-  return <IndustryLayout data={data} />
+  const testimonials = await fetchTestimonials().catch(() => [])
+  return <IndustryLayout data={data} testimonials={testimonials.slice(0, 3)} />
 }

@@ -10,7 +10,7 @@ export function SolutionFeatures({ title, cards }: Props) {
         <div className="text-center mb-14">
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">The Solution</p>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">How {title} Transforms Your Business</h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">Purpose-built features that address your exact workflow — not generic software retrofitted to your needs.</p>
+          <p className="text-muted-foreground max-w-xl mx-auto">Purpose-built features for your exact workflow — not generic software retrofitted to fit.</p>
         </div>
         <StaggeredRevealGrid className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {cards.map((card, i) => (

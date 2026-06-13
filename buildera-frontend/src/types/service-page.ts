@@ -92,6 +92,7 @@ export interface IndustryPageData {
   challenges: IndustryChallenge[]
   solutions: IndustrySolutionRef[]
   services: IndustryServiceRef[]
+  faqItems: FaqItem[]
   ctaHeadline: string
 }
 

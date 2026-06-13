@@ -44,7 +44,7 @@ export function IndustryServices({ services }: Props) {
             <span className="text-[var(--brand-primary)]">Power This Industry</span>
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
-            The specific capabilities we bring to every engagement in your sector — delivered by specialists, not generalists.
+            The specific capabilities we bring to every engagement — delivered by specialists, not generalists.
           </p>
         </div>
 

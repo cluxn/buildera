@@ -4,12 +4,15 @@ import { IndustryOverview } from '@/components/sections/industry/IndustryOvervie
 import { IndustrySolutions } from '@/components/sections/industry/IndustrySolutions'
 import { IndustryServices } from '@/components/sections/industry/IndustryServices'
 import { IndustryProcess } from '@/components/sections/industry/IndustryProcess'
+import { IndustryFaq } from '@/components/sections/industry/IndustryFaq'
+import { ClientTestimonials } from '@/components/sections/ClientTestimonials'
 import { IndustryCta } from '@/components/sections/industry/IndustryCta'
 import type { IndustryPageData } from '@/types/service-page'
+import type { Testimonial } from '@/lib/api'
 
-interface Props { data: IndustryPageData }
+interface Props { data: IndustryPageData; testimonials: Testimonial[] }
 
-export function IndustryLayout({ data }: Props) {
+export function IndustryLayout({ data, testimonials }: Props) {
   return (
     <main>
       {/* 1 — Hero + stats strip */}
@@ -30,7 +33,13 @@ export function IndustryLayout({ data }: Props) {
       {/* 6 — How we work (4-step process) */}
       <IndustryProcess />
 
-      {/* 7 — CTA with trust signals */}
+      {/* 7 — Testimonials */}
+      {testimonials.length > 0 && <ClientTestimonials testimonials={testimonials} />}
+
+      {/* 8 — FAQ */}
+      <IndustryFaq items={data.faqItems} />
+
+      {/* 9 — CTA with trust signals */}
       <IndustryCta headline={data.ctaHeadline} industryName={data.name} />
     </main>
   )

@@ -30,9 +30,8 @@ export function TeamSection() {
             People Who Ship, Not Just Plan
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Our core team of engineers, designers, and strategists has shipped software across
-            manufacturing, retail, healthcare, and finance. Every client project has a dedicated
-            PM, lead dev, and QA engineer.
+            Engineers, designers, and strategists who&apos;ve shipped software across manufacturing,
+            retail, and healthcare — with a dedicated PM, lead dev, and QA on every project.
           </p>
         </div>
 

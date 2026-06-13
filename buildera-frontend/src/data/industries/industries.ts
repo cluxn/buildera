@@ -39,6 +39,12 @@ export const industries: IndustryPageData[] = [
       { categorySlug: 'ai-agent-development', label: 'AI Agent Development', description: 'Predictive maintenance alerts, demand forecasting, and automated quality checks.' },
       { categorySlug: 'devops-development', label: 'DevOps & Cloud', description: 'Secure, always-on infrastructure with real-time sensor data pipelines.' },
     ],
+    faqItems: [
+      { question: 'Can this integrate with our existing ERP, machinery, or IoT sensors?', answer: 'Yes — integration with your current ERP, plant machinery, and IoT sensors is a core part of the build, not an afterthought. We map your existing data sources during discovery and connect to them rather than asking you to rip and replace.' },
+      { question: 'How long does a manufacturing software rollout take?', answer: 'A focused production-visibility dashboard can go live in 6-8 weeks. A full MES or ERP integration typically takes 3-5 months depending on how many plant systems need connecting.' },
+      { question: 'Will production stop during implementation?', answer: 'No. We build and test against your real workflows in parallel, then roll out floor-by-floor or line-by-line. Your team keeps working on existing systems until the new one is proven.' },
+      { question: 'Can you migrate our existing spreadsheet tracking data?', answer: "Yes. Most manufacturing clients come to us with years of production data in spreadsheets — we build migration scripts to bring that history into the new system so reporting doesn't start from zero." },
+    ],
     ctaHeadline: 'Ready to Modernise Your Manufacturing Operations?',
   },
   {
@@ -79,6 +85,12 @@ export const industries: IndustryPageData[] = [
       { categorySlug: 'salesforce-development', label: 'Salesforce Development', description: 'CRM and marketing automation that turns browsers into buyers and buyers into advocates.' },
       { categorySlug: 'ai-agent-development', label: 'AI Agent Development', description: 'Automated follow-ups, personalised recommendations, and smart inventory replenishment.' },
     ],
+    faqItems: [
+      { question: 'Does this work with Shopify, WooCommerce, or our custom storefront?', answer: 'Yes. We build inventory and CRM integrations for Shopify, WooCommerce, and fully custom storefronts alike — and connect to marketplaces like Amazon and Flipkart where relevant.' },
+      { question: 'How quickly can inventory sync go live?', answer: 'A single-channel inventory sync can be live in 2-4 weeks. Multi-channel setups (online store + Amazon + Flipkart + physical POS) typically take 6-10 weeks depending on how many systems need reconciling.' },
+      { question: 'Can it handle our physical store and online channels together?', answer: "That's the point. We build a single source of truth for stock levels and orders across every channel, so your team stops manually reconciling spreadsheets at the end of each day." },
+      { question: 'What happens to our customer data during migration?', answer: 'Customer data is migrated securely with encryption in transit and at rest, and we run a verification pass to confirm record counts match before the old system is retired.' },
+    ],
     ctaHeadline: 'Ready to Grow Your Retail Revenue?',
   },
   {
@@ -116,6 +128,12 @@ export const industries: IndustryPageData[] = [
       { categorySlug: 'software-development', label: 'Custom Software Development', description: 'Property management systems, booking engines, and channel managers built for your property type.' },
       { categorySlug: 'website-development', label: 'Website Development', description: 'High-converting hotel websites with direct booking capability to reduce OTA dependence.' },
       { categorySlug: 'ai-agent-development', label: 'AI Agent Development', description: 'Automated guest messaging, dynamic pricing engines, and upsell automation.' },
+    ],
+    faqItems: [
+      { question: 'Does this integrate with our existing OTA channel manager or PMS?', answer: 'Yes — we connect to major OTA platforms (Booking.com, MakeMyTrip, Airbnb) and GDS channel managers, and can work alongside your existing PMS or replace it depending on what you need.' },
+      { question: 'How long to set up a direct booking engine?', answer: 'A direct booking engine with payment integration typically takes 4-6 weeks to launch, after which we measure the shift in direct vs OTA bookings.' },
+      { question: 'Will our front desk and housekeeping teams need retraining?', answer: 'We design around your existing operational flow rather than forcing a new one. Most front desk staff are productive within a day, with a short training session covering the new dashboard.' },
+      { question: 'How is guest data handled?', answer: 'Guest data is stored securely and used only for the communications you configure — booking confirmations, pre-arrival info, and feedback requests. No data is shared with third parties without your sign-off.' },
     ],
     ctaHeadline: 'Ready to Fill More Rooms With Less Effort?',
   },
@@ -155,6 +173,12 @@ export const industries: IndustryPageData[] = [
       { categorySlug: 'devops-development', label: 'DevOps & Cloud', description: 'High-availability, secure cloud infrastructure with automated backups and disaster recovery.' },
       { categorySlug: 'ai-agent-development', label: 'AI Agent Development', description: 'Automated reconciliation, anomaly detection, and compliance monitoring agents.' },
     ],
+    faqItems: [
+      { question: 'How do you ensure RBI, SEBI, and GST compliance?', answer: 'Compliance requirements are mapped during the discovery phase and built into the data model and audit logging from day one — not bolted on afterward. We also build in the reporting formats regulators expect.' },
+      { question: 'What security measures protect financial data?', answer: 'Bank-grade encryption at rest and in transit, role-based access controls, and a complete audit trail for every transaction and data change. Security architecture is reviewed before development starts.' },
+      { question: 'Can it integrate with UPI, NEFT, RTGS, and our banking APIs?', answer: 'Yes, payment rail integrations and reconciliation automation are a core part of most fintech builds we do — this is one of our most requested features.' },
+      { question: 'How long does a compliance-grade system take to build?', answer: 'A focused reconciliation or compliance reporting module takes 6-10 weeks. A full platform with multiple payment rails and audit infrastructure runs 4-6 months.' },
+    ],
     ctaHeadline: 'Ready to Build Compliant, Scalable Fintech Infrastructure?',
   },
   {
@@ -192,6 +216,12 @@ export const industries: IndustryPageData[] = [
       { categorySlug: 'software-development', label: 'Custom Software Development', description: 'Hospital information systems, clinic management platforms, and patient portals built for Indian healthcare workflows.' },
       { categorySlug: 'website-development', label: 'Website Development', description: 'Patient-facing websites with online appointment booking, doctor profiles, and service information.' },
       { categorySlug: 'ai-agent-development', label: 'AI Agent Development', description: 'Automated appointment reminders, symptom triage chatbots, and discharge follow-up sequences.' },
+    ],
+    faqItems: [
+      { question: 'Is the system aligned with Indian healthcare data regulations?', answer: 'Yes — we design data storage, access controls, and audit trails around Indian healthcare regulatory requirements, including DPDP Act considerations for patient data, from the architecture stage.' },
+      { question: 'Can it integrate with our existing lab or diagnostic equipment?', answer: "In most cases, yes. We assess your existing equipment's data export capabilities during discovery and build integrations or import pipelines accordingly." },
+      { question: 'How long does a hospital or clinic management system take to deploy?', answer: 'A single-clinic appointment and records system can launch in 6-8 weeks. Multi-specialty hospital deployments with billing and insurance integration typically take 3-5 months.' },
+      { question: "Will this disrupt our clinical team's existing workflow?", answer: 'We design around how your clinical staff actually work today, and roll out gradually — usually starting with front-desk and scheduling before touching clinical records.' },
     ],
     ctaHeadline: 'Ready to Digitise Your Healthcare Operations?',
   },
@@ -231,6 +261,12 @@ export const industries: IndustryPageData[] = [
       { categorySlug: 'salesforce-development', label: 'Salesforce Development', description: 'Salesforce-based HR CRM for recruitment pipelines, candidate tracking, and employee lifecycle management.' },
       { categorySlug: 'ai-agent-development', label: 'AI Agent Development', description: 'Automated onboarding workflows, policy chatbots, and engagement pulse surveys.' },
     ],
+    faqItems: [
+      { question: 'Does it handle PF, ESIC, and multi-state compliance automatically?', answer: 'Yes — compliance rules for PF, ESIC, gratuity, and state-specific labour laws are built into the payroll input and reporting logic, and updated as regulations change.' },
+      { question: 'Can it integrate with our existing payroll or accounting software?', answer: 'We integrate with most common payroll and accounting platforms used by Indian SMBs, including Tally and Zoho Books. If you use something less common, we assess feasibility during discovery.' },
+      { question: 'How long does HRMS implementation take?', answer: 'A focused module — onboarding, leave management, or payroll input automation — typically takes 6-8 weeks. A full HRMS covering the employee lifecycle runs 3-4 months.' },
+      { question: 'Will employees be able to use this themselves, or is it admin-only?', answer: 'Employee self-service is standard — leave requests, payslips, and policy access are available via web and mobile, which is what drives the reduction in HR queries.' },
+    ],
     ctaHeadline: 'Ready to Build an HR System Your Team Will Actually Use?',
   },
   {
@@ -268,6 +304,12 @@ export const industries: IndustryPageData[] = [
       { categorySlug: 'software-development', label: 'Custom Software Development', description: 'Custom LMS platforms, student portals, batch management systems, and assessment engines.' },
       { categorySlug: 'website-development', label: 'Website Development', description: 'Admission-optimised websites with course listings, fee payment, and counsellor contact integration.' },
       { categorySlug: 'ai-agent-development', label: 'AI Agent Development', description: 'Automated lead nurturing for admissions, personalised course recommendations, and progress tracking.' },
+    ],
+    faqItems: [
+      { question: 'Can this scale from a few hundred to tens of thousands of students?', answer: 'Yes — the architecture is built for that scaling from the start. We design the database and infrastructure to handle growth in enrolments without a re-platform later.' },
+      { question: 'Does it integrate with payment gateways for fee collection?', answer: 'Yes. We integrate with standard Indian payment gateways such as Razorpay, PayU, and Cashfree, and reconcile payments against enrolments automatically.' },
+      { question: 'How long to launch an LMS or student portal?', answer: 'A core LMS with course delivery, student portal, and fee payment typically launches in 8-12 weeks, with batch management and reporting added in subsequent phases.' },
+      { question: 'Can we migrate our existing course content and student records?', answer: 'Yes — we build migration scripts for existing student databases and help structure your existing recorded content into the new platform.' },
     ],
     ctaHeadline: 'Ready to Scale Your Education Business Without Scaling Your Admin Team?',
   },
@@ -307,6 +349,12 @@ export const industries: IndustryPageData[] = [
       { categorySlug: 'ai-agent-development', label: 'AI Agent Development', description: 'Contract review automation, deadline alerting, and document classification agents.' },
       { categorySlug: 'website-development', label: 'Website Development', description: 'Professional law firm websites with client intake forms and service area pages.' },
     ],
+    faqItems: [
+      { question: 'How is client confidentiality protected?', answer: 'Role-based access controls restrict matter visibility to assigned team members, all access is logged, and data is encrypted at rest and in transit — confidentiality is a design requirement, not an add-on.' },
+      { question: 'Can it integrate with our existing document management or email systems?', answer: 'Yes — we connect to common document storage like Google Drive, SharePoint, or local file servers, and can pull in email communications for matter timelines where needed.' },
+      { question: 'How long does a matter management system take to build?', answer: 'A focused matter tracking and deadline management system typically takes 6-8 weeks. Adding document automation and billing extends that to 3-4 months.' },
+      { question: 'Does it automatically track court dates and filing deadlines?', answer: 'Yes — deadline tracking with automated alerts is core to the system, designed specifically to prevent the missed-deadline scenarios that create professional liability.' },
+    ],
     ctaHeadline: 'Ready to Build a Legal Practice That Runs on Systems, Not Heroics?',
   },
   {
@@ -344,6 +392,12 @@ export const industries: IndustryPageData[] = [
       { categorySlug: 'software-development', label: 'Custom Software Development', description: 'Carbon tracking platforms, ESG dashboards, and energy management systems with regulatory-grade reporting.' },
       { categorySlug: 'devops-development', label: 'DevOps & Cloud', description: 'IoT data pipelines, sensor integration, and scalable cloud infrastructure for real-time environmental monitoring.' },
       { categorySlug: 'ai-agent-development', label: 'AI Agent Development', description: 'Automated data collection from disparate sources, anomaly detection, and ESG report generation.' },
+    ],
+    faqItems: [
+      { question: 'Can it integrate with our existing IoT sensors and monitoring equipment?', answer: "Yes — sensor integration and data pipeline design is a core part of these builds. We assess your existing hardware's data output during discovery and build the ingestion pipeline around it." },
+      { question: 'Does it support BRSR, GRI, or other ESG reporting frameworks?', answer: "Yes — we build reporting templates around the specific frameworks you need to comply with, whether that's BRSR, GRI, or a custom investor reporting format." },
+      { question: 'How long does an ESG reporting dashboard take to build?', answer: 'A dashboard covering one or two data sources typically takes 6-10 weeks. Multi-site, multi-source deployments with automated report generation run 3-5 months.' },
+      { question: 'Can it pull data automatically from multiple sites or partner organisations?', answer: 'Yes — automated data collection from distributed sources is the main problem this kind of system solves. We build connectors for sensors, spreadsheets, and partner APIs into a single pipeline.' },
     ],
     ctaHeadline: 'Ready to Build the Data Infrastructure Your Sustainability Mission Demands?',
   },
@@ -383,6 +437,12 @@ export const industries: IndustryPageData[] = [
       { categorySlug: 'salesforce-development', label: 'Salesforce Development', description: 'Salesforce Financial Services Cloud implementation for unified customer view and automated renewal workflows.' },
       { categorySlug: 'ai-agent-development', label: 'AI Agent Development', description: 'Automated lead follow-up sequences, document extraction from claims, and renewal reminder agents.' },
     ],
+    faqItems: [
+      { question: 'Does it support IRDAI compliance and audit trail requirements?', answer: 'Yes — audit logging and compliance reporting are built into the data model from the start, designed to satisfy IRDAI inspection requirements.' },
+      { question: 'Can it integrate with our existing policy administration system?', answer: "In most cases, yes — we assess your current system's APIs or data export options during discovery and build integrations rather than requiring a full replacement." },
+      { question: 'How long does a claims automation rollout take?', answer: 'A focused claims tracking and document collection module typically takes 6-8 weeks. Full claims automation with approval workflows runs 3-4 months.' },
+      { question: 'Can it automate lead follow-up within the 24-hour conversion window?', answer: 'Yes — automated lead routing and follow-up sequences are one of the most common modules we build for insurance brokers, designed specifically to close that response-time gap.' },
+    ],
     ctaHeadline: 'Ready to Modernise Your Insurance Operations?',
   },
   {
@@ -420,6 +480,12 @@ export const industries: IndustryPageData[] = [
       { categorySlug: 'software-development', label: 'Custom Software Development', description: 'SaaS platforms, API development, and product engineering with architecture that scales.' },
       { categorySlug: 'devops-development', label: 'DevOps & Cloud', description: 'CI/CD pipelines, Kubernetes infrastructure, and cloud cost optimisation for high-growth products.' },
       { categorySlug: 'hire-a-developer', label: 'Hire a Developer', description: 'Dedicated senior engineers who integrate into your product team and ship from day one.' },
+    ],
+    faqItems: [
+      { question: 'Can you work alongside our existing engineering team?', answer: "Yes — most of our SaaS engagements are exactly that. We integrate into your existing sprint process and codebase rather than rebuilding from scratch, with senior engineers who can own architecture decisions, not just tickets." },
+      { question: 'How do you handle existing technical debt?', answer: 'We start with an architecture review to identify the highest-leverage fixes — the debt that\'s actively slowing your velocity — and tackle that first, rather than a ground-up rewrite that stalls feature delivery for months.' },
+      { question: 'Can you integrate with Salesforce, SAP, Tally, Zoho, or other enterprise systems our customers require?', answer: "Yes — enterprise integrations are one of our core strengths, and we've built connectors for 40+ systems including Salesforce, SAP, Tally, and Zoho." },
+      { question: 'Do you provide ongoing DevOps and infrastructure support, or just development?', answer: 'Both. CI/CD pipelines, cloud infrastructure, and cost optimisation are built in from the first sprint, and we offer ongoing infrastructure support after launch if you need it.' },
     ],
     ctaHeadline: 'Ready to Build Software That Scales?',
   },

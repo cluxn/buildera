@@ -38,7 +38,7 @@ export function IndustryChallenges({ challenges, industryName }: Props) {
             The Problems We Solve Every Day
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed">
-            These are the operational bottlenecks we hear from {industryName} businesses week after week. If any resonate, we already know how to fix them.
+            Bottlenecks we hear from {industryName} businesses every week — if any resonate, we already know how to fix them.
           </p>
         </div>
 

@@ -77,7 +77,7 @@ export function IndustrySolutions({ solutions }: Props) {
             Purpose-Built Software for Your Industry
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
-            Pre-scoped software modules designed around the exact workflows and data your industry runs on — ready to customise, not start from scratch.
+            Pre-scoped modules built around your industry&apos;s workflows — ready to customise, not start from scratch.
           </p>
         </div>
 
