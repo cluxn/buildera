@@ -1,11 +1,11 @@
 import { TestimonialCard } from '@/components/ui/TestimonialCard'
-import type { TestimonialData } from '@/types/service-page'
+import type { Testimonial } from '@/lib/api'
 
 interface Props {
-  testimonials: TestimonialData[]
+  testimonials: Testimonial[]
 }
 
-export function ServiceTestimonials({ testimonials }: Props) {
+export function ClientTestimonials({ testimonials }: Props) {
   if (!testimonials.length) return null
 
   return (
@@ -13,7 +13,7 @@ export function ServiceTestimonials({ testimonials }: Props) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
-            Client Results
+            CLIENT RESULTS
           </p>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
             Trusted by Businesses Like Yours
@@ -26,10 +26,10 @@ export function ServiceTestimonials({ testimonials }: Props) {
           {testimonials.map((t) => (
             <TestimonialCard
               key={t.id}
-              quote={t.content}
-              name={t.client_name}
-              title={t.client_title ?? ''}
-              company={t.client_company ?? ''}
+              quote={t.quote}
+              name={t.person_name}
+              title={t.person_title ?? ''}
+              company={t.company ?? ''}
               rating={t.rating}
             />
           ))}

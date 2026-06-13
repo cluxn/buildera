@@ -4,13 +4,14 @@ import { SolutionFeatures } from '@/components/sections/solution/SolutionFeature
 import { SolutionIndustries } from '@/components/sections/solution/SolutionIndustries'
 import { SolutionRelatedServices } from '@/components/sections/solution/SolutionRelatedServices'
 import { SolutionCaseStudy } from '@/components/sections/solution/SolutionCaseStudy'
-import { SolutionTestimonials } from '@/components/sections/solution/SolutionTestimonials'
+import { ClientTestimonials } from '@/components/sections/ClientTestimonials'
 import { SolutionCta } from '@/components/sections/solution/SolutionCta'
-import type { SolutionPageData, TestimonialData, CaseStudyData } from '@/types/service-page'
+import type { SolutionPageData, CaseStudyData } from '@/types/service-page'
+import type { Testimonial } from '@/lib/api'
 
 interface Props {
   data: SolutionPageData
-  testimonials: TestimonialData[]
+  testimonials: Testimonial[]
   caseStudy: CaseStudyData | null
 }
 
@@ -23,7 +24,7 @@ export function SolutionDetailLayout({ data, testimonials, caseStudy }: Props) {
       <SolutionIndustries />
       <SolutionRelatedServices services={data.relatedServices} />
       {caseStudy && <SolutionCaseStudy caseStudy={caseStudy} />}
-      {testimonials.length > 0 && <SolutionTestimonials testimonials={testimonials} />}
+      {testimonials.length > 0 && <ClientTestimonials testimonials={testimonials} />}
       <SolutionCta headline={data.ctaHeadline} />
     </main>
   )

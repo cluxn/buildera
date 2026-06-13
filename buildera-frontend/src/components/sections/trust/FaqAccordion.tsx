@@ -68,12 +68,51 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
 ]
 
-const LEFT_FAQS = FAQ_ITEMS.slice(0, 6)
-const RIGHT_FAQS = FAQ_ITEMS.slice(6)
+interface Props {
+  items?: FaqItem[]
+  singleColumn?: boolean
+}
 
-export function FaqAccordion() {
+export function FaqAccordion({ items = FAQ_ITEMS, singleColumn = false }: Props) {
+  if (singleColumn) {
+    return (
+      <section className="py-20 bg-[var(--brand-surface)]">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
+              FAQ
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed">
+              The questions we get on every sales call — answered honestly.
+            </p>
+          </div>
+
+          <Accordion>
+            {items.map((item, i) => (
+              <AccordionItem key={i} value={`faq-${i}`}>
+                <AccordionTrigger className="text-base font-semibold text-left">
+                  {item.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-sm text-muted-foreground leading-relaxed">
+                  {item.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </section>
+    )
+  }
+
+  const half = Math.ceil(items.length / 2)
+  const LEFT_FAQS = items.slice(0, half)
+  const RIGHT_FAQS = items.slice(half)
+
   return (
-    <section className="py-20 bg-background">
+    <section className="py-20 bg-[var(--brand-surface)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">

@@ -160,17 +160,17 @@ export async function fetchSettings(): Promise<Settings> {
   } as RequestInit).catch(() => SETTINGS_FALLBACK)
 }
 
-import type { TestimonialData, CaseStudyData } from '@/types/service-page'
+import type { CaseStudyData } from '@/types/service-page'
 
 export async function fetchTestimonials(
   filters: { service?: string; solution?: string; industry?: string } = {}
-): Promise<TestimonialData[]> {
+): Promise<Testimonial[]> {
   const params = new URLSearchParams()
   if (filters.service) params.set('service', filters.service)
   if (filters.solution) params.set('solution', filters.solution)
   if (filters.industry) params.set('industry', filters.industry)
   const query = params.toString() ? `?${params.toString()}` : ''
-  return fetchFromApi<TestimonialData[]>(`/api/testimonials${query}`, {
+  return fetchFromApi<Testimonial[]>(`/api/testimonials${query}`, {
     next: { tags: ['testimonials'], revalidate: 3600 },
   } as RequestInit).catch(() => [])
 }
@@ -245,9 +245,9 @@ export type GuideDetail = Guide & { body: string; external_link: string | null; 
 export type GuideListResponse = { data: Guide[]; current_page: number; last_page: number; per_page: number; total: number }
 
 export type Testimonial = {
-  id: number; quote: string; client_name: string; job_title: string | null;
-  company: string | null; company_logo: string | null;
-  star_rating: number; service_category: string | null; industry: string | null; is_featured: boolean;
+  id: number; quote: string; person_name: string; person_title: string | null;
+  company: string | null; logo_url: string | null;
+  rating: number; service_category: string | null; industry: string | null; featured: number;
 }
 
 export async function getContentCaseStudies(page = 1, industry?: string, q?: string, sort?: string): Promise<ContentCaseStudyListResponse> {

@@ -7,15 +7,16 @@ import { ServiceProcess } from '@/components/sections/service/ServiceProcess'
 import { ServiceMidCta } from '@/components/sections/service/ServiceMidCta'
 import { TechShowcase } from '@/components/sections/service/TechShowcase'
 import { ServiceCaseStudy } from '@/components/sections/service/ServiceCaseStudy'
-import { ServiceTestimonials } from '@/components/sections/service/ServiceTestimonials'
+import { ClientTestimonials } from '@/components/sections/ClientTestimonials'
 import { ServiceIndustries } from '@/components/sections/service/ServiceIndustries'
 import { ServiceFaq } from '@/components/sections/service/ServiceFaq'
 import { ServiceCta } from '@/components/sections/service/ServiceCta'
-import type { ServicePageData, TestimonialData, CaseStudyData } from '@/types/service-page'
+import type { ServicePageData, CaseStudyData } from '@/types/service-page'
+import type { Testimonial } from '@/lib/api'
 
 interface Props {
   data: ServicePageData
-  testimonials: TestimonialData[]
+  testimonials: Testimonial[]
   caseStudy: CaseStudyData | null
 }
 
@@ -48,7 +49,7 @@ export function ServiceDetailLayout({ data, testimonials, caseStudy }: Props) {
       {caseStudy && <ServiceCaseStudy caseStudy={caseStudy} />}
 
       {/* 10 — Testimonials (bg: background) */}
-      {testimonials.length > 0 && <ServiceTestimonials testimonials={testimonials} />}
+      {testimonials.length > 0 && <ClientTestimonials testimonials={testimonials} />}
 
       {/* 11 — Industries (bg: surface) */}
       <ServiceIndustries />

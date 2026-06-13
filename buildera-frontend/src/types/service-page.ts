@@ -59,15 +59,6 @@ export interface SolutionPageData {
   ctaHeadline: string
 }
 
-export interface TestimonialData {
-  id: number
-  client_name: string
-  client_title?: string
-  client_company?: string
-  content: string
-  rating: number
-}
-
 export interface IndustryChallenge {
   title: string
   description: string
