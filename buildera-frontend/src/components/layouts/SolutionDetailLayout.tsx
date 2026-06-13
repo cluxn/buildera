@@ -1,6 +1,7 @@
 import { SolutionHero } from '@/components/sections/solution/SolutionHero'
 import { SolutionProblem } from '@/components/sections/solution/SolutionProblem'
 import { SolutionFeatures } from '@/components/sections/solution/SolutionFeatures'
+import { SolutionPreviewSection } from '@/components/sections/solution/SolutionPreviewSection'
 import { SolutionIndustries } from '@/components/sections/solution/SolutionIndustries'
 import { SolutionRelatedServices } from '@/components/sections/solution/SolutionRelatedServices'
 import { SolutionCaseStudy } from '@/components/sections/solution/SolutionCaseStudy'
@@ -21,6 +22,7 @@ export function SolutionDetailLayout({ data, testimonials, caseStudy }: Props) {
       <SolutionHero data={data} />
       <SolutionProblem points={data.problemPoints} />
       <SolutionFeatures title={data.title} cards={data.featureCards} />
+      <SolutionPreviewSection title={data.title} />
       <SolutionIndustries />
       <SolutionRelatedServices services={data.relatedServices} />
       {caseStudy && <SolutionCaseStudy caseStudy={caseStudy} />}
