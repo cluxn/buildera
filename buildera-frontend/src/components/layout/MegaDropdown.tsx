@@ -67,6 +67,7 @@ interface IndustryItem {
 interface SolutionItem {
   label: string
   href: string
+  desc: string
   icon: IconComponent
 }
 
@@ -99,20 +100,20 @@ const INDUSTRIES_NAV: IndustryItem[] = [
 ]
 
 const SOLUTION_NAV_FALLBACK: SolutionItem[] = [
-  { label: "Operations Management",     href: "/solutions/operations-management",   icon: IconLayoutDashboard },
-  { label: "Supply Chain",              href: "/solutions/supply-chain",            icon: IconTruck },
-  { label: "Warehouse Management",      href: "/solutions/warehouse-management",    icon: IconBuildingWarehouse },
-  { label: "HR Management",             href: "/solutions/hr-management",           icon: IconUsers },
-  { label: "CRM",                       href: "/solutions/crm",                     icon: IconAddressBook },
-  { label: "Sales Management",          href: "/solutions/sales-management",        icon: IconChartBar },
-  { label: "Lead Management",           href: "/solutions/lead-management",         icon: IconTarget },
-  { label: "ERP",                       href: "/solutions/erp",                     icon: IconDatabase },
-  { label: "Financial Management",      href: "/solutions/financial-management",    icon: IconWallet },
-  { label: "Project Management",        href: "/solutions/project-management",      icon: IconChecklist },
-  { label: "IndiaMart Automation",      href: "/solutions/india-mart-automation",   icon: IconRobot },
-  { label: "Manufacturing & Production",href: "/solutions/manufacturing-production",icon: IconTool },
-  { label: "Inventory Management",      href: "/solutions/inventory-management",    icon: IconPackage },
-  { label: "Liquor Shop Management",    href: "/solutions/liquor-shop-management",  icon: IconBottle },
+  { label: "Operations Management",     href: "/solutions/operations-management",   desc: "Workflow automation & process control",    icon: IconLayoutDashboard },
+  { label: "Supply Chain",              href: "/solutions/supply-chain",            desc: "End-to-end procurement & logistics",       icon: IconTruck },
+  { label: "Warehouse Management",      href: "/solutions/warehouse-management",    desc: "Stock tracking & fulfillment",             icon: IconBuildingWarehouse },
+  { label: "HR Management",             href: "/solutions/hr-management",           desc: "Payroll, leave & employee records",        icon: IconUsers },
+  { label: "CRM",                       href: "/solutions/crm",                     desc: "Customer tracking & relationship tools",   icon: IconAddressBook },
+  { label: "Sales Management",          href: "/solutions/sales-management",        desc: "Pipeline, deals & performance",            icon: IconChartBar },
+  { label: "Lead Management",           href: "/solutions/lead-management",         desc: "Capture, qualify & nurture leads",         icon: IconTarget },
+  { label: "ERP",                       href: "/solutions/erp",                     desc: "Unified business operations platform",     icon: IconDatabase },
+  { label: "Financial Management",      href: "/solutions/financial-management",    desc: "Accounts, invoicing & reporting",          icon: IconWallet },
+  { label: "Project Management",        href: "/solutions/project-management",      desc: "Tasks, timelines & team delivery",         icon: IconChecklist },
+  { label: "IndiaMart Automation",      href: "/solutions/india-mart-automation",   desc: "Auto-sync leads from IndiaMart",           icon: IconRobot },
+  { label: "Manufacturing & Production",href: "/solutions/manufacturing-production",desc: "Shop floor & production planning",         icon: IconTool },
+  { label: "Inventory Management",      href: "/solutions/inventory-management",    desc: "Real-time stock & reorder control",        icon: IconPackage },
+  { label: "Liquor Shop Management",    href: "/solutions/liquor-shop-management",  desc: "Daily sales, stock & compliance",          icon: IconBottle },
 ]
 
 const WORK_NAV_FALLBACK: WorkItem[] = [
@@ -264,9 +265,9 @@ export function MegaDropdown({
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4 px-1">
                   Solutions We Deliver
                 </p>
-                <div className="grid grid-cols-3 gap-2.5">
+                <div className="grid grid-cols-3 gap-3">
                   {(solutionItems.length > 0
-                    ? solutionItems.map((item) => ({ label: item.label, href: item.url, icon: IconArrowRight as IconComponent }))
+                    ? solutionItems.map((item) => ({ label: item.label, href: item.url, desc: "", icon: IconArrowRight as IconComponent }))
                     : SOLUTION_NAV_FALLBACK
                   ).map((item) => {
                     const Icon = item.icon
@@ -274,14 +275,19 @@ export function MegaDropdown({
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[var(--brand-surface)] transition-colors group"
+                        className="flex items-start gap-3 p-4 rounded-lg hover:bg-[var(--brand-surface)] transition-colors group"
                       >
-                        <div className="w-7 h-7 rounded-md bg-[var(--brand-surface)] group-hover:bg-[var(--brand-primary)] flex items-center justify-center flex-shrink-0 transition-colors">
+                        <div className="w-7 h-7 rounded-md bg-[var(--brand-surface)] group-hover:bg-[var(--brand-primary)] flex items-center justify-center flex-shrink-0 transition-colors mt-0.5">
                           <Icon className="size-4 text-[var(--brand-primary)] group-hover:text-white transition-colors" />
                         </div>
-                        <span className="text-sm font-medium text-foreground group-hover:text-[var(--brand-primary)] transition-colors leading-tight">
-                          {item.label}
-                        </span>
+                        <div className="min-w-0">
+                          <p className="text-sm font-semibold text-foreground group-hover:text-[var(--brand-primary)] transition-colors leading-tight">
+                            {item.label}
+                          </p>
+                          {item.desc && (
+                            <p className="text-xs text-muted-foreground mt-0.5 leading-snug">{item.desc}</p>
+                          )}
+                        </div>
                       </Link>
                     )
                   })}
