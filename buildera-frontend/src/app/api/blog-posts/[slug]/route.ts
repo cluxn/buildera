@@ -6,11 +6,10 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ slu
   const post = await getBlogPostBySlug(slug).catch(() => null)
   if (!post) return NextResponse.json({ error: 'Not found' }, { status: 404 })
 
-  const bodyText = ((post as Record<string, unknown>).content as string) ?? ''
+  const p = post as unknown as Record<string, unknown>
+  const bodyText = (p.content as string) ?? ''
   const wordCount = bodyText.replace(/<[^>]+>/g, '').split(/\s+/).filter(Boolean).length
   const readingTime = Math.max(1, Math.ceil(wordCount / 200))
-
-  const p = post as Record<string, unknown>
   const mapped = {
     id: p.id,
     title: p.title,

@@ -1,7 +1,9 @@
 import type { MetadataRoute } from 'next'
+import { listPublicBlogPosts } from '@/db/admin/blog'
+import { listPublicCaseStudies } from '@/db/admin/case-studies'
+import { listPublicLeadMagnets } from '@/db/admin/lead-magnets'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://buildera.co'
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? ''
 
 const SERVICE_PATHS: string[] = [
   '/services/website-development/custom-websites',
@@ -97,51 +99,36 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticEntries: MetadataRoute.Sitemap = STATIC_PATHS.map((path) => ({
     url: `${SITE_URL}${path}`,
     lastModified: new Date(),
-    changeFrequency: path === '/' ? 'weekly' : (path.startsWith('/services/') && path.split('/').length === 4 ? 'monthly' : 'monthly') as MetadataRoute.Sitemap[number]['changeFrequency'],
+    changeFrequency: path === '/' ? 'weekly' : 'monthly' as MetadataRoute.Sitemap[number]['changeFrequency'],
     priority: path === '/' ? 1.0 : path.startsWith('/services/') && path.split('/').length === 4 ? 0.9 : 0.8,
   }))
 
-  let blogEntries: MetadataRoute.Sitemap = []
-  try {
-    const res = await fetch(`${API_URL}/api/blog-posts?per_page=200`, {
-      next: { tags: ['blog_posts'], revalidate: 3600 },
-    })
-    const data = await res.json() as { data?: Array<{ slug: string; updated_at?: string }> }
-    blogEntries = (data.data ?? []).map((post) => ({
-      url: `${SITE_URL}/blog/${post.slug}`,
-      lastModified: post.updated_at ? new Date(post.updated_at) : new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.7,
-    }))
-  } catch { /* fail gracefully */ }
+  const [blogResult, csResult, guidesResult] = await Promise.all([
+    listPublicBlogPosts(1, 200).catch(() => ({ data: [] as Array<{ slug: string; updated_at?: string }> })),
+    listPublicCaseStudies(1, 200).catch(() => ({ rows: [] as Array<{ slug: string; updated_at?: string }> })),
+    listPublicLeadMagnets(1, 200).catch(() => ({ rows: [] as Array<{ slug: string; updated_at?: string }> })),
+  ])
 
-  let caseStudyEntries: MetadataRoute.Sitemap = []
-  try {
-    const res = await fetch(`${API_URL}/api/case-studies?per_page=200`, {
-      next: { tags: ['case_studies'], revalidate: 3600 },
-    })
-    const data = await res.json() as { data?: Array<{ slug: string; updated_at?: string }> }
-    caseStudyEntries = (data.data ?? []).map((cs) => ({
-      url: `${SITE_URL}/case-studies/${cs.slug}`,
-      lastModified: cs.updated_at ? new Date(cs.updated_at) : new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    }))
-  } catch {}
+  const blogEntries: MetadataRoute.Sitemap = (blogResult.data ?? []).map((p) => ({
+    url: `${SITE_URL}/blog/${p.slug}`,
+    lastModified: p.updated_at ? new Date(p.updated_at) : new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.7,
+  }))
 
-  let guideEntries: MetadataRoute.Sitemap = []
-  try {
-    const res = await fetch(`${API_URL}/api/guides?per_page=200`, {
-      next: { tags: ['guides'], revalidate: 3600 },
-    })
-    const data = await res.json() as { data?: Array<{ slug: string; updated_at?: string }> }
-    guideEntries = (data.data ?? []).map((g) => ({
-      url: `${SITE_URL}/guides/${g.slug}`,
-      lastModified: g.updated_at ? new Date(g.updated_at) : new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    }))
-  } catch {}
+  const caseStudyEntries: MetadataRoute.Sitemap = (csResult.rows ?? []).map((c) => ({
+    url: `${SITE_URL}/case-studies/${c.slug}`,
+    lastModified: c.updated_at ? new Date(c.updated_at) : new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
+
+  const guideEntries: MetadataRoute.Sitemap = (guidesResult.rows ?? []).map((g) => ({
+    url: `${SITE_URL}/guides/${g.slug}`,
+    lastModified: g.updated_at ? new Date(g.updated_at) : new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
 
   return [...staticEntries, ...blogEntries, ...caseStudyEntries, ...guideEntries]
 }

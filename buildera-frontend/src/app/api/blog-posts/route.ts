@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { listPublicBlogPosts } from '@/db/admin/blog'
+import { listPublicBlogPosts, type BlogPost } from '@/db/admin/blog'
 
 export async function GET(request: NextRequest) {
   const sp = request.nextUrl.searchParams
@@ -14,7 +14,9 @@ export async function GET(request: NextRequest) {
 
   const mapped = {
     ...result,
-    data: result.data.map((p: Record<string, unknown>) => ({
+    data: result.data.map((post: BlogPost) => {
+      const p = post as unknown as Record<string, unknown>
+      return {
       id: p.id,
       title: p.title,
       slug: p.slug,
@@ -26,7 +28,8 @@ export async function GET(request: NextRequest) {
       reading_time: 5,
       published_at: p.published_at ?? '',
       author: p.author_name ? { name: p.author_name, avatar: null } : null,
-    })),
+      }
+    }),
   }
 
   return NextResponse.json(mapped, {

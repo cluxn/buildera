@@ -1,3 +1,27 @@
+import 'server-only'
+import { getAllSettings } from '@/db/admin/settings'
+import { query } from '@/db/pool'
+import { getSeoMeta } from '@/db/admin/seo'
+import { listPublicTestimonials } from '@/db/admin/testimonials'
+import {
+  listPublicCaseStudies,
+  getCaseStudyBySlug,
+  toContentCaseStudy,
+  toContentCaseStudyDetail,
+} from '@/db/admin/case-studies'
+import {
+  listPublicBlogPosts,
+  getBlogPostBySlug as dbGetBlogPostBySlug,
+} from '@/db/admin/blog'
+import { listCategories } from '@/db/admin/categories'
+import {
+  listPublicLeadMagnets,
+  getLeadMagnetBySlug,
+  toGuide,
+  toGuideDetail,
+} from '@/db/admin/lead-magnets'
+import type { CaseStudyData } from '@/types/service-page'
+
 export class ApiError extends Error {
   constructor(
     public readonly status: number,
@@ -8,11 +32,11 @@ export class ApiError extends Error {
   }
 }
 
+// fetchFromApi kept for client-side use (search widget) — requires an absolute base URL
 export async function fetchFromApi<T>(
   path: string,
   options?: RequestInit,
 ): Promise<T> {
-  // When NEXT_PUBLIC_API_URL is empty, calls are same-origin (Next.js API routes)
   const base = process.env.NEXT_PUBLIC_API_URL ?? ''
   const res = await fetch(`${base}${path}`, options);
   if (!res.ok) {
@@ -41,89 +65,10 @@ export interface FooterLink {
   display_order: number
 }
 
-export interface Settings {
-  company_name: string
-  company_email: string
-  company_phone: string
-  company_address: string
-  calendly_url: string
-  whatsapp_number: string
-  whatsapp_enabled: boolean
-  linkedin_url: string
-  instagram_url: string
-  twitter_url: string
-  footer_tagline: string
-  stat_projects: string
-  stat_clients: string
-  stat_years: string
-  stat_satisfaction: string
-  // SEO defaults
-  default_seo_title: string
-  default_seo_description: string
-  og_image: string
-  // Popup settings
-  popup_exit_enabled: boolean
-  popup_exit_headline: string
-  popup_exit_subtext: string
-  popup_exit_cta: string
-  popup_idle_enabled: boolean
-  popup_idle_headline: string
-  popup_idle_subtext: string
-  // Nudge banner settings
-  nudge_banner_enabled: boolean
-  nudge_banner_text: string
-  nudge_banner_link: string
-  nudge_banner_expires_at: string
-  // Analytics & Scripts
-  ga4_measurement_id: string
-  clarity_project_id: string
-  facebook_pixel_id: string
-  linkedin_insight_id: string
-  google_ads_conversion_id: string
-  gsc_verification_tag: string
-  custom_head_scripts: string
-  custom_body_scripts: string
-}
-
-export const SETTINGS_FALLBACK: Settings = {
-  company_name: 'Buildera',
-  company_email: '',
-  company_phone: '',
-  company_address: '',
-  calendly_url: '',
-  whatsapp_number: '',
-  whatsapp_enabled: false,
-  linkedin_url: '',
-  instagram_url: '',
-  twitter_url: '',
-  footer_tagline: 'Building technology that grows businesses.',
-  stat_projects: '800',
-  stat_clients: '500',
-  stat_years: '10',
-  stat_satisfaction: '98',
-  default_seo_title: 'Buildera — IT Services & Custom Software Development',
-  default_seo_description: 'Buildera builds custom software, Salesforce solutions, DevOps pipelines, and AI agents for growing businesses.',
-  og_image: '',
-  popup_exit_enabled: false,
-  popup_exit_headline: '',
-  popup_exit_subtext: '',
-  popup_exit_cta: '',
-  popup_idle_enabled: false,
-  popup_idle_headline: '',
-  popup_idle_subtext: '',
-  nudge_banner_enabled: false,
-  nudge_banner_text: '',
-  nudge_banner_link: '',
-  nudge_banner_expires_at: '',
-  ga4_measurement_id: '',
-  clarity_project_id: '',
-  facebook_pixel_id: '',
-  linkedin_insight_id: '',
-  google_ads_conversion_id: '',
-  gsc_verification_tag: '',
-  custom_head_scripts: '',
-  custom_body_scripts: '',
-}
+export type { Settings } from '@/lib/settings-fallback'
+export { SETTINGS_FALLBACK } from '@/lib/settings-fallback'
+import type { Settings } from '@/lib/settings-fallback'
+import { SETTINGS_FALLBACK } from '@/lib/settings-fallback'
 
 export interface SeoMeta {
   page_type: string
@@ -136,56 +81,116 @@ export interface SeoMeta {
   schema_json: Record<string, unknown> | null
 }
 
+function seoPath(type: string, slug: string): string {
+  switch (type) {
+    case 'homepage': return '/'
+    case 'industry': return `/industries/${slug}`
+    case 'service': return `/services/${slug}`
+    case 'solution': return `/solutions/${slug}`
+    case 'blog_post': return `/blog/${slug}`
+    case 'guide': return `/guides/${slug}`
+    case 'case_study': return `/case-studies/${slug}`
+    default: return `/${slug}`
+  }
+}
+
 export async function fetchSeoMeta(type: string, slug: string): Promise<SeoMeta | null> {
-  return fetchFromApi<SeoMeta>(`/api/seo/${type}/${slug}`, {
-    next: { tags: ['seo_metas'], revalidate: 3600 },
-  } as RequestInit).catch(() => null)
+  const row = await getSeoMeta(seoPath(type, slug)).catch(() => null)
+  if (!row) return null
+  return {
+    page_type: type,
+    page_slug: slug,
+    title: row.meta_title,
+    description: row.meta_description,
+    og_image: row.og_image,
+    canonical_url: row.canonical_url,
+    robots: row.noindex ? 'noindex,nofollow' : 'index,follow',
+    schema_json: null,
+  }
 }
 
 export async function fetchNavItems(): Promise<NavItem[]> {
-  return fetchFromApi<NavItem[]>('/api/nav-items', {
-    next: { tags: ['nav-items'] },
-  } as RequestInit).catch(() => [])
+  return query<NavItem>(
+    'SELECT id, label, url, `group`, display_order FROM nav_items WHERE is_active = 1 ORDER BY display_order ASC'
+  ).catch(() => [])
 }
 
 export async function fetchFooterLinks(): Promise<FooterLink[]> {
-  return fetchFromApi<FooterLink[]>('/api/footer-links', {
-    next: { tags: ['footer-links'] },
-  } as RequestInit).catch(() => [])
+  return query<FooterLink>(
+    'SELECT id, label, url, `column`, display_order FROM footer_links WHERE is_active = 1 ORDER BY display_order ASC'
+  ).catch(() => [])
 }
 
 export async function fetchSettings(): Promise<Settings> {
-  return fetchFromApi<Settings>('/api/settings', {
-    next: { tags: ['settings'] },
-  } as RequestInit).catch(() => SETTINGS_FALLBACK)
+  const raw = await getAllSettings().catch(() => ({} as Record<string, string>))
+  const bool = (key: string) => raw[key] === '1' || raw[key] === 'true'
+  return {
+    company_name: raw.company_name || SETTINGS_FALLBACK.company_name,
+    company_email: raw.company_email || '',
+    company_phone: raw.company_phone || '',
+    company_address: raw.company_address || '',
+    calendly_url: raw.calendly_url || '',
+    whatsapp_number: raw.whatsapp_number || '',
+    whatsapp_enabled: bool('whatsapp_enabled'),
+    linkedin_url: raw.linkedin_url || '',
+    instagram_url: raw.instagram_url || '',
+    twitter_url: raw.twitter_url || '',
+    footer_tagline: raw.footer_tagline || SETTINGS_FALLBACK.footer_tagline,
+    stat_projects: raw.stat_projects || SETTINGS_FALLBACK.stat_projects,
+    stat_clients: raw.stat_clients || SETTINGS_FALLBACK.stat_clients,
+    stat_years: raw.stat_years || SETTINGS_FALLBACK.stat_years,
+    stat_satisfaction: raw.stat_satisfaction || SETTINGS_FALLBACK.stat_satisfaction,
+    default_seo_title: raw.default_seo_title || SETTINGS_FALLBACK.default_seo_title,
+    default_seo_description: raw.default_seo_description || SETTINGS_FALLBACK.default_seo_description,
+    og_image: raw.og_image || '',
+    popup_exit_enabled: bool('popup_exit_enabled'),
+    popup_exit_headline: raw.popup_exit_headline || '',
+    popup_exit_subtext: raw.popup_exit_subtext || '',
+    popup_exit_cta: raw.popup_exit_cta || '',
+    popup_idle_enabled: bool('popup_idle_enabled'),
+    popup_idle_headline: raw.popup_idle_headline || '',
+    popup_idle_subtext: raw.popup_idle_subtext || '',
+    nudge_banner_enabled: bool('nudge_banner_enabled'),
+    nudge_banner_text: raw.nudge_banner_text || '',
+    nudge_banner_link: raw.nudge_banner_link || '',
+    nudge_banner_expires_at: raw.nudge_banner_expires_at || '',
+    ga4_measurement_id: raw.ga4_measurement_id || '',
+    clarity_project_id: raw.clarity_project_id || '',
+    facebook_pixel_id: raw.facebook_pixel_id || '',
+    linkedin_insight_id: raw.linkedin_insight_id || '',
+    google_ads_conversion_id: raw.google_ads_conversion_id || '',
+    gsc_verification_tag: raw.gsc_verification_tag || '',
+    custom_head_scripts: raw.custom_head_scripts || '',
+    custom_body_scripts: raw.custom_body_scripts || '',
+  }
 }
 
-import type { CaseStudyData } from '@/types/service-page'
+export type Testimonial = {
+  id: number; quote: string; person_name: string; person_title: string | null;
+  company: string | null; logo_url: string | null;
+  rating: number; service_category: string | null; industry: string | null; featured: number;
+}
 
 export async function fetchTestimonials(
   filters: { service?: string; solution?: string; industry?: string } = {}
 ): Promise<Testimonial[]> {
-  const params = new URLSearchParams()
-  if (filters.service) params.set('service', filters.service)
-  if (filters.solution) params.set('solution', filters.solution)
-  if (filters.industry) params.set('industry', filters.industry)
-  const query = params.toString() ? `?${params.toString()}` : ''
-  return fetchFromApi<Testimonial[]>(`/api/testimonials${query}`, {
-    next: { tags: ['testimonials'], revalidate: 3600 },
-  } as RequestInit).catch(() => [])
+  return listPublicTestimonials(filters.service, filters.industry).catch(() => [])
 }
 
 export async function fetchCaseStudies(
   filters: { service?: string; solution?: string; industry?: string } = {}
 ): Promise<CaseStudyData[]> {
-  const params = new URLSearchParams()
-  if (filters.service) params.set('service', filters.service)
-  if (filters.solution) params.set('solution', filters.solution)
-  if (filters.industry) params.set('industry', filters.industry)
-  const query = params.toString() ? `?${params.toString()}` : ''
-  return fetchFromApi<CaseStudyData[]>(`/api/case-studies${query}`, {
-    next: { tags: ['case-studies'], revalidate: 3600 },
-  } as RequestInit).catch(() => [])
+  const { rows } = await listPublicCaseStudies(1, 50, filters.industry).catch(() => ({ rows: [], total: 0 }))
+  return rows.map(c => ({
+    id: c.id,
+    title: c.title,
+    slug: c.slug,
+    client_name: c.client_name ?? '',
+    industry: c.industry ?? '',
+    challenge: c.challenge ?? '',
+    solution: c.solution ?? '',
+    results: c.outcome ?? '',
+  }))
 }
 
 // ─── Blog Types ───────────────────────────────────────────────────────────────
@@ -205,21 +210,51 @@ export type BlogListResponse = {
 }
 export type BlogCategory = { id: number; name: string; slug: string }
 
+function mapBlogPost(p: Record<string, unknown>): BlogPost {
+  return {
+    id: p.id as number,
+    title: p.title as string,
+    slug: p.slug as string,
+    excerpt: (p.excerpt as string) ?? '',
+    category: (p.category as string) ?? '',
+    tags: [],
+    image_path: (p.cover_image as string | null) ?? null,
+    image_alt: (p.cover_image_alt as string | null) ?? null,
+    reading_time: 5,
+    published_at: (p.published_at as string) ?? '',
+    author: p.author_name ? { name: p.author_name as string, avatar: null } : null,
+  }
+}
+
 export async function getBlogPosts(page = 1, category?: string, q?: string, sort?: string): Promise<BlogListResponse> {
-  const params = new URLSearchParams({ page: String(page) })
-  if (category) params.set('category', category)
-  if (q) params.set('q', q)
-  if (sort) params.set('sort', sort)
-  return fetchFromApi<BlogListResponse>(`/api/blog-posts?${params}`, { next: { tags: ['blog_posts'], revalidate: 3600 } } as RequestInit)
+  const result = await listPublicBlogPosts(page, 12, category, q, sort)
     .catch(() => ({ data: [], current_page: 1, last_page: 1, per_page: 12, total: 0 }))
+  return {
+    ...result,
+    data: result.data.map(p => mapBlogPost(p as unknown as Record<string, unknown>)),
+  }
 }
+
 export async function getBlogPost(slug: string): Promise<BlogPostDetail | null> {
-  return fetchFromApi<BlogPostDetail>(`/api/blog-posts/${slug}`, { next: { tags: ['blog_posts'], revalidate: 3600 } } as RequestInit)
-    .catch(() => null)
+  const post = await dbGetBlogPostBySlug(slug).catch(() => null)
+  if (!post) return null
+  const p = post as unknown as Record<string, unknown>
+  const bodyText = (p.content as string) ?? ''
+  const wordCount = bodyText.replace(/<[^>]+>/g, '').split(/\s+/).filter(Boolean).length
+  return {
+    ...mapBlogPost(p),
+    reading_time: Math.max(1, Math.ceil(wordCount / 200)),
+    body: bodyText,
+    seo_title: (p.meta_title as string | null) ?? null,
+    seo_description: (p.meta_description as string | null) ?? null,
+    author: p.author_name
+      ? { name: p.author_name as string, bio: null, role: null, linkedin_url: null, avatar: null }
+      : null,
+  }
 }
+
 export async function getBlogCategories(): Promise<BlogCategory[]> {
-  return fetchFromApi<BlogCategory[]>('/api/blog-categories', { next: { tags: ['blog_posts'], revalidate: 86400 } } as RequestInit)
-    .catch(() => [])
+  return listCategories().catch(() => [])
 }
 
 // ─── Content Types ────────────────────────────────────────────────────────────
@@ -233,7 +268,6 @@ export type ContentCaseStudyDetail = ContentCaseStudy & {
   problem: string; solution: string; results: string;
   testimonial_quote: string | null; testimonial_author: string | null;
   seo_title: string | null; seo_description: string | null;
-  // sidebar fields (set in admin panel)
   client_about: string | null;
   tech_stack: string | null;
   timeline: string | null;
@@ -249,37 +283,51 @@ export type Guide = {
 export type GuideDetail = Guide & { body: string; external_link: string | null; seo_title: string | null; seo_description: string | null }
 export type GuideListResponse = { data: Guide[]; current_page: number; last_page: number; per_page: number; total: number }
 
-export type Testimonial = {
-  id: number; quote: string; person_name: string; person_title: string | null;
-  company: string | null; logo_url: string | null;
-  rating: number; service_category: string | null; industry: string | null; featured: number;
+export async function getContentCaseStudies(page = 1, industry?: string, q?: string, sort?: string): Promise<ContentCaseStudyListResponse> {
+  const perPage = 12
+  const { rows, total } = await listPublicCaseStudies(page, perPage, industry, q, sort)
+    .catch(() => ({ rows: [], total: 0 }))
+  return {
+    data: rows.map(toContentCaseStudy),
+    current_page: page,
+    last_page: Math.max(1, Math.ceil(total / perPage)),
+    per_page: perPage,
+    total,
+  }
 }
 
-export async function getContentCaseStudies(page = 1, industry?: string, q?: string, sort?: string): Promise<ContentCaseStudyListResponse> {
-  const params = new URLSearchParams({ page: String(page) })
-  if (industry) params.set('industry', industry)
-  if (q) params.set('q', q)
-  if (sort) params.set('sort', sort)
-  return fetchFromApi<ContentCaseStudyListResponse>(`/api/case-studies?${params}`, { next: { tags: ['case_studies'], revalidate: 3600 } } as RequestInit)
-    .catch(() => ({ data: [], current_page: 1, last_page: 1, per_page: 12, total: 0 }))
-}
 export async function getContentCaseStudy(slug: string): Promise<ContentCaseStudyDetail | null> {
-  return fetchFromApi<ContentCaseStudyDetail>(`/api/case-studies/${slug}`, { next: { tags: ['case_studies'], revalidate: 3600 } } as RequestInit)
-    .catch(() => null)
+  const study = await getCaseStudyBySlug(slug).catch(() => null)
+  if (!study) return null
+  const base = toContentCaseStudyDetail(study)
+  return {
+    ...base,
+    client_about: null,
+    tech_stack: null,
+    timeline: null,
+    country: null,
+  }
 }
+
 export async function getGuides(page = 1, category?: string, resourceType?: string, q?: string, sort?: string): Promise<GuideListResponse> {
-  const params = new URLSearchParams({ page: String(page) })
-  if (category) params.set('category', category)
-  if (resourceType) params.set('resource_type', resourceType)
-  if (q) params.set('q', q)
-  if (sort) params.set('sort', sort)
-  return fetchFromApi<GuideListResponse>(`/api/guides?${params}`, { next: { tags: ['guides'], revalidate: 3600 } } as RequestInit)
-    .catch(() => ({ data: [], current_page: 1, last_page: 1, per_page: 12, total: 0 }))
+  const perPage = 12
+  const { rows, total } = await listPublicLeadMagnets(page, perPage, category, resourceType, q, sort)
+    .catch(() => ({ rows: [], total: 0 }))
+  return {
+    data: rows.map(toGuide),
+    current_page: page,
+    last_page: Math.max(1, Math.ceil(total / perPage)),
+    per_page: perPage,
+    total,
+  }
 }
+
 export async function getGuide(slug: string): Promise<GuideDetail | null> {
-  return fetchFromApi<GuideDetail>(`/api/guides/${slug}`, { next: { tags: ['guides'], revalidate: 3600 } } as RequestInit)
-    .catch(() => null)
+  const guide = await getLeadMagnetBySlug(slug).catch(() => null)
+  if (!guide) return null
+  return toGuideDetail(guide)
 }
+
 export interface SearchResult {
   id?: number
   title: string
@@ -289,14 +337,13 @@ export interface SearchResult {
   type: 'blog_post' | 'case_study' | 'guide' | 'service_page'
 }
 
-export async function fetchSearchResults(query: string): Promise<SearchResult[]> {
-  if (query.length < 2) return []
-  return fetchFromApi<SearchResult[]>(`/api/search?q=${encodeURIComponent(query)}`)
+// fetchSearchResults is client-side only (search widget) — keeps HTTP path
+export async function fetchSearchResults(searchQuery: string): Promise<SearchResult[]> {
+  if (searchQuery.length < 2) return []
+  return fetchFromApi<SearchResult[]>(`/api/search?q=${encodeURIComponent(searchQuery)}`)
     .catch(() => [])
 }
 
 export async function getTestimonialsPage(serviceCategory?: string): Promise<Testimonial[]> {
-  const params = serviceCategory ? `?service_category=${encodeURIComponent(serviceCategory)}` : ''
-  return fetchFromApi<Testimonial[]>(`/api/testimonials${params}`, { next: { tags: ['testimonials'], revalidate: 3600 } } as RequestInit)
-    .catch(() => [])
+  return listPublicTestimonials(serviceCategory, undefined).catch(() => [])
 }

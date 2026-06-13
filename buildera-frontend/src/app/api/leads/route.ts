@@ -17,20 +17,26 @@ export async function POST(request: NextRequest) {
   let body: Record<string, unknown>
   try { body = await request.json() } catch { return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 }) }
 
-  const { name, email, phone, company, role, source, notes, metadata } = body as Record<string, string>
+  // Honeypot — silently accept bot submissions without writing to DB
+  if (body.website || body.honeypot) {
+    return NextResponse.json({ id: 0 }, { status: 201 })
+  }
+
+  const { name, email, phone, company, message, source_form, service_interest, service } = body as Record<string, string>
   if (!name || !email) return NextResponse.json({ error: 'name and email are required' }, { status: 422 })
 
   const id = await createLead({
-    name, email, phone, company, role,
-    source: source || 'CONTACT_FORM',
-    notes,
-    metadata: metadata && typeof metadata === 'object' ? metadata as Record<string, unknown> : undefined,
-    ip_address: ip,
+    name, email, phone, company,
+    service_interest: service_interest || service,
+    message,
+    source_form: source_form || 'CONTACT_FORM',
   })
 
   // Fire n8n webhook non-blocking — no SMTP needed
   fireN8nWebhook(process.env.N8N_LEAD_WEBHOOK_URL, {
-    id, name, email, phone, company, role, source, notes, metadata, ip_address: ip,
+    id, name, email, phone, company,
+    service_interest: service_interest || service,
+    message, source_form, ip_address: ip,
     submitted_at: new Date().toISOString(),
   })
 

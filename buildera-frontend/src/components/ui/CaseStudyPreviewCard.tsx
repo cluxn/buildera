@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef, useEffect } from "react"
+import Link from "next/link"
 import { motion, useMotionValue, useSpring, useTransform, useInView } from "motion/react"
 
 interface Props {
@@ -56,12 +57,12 @@ export function CaseStudyPreviewCard({
         <span className={`text-sm ${dark ? "text-white/60" : "text-muted-foreground"}`}>{metricLabel}</span>
       </div>
       <p className={`text-sm line-clamp-2 ${dark ? "text-white/60" : "text-muted-foreground"}`}>{description}</p>
-      <a
+      <Link
         href="/case-studies"
         className="text-sm font-medium text-[var(--brand-primary)] hover:underline mt-auto"
       >
         Read Case Study
-      </a>
+      </Link>
     </div>
   )
 }

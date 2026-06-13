@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import { ChevronDown, ChevronUp, Download, Plus, X } from 'lucide-react'
 import type { Lead } from '@/db/admin/leads'
@@ -83,9 +84,9 @@ export function LeadsListClient({ rows, total, perPage, page, stats, filters }: 
             <input type="date" value={filters.dateTo} onChange={e => nav({ dateTo: e.target.value, page: '1' })} className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#002BFF]" />
           </div>
           <div className="flex gap-2">
-            <a href="/api/admin/leads/export" className="flex items-center gap-1.5 px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">
+            <Link href="/api/admin/leads/export" className="flex items-center gap-1.5 px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">
               <Download size={14} /> Export CSV
-            </a>
+            </Link>
             <button className="flex items-center gap-1.5 px-3 py-1.5 text-sm bg-[#002BFF] text-white rounded-lg hover:bg-blue-700">
               <Plus size={14} /> Add Lead
             </button>
@@ -127,7 +128,7 @@ export function LeadsListClient({ rows, total, perPage, page, stats, filters }: 
                   </td>
                   <td className="px-4 py-3 text-gray-500 hidden md:table-cell">{lead.company ?? '—'}</td>
                   <td className="px-4 py-3">
-                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${SOURCE_COLORS[lead.source] ?? 'bg-gray-100 text-gray-600'}`}>{SOURCE_LABELS[lead.source] ?? lead.source}</span>
+                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${SOURCE_COLORS[lead.source ?? ''] ?? 'bg-gray-100 text-gray-600'}`}>{SOURCE_LABELS[lead.source ?? ''] ?? lead.source}</span>
                   </td>
                   <td className="px-4 py-3">
                     <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${STATUS_COLORS[lead.status] ?? 'bg-gray-100 text-gray-600'}`}>{lead.status.replace('_', ' ')}</span>
@@ -165,7 +166,7 @@ export function LeadsListClient({ rows, total, perPage, page, stats, filters }: 
 
             {/* Read-only info */}
             <div className="space-y-2 text-sm">
-              {[['Email', selected.email], ['Phone', selected.phone], ['Company', selected.company], ['Role', selected.role], ['Source', SOURCE_LABELS[selected.source] ?? selected.source], ['IP', selected.ip_address], ['Created', new Date(selected.created_at).toLocaleString()]].map(([k, v]) => v && (
+              {[['Email', selected.email], ['Phone', selected.phone], ['Company', selected.company], ['Role', selected.role], ['Source', SOURCE_LABELS[selected.source ?? ''] ?? selected.source], ['IP', selected.ip_address], ['Created', new Date(selected.created_at).toLocaleString()]].map(([k, v]) => v && (
                 <div key={k as string} className="flex gap-2"><span className="text-gray-400 w-20 shrink-0">{k}</span><span className="text-gray-900">{v as string}</span></div>
               ))}
             </div>

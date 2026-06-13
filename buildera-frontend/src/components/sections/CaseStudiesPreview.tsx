@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "motion/react"
+import Link from "next/link"
 import { CaseStudyPreviewCard } from "@/components/ui/CaseStudyPreviewCard"
 
 const CASE_STUDIES = [
@@ -97,9 +98,9 @@ export function CaseStudiesPreview() {
           viewport={{ once: true }}
           transition={{ delay: 0.6, duration: 0.5 }}
         >
-          <a href="/case-studies" className="btn-white">
+          <Link href="/case-studies" className="btn-white">
             View All Case Studies →
-          </a>
+          </Link>
         </motion.div>
       </div>
     </section>

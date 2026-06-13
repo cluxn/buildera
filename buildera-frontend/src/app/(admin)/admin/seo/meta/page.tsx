@@ -45,8 +45,8 @@ export default function SeoMetaPage() {
               <div key={k} className={k.includes('description') ? 'sm:col-span-2' : ''}>
                 <label className="text-xs font-medium text-gray-600 mb-1 block">{l}</label>
                 {k.includes('description')
-                  ? <textarea value={(editing as Record<string,string>)[k] ?? ''} onChange={e => setEditing(p => p && ({ ...p, [k]: e.target.value || null }))} rows={2} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none" />
-                  : <input value={(editing as Record<string,string>)[k] ?? ''} onChange={e => setEditing(p => p && ({ ...p, [k]: e.target.value || null }))} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />}
+                  ? <textarea value={(editing as unknown as Record<string,string>)[k] ?? ''} onChange={e => setEditing(p => p && ({ ...p, [k]: e.target.value || null }))} rows={2} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none" />
+                  : <input value={(editing as unknown as Record<string,string>)[k] ?? ''} onChange={e => setEditing(p => p && ({ ...p, [k]: e.target.value || null }))} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />}
               </div>
             ))}
             <div className="flex items-center gap-2">

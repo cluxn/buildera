@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react'
 import { ExitIntentPopup } from './ExitIntentPopup'
 import { IdlePopup } from './IdlePopup'
-import { SETTINGS_FALLBACK } from '@/lib/api'
-import type { Settings } from '@/lib/api'
+import { SETTINGS_FALLBACK } from '@/lib/settings-fallback'
+import type { Settings } from '@/lib/settings-fallback'
 
 export function PopupManager() {
   const [settings, setSettings] = useState<Settings>(SETTINGS_FALLBACK)
