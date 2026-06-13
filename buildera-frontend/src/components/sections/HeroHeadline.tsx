@@ -2,12 +2,12 @@
 
 import { motion } from "motion/react"
 
-const LINE_1 = "We Build Software"
-const LINE_2 = "That Drives Growth"
+const LINE_1 = "Software That Ships."
+const LINE_2 = "Growth That Follows."
 
 export function HeroHeadline() {
   return (
-    <h1 className="text-[2.5rem] lg:text-[3rem] xl:text-[3.75rem] font-bold tracking-tight leading-[1.1]">
+    <h1 className="text-[2.5rem] lg:text-[3rem] xl:text-[3.75rem] font-bold tracking-tight leading-[1.1] text-center">
       <motion.span
         className="block text-foreground whitespace-nowrap"
         initial={{ opacity: 0, y: 16 }}

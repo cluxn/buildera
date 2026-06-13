@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
-import { IconMenu2, IconPhone } from "@tabler/icons-react"
+import { IconMenu2 } from "@tabler/icons-react"
 import { cn } from "@/lib/utils"
 import { MegaDropdown } from "./MegaDropdown"
 import { MobileNavDrawer } from "./MobileNavDrawer"
@@ -90,7 +90,7 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
             {/* Logo */}
             <Link href="/" className="group">
               <span
-                className="font-bold text-[1.2rem] tracking-tight select-none"
+                className="font-bold text-[1.6rem] lg:text-[1.85rem] tracking-tight select-none"
                 style={{
                   backgroundImage: "linear-gradient(135deg, hsl(217,91%,60%) 0%, hsl(242,75%,40%) 100%)",
                   WebkitBackgroundClip: "text",
@@ -131,9 +131,8 @@ export function SiteNavClient({ servicesMenu, navItems }: Props) {
             <div className="flex items-center gap-3">
               <Link
                 href="/contact"
-                className="hidden lg:flex btn-primary items-center gap-2 px-4 py-2 text-sm min-h-[40px] whitespace-nowrap"
+                className="hidden lg:flex btn-primary items-center px-4 py-2 text-sm min-h-[40px] whitespace-nowrap"
               >
-                <IconPhone className="size-4" />
                 Book a Call
               </Link>
               <button
