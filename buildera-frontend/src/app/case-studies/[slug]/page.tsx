@@ -147,92 +147,96 @@ export default async function CaseStudyDetailPage({ params }: Props) {
                 )}
               </div>
 
-              {/* RIGHT — sticky client details sidebar */}
+              {/* RIGHT — both cards sticky together */}
               <aside className="hidden lg:block">
-                <div className="sticky top-24 rounded-2xl border border-border bg-[var(--brand-surface)] overflow-hidden">
-                  <div className="px-5 py-4 border-b border-border bg-[var(--brand-primary)]">
-                    <p className="text-xs font-semibold uppercase tracking-widest text-white/70 mb-0.5">
-                      Project Details
-                    </p>
-                    <p className="text-sm font-bold text-white">
-                      {study.client_name ?? 'Client Overview'}
-                    </p>
-                  </div>
+                <div className="sticky top-24 space-y-4">
 
-                  <div className="divide-y divide-border">
-                    {study.client_about && (
+                  {/* Project Details card */}
+                  <div className="rounded-2xl border border-border bg-[var(--brand-surface)] overflow-hidden">
+                    <div className="px-5 py-4 border-b border-border bg-[var(--brand-primary)]">
+                      <p className="text-xs font-semibold uppercase tracking-widest text-white/70 mb-0.5">
+                        Project Details
+                      </p>
+                      <p className="text-sm font-bold text-white">
+                        {study.client_name ?? 'Client Overview'}
+                      </p>
+                    </div>
+
+                    <div className="divide-y divide-border">
+                      {study.client_about && (
+                        <div className="px-5 py-4">
+                          <p className="text-xs text-muted-foreground mb-1.5">About the Client</p>
+                          <p className="text-sm text-foreground leading-relaxed">{study.client_about}</p>
+                        </div>
+                      )}
+
+                      {study.industry && (
+                        <div className="px-5 py-4 flex items-center gap-3">
+                          <IconBuilding size={15} className="text-[var(--brand-primary)] shrink-0" />
+                          <div>
+                            <p className="text-xs text-muted-foreground mb-0.5">Industry</p>
+                            <p className="text-sm font-medium text-foreground capitalize">{study.industry}</p>
+                          </div>
+                        </div>
+                      )}
+
+                      {study.country && (
+                        <div className="px-5 py-4 flex items-center gap-3">
+                          <IconMapPin size={15} className="text-[var(--brand-primary)] shrink-0" />
+                          <div>
+                            <p className="text-xs text-muted-foreground mb-0.5">Country</p>
+                            <p className="text-sm font-medium text-foreground">{study.country}</p>
+                          </div>
+                        </div>
+                      )}
+
+                      {study.timeline && (
+                        <div className="px-5 py-4 flex items-center gap-3">
+                          <IconClock size={15} className="text-[var(--brand-primary)] shrink-0" />
+                          <div>
+                            <p className="text-xs text-muted-foreground mb-0.5">Timeline</p>
+                            <p className="text-sm font-medium text-foreground">{study.timeline}</p>
+                          </div>
+                        </div>
+                      )}
+
+                      {study.tech_stack && (
+                        <div className="px-5 py-4 flex items-start gap-3">
+                          <IconCode size={15} className="text-[var(--brand-primary)] shrink-0 mt-0.5" />
+                          <div>
+                            <p className="text-xs text-muted-foreground mb-0.5">Tech Stack</p>
+                            <p className="text-sm font-medium text-foreground">{study.tech_stack}</p>
+                          </div>
+                        </div>
+                      )}
+
                       <div className="px-5 py-4">
-                        <p className="text-xs text-muted-foreground mb-1.5">About the Client</p>
-                        <p className="text-sm text-foreground leading-relaxed">{study.client_about}</p>
+                        <a
+                          href="/contact"
+                          className="w-full btn-primary flex items-center justify-center text-sm"
+                        >
+                          Discuss Your Project
+                        </a>
                       </div>
-                    )}
-
-                    {study.industry && (
-                      <div className="px-5 py-4 flex items-center gap-3">
-                        <IconBuilding size={15} className="text-[var(--brand-primary)] shrink-0" />
-                        <div>
-                          <p className="text-xs text-muted-foreground mb-0.5">Industry</p>
-                          <p className="text-sm font-medium text-foreground capitalize">{study.industry}</p>
-                        </div>
-                      </div>
-                    )}
-
-                    {study.country && (
-                      <div className="px-5 py-4 flex items-center gap-3">
-                        <IconMapPin size={15} className="text-[var(--brand-primary)] shrink-0" />
-                        <div>
-                          <p className="text-xs text-muted-foreground mb-0.5">Country</p>
-                          <p className="text-sm font-medium text-foreground">{study.country}</p>
-                        </div>
-                      </div>
-                    )}
-
-                    {study.timeline && (
-                      <div className="px-5 py-4 flex items-center gap-3">
-                        <IconClock size={15} className="text-[var(--brand-primary)] shrink-0" />
-                        <div>
-                          <p className="text-xs text-muted-foreground mb-0.5">Timeline</p>
-                          <p className="text-sm font-medium text-foreground">{study.timeline}</p>
-                        </div>
-                      </div>
-                    )}
-
-                    {study.tech_stack && (
-                      <div className="px-5 py-4 flex items-start gap-3">
-                        <IconCode size={15} className="text-[var(--brand-primary)] shrink-0 mt-0.5" />
-                        <div>
-                          <p className="text-xs text-muted-foreground mb-0.5">Tech Stack</p>
-                          <p className="text-sm font-medium text-foreground">{study.tech_stack}</p>
-                        </div>
-                      </div>
-                    )}
-
-                    {study.key_metrics.length > 0 && (
-                      <div className="px-5 py-4">
-                        <div className="flex items-center gap-2 mb-3">
-                          <IconTrendingUp size={15} className="text-[var(--brand-primary)] shrink-0" />
-                          <p className="text-xs text-muted-foreground">Key Results</p>
-                        </div>
-                        <div className="space-y-2">
-                          {study.key_metrics.slice(0, 3).map((m, i) => (
-                            <div key={i} className="flex items-center justify-between">
-                              <span className="text-xs text-muted-foreground leading-snug">{m.label}</span>
-                              <span className="text-sm font-bold text-[var(--brand-primary)] ml-2 shrink-0">{m.value}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    <div className="px-5 py-4">
-                      <a
-                        href="/contact"
-                        className="w-full btn-primary flex items-center justify-center text-sm"
-                      >
-                        Discuss Your Project
-                      </a>
                     </div>
                   </div>
+
+                  {/* Key Metrics card — styled like Image #25 */}
+                  {study.key_metrics.length > 0 && (
+                    <div className="rounded-2xl border border-border bg-background overflow-hidden">
+                      <div className="grid grid-cols-2 divide-x divide-y divide-border">
+                        {study.key_metrics.slice(0, 4).map((m, i) => (
+                          <div key={i} className="px-4 py-5">
+                            <p className="text-2xl font-bold text-[var(--brand-primary)] leading-tight mb-1">
+                              {m.value}
+                            </p>
+                            <p className="text-xs text-muted-foreground leading-snug">{m.label}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                 </div>
               </aside>
 
