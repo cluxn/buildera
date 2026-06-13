@@ -55,7 +55,7 @@ export function IndustryServices({ services }: Props) {
               <Link
                 key={s.categorySlug}
                 href={getFirstServiceUrl(s.categorySlug)}
-                className="group flex flex-col gap-5 p-7 rounded-xl border border-border bg-[var(--brand-surface)] hover:border-[var(--brand-primary)] hover:shadow-md transition-all"
+                className="group flex flex-col gap-5 p-7 rounded-xl border border-border bg-background hover:border-[var(--brand-primary)] hover:shadow-md transition-all"
               >
                 <div className="w-12 h-12 rounded-xl bg-[var(--brand-primary)] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                   <Icon className="w-6 h-6 text-white" />

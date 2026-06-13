@@ -34,7 +34,7 @@ export function ServiceIndustries() {
             Deep domain expertise across sectors — a team that already understands your business.
           </p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {INDUSTRIES.map(({ slug, label, desc, Icon }) => (
             <Link
               key={slug}
@@ -46,7 +46,7 @@ export function ServiceIndustries() {
               </span>
               <div>
                 <p className="text-sm font-semibold text-foreground">{label}</p>
-                <p className="text-xs text-muted-foreground mt-0.5">{desc}</p>
+                <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{desc}</p>
               </div>
             </Link>
           ))}

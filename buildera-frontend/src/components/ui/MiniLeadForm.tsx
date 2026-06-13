@@ -95,7 +95,7 @@ export function MiniLeadForm({
   }
 
   return (
-    <div className={`bg-[var(--brand-surface)] border border-border rounded-xl p-6 ${className}`}>
+    <div className={`bg-background border border-border rounded-xl p-6 ${className}`}>
       <h3 className="text-xl font-semibold mb-1 text-foreground">{headline}</h3>
       <p className="text-sm text-muted-foreground mb-4">{subtext}</p>
 

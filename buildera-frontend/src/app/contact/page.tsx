@@ -51,7 +51,7 @@ export default async function ContactPage() {
               <ContactInfo whatsappNumber={settings.whatsapp_number} email={settings.company_email} phone={settings.company_phone} />
 
               {/* Response guarantee card */}
-              <div className="bg-[var(--brand-surface)] rounded-xl p-6 border border-border">
+              <div className="bg-background rounded-xl p-6 border border-border">
                 <h3 className="font-semibold mb-2 text-foreground">Our Response Guarantee</h3>
                 <p className="text-sm text-muted-foreground">
                   We respond to every enquiry within 4 business hours. If we don&apos;t, your first

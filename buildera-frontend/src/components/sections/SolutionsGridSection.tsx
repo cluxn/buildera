@@ -50,7 +50,7 @@ const SOLUTIONS = [
 
 export function SolutionsGridSection() {
   return (
-    <section className="py-16 lg:py-24 bg-[var(--brand-surface)]">
+    <section className="py-20 bg-[var(--brand-surface)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div
@@ -60,7 +60,7 @@ export function SolutionsGridSection() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="mb-12 text-center"
         >
-          <p className="text-xs font-medium uppercase tracking-widest text-[var(--brand-primary)] mb-3">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
             Problems We Solve
           </p>
           <h2 className="text-4xl font-bold tracking-tight text-foreground mb-4">

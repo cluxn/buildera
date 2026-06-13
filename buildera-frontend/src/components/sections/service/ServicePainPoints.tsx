@@ -26,7 +26,7 @@ export function ServicePainPoints({ points }: Props) {
             return (
               <div
                 key={i}
-                className="h-full flex flex-col bg-[var(--brand-surface)] rounded-xl p-6 border border-border hover:border-[var(--brand-primary)]/50 hover:shadow-sm transition-all group"
+                className="h-full flex flex-col bg-background rounded-xl p-6 border border-border hover:border-[var(--brand-primary)]/50 hover:shadow-sm transition-all group"
               >
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 rounded-lg bg-[var(--brand-primary)]/10 flex items-center justify-center shrink-0 group-hover:bg-[var(--brand-primary)]/20 transition-colors">

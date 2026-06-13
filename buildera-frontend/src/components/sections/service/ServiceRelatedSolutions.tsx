@@ -29,20 +29,25 @@ export function ServiceRelatedSolutions({ solutions }: Props) {
   if (!solutions.length) return null
 
   return (
-    <section className="py-16 bg-background">
+    <section className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-xs font-medium uppercase tracking-widest text-[var(--brand-primary)] mb-4">
-          Related Solutions
-        </p>
-        <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-12">
-          Tools We Build for This Service
-        </h2>
+        <div className="text-center mb-14">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
+            Related Solutions
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+            Tools We Build for This Service
+          </h2>
+          <p className="text-muted-foreground max-w-xl mx-auto">
+            Purpose-built solutions that extend this service — each one scoped and ready to deploy.
+          </p>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {solutions.map((slug) => (
             <Link
               key={slug}
               href={`/solutions/${slug}`}
-              className="bg-[var(--brand-surface)] border border-border rounded-xl p-4 hover:border-[var(--brand-primary)] transition-colors text-sm font-medium"
+              className="bg-background border border-border rounded-xl p-4 hover:border-[var(--brand-primary)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 text-sm font-medium"
             >
               {SOLUTION_LABELS[slug] ?? slug}
             </Link>

@@ -20,11 +20,11 @@ const TEAM = [
 
 export function TeamSection() {
   return (
-    <section className="py-16 bg-background">
+    <section className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+        <div className="text-center mb-14">
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
-            THE TEAM
+            The Team
           </p>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
             People Who Ship, Not Just Plan
@@ -39,7 +39,7 @@ export function TeamSection() {
           {TEAM.map((member) => (
             <div
               key={member.name}
-              className="bg-[var(--brand-surface)] rounded-xl p-6 text-center"
+              className="bg-background border border-border rounded-xl p-6 text-center"
             >
               {/* Avatar placeholder */}
               <div className="w-20 h-20 rounded-full bg-[var(--brand-primary)]/10 mx-auto mb-4 flex items-center justify-center">

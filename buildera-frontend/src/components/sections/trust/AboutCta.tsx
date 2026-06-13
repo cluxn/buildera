@@ -8,7 +8,7 @@ export function AboutCta() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <p className="text-xs font-semibold uppercase tracking-widest text-white/60 mb-4">
-          READY TO BUILD?
+          Ready to Build?
         </p>
         <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
           Let&apos;s Talk About Your Project

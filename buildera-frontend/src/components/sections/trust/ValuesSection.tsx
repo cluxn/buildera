@@ -25,11 +25,11 @@ const VALUES = [
 
 export function ValuesSection() {
   return (
-    <section className="py-16 bg-[var(--brand-surface)]">
+    <section className="py-20 bg-[var(--brand-surface)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
-            HOW WE OPERATE
+            How We Operate
           </p>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
             The Principles Behind Every Project

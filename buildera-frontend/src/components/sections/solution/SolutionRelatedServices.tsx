@@ -11,7 +11,7 @@ function getServiceUrl(categorySlug: string): string {
 export function SolutionRelatedServices({ services }: Props) {
   if (!services.length) return null
   return (
-    <section className="py-16 bg-background">
+    <section className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">Built With These Services</p>
@@ -23,7 +23,7 @@ export function SolutionRelatedServices({ services }: Props) {
             <Link
               key={slug}
               href={getServiceUrl(slug)}
-              className="group flex flex-col gap-3 bg-[var(--brand-surface)] border border-border rounded-xl p-6 hover:border-[var(--brand-primary)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+              className="group flex flex-col gap-3 bg-background border border-border rounded-xl p-6 hover:border-[var(--brand-primary)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
             >
               <h3 className="font-semibold text-foreground group-hover:text-[var(--brand-primary)] transition-colors">
                 {CATEGORY_LABELS[slug] ?? slug}

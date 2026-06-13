@@ -48,7 +48,7 @@ export function AboutStory() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {DIFFERENTIATORS.map((item) => (
-              <div key={item.number} className="flex flex-col gap-3 p-5 rounded-xl border border-border bg-[var(--brand-surface)] hover:border-[var(--brand-primary)]/30 transition-colors duration-200">
+              <div key={item.number} className="flex flex-col gap-3 p-5 rounded-xl border border-border bg-background hover:border-[var(--brand-primary)]/30 transition-colors duration-200">
                 <span className="text-2xl font-bold text-[var(--brand-primary)]/30 leading-none">
                   {item.number}
                 </span>

@@ -36,13 +36,13 @@ export default async function BookACallPage() {
       <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Book a Call' }]} />
 
       {/* Hero */}
-      <section className="py-12 bg-background text-center">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-background text-center">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-6">
-            FREE CONSULTATION
+            Free Consultation
           </p>
 
-          <h1 className="text-4xl font-bold tracking-tight leading-[1.1] mb-6 text-foreground">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-6 text-foreground">
             Book a 30-Minute Discovery Call
           </h1>
 
@@ -52,7 +52,7 @@ export default async function BookACallPage() {
 
           {/* Trust strip */}
           <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
-            <span>150+ Projects</span>
+            <span>800+ Projects Delivered</span>
             <span aria-hidden="true">•</span>
             <span>Free Consultation</span>
             <span aria-hidden="true">•</span>
@@ -69,10 +69,18 @@ export default async function BookACallPage() {
       </section>
 
       {/* What to expect */}
-      <section className="py-12 bg-[var(--brand-surface)]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-semibold text-center mb-8 text-foreground">What to Expect</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+      <section className="py-20 bg-[var(--brand-surface)]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
+              The Call
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-foreground">What to Expect</h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              A focused 30-minute conversation — no demos, no pitch decks, no pressure.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {WHAT_TO_EXPECT.map((item, i) => (
               <div
                 key={i}

@@ -17,13 +17,13 @@ export default function SolutionsPage() {
     <main>
       <section className="py-20 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-xs font-medium uppercase tracking-widest text-[var(--brand-primary)] mb-4">Solutions</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-4">Solutions</p>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">Find the Right Solution for Your Business</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">We build purpose-built software for the specific problem you&apos;re trying to solve.</p>
         </div>
       </section>
       {solutions.length > 0 && (
-        <section className="py-16 bg-[var(--brand-surface)]">
+        <section className="py-20 bg-[var(--brand-surface)]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <StaggeredRevealGrid className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {solutions.map((s, i) => (

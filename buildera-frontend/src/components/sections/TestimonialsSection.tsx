@@ -73,7 +73,7 @@ export function TestimonialsSection() {
   const rest = TESTIMONIALS.filter((t) => !t.featured)
 
   return (
-    <section className="py-16 lg:py-24 relative overflow-hidden"
+    <section className="py-20 relative overflow-hidden"
       style={{ background: "#F3F6FC" }}
     >
       {/* Subtle decorative glow */}

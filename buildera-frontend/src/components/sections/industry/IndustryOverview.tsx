@@ -50,7 +50,7 @@ export function IndustryOverview({ data }: Props) {
           </div>
 
           {/* Right — delivery process */}
-          <div className="rounded-2xl border border-border bg-[var(--brand-surface)] overflow-hidden">
+          <div className="rounded-2xl border border-border bg-background overflow-hidden">
             <div className="px-7 py-5 border-b border-border">
               <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-1">
                 What You Get

@@ -43,7 +43,7 @@ export function StatsBarSection({ settings }: Props) {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Eyebrow label */}
-        <p className="text-xs font-medium uppercase tracking-widest text-white/60 text-center mb-8">
+        <p className="text-xs font-semibold uppercase tracking-widest text-white/60 text-center mb-8">
           Trusted Results
         </p>
 

@@ -127,7 +127,7 @@ export default async function BlogPostPage({ params }: Props) {
         )}
 
         {recommendedPosts.length > 0 && (
-          <section className="bg-[var(--brand-surface)] py-16">
+          <section className="bg-[var(--brand-surface)] py-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <RelatedPosts posts={recommendedPosts} />
             </div>

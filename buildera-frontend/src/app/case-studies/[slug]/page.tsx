@@ -93,54 +93,14 @@ export default async function CaseStudyDetailPage({ params }: Props) {
         {/* 2-col: left scrollable content + right sticky sidebar */}
         <section className="py-12 bg-background">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="lg:grid lg:grid-cols-[1fr_300px] lg:gap-12 items-start">
+            <div className="lg:grid lg:grid-cols-[280px_1fr] lg:gap-12 items-start">
 
-              {/* LEFT — scrollable case study content */}
-              <div className="min-w-0 space-y-12">
-
-                {/* Problem */}
-                <div>
-                  <h2 className="text-2xl font-bold mb-5 pb-3 border-b border-border">The Problem</h2>
-                  <div className="prose prose-slate prose-lg max-w-none"
-                    dangerouslySetInnerHTML={{ __html: study.problem ?? '' }} />
-                </div>
-
-                {/* Solution */}
-                <div>
-                  <h2 className="text-2xl font-bold mb-5 pb-3 border-b border-border">Our Solution</h2>
-                  <div className="prose prose-slate prose-lg max-w-none"
-                    dangerouslySetInnerHTML={{ __html: study.solution ?? '' }} />
-                </div>
-
-                {/* Results */}
-                <div>
-                  <h2 className="text-2xl font-bold mb-5 pb-3 border-b border-border">The Results</h2>
-                  <div className="prose prose-slate prose-lg max-w-none mb-8"
-                    dangerouslySetInnerHTML={{ __html: study.results ?? '' }} />
-
-                </div>
-
-                {/* Testimonial */}
-                {study.testimonial_quote && (
-                  <div className="rounded-2xl bg-[var(--brand-surface)] border border-border p-8">
-                    <blockquote className="text-lg italic text-foreground leading-relaxed mb-4">
-                      &ldquo;{study.testimonial_quote}&rdquo;
-                    </blockquote>
-                    {study.testimonial_author && (
-                      <p className="text-sm font-semibold text-[var(--brand-primary)]">
-                        — {study.testimonial_author}
-                      </p>
-                    )}
-                  </div>
-                )}
-              </div>
-
-              {/* RIGHT — both cards sticky together */}
+              {/* LEFT — sticky project details sidebar */}
               <aside className="hidden lg:block">
                 <div className="sticky top-24 space-y-4">
 
                   {/* Project Details card */}
-                  <div className="rounded-2xl border border-border bg-[var(--brand-surface)] overflow-hidden">
+                  <div className="rounded-2xl border border-border bg-background overflow-hidden">
                     <div className="px-5 py-4 border-b border-border bg-[var(--brand-primary)]">
                       <p className="text-xs font-semibold uppercase tracking-widest text-white/70 mb-0.5">
                         Project Details
@@ -209,7 +169,7 @@ export default async function CaseStudyDetailPage({ params }: Props) {
                     </div>
                   </div>
 
-                  {/* Key Metrics card — styled like Image #25 */}
+                  {/* Key Metrics card */}
                   {study.key_metrics.length > 0 && (
                     <div className="rounded-2xl border border-border bg-background overflow-hidden">
                       <div className="grid grid-cols-2 divide-x divide-y divide-border">
@@ -228,13 +188,54 @@ export default async function CaseStudyDetailPage({ params }: Props) {
                 </div>
               </aside>
 
+              {/* RIGHT — scrollable case study content */}
+              <div className="min-w-0 space-y-12">
+
+                {/* Problem */}
+                <div>
+                  <h2 className="text-2xl font-bold mb-5 pb-3 border-b border-border">The Problem</h2>
+                  <div className="prose prose-slate prose-lg max-w-none"
+                    dangerouslySetInnerHTML={{ __html: study.problem ?? '' }} />
+                </div>
+
+                {/* Solution */}
+                <div>
+                  <h2 className="text-2xl font-bold mb-5 pb-3 border-b border-border">Our Solution</h2>
+                  <div className="prose prose-slate prose-lg max-w-none"
+                    dangerouslySetInnerHTML={{ __html: study.solution ?? '' }} />
+                </div>
+
+                {/* Results */}
+                <div>
+                  <h2 className="text-2xl font-bold mb-5 pb-3 border-b border-border">The Results</h2>
+                  <div className="prose prose-slate prose-lg max-w-none mb-8"
+                    dangerouslySetInnerHTML={{ __html: study.results ?? '' }} />
+
+                </div>
+
+                {/* Testimonial */}
+                {study.testimonial_quote && (
+                  <div className="rounded-2xl bg-background border border-border p-8">
+                    <blockquote className="text-lg italic text-foreground leading-relaxed mb-4">
+                      &ldquo;{study.testimonial_quote}&rdquo;
+                    </blockquote>
+                    {study.testimonial_author && (
+                      <p className="text-sm font-semibold text-[var(--brand-primary)]">
+                        — {study.testimonial_author}
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
+
+
             </div>
           </div>
         </section>
 
         {/* Related case studies */}
         {related.length > 0 && (
-          <section className="py-16 bg-[var(--brand-surface)]">
+          <section className="py-20 bg-[var(--brand-surface)]">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
               <h2 className="text-2xl font-bold mb-2">Explore More Case Studies</h2>
               <p className="text-muted-foreground text-sm mb-8">More projects from the {study.industry} space.</p>

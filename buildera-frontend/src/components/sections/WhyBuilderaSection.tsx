@@ -7,7 +7,7 @@ import { MiniMetricsCard } from "@/components/ui/MiniMetricsCard"
 
 export function WhyBuilderaSection() {
   return (
-    <section className="py-16 lg:py-24 bg-background">
+    <section className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-12"
@@ -16,8 +16,8 @@ export function WhyBuilderaSection() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
-          <p className="text-xs font-medium uppercase tracking-widest text-[var(--brand-primary)] mb-3">
-            Why Choose Buildera
+          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
+            Our Difference
           </p>
           <h2 className="text-4xl font-bold tracking-tight text-foreground mb-4">
             Why Smart Businesses Choose Buildera

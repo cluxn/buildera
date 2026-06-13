@@ -29,7 +29,7 @@ export function ClientTestimonials({ testimonials }: Props) {
 
   return (
     <section
-      className="py-16 lg:py-24 relative overflow-hidden"
+      className="py-20 relative overflow-hidden"
       style={{ background: "#F3F6FC" }}
     >
       <div

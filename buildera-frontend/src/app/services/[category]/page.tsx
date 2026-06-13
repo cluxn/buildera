@@ -115,7 +115,7 @@ export default async function ServiceCategoryPage({ params }: Props) {
               {pillar.benefits.map((benefit) => (
                 <div
                   key={benefit.title}
-                  className="flex flex-col gap-3 bg-[var(--brand-surface)] rounded-2xl border border-border p-6"
+                  className="flex flex-col gap-3 bg-background rounded-2xl border border-border p-6"
                 >
                   <h3 className="font-semibold text-foreground">{benefit.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{benefit.description}</p>
