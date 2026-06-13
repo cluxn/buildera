@@ -8,8 +8,10 @@ interface Props {
 export function ClientTestimonials({ testimonials }: Props) {
   if (!testimonials.length) return null
 
+  const items = [...testimonials, ...testimonials]
+
   return (
-    <section className="py-20 bg-background">
+    <section className="py-20 bg-background overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
@@ -22,16 +24,23 @@ export function ClientTestimonials({ testimonials }: Props) {
             Real outcomes from real clients — see what working with Buildera looks like in practice.
           </p>
         </div>
-        <div className={`grid gap-6 ${testimonials.length === 1 ? 'max-w-2xl mx-auto' : testimonials.length >= 3 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1 md:grid-cols-2'}`}>
-          {testimonials.map((t) => (
-            <TestimonialCard
-              key={t.id}
-              quote={t.quote}
-              name={t.person_name}
-              title={t.person_title ?? ''}
-              company={t.company ?? ''}
-              rating={t.rating}
-            />
+      </div>
+
+      <div className="relative">
+        <div className="absolute left-0 top-0 bottom-0 w-16 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, var(--background), transparent)' }} aria-hidden="true" />
+        <div className="absolute right-0 top-0 bottom-0 w-16 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, var(--background), transparent)' }} aria-hidden="true" />
+
+        <div className="marquee-track">
+          {items.map((t, idx) => (
+            <div key={idx} className="w-[320px] sm:w-[360px] flex-shrink-0 px-3">
+              <TestimonialCard
+                quote={t.quote}
+                name={t.person_name}
+                title={t.person_title ?? ''}
+                company={t.company ?? ''}
+                rating={t.rating}
+              />
+            </div>
           ))}
         </div>
       </div>

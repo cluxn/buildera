@@ -2,7 +2,7 @@ import Link from 'next/link'
 import {
   IconCoin, IconUsers, IconSchool, IconShoppingCart, IconScale,
   IconBuildingFactory2, IconHeartbeat, IconLeaf, IconShieldCheck,
-  IconPlane, IconCode, IconArrowRight,
+  IconPlane, IconCode,
 } from '@tabler/icons-react'
 
 const INDUSTRIES = [
@@ -51,20 +51,6 @@ export function SolutionIndustries() {
             </Link>
           ))}
 
-          {/* 12th tile — keeps the grid a clean 4x3 and links to the full industries list */}
-          <Link
-            href="/industries"
-            className="flex items-center justify-between gap-4 p-5 rounded-xl text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg group"
-            style={{ background: 'linear-gradient(135deg, var(--brand-gradient-from), var(--brand-gradient-to))' }}
-          >
-            <div>
-              <p className="text-sm font-semibold">Explore All Industries</p>
-              <p className="text-xs text-white/75 mt-1 leading-relaxed">See every sector we build for</p>
-            </div>
-            <span className="w-9 h-9 rounded-lg bg-white/15 flex items-center justify-center flex-shrink-0 group-hover:bg-white/25 transition-colors duration-200">
-              <IconArrowRight size={18} />
-            </span>
-          </Link>
         </div>
       </div>
     </section>

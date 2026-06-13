@@ -52,12 +52,17 @@ export interface ServicePageData {
   videoUrl?: string
 }
 
+export interface SolutionChallenge {
+  title: string
+  body: string
+}
+
 export interface SolutionPageData {
   slug: string
   title: string
   heroHeadline: string
   heroSubheadline: string
-  problemPoints: string[]
+  problemPoints: SolutionChallenge[]
   featureCards: OutcomeCard[]
   industriesServed: string[]
   relatedServices: string[]

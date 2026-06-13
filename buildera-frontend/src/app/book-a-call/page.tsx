@@ -38,12 +38,9 @@ export default async function BookACallPage() {
       {/* Hero */}
       <section className="py-12 bg-background text-center">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--brand-surface)] border border-[var(--brand-primary)]/20 mb-6">
-            <span className="w-2 h-2 rounded-full bg-[var(--brand-primary)]" aria-hidden="true" />
-            <span className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)]">
-              FREE CONSULTATION
-            </span>
-          </div>
+          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-6">
+            FREE CONSULTATION
+          </p>
 
           <h1 className="text-4xl font-bold tracking-tight leading-[1.1] mb-6 text-foreground">
             Book a 30-Minute Discovery Call

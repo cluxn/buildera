@@ -32,6 +32,7 @@ export function IdlePopup({ headline, subtext, idleMs = 45000 }: IdlePopupProps)
       clearTimeout(timer)
       timer = setTimeout(() => {
         if (localStorage.getItem('idle-popup-dismissed')) return
+        localStorage.setItem('idle-popup-dismissed', '1')
         setIsOpen(true)
       }, idleMs)
     }

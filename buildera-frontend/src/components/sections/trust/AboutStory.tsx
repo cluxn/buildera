@@ -78,7 +78,7 @@ export function AboutStory() {
 
       {/* ── Milestones ── */}
       <section className="py-20 bg-[var(--brand-surface)]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
               Milestones
@@ -91,18 +91,29 @@ export function AboutStory() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
-            {MILESTONES.map((m) => (
-              <div key={m.year} className="flex flex-col gap-3 p-5 rounded-xl border border-border bg-background hover:border-[var(--brand-primary)]/30 transition-colors duration-200">
-                <div className="w-9 h-9 rounded-full bg-[var(--brand-primary)]/10 border-2 border-[var(--brand-primary)]/30 flex items-center justify-center">
-                  <IconCheck className="w-4 h-4 text-[var(--brand-primary)]" />
+          <div className="relative">
+            {/* Vertical line */}
+            <div className="absolute left-[72px] top-0 bottom-0 w-px bg-[var(--brand-primary)]/20 hidden sm:block" aria-hidden="true" />
+
+            <div className="space-y-0">
+              {MILESTONES.map((m, i) => (
+                <div key={m.year} className="relative flex gap-6 sm:gap-8 pb-10 last:pb-0">
+                  {/* Year + dot */}
+                  <div className="flex flex-col items-center sm:items-end sm:w-[72px] flex-shrink-0 pt-1">
+                    <div className="relative z-10 w-9 h-9 rounded-full bg-[var(--brand-primary)] flex items-center justify-center ring-4 ring-[var(--brand-surface)]">
+                      <IconCheck className="w-4 h-4 text-white" />
+                    </div>
+                  </div>
+                  {/* Content */}
+                  <div className="flex-1 bg-background rounded-xl border border-border px-5 py-4 hover:border-[var(--brand-primary)]/40 transition-colors duration-200">
+                    <span className="text-lg font-bold text-[var(--brand-primary)] leading-none block mb-2">
+                      {m.year}
+                    </span>
+                    <p className="text-sm text-foreground leading-relaxed">{m.event}</p>
+                  </div>
                 </div>
-                <span className="text-sm font-bold text-[var(--brand-primary)] uppercase tracking-widest">
-                  {m.year}
-                </span>
-                <p className="text-sm text-foreground leading-relaxed">{m.event}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>

@@ -28,6 +28,7 @@ export function ExitIntentPopup({ headline, subtext, ctaLabel, ctaHref, showForm
 
     const handleMouseLeave = (e: MouseEvent) => {
       if (e.clientY <= 0) {
+        localStorage.setItem('exit-popup-dismissed', '1')
         setIsOpen(true)
         document.removeEventListener('mouseleave', handleMouseLeave)
       }
