@@ -233,9 +233,9 @@ export function BlogEditor({ post, categories, users }: Props) {
               </select>
             </div>
             <div>
-              <label className={label}>Publish Date</label>
+              <label className={label}>Schedule At</label>
               <input type="datetime-local" className={inp} value={publishedAt} onChange={e => setPublishedAt(e.target.value)} />
-              <p className="mt-1 text-xs text-gray-400">Set a future date to schedule this post — it stays hidden until then.</p>
+              <p className="mt-1 text-xs text-gray-400">Set a future date and click Schedule — post stays hidden until then.</p>
             </div>
             <div>
               <label className={label}>Author</label>

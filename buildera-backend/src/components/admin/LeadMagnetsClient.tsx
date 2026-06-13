@@ -2,24 +2,15 @@
 
 import { useState, useTransition } from 'react'
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
+import Link from 'next/link'
 import { Edit, Trash2, Plus, Download } from 'lucide-react'
 import type { LeadMagnet } from '@/db/admin/lead-magnets'
-import { RichTextEditor } from './RichTextEditor'
-import { ImageUploadField } from './ImageUploadField'
 
 const STATUS_TABS = ['all','DRAFT','PUBLISHED']
 const STATUS_COLORS: Record<string, string> = {
   DRAFT: 'bg-gray-100 text-gray-600',
   PUBLISHED: 'bg-green-100 text-green-700',
   SCHEDULED: 'bg-blue-100 text-blue-700',
-}
-const RESOURCE_TYPES = ['article', 'template', 'checklist', 'video']
-
-function toDatetimeLocal(value: string): string {
-  const d = new Date(value)
-  if (isNaN(d.getTime())) return ''
-  const pad = (n: number) => String(n).padStart(2, '0')
-  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`
 }
 
 function isScheduled(row: { status: string; published_at: string | null }) {
@@ -40,39 +31,12 @@ export function LeadMagnetsClient({ rows, total, perPage, page, status, q }: Pro
   const pathname = usePathname()
   const sp = useSearchParams()
   const [, startTransition] = useTransition()
-  const [editing, setEditing] = useState<Partial<LeadMagnet> | null>(null)
-  const [saving, setSaving] = useState(false)
   const [deleting, setDeleting] = useState<number | null>(null)
 
   function nav(params: Record<string, string>) {
     const p = new URLSearchParams(sp.toString())
     for (const [k, v] of Object.entries(params)) { if (v) p.set(k, v); else p.delete(k) }
     startTransition(() => router.push(`${pathname}?${p}`))
-  }
-
-  async function save(action: 'draft' | 'schedule' | 'publish') {
-    if (!editing?.title) return
-    if (action === 'schedule') {
-      if (!editing.published_at || new Date(editing.published_at) <= new Date()) {
-        alert('Set a future date/time in the Schedule Date field to schedule.')
-        return
-      }
-    }
-    setSaving(true)
-    const status: LeadMagnet['status'] = action === 'draft' ? 'DRAFT' : 'PUBLISHED'
-    const published_at =
-      action === 'publish' ? new Date().toISOString() :
-      action === 'schedule' ? editing.published_at :
-      editing.published_at ?? null
-    const payload = { ...editing, status, published_at }
-    if (editing.id) {
-      await fetch(`/api/admin/lead-magnets/${editing.id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
-    } else {
-      await fetch('/api/admin/lead-magnets', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
-    }
-    setSaving(false)
-    setEditing(null)
-    router.refresh()
   }
 
   async function handleDelete(id: number) {
@@ -89,95 +53,17 @@ export function LeadMagnetsClient({ rows, total, perPage, page, status, q }: Pro
     router.refresh()
   }
 
-  const blank: Partial<LeadMagnet> = { title: '', excerpt: '', cta_text: 'Download Free Guide', status: 'DRAFT', read_time_minutes: 5, resource_type: 'article', category: '' }
   const totalPages = Math.ceil(total / perPage)
 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold text-gray-900">Guides & Lead Magnets</h1>
-        {editing === null && (
-          <button onClick={() => setEditing(blank)}
-            className="flex items-center gap-1.5 px-4 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:opacity-90 transition-opacity">
-            <Plus size={15} /> New Guide
-          </button>
-        )}
+        <Link href="/admin/lead-magnets/new"
+          className="flex items-center gap-1.5 px-4 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:opacity-90 transition-opacity">
+          <Plus size={15} /> New Guide
+        </Link>
       </div>
-
-      {editing !== null && (
-        <div className="bg-white rounded-xl border border-gray-200 p-4 space-y-3">
-          <p className="text-sm font-semibold text-gray-800">{editing.id ? 'Edit Guide' : 'New Guide'}</p>
-          <div className="grid sm:grid-cols-2 gap-3">
-            <div className="sm:col-span-2">
-              <label className="text-xs font-medium text-gray-600 mb-1 block">Title *</label>
-              <input value={editing.title ?? ''} onChange={e => setEditing(p => ({ ...p, title: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" placeholder="The SMB Guide to DevOps" />
-            </div>
-            <div className="sm:col-span-2">
-              <label className="text-xs font-medium text-gray-600 mb-1 block">Excerpt</label>
-              <textarea value={editing.excerpt ?? ''} onChange={e => setEditing(p => ({ ...p, excerpt: e.target.value || null }))}
-                rows={2} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none" />
-            </div>
-            <div className="sm:col-span-2">
-              <label className="text-xs font-medium text-gray-600 mb-1 block">Content</label>
-              <RichTextEditor content={editing.content ?? ''} onChange={html => setEditing(p => ({ ...p, content: html || null }))} placeholder="Write the guide content…" />
-            </div>
-            <div>
-              <label className="text-xs font-medium text-gray-600 mb-1 block">PDF URL</label>
-              <input value={editing.pdf_url ?? ''} onChange={e => setEditing(p => ({ ...p, pdf_url: e.target.value || null }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" placeholder="https://…/guide.pdf" />
-            </div>
-            <div>
-              <label className="text-xs font-medium text-gray-600 mb-1 block">CTA Text</label>
-              <input value={editing.cta_text ?? ''} onChange={e => setEditing(p => ({ ...p, cta_text: e.target.value || null }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
-            </div>
-            <div>
-              <label className="text-xs font-medium text-gray-600 mb-1 block">Read Time (min)</label>
-              <input type="number" value={editing.read_time_minutes ?? ''} onChange={e => setEditing(p => ({ ...p, read_time_minutes: e.target.value ? Number(e.target.value) : null }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
-            </div>
-            <div>
-              <label className="text-xs font-medium text-gray-600 mb-1 block">Schedule Date <span className="text-gray-400">(required for Schedule)</span></label>
-              <input type="datetime-local" value={editing.published_at ? toDatetimeLocal(editing.published_at) : ''}
-                onChange={e => setEditing(p => ({ ...p, published_at: e.target.value ? new Date(e.target.value).toISOString() : null }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
-              <p className="mt-1 text-xs text-gray-400">Leave blank to publish immediately. Set a future date/time and click Schedule.</p>
-            </div>
-            <div>
-              <label className="text-xs font-medium text-gray-600 mb-1 block">Resource Type</label>
-              <select value={editing.resource_type ?? 'article'} onChange={e => setEditing(p => ({ ...p, resource_type: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 capitalize">
-                {RESOURCE_TYPES.map(t => <option key={t} value={t} className="capitalize">{t}</option>)}
-              </select>
-            </div>
-            <div>
-              <label className="text-xs font-medium text-gray-600 mb-1 block">Category</label>
-              <input value={editing.category ?? ''} onChange={e => setEditing(p => ({ ...p, category: e.target.value || null }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" placeholder="devops" />
-            </div>
-            <ImageUploadField label="Cover Image" value={editing.cover_image ?? ''} onChange={url => setEditing(p => ({ ...p, cover_image: url || null }))} />
-          </div>
-          <div className="flex gap-2 justify-end flex-wrap">
-            <button onClick={() => setEditing(null)} className="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100">Cancel</button>
-            {editing.slug && (
-              <a href={`/guides/${editing.slug}`} target="_blank" rel="noopener" className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">Preview</a>
-            )}
-            <button onClick={() => save('draft')} disabled={saving || !editing.title}
-              className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-40">
-              Save Draft
-            </button>
-            <button onClick={() => save('schedule')} disabled={saving || !editing.title}
-              className="px-3 py-1.5 text-sm border border-blue-300 text-blue-700 rounded-lg hover:bg-blue-50 disabled:opacity-40">
-              Schedule
-            </button>
-            <button onClick={() => save('publish')} disabled={saving || !editing.title}
-              className="px-4 py-1.5 bg-primary text-white text-sm rounded-lg hover:opacity-90 disabled:opacity-40 transition-opacity">
-              {saving ? 'Saving…' : 'Publish'}
-            </button>
-          </div>
-        </div>
-      )}
 
       <div className="bg-white rounded-xl border border-gray-200">
         <div className="flex items-center justify-between px-4 pt-3 border-b border-gray-100">
@@ -230,7 +116,7 @@ export function LeadMagnetsClient({ rows, total, perPage, page, status, q }: Pro
                     {row.pdf_url && (
                       <a href={row.pdf_url} target="_blank" rel="noopener" className="p-1.5 rounded hover:bg-gray-100 text-gray-400 hover:text-gray-700" title="Download file"><Download size={15} /></a>
                     )}
-                    <button onClick={() => setEditing(row)} className="p-1.5 rounded hover:bg-gray-100 text-gray-400 hover:text-gray-700"><Edit size={15} /></button>
+                    <Link href={`/admin/lead-magnets/${row.id}/edit`} className="p-1.5 rounded hover:bg-gray-100 text-gray-400 hover:text-gray-700" title="Edit"><Edit size={15} /></Link>
                     <button onClick={() => handleDelete(row.id)} disabled={deleting === row.id}
                       className="p-1.5 rounded hover:bg-red-50 text-gray-400 hover:text-red-600 disabled:opacity-40"><Trash2 size={15} /></button>
                   </div>
