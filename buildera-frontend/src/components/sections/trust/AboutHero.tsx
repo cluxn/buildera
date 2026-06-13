@@ -6,11 +6,11 @@ export function AboutHero() {
       eyebrow="About Buildera"
       heading={
         <>
-          We Build Software<br />
-          <span className="text-[var(--brand-primary)]">That Moves</span> Businesses Forward.
+          Software That Moves<br />
+          <span className="text-[var(--brand-primary)]">Your Business Forward.</span>
         </>
       }
-      description="Buildera is a global IT services company helping growing businesses replace manual processes and legacy systems with custom software that actually fits the way they work."
+      description="We help growing businesses replace manual processes and legacy systems with custom software that actually fits how they work."
     />
   )
 }

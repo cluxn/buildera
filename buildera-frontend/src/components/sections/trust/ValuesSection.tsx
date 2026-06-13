@@ -31,9 +31,12 @@ export function ValuesSection() {
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
             HOW WE OPERATE
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
             The Principles Behind Every Project
           </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            These four rules shape every decision we make — from the first call to the final handoff.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

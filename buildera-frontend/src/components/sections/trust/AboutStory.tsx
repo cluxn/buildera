@@ -37,9 +37,9 @@ export function AboutStory() {
       {/* ── Story + Differentiators ── */}
       <section className="py-20 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-stretch">
 
-            <div>
+            <div className="flex flex-col">
               <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-4">
                 Our Story
               </p>
@@ -47,24 +47,21 @@ export function AboutStory() {
                 Built out of frustration with how IT projects get delivered.
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                Buildera was founded in 2014 by engineers who had worked at large IT consultancies and
-                watched the same pattern repeat: bloated proposals, missed timelines, and clients who
-                didn&apos;t understand what they were paying for until the invoice arrived.
-              </p>
-              <p className="text-muted-foreground leading-relaxed mb-4">
-                We set out to build an IT services company that operated differently — with transparent
-                pricing, honest timelines, and software that clients could actually own and maintain.
+                Buildera was founded in 2014 by engineers who&apos;d seen the same pattern repeat at
+                large IT consultancies — bloated proposals, missed timelines, and invoices clients
+                didn&apos;t understand. We set out to do it differently: transparent pricing, honest
+                timelines, and software clients could actually own and maintain.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                Ten years on, we&apos;ve shipped 800+ projects across 6 service lines and expanded from
+                Ten years on, we&apos;ve shipped 800+ projects across 6 service lines and grown from
                 Mumbai to serve clients globally. The principles haven&apos;t changed.
               </p>
             </div>
 
-            <div className="flex flex-col gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {DIFFERENTIATORS.map((item) => (
-                <div key={item.number} className="flex gap-5 p-5 rounded-xl border border-border bg-[var(--brand-surface)]">
-                  <span className="text-2xl font-bold text-[var(--brand-primary)]/30 shrink-0 leading-none mt-0.5">
+                <div key={item.number} className="flex flex-col gap-3 p-5 rounded-xl border border-border bg-[var(--brand-surface)] hover:border-[var(--brand-primary)]/30 transition-colors duration-200">
+                  <span className="text-2xl font-bold text-[var(--brand-primary)]/30 leading-none">
                     {item.number}
                   </span>
                   <div>
@@ -79,35 +76,31 @@ export function AboutStory() {
         </div>
       </section>
 
-      {/* ── Timeline ── */}
+      {/* ── Milestones ── */}
       <section className="py-20 bg-[var(--brand-surface)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
               Milestones
             </p>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
               A Decade of Shipping
             </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              From a one-project start in Mumbai to 800+ deliveries across four cities — here&apos;s how we got here.
+            </p>
           </div>
 
-          <div className="max-w-3xl mx-auto flex flex-col gap-0">
-            {MILESTONES.map((m, i) => (
-              <div key={m.year} className="flex gap-6 items-start">
-                <div className="flex flex-col items-center shrink-0">
-                  <div className="w-10 h-10 rounded-full bg-[var(--brand-primary)]/10 border-2 border-[var(--brand-primary)]/30 flex items-center justify-center">
-                    <IconCheck className="w-4 h-4 text-[var(--brand-primary)]" />
-                  </div>
-                  {i < MILESTONES.length - 1 && (
-                    <div className="w-px h-12 bg-border" />
-                  )}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+            {MILESTONES.map((m) => (
+              <div key={m.year} className="flex flex-col gap-3 p-5 rounded-xl border border-border bg-background hover:border-[var(--brand-primary)]/30 transition-colors duration-200">
+                <div className="w-9 h-9 rounded-full bg-[var(--brand-primary)]/10 border-2 border-[var(--brand-primary)]/30 flex items-center justify-center">
+                  <IconCheck className="w-4 h-4 text-[var(--brand-primary)]" />
                 </div>
-                <div className="pb-12 last:pb-0">
-                  <span className="text-xs font-bold text-[var(--brand-primary)] uppercase tracking-widest">
-                    {m.year}
-                  </span>
-                  <p className="text-foreground mt-1 leading-relaxed">{m.event}</p>
-                </div>
+                <span className="text-sm font-bold text-[var(--brand-primary)] uppercase tracking-widest">
+                  {m.year}
+                </span>
+                <p className="text-sm text-foreground leading-relaxed">{m.event}</p>
               </div>
             ))}
           </div>

@@ -9,9 +9,9 @@ export const softwareDevServices: ServicePageData[] = [
     heroCta: 'Book a Free Call',
     heroStat: { value: 60, suffix: '%', label: 'Fewer Manual Processes' },
     painPoints: [
-      'Your operations are running on spreadsheets and email threads — one mistake corrupts a week of data.',
-      'There\'s no single source of truth across departments — finance, warehouse, and sales all see different numbers.',
-      'Off-the-shelf ERP like SAP or Oracle is too complex and too expensive for a business your size.',
+      { title: 'Operations Run on Spreadsheets', description: 'Your operations are running on spreadsheets and email threads — one mistake corrupts a week of data.' },
+      { title: 'No Single Source of Truth', description: 'There\'s no single source of truth across departments — finance, warehouse, and sales all see different numbers.' },
+      { title: 'Off-the-Shelf ERP Too Costly', description: 'Off-the-shelf ERP like SAP or Oracle is too complex and too expensive for a business your size.' },
     ],
     outcomeCards: [
       {
@@ -22,6 +22,7 @@ export const softwareDevServices: ServicePageData[] = [
       {
         title: 'Inventory & Order Management',
         description: 'Real-time stock levels, automated reorder triggers, and order tracking from placement to delivery. No more stockouts or manual counts.',
+        metric: 'No more stockouts',
       },
       {
         title: 'Custom Workflow Automation',
@@ -31,6 +32,7 @@ export const softwareDevServices: ServicePageData[] = [
       {
         title: 'Financial Reporting Built-In',
         description: 'P&L, cash flow, and accounts payable/receivable generated in real time from live operational data — not exported spreadsheets.',
+        metric: 'Real-time, not exported',
       },
     ],
     processSteps: [
@@ -69,9 +71,9 @@ export const softwareDevServices: ServicePageData[] = [
     heroCta: 'Book a Free Call',
     heroStat: { value: 40, suffix: '%', label: 'More Deals Closed' },
     painPoints: [
-      'Your sales team is using personal spreadsheets and WhatsApp instead of the CRM you paid for — it doesn\'t fit how they work.',
-      'There are no automated follow-up reminders — hot leads go cold because nobody remembered to call back.',
-      'Management has zero pipeline visibility — forecasting is guesswork based on what reps remember to report.',
+      { title: 'Sales Team Skips the CRM', description: 'Your sales team is using personal spreadsheets and WhatsApp instead of the CRM you paid for — it doesn\'t fit how they work.' },
+      { title: 'No Automated Follow-Up Reminders', description: 'There are no automated follow-up reminders — hot leads go cold because nobody remembered to call back.' },
+      { title: 'Zero Pipeline Visibility', description: 'Management has zero pipeline visibility — forecasting is guesswork based on what reps remember to report.' },
     ],
     outcomeCards: [
       {
@@ -82,14 +84,17 @@ export const softwareDevServices: ServicePageData[] = [
       {
         title: 'Automated Follow-Up Sequences',
         description: 'Set it once: a new lead gets a WhatsApp message, a follow-up call reminder at day 3, and an email at day 7 — automatically.',
+        metric: 'Set once, runs forever',
       },
       {
         title: 'Lead Scoring & Prioritisation',
         description: 'Every lead scored on engagement, budget signals, and fit. Reps always know which lead to call next — no more guessing.',
+        metric: 'Always know who to call next',
       },
       {
         title: 'Integration with Email and Calendar',
         description: 'Every email, call note, and meeting synced automatically to the contact record. No manual logging, complete history.',
+        metric: 'Zero manual logging',
       },
     ],
     processSteps: [
@@ -128,14 +133,15 @@ export const softwareDevServices: ServicePageData[] = [
     heroCta: 'Book a Free Call',
     heroStat: { value: 50, suffix: '+', label: 'SaaS Products Shipped' },
     painPoints: [
-      'You have a clear idea for a software product your industry needs — but no technical team to build it.',
-      'You\'ve been quoted 6-12 months and ₹50L+ by agencies who\'ve never shipped a SaaS product before.',
-      'You\'re worried about getting the architecture wrong — multi-tenancy, billing, and security are hard to retrofit later.',
+      { title: 'Great Idea, No Technical Team', description: 'You have a clear idea for a software product your industry needs — but no technical team to build it.' },
+      { title: 'Inflated Quotes From Inexperienced Agencies', description: 'You\'ve been quoted 6-12 months and ₹50L+ by agencies who\'ve never shipped a SaaS product before.' },
+      { title: 'Worried About Getting Architecture Wrong', description: 'You\'re worried about getting the architecture wrong — multi-tenancy, billing, and security are hard to retrofit later.' },
     ],
     outcomeCards: [
       {
         title: 'Multi-Tenant Architecture',
         description: 'One codebase, isolated data per customer. Built right from day one so you can onboard 10 customers or 10,000 without restructuring.',
+        metric: 'Built right from day one',
       },
       {
         title: 'Subscription Billing Integration',
@@ -145,10 +151,12 @@ export const softwareDevServices: ServicePageData[] = [
       {
         title: 'Admin Dashboard for Your Clients',
         description: 'Each customer gets their own branded dashboard with role-based access. Your team gets a super-admin panel for customer management and analytics.',
+        metric: 'Branded for every customer',
       },
       {
         title: 'Scalable Infrastructure from Day One',
         description: 'Containerised deployment on AWS with auto-scaling. Your infrastructure grows with your customer count — no emergency migrations at scale.',
+        metric: 'No emergency migrations',
       },
     ],
     processSteps: [
@@ -188,9 +196,9 @@ export const softwareDevServices: ServicePageData[] = [
     heroCta: 'Book a Free Call',
     heroStat: { value: 8, suffix: 'wks', label: 'Avg Time to Launch' },
     painPoints: [
-      'You\'re burning through budget building features before you know if anyone will pay for them.',
-      'You\'ve been trying to build for 6+ months and still don\'t have something you can show real users.',
-      'Agencies are quoting 6 months and ₹40L+ for a "minimum viable product" — which is neither minimum nor viable.',
+      { title: 'Building Before Validating Demand', description: 'You\'re burning through budget building features before you know if anyone will pay for them.' },
+      { title: '6+ Months With Nothing to Show', description: 'You\'ve been trying to build for 6+ months and still don\'t have something you can show real users.' },
+      { title: 'MVP Quotes That Are Neither', description: 'Agencies are quoting 6 months and ₹40L+ for a "minimum viable product" — which is neither minimum nor viable.' },
     ],
     outcomeCards: [
       {
@@ -206,10 +214,12 @@ export const softwareDevServices: ServicePageData[] = [
       {
         title: 'User Feedback Loop Built-In',
         description: 'Analytics, session recording, and in-app feedback from day one. Every user interaction informs the next sprint.',
+        metric: 'Every interaction informs the next sprint',
       },
       {
         title: 'Scalable Architecture for Growth',
         description: 'We don\'t cut architectural corners to hit the deadline. Your MVP is built to scale — so the codebase doesn\'t become technical debt when you grow.',
+        metric: 'No technical debt at scale',
       },
     ],
     processSteps: [

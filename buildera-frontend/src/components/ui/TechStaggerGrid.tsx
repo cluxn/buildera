@@ -58,10 +58,12 @@ export function TechStaggerGrid({ technologies, categoryStartDelay = 0 }: Props)
               duration: 0.3,
               ease: "easeOut",
             }}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-border text-sm font-medium bg-background hover:border-[var(--brand-primary)] transition-colors duration-200"
+            className="inline-flex items-center gap-2.5 px-4 py-3 rounded-xl border border-border bg-white hover:border-[var(--brand-primary)] hover:shadow-sm transition-all duration-150 group"
           >
-            {icon && <span>{icon}</span>}
-            {tech.name}
+            {icon && <span className="text-muted-foreground group-hover:text-[var(--brand-primary)] transition-colors">{icon}</span>}
+            <span className="text-xs font-medium text-foreground group-hover:text-[var(--brand-primary)] transition-colors leading-tight whitespace-nowrap">
+              {tech.name}
+            </span>
           </motion.div>
         )
       })}

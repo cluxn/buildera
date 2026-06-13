@@ -12,17 +12,14 @@ export function IndustryHero({ data }: Props) {
       <div className="hero-orb-1" aria-hidden="true" />
       <div className="hero-orb-2" aria-hidden="true" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-12 pb-16 md:pt-20 md:pb-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20 md:py-28">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
           {/* Left */}
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--brand-surface)] border border-[var(--brand-primary)]/20 mb-6">
-              <span className="w-2 h-2 rounded-full bg-[var(--brand-primary)]" aria-hidden="true" />
-              <span className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)]">
-                {data.name} Solutions
-              </span>
-            </div>
+            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-4">
+              {data.name} Solutions
+            </p>
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-6 text-foreground">
               {data.heroHeadline}
             </h1>

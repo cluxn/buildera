@@ -26,7 +26,7 @@ export function TechShowcase({ technologies }: Props) {
   if (!technologies.length) return null
 
   return (
-    <section className="py-16 bg-[var(--brand-surface)]">
+    <section className="py-16 bg-white border-t border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
@@ -36,13 +36,13 @@ export function TechShowcase({ technologies }: Props) {
             Technologies We Use
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
-            The tools and frameworks we use to build reliable, scalable solutions — chosen for performance, maintainability, and fit.
+            The tools and frameworks we use to build reliable, scalable solutions — chosen for performance and fit.
           </p>
         </div>
-        <div className="space-y-8">
+        <div className="space-y-10">
           {grouped.map((group) => (
             <div key={group.category} className="text-center">
-              <h3 className="text-sm font-medium uppercase tracking-widest text-[var(--brand-primary)] mb-4">
+              <h3 className="inline-flex px-4 py-2 rounded-full text-sm font-medium bg-[var(--brand-primary)] text-white mb-5">
                 {group.label}
               </h3>
               <div className="flex flex-wrap gap-3 justify-center">

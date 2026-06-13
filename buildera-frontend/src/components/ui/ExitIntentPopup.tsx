@@ -17,14 +17,18 @@ interface ExitIntentPopupProps {
 export function ExitIntentPopup({ headline, subtext, ctaLabel, ctaHref, showForm = false }: ExitIntentPopupProps) {
   const [isOpen, setIsOpen] = useState(false)
 
+  const dismiss = () => {
+    setIsOpen(false)
+    localStorage.setItem('exit-popup-dismissed', '1')
+  }
+
   useEffect(() => {
-    // Check sessionStorage BEFORE registering listener — prevents re-fire in same session
-    if (sessionStorage.getItem('exit-popup-shown')) return
+    // Check localStorage BEFORE registering listener — once dismissed, never show again
+    if (localStorage.getItem('exit-popup-dismissed')) return
 
     const handleMouseLeave = (e: MouseEvent) => {
       if (e.clientY <= 0) {
         setIsOpen(true)
-        sessionStorage.setItem('exit-popup-shown', '1')
         document.removeEventListener('mouseleave', handleMouseLeave)
       }
     }
@@ -35,7 +39,7 @@ export function ExitIntentPopup({ headline, subtext, ctaLabel, ctaHref, showForm
 
   useEffect(() => {
     if (!isOpen) return
-    const handleKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setIsOpen(false) }
+    const handleKey = (e: KeyboardEvent) => { if (e.key === 'Escape') dismiss() }
     document.addEventListener('keydown', handleKey)
     return () => document.removeEventListener('keydown', handleKey)
   }, [isOpen])
@@ -49,7 +53,7 @@ export function ExitIntentPopup({ headline, subtext, ctaLabel, ctaHref, showForm
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setIsOpen(false)}
+            onClick={dismiss}
           />
           <motion.div
             className="relative bg-background border border-border rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl"
@@ -60,7 +64,7 @@ export function ExitIntentPopup({ headline, subtext, ctaLabel, ctaHref, showForm
           >
             <button
               aria-label="Close"
-              onClick={() => setIsOpen(false)}
+              onClick={dismiss}
               className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition"
             >
               <IconX className="w-5 h-5" />
@@ -76,7 +80,7 @@ export function ExitIntentPopup({ headline, subtext, ctaLabel, ctaHref, showForm
               <Link
                 href={ctaHref}
                 className="inline-flex w-full items-center justify-center px-6 py-3 rounded-lg bg-[var(--brand-primary)] text-white font-semibold hover:opacity-90 transition"
-                onClick={() => setIsOpen(false)}
+                onClick={dismiss}
               >
                 {ctaLabel}
               </Link>

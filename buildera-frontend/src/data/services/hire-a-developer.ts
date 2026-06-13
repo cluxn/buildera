@@ -9,9 +9,9 @@ export const hireADeveloperServices: ServicePageData[] = [
     heroCta: 'Book a Free Call',
     heroStat: { value: 50, suffix: '%', label: 'Cost Savings vs In-House' },
     painPoints: [
-      'Hiring developers takes 3-6 months — by the time you\'ve found the right person, your deadline has passed.',
-      'In-house developers cost far more than their salary once you add office space, benefits, tools, and management overhead.',
-      'You need niche skills — Salesforce, AI, cloud architecture — that are nearly impossible to hire for locally.',
+      { title: 'Hiring Takes 3-6 Months', description: 'Hiring developers takes 3-6 months — by the time you\'ve found the right person, your deadline has passed.' },
+      { title: 'In-House Costs Add Up Fast', description: 'In-house developers cost far more than their salary once you add office space, benefits, tools, and management overhead.' },
+      { title: 'Niche Skills You Can\'t Hire Locally', description: 'You need niche skills — Salesforce, AI, cloud architecture — that are nearly impossible to hire for locally.' },
     ],
     outcomeCards: [
       {
@@ -22,14 +22,17 @@ export const hireADeveloperServices: ServicePageData[] = [
       {
         title: 'Exclusive Team Allocation',
         description: 'Your developers work on your project only — no context-switching across multiple client projects. Full focus, full output.',
+        metric: 'Full focus, full output',
       },
       {
         title: 'Full IP Ownership',
         description: 'All code written by your dedicated team is your property from day one. No licensing fees, no lock-in, complete source code ownership.',
+        metric: '100% yours from day one',
       },
       {
         title: 'Transparent Daily Reporting',
         description: 'Daily stand-up in your timezone. Weekly sprint demos. Access to the same project management board your team uses. No black boxes.',
+        metric: 'No black boxes',
       },
     ],
     processSteps: [
@@ -70,18 +73,20 @@ export const hireADeveloperServices: ServicePageData[] = [
     heroCta: 'Book a Free Call',
     heroStat: { value: 3, suffix: ' models', label: 'Engagement Options' },
     painPoints: [
-      'You\'re locked into rigid agency contracts — you\'re paying for a full team when the project is in maintenance mode.',
-      'Project scope changed but your team size can\'t — you\'re either over-staffed or under-resourced.',
-      'You\'re paying for full-time developers when you only need 20 hours a week of senior technical work.',
+      { title: 'Locked Into Rigid Agency Contracts', description: 'You\'re locked into rigid agency contracts — you\'re paying for a full team when the project is in maintenance mode.' },
+      { title: 'Team Size Can\'t Flex With Scope', description: 'Project scope changed but your team size can\'t — you\'re either over-staffed or under-resourced.' },
+      { title: 'Paying Full-Time for Part-Time Needs', description: 'You\'re paying for full-time developers when you only need 20 hours a week of senior technical work.' },
     ],
     outcomeCards: [
       {
         title: 'Fixed-Price Projects',
         description: 'Defined scope, defined price, defined timeline. Ideal for well-scoped builds where you need budget certainty from the outset.',
+        metric: 'Budget certainty upfront',
       },
       {
         title: 'Time & Material Billing',
         description: 'Pay for hours worked. Ideal for evolving projects where scope changes as you learn. Full transparency into hours and tasks each week.',
+        metric: 'Full hourly transparency',
       },
       {
         title: 'Dedicated Monthly Retainer',
@@ -91,6 +96,7 @@ export const hireADeveloperServices: ServicePageData[] = [
       {
         title: 'No Long-Term Lock-In',
         description: 'One-month notice period on retainers. No multi-year contracts. Scale your team up for a product launch, down after it\'s live.',
+        metric: 'One-month notice, no contracts',
       },
     ],
     processSteps: [
@@ -129,14 +135,15 @@ export const hireADeveloperServices: ServicePageData[] = [
     heroCta: 'Book a Free Call',
     heroStat: { value: 98, suffix: '%', label: 'Client Retention' },
     painPoints: [
-      'You\'ve got three different vendors — a dev agency, a QA team, and a hosting provider — and nobody owns the full picture when something breaks.',
-      'The agency that built your system is gone — and no one can understand the codebase well enough to maintain it.',
-      'Post-launch bugs with no one to call is a nightmare you\'ve lived before. You won\'t do it again.',
+      { title: 'Too Many Vendors, No Owner', description: 'You\'ve got three different vendors — a dev agency, a QA team, and a hosting provider — and nobody owns the full picture when something breaks.' },
+      { title: 'The Original Agency Is Gone', description: 'The agency that built your system is gone — and no one can understand the codebase well enough to maintain it.' },
+      { title: 'No One to Call Post-Launch', description: 'Post-launch bugs with no one to call is a nightmare you\'ve lived before. You won\'t do it again.' },
     ],
     outcomeCards: [
       {
         title: 'Development + QA + Deployment',
         description: 'One team writes the code, tests it, and ships it. No handoffs between vendors where information gets lost.',
+        metric: 'One team, zero handoffs',
       },
       {
         title: 'Post-Launch Bug Fixes',
@@ -146,10 +153,12 @@ export const hireADeveloperServices: ServicePageData[] = [
       {
         title: 'Performance Monitoring',
         description: 'We set up uptime monitoring, error tracking, and performance dashboards on every system we support. We know about issues before you do.',
+        metric: 'Issues caught before you notice',
       },
       {
         title: 'Technology Upgrade Path',
         description: 'We keep your stack current — framework updates, security patches, and dependency upgrades on a quarterly schedule. Technical debt doesn\'t accumulate.',
+        metric: 'Quarterly upgrade cycle',
       },
     ],
     processSteps: [

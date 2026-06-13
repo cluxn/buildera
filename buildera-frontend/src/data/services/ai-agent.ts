@@ -9,9 +9,9 @@ export const aiAgentServices: ServicePageData[] = [
     heroCta: 'Book a Free Call',
     heroStat: { value: 20, suffix: 'hrs', label: 'Saved Per Week' },
     painPoints: [
-      'Your team is spending hours every day on data entry and copy-paste tasks that generate zero revenue.',
-      'Customer follow-ups are falling through the cracks because no one has time to track every lead manually.',
-      'Scaling operations means scaling headcount — your labour costs grow faster than your revenue.',
+      { title: 'Hours Lost to Manual Data Entry', description: 'Your team is spending hours every day on data entry and copy-paste tasks that generate zero revenue.' },
+      { title: 'Leads Slipping Through the Cracks', description: 'Customer follow-ups are falling through the cracks because no one has time to track every lead manually.' },
+      { title: 'Headcount Scaling Faster Than Revenue', description: 'Scaling operations means scaling headcount — your labour costs grow faster than your revenue.' },
     ],
     outcomeCards: [
       {
@@ -22,14 +22,17 @@ export const aiAgentServices: ServicePageData[] = [
       {
         title: 'Natural Language Interfaces',
         description: 'Your team gives instructions in plain English. The agent interprets, acts, and reports back — no technical knowledge required.',
+        metric: 'No technical training needed',
       },
       {
         title: 'Multi-System Integration',
         description: 'One agent coordinates across your CRM, ERP, email, and third-party tools. No more switching tabs or copying data between apps.',
+        metric: 'One agent, every system',
       },
       {
         title: 'Human-in-the-Loop Oversight',
         description: 'Set approval thresholds. High-stakes actions pause for human review; routine tasks run autonomously. You stay in control.',
+        metric: 'You stay in control',
       },
     ],
     processSteps: [
@@ -67,9 +70,9 @@ export const aiAgentServices: ServicePageData[] = [
     heroCta: 'Book a Free Call',
     heroStat: { value: 85, suffix: '%', label: 'Less Manual Data Entry' },
     painPoints: [
-      'Your data lives in 5+ disconnected tools — CRM, ERP, accounting, and email that never sync with each other.',
-      'Staff are manually copying data between systems every morning, creating duplicate records and errors.',
-      'There\'s no real-time data flow between your sales team and operations — decisions get made on stale numbers.',
+      { title: 'Data Scattered Across 5+ Tools', description: 'Your data lives in 5+ disconnected tools — CRM, ERP, accounting, and email that never sync with each other.' },
+      { title: 'Manual Copy-Paste Between Systems', description: 'Staff are manually copying data between systems every morning, creating duplicate records and errors.' },
+      { title: 'No Real-Time Data Flow', description: 'There\'s no real-time data flow between your sales team and operations — decisions get made on stale numbers.' },
     ],
     outcomeCards: [
       {
@@ -80,6 +83,7 @@ export const aiAgentServices: ServicePageData[] = [
       {
         title: 'Custom RESTful APIs',
         description: 'We design and build APIs that exactly match your data models and business rules — not a generic connector that forces you to adapt.',
+        metric: 'Built to match your data model',
       },
       {
         title: 'Webhook-Driven Automation',
@@ -89,6 +93,7 @@ export const aiAgentServices: ServicePageData[] = [
       {
         title: 'Legacy System Bridge',
         description: 'We wrap old systems that don\'t have APIs with a modern integration layer — so you get real-time data without replacing expensive legacy software.',
+        metric: 'No costly replacements',
       },
     ],
     processSteps: [
@@ -126,9 +131,9 @@ export const aiAgentServices: ServicePageData[] = [
     heroCta: 'Book a Free Call',
     heroStat: { value: 3, suffix: 'x', label: 'Operational Efficiency' },
     painPoints: [
-      'Critical approvals are bottlenecked in email chains — a decision that should take minutes takes days.',
-      'Monthly reports take your team days to compile from spreadsheets that are already out of date.',
-      'Your business is growing but your processes haven\'t scaled — what worked at 10 employees breaks at 30.',
+      { title: 'Approvals Stuck in Email Chains', description: 'Critical approvals are bottlenecked in email chains — a decision that should take minutes takes days.' },
+      { title: 'Reports Take Days to Compile', description: 'Monthly reports take your team days to compile from spreadsheets that are already out of date.' },
+      { title: 'Processes That Haven\'t Scaled', description: 'Your business is growing but your processes haven\'t scaled — what worked at 10 employees breaks at 30.' },
     ],
     outcomeCards: [
       {
@@ -139,14 +144,17 @@ export const aiAgentServices: ServicePageData[] = [
       {
         title: 'Predictive Analytics Dashboards',
         description: 'Real-time dashboards built on your operational data. Spot bottlenecks and forecast demand before they become problems.',
+        metric: 'Spot bottlenecks early',
       },
       {
         title: 'Automated Reporting',
         description: 'Weekly operations reports, sales summaries, and inventory snapshots generated and distributed automatically — no human compilation required.',
+        metric: 'Zero manual compilation',
       },
       {
         title: 'Process Mining & Optimisation',
         description: 'We analyse your actual process execution data to identify where time is lost and redesign workflows for maximum throughput.',
+        metric: 'Maximum throughput',
       },
     ],
     processSteps: [
@@ -184,9 +192,9 @@ export const aiAgentServices: ServicePageData[] = [
     heroCta: 'Book a Free Call',
     heroStat: { value: 70, suffix: '%', label: 'Queries Resolved by Bot' },
     painPoints: [
-      'Customers are waiting hours for answers to simple questions — and leaving for your competitor who responds faster.',
-      'Your support team is overwhelmed answering the same 20 questions on repeat instead of handling complex issues.',
-      'You have no after-hours support — you\'re losing leads and customers every night while you sleep.',
+      { title: 'Slow Response Times Lose Customers', description: 'Customers are waiting hours for answers to simple questions — and leaving for your competitor who responds faster.' },
+      { title: 'Support Stuck on Repeat Questions', description: 'Your support team is overwhelmed answering the same 20 questions on repeat instead of handling complex issues.' },
+      { title: 'No After-Hours Coverage', description: 'You have no after-hours support — you\'re losing leads and customers every night while you sleep.' },
     ],
     outcomeCards: [
       {
@@ -197,14 +205,17 @@ export const aiAgentServices: ServicePageData[] = [
       {
         title: 'Multi-Channel Deployment',
         description: 'One bot, everywhere your customers are — website chat, WhatsApp Business API, and email. Consistent answers across every channel.',
+        metric: 'One bot, every channel',
       },
       {
         title: 'Smart Escalation to Human Agents',
         description: 'The bot handles what it can. When a query exceeds its confidence threshold, it hands off to a human — with full conversation context attached.',
+        metric: 'Full context handed off',
       },
       {
         title: 'Continuous Learning from Interactions',
         description: 'Every conversation improves the bot. Monthly review cycles retrain the model on new queries so coverage expands over time.',
+        metric: 'Coverage grows monthly',
       },
     ],
     processSteps: [

@@ -29,8 +29,8 @@ export default async function TestimonialsPage({ searchParams }: Props) {
         eyebrow="Testimonials"
         heading={
           <>
-            What Our<br />
-            <span className="text-[var(--brand-primary)]">Clients Say.</span>
+            Real Results,<br />
+            <span className="text-[var(--brand-primary)]">Real Client Stories.</span>
           </>
         }
         description="Real feedback from SMB owners and decision-makers across manufacturing, retail, finance, and more — unedited."

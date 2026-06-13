@@ -11,6 +11,11 @@ export interface OutcomeCard {
   icon?: string
 }
 
+export interface PainPoint {
+  title: string
+  description: string
+}
+
 export interface ProcessStep {
   stepNumber: number
   title: string
@@ -35,7 +40,7 @@ export interface ServicePageData {
   heroSubheadline: string
   heroCta: string
   heroStat: HeroStat
-  painPoints: string[]
+  painPoints: PainPoint[]
   outcomeCards: OutcomeCard[]
   processSteps: ProcessStep[]
   industriesServed: string[]
