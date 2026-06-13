@@ -118,18 +118,6 @@ export default async function CaseStudyDetailPage({ params }: Props) {
                   <div className="prose prose-slate prose-lg max-w-none mb-8"
                     dangerouslySetInnerHTML={{ __html: study.results ?? '' }} />
 
-                  {study.key_metrics.length > 0 && (
-                    <div className={`grid gap-px bg-border rounded-2xl overflow-hidden border border-border grid-cols-${Math.min(study.key_metrics.length, 3)}`}>
-                      {study.key_metrics.slice(0, 3).map((m, i) => (
-                        <div key={i} className="bg-background px-8 py-8">
-                          <p className="text-4xl md:text-5xl font-bold bg-gradient-to-br from-[var(--brand-gradient-from)] to-[var(--brand-gradient-to)] bg-clip-text text-transparent mb-2">
-                            {m.value}
-                          </p>
-                          <p className="text-sm text-muted-foreground leading-snug">{m.label}</p>
-                        </div>
-                      ))}
-                    </div>
-                  )}
                 </div>
 
                 {/* Testimonial */}
@@ -227,7 +215,7 @@ export default async function CaseStudyDetailPage({ params }: Props) {
                       <div className="grid grid-cols-2 divide-x divide-y divide-border">
                         {study.key_metrics.slice(0, 4).map((m, i) => (
                           <div key={i} className="px-4 py-5">
-                            <p className="text-2xl font-bold text-[var(--brand-primary)] leading-tight mb-1">
+                            <p className="text-2xl font-bold text-foreground leading-tight mb-1">
                               {m.value}
                             </p>
                             <p className="text-xs text-muted-foreground leading-snug">{m.label}</p>
