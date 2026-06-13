@@ -21,7 +21,7 @@ function formatDateTime(value: string | null) {
   if (!value) return '—'
   const d = new Date(value)
   if (isNaN(d.getTime())) return '—'
-  return d.toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })
+  return d.toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })
 }
 
 interface Props {
