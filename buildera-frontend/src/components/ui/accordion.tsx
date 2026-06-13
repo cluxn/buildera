@@ -1,7 +1,7 @@
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion"
 
 import { cn } from "@/lib/utils"
-import { ChevronDownIcon, ChevronUpIcon } from "lucide-react"
+import { ChevronDownIcon } from "lucide-react"
 
 function Accordion({ className, ...props }: AccordionPrimitive.Root.Props) {
   return (
@@ -36,15 +36,14 @@ function AccordionTrigger({
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(
-          "group/accordion-trigger relative flex flex-1 items-center justify-between gap-4 px-5 py-4 text-left text-base font-semibold transition-all outline-none focus-visible:ring-3 focus-visible:ring-ring/50 aria-disabled:pointer-events-none aria-disabled:opacity-50 **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4 **:data-[slot=accordion-trigger-icon]:text-[var(--brand-primary)]",
+          "group/accordion-trigger relative flex flex-1 items-center justify-between gap-4 px-5 py-4 text-left text-base font-semibold transition-all outline-none focus-visible:ring-3 focus-visible:ring-ring/50 aria-disabled:pointer-events-none aria-disabled:opacity-50",
           className
         )}
         {...props}
       >
         {children}
-        <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-[var(--brand-primary)]/10 transition-colors group-data-open/accordion-trigger:bg-[var(--brand-primary)] group-data-open/accordion-trigger:[&_svg]:text-white">
-          <ChevronDownIcon data-slot="accordion-trigger-icon" className="pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden" />
-          <ChevronUpIcon data-slot="accordion-trigger-icon" className="pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline" />
+        <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-[var(--brand-primary)]/10 transition-colors group-data-open/accordion-trigger:bg-[var(--brand-primary)]">
+          <ChevronDownIcon className="w-4 h-4 text-[var(--brand-primary)] transition-transform duration-200 group-data-open/accordion-trigger:rotate-180 group-data-open/accordion-trigger:text-white" />
         </span>
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
