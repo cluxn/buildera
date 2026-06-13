@@ -13,6 +13,17 @@ const STATUS_COLORS: Record<string, string> = {
   PUBLISHED: 'bg-green-100 text-green-700',
 }
 
+function isScheduled(row: { status: string; published_at: string | null }) {
+  return row.status.toLowerCase() === 'published' && !!row.published_at && new Date(row.published_at) > new Date()
+}
+
+function formatDateTime(value: string | null) {
+  if (!value) return '—'
+  const d = new Date(value)
+  if (isNaN(d.getTime())) return '—'
+  return d.toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })
+}
+
 interface Props {
   rows: BlogPost[]; total: number; perPage: number; page: number; status: string; q: string
 }
@@ -76,13 +87,15 @@ export function BlogListClient({ rows, total, perPage, page, status, q }: Props)
               <th className="px-4 py-2.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide hidden md:table-cell">Category</th>
               <th className="px-4 py-2.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide hidden md:table-cell">Author</th>
               <th className="px-4 py-2.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Status</th>
+              <th className="px-4 py-2.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide hidden xl:table-cell">Scheduled At</th>
+              <th className="px-4 py-2.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide hidden xl:table-cell">Published At</th>
               <th className="px-4 py-2.5 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide hidden lg:table-cell">Views</th>
               <th className="px-4 py-2.5 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-50">
             {rows.length === 0 && (
-              <tr><td colSpan={6} className="px-4 py-10 text-center text-gray-400">No posts found</td></tr>
+              <tr><td colSpan={8} className="px-4 py-10 text-center text-gray-400">No posts found</td></tr>
             )}
             {rows.map(post => (
               <tr key={post.id} className="hover:bg-gray-50">
@@ -97,6 +110,8 @@ export function BlogListClient({ rows, total, perPage, page, status, q }: Props)
                 <td className="px-4 py-3">
                   <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${STATUS_COLORS[post.status] ?? 'bg-gray-100 text-gray-600'}`}>{post.status}</span>
                 </td>
+                <td className="px-4 py-3 text-gray-500 hidden xl:table-cell">{isScheduled(post) ? formatDateTime(post.published_at) : '—'}</td>
+                <td className="px-4 py-3 text-gray-500 hidden xl:table-cell">{!isScheduled(post) && post.status.toLowerCase() === 'published' ? formatDateTime(post.published_at) : '—'}</td>
                 <td className="px-4 py-3 text-right text-gray-500 hidden lg:table-cell">{post.view_count.toLocaleString()}</td>
                 <td className="px-4 py-3">
                   <div className="flex items-center justify-end gap-1">

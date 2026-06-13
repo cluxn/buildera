@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from 'react'
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
-import { Edit, Trash2, Plus } from 'lucide-react'
+import { Edit, Trash2, Plus, Download } from 'lucide-react'
 import type { LeadMagnet } from '@/db/admin/lead-magnets'
 import { RichTextEditor } from './RichTextEditor'
 
@@ -23,6 +23,13 @@ function toDatetimeLocal(value: string): string {
 
 function isScheduled(row: { status: string; published_at: string | null }) {
   return row.status === 'PUBLISHED' && !!row.published_at && new Date(row.published_at) > new Date()
+}
+
+function formatDateTime(value: string | null) {
+  if (!value) return '—'
+  const d = new Date(value)
+  if (isNaN(d.getTime())) return '—'
+  return d.toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })
 }
 
 interface Props { rows: LeadMagnet[]; total: number; perPage: number; page: number; status: string; q: string }
@@ -184,11 +191,13 @@ export function LeadMagnetsClient({ rows, total, perPage, page, status, q }: Pro
               <th className="px-4 py-2.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide hidden md:table-cell">CTA</th>
               <th className="px-4 py-2.5 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide hidden lg:table-cell">Downloads</th>
               <th className="px-4 py-2.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Status</th>
+              <th className="px-4 py-2.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide hidden xl:table-cell">Scheduled At</th>
+              <th className="px-4 py-2.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide hidden xl:table-cell">Published At</th>
               <th className="px-4 py-2.5 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-50">
-            {rows.length === 0 && <tr><td colSpan={5} className="px-4 py-10 text-center text-gray-400">No guides found</td></tr>}
+            {rows.length === 0 && <tr><td colSpan={7} className="px-4 py-10 text-center text-gray-400">No guides found</td></tr>}
             {rows.map(row => (
               <tr key={row.id} className="hover:bg-gray-50">
                 <td className="px-4 py-3">
@@ -203,8 +212,13 @@ export function LeadMagnetsClient({ rows, total, perPage, page, status, q }: Pro
                     {isScheduled(row) ? 'SCHEDULED' : row.status}
                   </button>
                 </td>
+                <td className="px-4 py-3 text-gray-500 hidden xl:table-cell">{isScheduled(row) ? formatDateTime(row.published_at) : '—'}</td>
+                <td className="px-4 py-3 text-gray-500 hidden xl:table-cell">{!isScheduled(row) && row.status === 'PUBLISHED' ? formatDateTime(row.published_at) : '—'}</td>
                 <td className="px-4 py-3">
                   <div className="flex items-center justify-end gap-1">
+                    {row.pdf_url && (
+                      <a href={row.pdf_url} target="_blank" rel="noopener" className="p-1.5 rounded hover:bg-gray-100 text-gray-400 hover:text-gray-700" title="Download file"><Download size={15} /></a>
+                    )}
                     <button onClick={() => setEditing(row)} className="p-1.5 rounded hover:bg-gray-100 text-gray-400 hover:text-gray-700"><Edit size={15} /></button>
                     <button onClick={() => handleDelete(row.id)} disabled={deleting === row.id}
                       className="p-1.5 rounded hover:bg-red-50 text-gray-400 hover:text-red-600 disabled:opacity-40"><Trash2 size={15} /></button>

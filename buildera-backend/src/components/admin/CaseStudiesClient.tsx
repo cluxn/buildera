@@ -26,6 +26,13 @@ function isScheduled(row: { status: string; published_at: string | null }) {
   return row.status === 'PUBLISHED' && !!row.published_at && new Date(row.published_at) > new Date()
 }
 
+function formatDateTime(value: string | null) {
+  if (!value) return '—'
+  const d = new Date(value)
+  if (isNaN(d.getTime())) return '—'
+  return d.toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })
+}
+
 interface Props { rows: CaseStudy[]; total: number; perPage: number; page: number; status: string; q: string }
 
 export function CaseStudiesClient({ rows, total, perPage, page, status, q }: Props) {
@@ -188,11 +195,13 @@ export function CaseStudiesClient({ rows, total, perPage, page, status, q }: Pro
               <th className="px-4 py-2.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide hidden md:table-cell">Client</th>
               <th className="px-4 py-2.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide hidden lg:table-cell">Industry</th>
               <th className="px-4 py-2.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Status</th>
+              <th className="px-4 py-2.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide hidden xl:table-cell">Scheduled At</th>
+              <th className="px-4 py-2.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide hidden xl:table-cell">Published At</th>
               <th className="px-4 py-2.5 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-50">
-            {rows.length === 0 && <tr><td colSpan={5} className="px-4 py-10 text-center text-gray-400">No case studies found</td></tr>}
+            {rows.length === 0 && <tr><td colSpan={7} className="px-4 py-10 text-center text-gray-400">No case studies found</td></tr>}
             {rows.map(row => (
               <tr key={row.id} className="hover:bg-gray-50">
                 <td className="px-4 py-3">
@@ -208,6 +217,8 @@ export function CaseStudiesClient({ rows, total, perPage, page, status, q }: Pro
                     {isScheduled(row) ? 'SCHEDULED' : row.status}
                   </button>
                 </td>
+                <td className="px-4 py-3 text-gray-500 hidden xl:table-cell">{isScheduled(row) ? formatDateTime(row.published_at) : '—'}</td>
+                <td className="px-4 py-3 text-gray-500 hidden xl:table-cell">{!isScheduled(row) && row.status === 'PUBLISHED' ? formatDateTime(row.published_at) : '—'}</td>
                 <td className="px-4 py-3">
                   <div className="flex items-center justify-end gap-1">
                     <button onClick={() => setEditing(row)} className="p-1.5 rounded hover:bg-gray-100 text-gray-400 hover:text-gray-700" title="Edit"><Edit size={15} /></button>
