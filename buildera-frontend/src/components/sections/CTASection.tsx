@@ -2,7 +2,15 @@
 
 import { motion } from "motion/react"
 
-export function CTASection() {
+interface CTASectionProps {
+  heading?: string
+  description?: string
+}
+
+export function CTASection({
+  heading = "Ready to build something that grows your business?",
+  description = "Book a free 30-minute discovery call. No pressure, no pitch deck — just a conversation about what you need.",
+}: CTASectionProps) {
   return (
     <motion.section
       className="py-24 relative overflow-hidden"
@@ -32,7 +40,7 @@ export function CTASection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          Ready to build something that grows your business?
+          {heading}
         </motion.h2>
         <motion.p
           className="text-white/80 text-lg mb-8 max-w-xl mx-auto"
@@ -41,8 +49,7 @@ export function CTASection() {
           viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
         >
-          Book a free 30-minute discovery call. No pressure, no pitch deck — just a conversation
-          about what you need.
+          {description}
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 16 }}

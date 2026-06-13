@@ -4,6 +4,7 @@ import { getTestimonialsPage } from '@/lib/api'
 import { TestimonialCard } from '@/components/content/TestimonialCard'
 import { ServiceCategoryFilterTabs } from '@/components/content/ServiceCategoryFilterTabs'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
+import { PageHero } from '@/components/sections/PageHero'
 import { generateSeoMetadata } from '@/lib/seo'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -24,45 +25,16 @@ export default async function TestimonialsPage({ searchParams }: Props) {
     <main>
       <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Testimonials' }]} />
 
-      {/* ── Hero ── */}
-      <section className="relative overflow-hidden bg-background py-20">
-        <div className="hero-orb-1" aria-hidden="true" />
-        <div className="hero-orb-2" aria-hidden="true" />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end pb-16 border-b border-border">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-4">
-                Testimonials
-              </p>
-              <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-[1.05]">
-                What Our<br />
-                <span className="text-[var(--brand-primary)]">Clients Say.</span>
-              </h1>
-            </div>
-            <div className="flex flex-col gap-4 lg:pb-2">
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                Real feedback from SMB owners and decision-makers across manufacturing, retail,
-                finance, and more — unedited.
-              </p>
-              <div className="flex flex-wrap gap-6">
-                <div>
-                  <p className="text-3xl font-bold text-foreground">150+</p>
-                  <p className="text-sm text-muted-foreground">Happy Clients</p>
-                </div>
-                <div>
-                  <p className="text-3xl font-bold text-foreground">98%</p>
-                  <p className="text-sm text-muted-foreground">Satisfaction Rate</p>
-                </div>
-                <div>
-                  <p className="text-3xl font-bold text-foreground">4.9/5</p>
-                  <p className="text-sm text-muted-foreground">Average Rating</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Testimonials"
+        heading={
+          <>
+            What Our<br />
+            <span className="text-[var(--brand-primary)]">Clients Say.</span>
+          </>
+        }
+        description="Real feedback from SMB owners and decision-makers across manufacturing, retail, finance, and more — unedited."
+      />
 
       {/* ── Filter + Grid ── */}
       <section className="py-16 bg-background">

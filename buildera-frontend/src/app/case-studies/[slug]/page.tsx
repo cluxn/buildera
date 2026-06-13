@@ -2,10 +2,10 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 import { getContentCaseStudy, getContentCaseStudies } from '@/lib/api'
 import { ResultMetricCard } from '@/components/content/ResultMetricCard'
 import { BlogCtaBanner } from '@/components/sections/BlogCtaBanner'
+import { CTASection } from '@/components/sections/CTASection'
 import { MiniLeadForm } from '@/components/ui/MiniLeadForm'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { JsonLd } from '@/components/ui/JsonLd'
@@ -76,7 +76,7 @@ export default async function CaseStudyDetailPage({ params }: Props) {
         <section className="py-12 bg-[var(--brand-surface)]">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl font-bold mb-6">The Problem</h2>
-            <div className="prose prose-slate prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: study.problem }} />
+            <div className="prose prose-slate prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: study.problem ?? '' }} />
           </div>
         </section>
 
@@ -84,7 +84,7 @@ export default async function CaseStudyDetailPage({ params }: Props) {
         <section className="py-12 bg-background">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl font-bold mb-6">Our Solution</h2>
-            <div className="prose prose-slate prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: study.solution }} />
+            <div className="prose prose-slate prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: study.solution ?? '' }} />
           </div>
         </section>
 
@@ -92,7 +92,7 @@ export default async function CaseStudyDetailPage({ params }: Props) {
         <section className="py-12 bg-[var(--brand-surface)]">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl font-bold mb-6">The Results</h2>
-            <div className="prose prose-slate prose-lg max-w-none mb-8" dangerouslySetInnerHTML={{ __html: study.results }} />
+            <div className="prose prose-slate prose-lg max-w-none mb-8" dangerouslySetInnerHTML={{ __html: study.results ?? '' }} />
             {study.key_metrics.length > 0 && (
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
                 {study.key_metrics.map((m, i) => (
@@ -130,15 +130,10 @@ export default async function CaseStudyDetailPage({ params }: Props) {
         )}
 
         {/* Full bottom CTA */}
-        <section className="py-20 bg-background text-center">
-          <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold mb-4">Ready to Build Your Success Story?</h2>
-            <p className="text-muted-foreground mb-8">Book a free discovery call and let&apos;s explore what&apos;s possible for your business.</p>
-            <Link href="/book-a-call" className="inline-flex items-center px-8 py-4 bg-[var(--brand-primary)] text-white font-semibold rounded-xl hover:bg-[var(--brand-primary-dark)] transition-colors">
-              Book a Free Call
-            </Link>
-          </div>
-        </section>
+        <CTASection
+          heading="Ready to Build Your Success Story?"
+          description="Book a free discovery call and let's explore what's possible for your business."
+        />
       </Suspense>
     </main>
   )

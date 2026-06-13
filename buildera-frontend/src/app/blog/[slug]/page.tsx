@@ -5,12 +5,12 @@ import { getBlogPost, getBlogPosts } from '@/lib/api'
 import { BlogDetailHero } from '@/components/blog/BlogDetailHero'
 import { InlineNewsletterBlock } from '@/components/blog/InlineNewsletterBlock'
 import { BlogCtaBanner } from '@/components/sections/BlogCtaBanner'
+import { CTASection } from '@/components/sections/CTASection'
 import { AuthorBio } from '@/components/blog/AuthorBio'
 import { RelatedPosts } from '@/components/blog/RelatedPosts'
 import { MiniLeadForm } from '@/components/ui/MiniLeadForm'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { JsonLd } from '@/components/ui/JsonLd'
-import Link from 'next/link'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -79,7 +79,7 @@ export default async function BlogPostPage({ params }: Props) {
 
           <div
             className="prose prose-slate prose-lg max-w-none"
-            dangerouslySetInnerHTML={{ __html: post.body }}
+            dangerouslySetInnerHTML={{ __html: post.body ?? '' }}
           />
 
           <InlineNewsletterBlock />
@@ -100,18 +100,10 @@ export default async function BlogPostPage({ params }: Props) {
           </section>
         )}
 
-        <section className="py-20 bg-background text-center">
-          <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold mb-4">Ready to Build Something?</h2>
-            <p className="text-muted-foreground mb-8">Book a free discovery call and let&apos;s talk about your project.</p>
-            <Link
-              href="/book-a-call"
-              className="inline-flex items-center px-8 py-4 bg-[var(--brand-primary)] text-white font-semibold rounded-xl hover:bg-[var(--brand-primary-dark)] transition-colors"
-            >
-              Book a Free Call
-            </Link>
-          </div>
-        </section>
+        <CTASection
+          heading="Ready to Build Something?"
+          description="Book a free discovery call and let's talk about your project."
+        />
       </Suspense>
     </main>
   )

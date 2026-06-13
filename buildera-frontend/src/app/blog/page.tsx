@@ -7,6 +7,7 @@ import { BlogPagination } from '@/components/blog/BlogPagination'
 import { SortDropdown } from '@/components/blog/SortDropdown'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { SearchInput } from '@/components/ui/SearchInput'
+import { PageHero } from '@/components/sections/PageHero'
 import { Suspense } from 'react'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -32,17 +33,11 @@ export default async function BlogPage({ searchParams }: Props) {
     <main>
       <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Blog' }]} />
 
-      <section className="relative overflow-hidden bg-[var(--brand-surface)] border-b border-border py-16 md:py-20">
-        <div className="hero-orb-1" aria-hidden="true" />
-        <div className="hero-orb-2" aria-hidden="true" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">BLOG</p>
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">Insights for Indian SMBs</h1>
-            <p className="text-lg text-muted-foreground">Practical guides, case study breakdowns, and industry analysis — written by the team building the software.</p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Blog"
+        heading="Insights for Indian SMBs"
+        description="Practical guides, case study breakdowns, and industry analysis — written by the team building the software."
+      />
 
       <section className="py-16 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

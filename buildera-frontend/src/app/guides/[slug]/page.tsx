@@ -2,10 +2,10 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 import { getGuide, getGuides } from '@/lib/api'
 import { GuideCard } from '@/components/content/GuideCard'
 import { BlogCtaBanner } from '@/components/sections/BlogCtaBanner'
+import { CTASection } from '@/components/sections/CTASection'
 import { MiniLeadForm } from '@/components/ui/MiniLeadForm'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { IconExternalLink } from '@tabler/icons-react'
@@ -93,7 +93,7 @@ export default async function GuideDetailPage({ params }: Props) {
         {/* Body */}
         <section className="py-12 bg-background">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="prose prose-slate prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: guide.body }} />
+            <div className="prose prose-slate prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: guide.body ?? '' }} />
 
             {guide.external_link && (
               <div className="mt-8">
@@ -124,15 +124,10 @@ export default async function GuideDetailPage({ params }: Props) {
           </section>
         )}
 
-        <section className="py-20 bg-background text-center">
-          <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold mb-4">Ready to Apply This in Your Business?</h2>
-            <p className="text-muted-foreground mb-8">Book a free call and let&apos;s talk through how this applies to your specific situation.</p>
-            <Link href="/book-a-call" className="inline-flex items-center px-8 py-4 bg-[var(--brand-primary)] text-white font-semibold rounded-xl hover:bg-[var(--brand-primary-dark)] transition-colors">
-              Book a Free Call
-            </Link>
-          </div>
-        </section>
+        <CTASection
+          heading="Ready to Apply This in Your Business?"
+          description="Book a free call and let's talk through how this applies to your specific situation."
+        />
       </Suspense>
     </main>
   )
