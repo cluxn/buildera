@@ -21,6 +21,8 @@ export async function generateStaticParams() {
   return posts.data.map((p) => ({ slug: p.slug }))
 }
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://buildera.co'
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const post = await getBlogPost(slug)
@@ -28,6 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: post.seo_title ?? `${post.title} | Buildera Blog`,
     description: post.seo_description ?? post.excerpt,
+    alternates: { canonical: `${SITE_URL}/blog/${slug}` },
     openGraph: {
       title: post.title,
       description: post.excerpt,

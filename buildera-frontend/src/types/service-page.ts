@@ -57,6 +57,25 @@ export interface SolutionChallenge {
   body: string
 }
 
+export interface SolutionPreviewRow {
+  label: string
+  qty: number
+  prev: number
+  highlight?: boolean
+}
+
+export interface SolutionPreviewStat {
+  label: string
+  value: string
+  color: string
+}
+
+export interface SolutionPreviewBar {
+  label: string
+  value: string
+  pct: number
+}
+
 export interface SolutionPageData {
   slug: string
   title: string
@@ -67,6 +86,13 @@ export interface SolutionPageData {
   industriesServed: string[]
   relatedServices: string[]
   ctaHeadline: string
+  previewTableTitle?: string
+  previewTableRows?: SolutionPreviewRow[]
+  previewStats?: SolutionPreviewStat[]
+  previewBars?: SolutionPreviewBar[]
+  previewEyebrow?: string
+  previewHeading?: string
+  previewDescription?: string
 }
 
 export interface IndustryChallenge {

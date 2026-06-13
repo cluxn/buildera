@@ -18,6 +18,8 @@ import {
 
 type Props = { params: Promise<{ slug: string }> }
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://buildera.co'
+
 export async function generateStaticParams() {
   const studies = await getContentCaseStudies(1)
   return studies.data.map((s) => ({ slug: s.slug }))
@@ -30,6 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: study.seo_title ?? `${study.title} | Buildera Case Study`,
     description: study.seo_description ?? `${study.industry} case study — ${study.title}`,
+    alternates: { canonical: `${SITE_URL}/case-studies/${slug}` },
   }
 }
 

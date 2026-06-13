@@ -6,7 +6,7 @@ import { SolutionIndustries } from '@/components/sections/solution/SolutionIndus
 import { SolutionRelatedServices } from '@/components/sections/solution/SolutionRelatedServices'
 import { SolutionCaseStudy } from '@/components/sections/solution/SolutionCaseStudy'
 import { ClientTestimonials } from '@/components/sections/ClientTestimonials'
-import { SolutionCta } from '@/components/sections/solution/SolutionCta'
+import { ServiceCta } from '@/components/sections/service/ServiceCta'
 import type { SolutionPageData, CaseStudyData } from '@/types/service-page'
 import type { Testimonial } from '@/lib/api'
 
@@ -22,12 +22,21 @@ export function SolutionDetailLayout({ data, testimonials, caseStudy }: Props) {
       <SolutionHero data={data} />
       <SolutionProblem points={data.problemPoints} />
       <SolutionFeatures title={data.title} cards={data.featureCards} />
-      <SolutionPreviewSection title={data.title} />
+      <SolutionPreviewSection
+        title={data.title}
+        tableTitle={data.previewTableTitle}
+        tableRows={data.previewTableRows}
+        stats={data.previewStats}
+        bars={data.previewBars}
+        eyebrow={data.previewEyebrow}
+        heading={data.previewHeading}
+        description={data.previewDescription}
+      />
       <SolutionIndustries />
       <SolutionRelatedServices services={data.relatedServices} />
       {caseStudy && <SolutionCaseStudy caseStudy={caseStudy} />}
       {testimonials.length > 0 && <ClientTestimonials testimonials={testimonials} />}
-      <SolutionCta headline={data.ctaHeadline} />
+      <ServiceCta headline={data.ctaHeadline} />
     </main>
   )
 }

@@ -18,6 +18,8 @@ const TYPE_COLORS: Record<string, string> = {
 
 type Props = { params: Promise<{ slug: string }> }
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://buildera.co'
+
 export async function generateStaticParams() {
   const guides = await getGuides(1)
   return guides.data.map((g) => ({ slug: g.slug }))
@@ -30,6 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: guide.seo_title ?? `${guide.title} | Buildera Guides`,
     description: guide.seo_description ?? guide.description,
+    alternates: { canonical: `${SITE_URL}/guides/${slug}` },
   }
 }
 
