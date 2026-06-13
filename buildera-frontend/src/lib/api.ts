@@ -233,6 +233,11 @@ export type ContentCaseStudyDetail = ContentCaseStudy & {
   problem: string; solution: string; results: string;
   testimonial_quote: string | null; testimonial_author: string | null;
   seo_title: string | null; seo_description: string | null;
+  // sidebar fields (set in admin panel)
+  client_about: string | null;
+  tech_stack: string | null;
+  timeline: string | null;
+  country: string | null;
 }
 export type ContentCaseStudyListResponse = { data: ContentCaseStudy[]; current_page: number; last_page: number; per_page: number; total: number }
 
