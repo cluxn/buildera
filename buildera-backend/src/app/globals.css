@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@theme {
+  --color-primary: #002BFF;
+}
+
 /* TipTap editor content styling */
 .tiptap-content .ProseMirror {
   outline: none;

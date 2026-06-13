@@ -26,7 +26,7 @@ export function TestimonialCard({ quote, name, title, company, rating, className
           />
         ))}
       </div>
-      <blockquote className="text-foreground text-sm leading-relaxed line-clamp-5 flex-1">
+      <blockquote className="text-foreground text-sm leading-relaxed line-clamp-6 flex-1 overflow-hidden">
         &ldquo;{quote}&rdquo;
       </blockquote>
       <div className="mt-auto">

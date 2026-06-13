@@ -8,7 +8,6 @@ import { BlogCtaBanner } from '@/components/sections/BlogCtaBanner'
 import { CTASection } from '@/components/sections/CTASection'
 import { AuthorBio } from '@/components/blog/AuthorBio'
 import { RelatedPosts } from '@/components/blog/RelatedPosts'
-import { ExploreServicesSection } from '@/components/blog/ExploreServicesSection'
 import { BlogShareButtons } from '@/components/blog/BlogShareButtons'
 import { MiniLeadForm } from '@/components/ui/MiniLeadForm'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
@@ -46,9 +45,12 @@ export default async function BlogPostPage({ params }: Props) {
 
   if (!post) notFound()
 
-  const relatedPosts = relatedData.data
+  const sameCategoryPosts = relatedData.data
     .filter((p) => p.slug !== slug && p.category === post.category)
     .slice(0, 3)
+  const recommendedPosts = sameCategoryPosts.length >= 2
+    ? sameCategoryPosts
+    : relatedData.data.filter((p) => p.slug !== slug).slice(0, 3)
 
   const { items: tocItems, html: bodyWithIds } = extractTocAndInjectIds(post.body ?? '')
 
@@ -85,19 +87,13 @@ export default async function BlogPostPage({ params }: Props) {
           )}
 
           {/* 3-column grid on desktop */}
-          <div className="lg:grid lg:grid-cols-[240px_1fr_240px] lg:gap-8">
+          <div className="lg:grid lg:grid-cols-[240px_1fr_280px] lg:gap-8">
 
-            {/* Left sidebar — TOC + share + lead form (sticky) */}
+            {/* Left sidebar — TOC + share (sticky) */}
             <aside className="hidden lg:block">
               <div className="sticky top-24 space-y-5">
                 {tocItems.length > 0 && <TableOfContents items={tocItems} />}
                 <BlogShareButtons title={post.title} url={postUrl} />
-                <MiniLeadForm
-                  sourceForm="blog-sidebar"
-                  headline="Get a Free Consultation"
-                  subtext="Tell us what you need — we'll respond within 4 hours."
-                  ctaLabel="Talk to an Expert"
-                />
               </div>
             </aside>
 
@@ -110,8 +106,17 @@ export default async function BlogPostPage({ params }: Props) {
               <BlogCtaBanner />
             </article>
 
-            {/* Right — empty spacer to maintain 3-col symmetry */}
-            <div className="hidden lg:block" />
+            {/* Right sidebar — lead capture form (sticky) */}
+            <aside className="hidden lg:block">
+              <div className="sticky top-24">
+                <MiniLeadForm
+                  sourceForm="blog-sidebar"
+                  headline="Get a Free Consultation"
+                  subtext="Tell us what you need — we'll respond within 4 hours."
+                  ctaLabel="Talk to an Expert"
+                />
+              </div>
+            </aside>
           </div>
         </div>
 
@@ -121,15 +126,13 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
         )}
 
-        {relatedPosts.length > 0 && (
+        {recommendedPosts.length > 0 && (
           <section className="bg-[var(--brand-surface)] py-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <RelatedPosts posts={relatedPosts} />
+              <RelatedPosts posts={recommendedPosts} />
             </div>
           </section>
         )}
-
-        <ExploreServicesSection />
 
         <CTASection
           heading="Ready to Build Something?"
