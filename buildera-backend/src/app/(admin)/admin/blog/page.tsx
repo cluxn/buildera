@@ -2,12 +2,13 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { verifySession } from '@/backend/auth/session'
 import { listBlogPosts } from '@/db/admin/blog'
+import { listCategories } from '@/db/admin/categories'
 import { BlogListClient } from '@/components/admin/BlogListClient'
 
 export default async function BlogPage({
   searchParams,
 }: {
-  searchParams: Promise<{ status?: string; q?: string; page?: string }>
+  searchParams: Promise<{ status?: string; q?: string; page?: string; category?: string; service?: string; industry?: string; dateFrom?: string; dateTo?: string }>
 }) {
   const session = await verifySession()
   if (!session) redirect('/admin/login')
@@ -16,8 +17,16 @@ export default async function BlogPage({
   const status = params.status ?? 'all'
   const q = params.q ?? ''
   const page = Number(params.page) || 1
+  const category = params.category ?? ''
+  const service = params.service ?? ''
+  const industry = params.industry ?? ''
+  const dateFrom = params.dateFrom ?? ''
+  const dateTo = params.dateTo ?? ''
 
-  const { rows, total, perPage } = await listBlogPosts({ page, perPage: 20, status, q }).catch(() => ({ rows: [], total: 0, perPage: 20 }))
+  const [{ rows, total, perPage }, categories] = await Promise.all([
+    listBlogPosts({ page, perPage: 20, status, q, category, service, industry, dateFrom, dateTo }).catch(() => ({ rows: [], total: 0, perPage: 20 })),
+    listCategories().catch(() => []),
+  ])
 
   return (
     <div className="space-y-4">
@@ -27,7 +36,7 @@ export default async function BlogPage({
           + New Post
         </Link>
       </div>
-      <BlogListClient rows={rows} total={total} perPage={perPage} page={page} status={status} q={q} />
+      <BlogListClient rows={rows} total={total} perPage={perPage} page={page} status={status} q={q} categories={categories} category={category} service={service} industry={industry} dateFrom={dateFrom} dateTo={dateTo} />
     </div>
   )
 }

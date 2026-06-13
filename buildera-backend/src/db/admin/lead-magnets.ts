@@ -13,13 +13,23 @@ export interface LeadMagnet {
 
 function slugify(t: string) { return t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') }
 
-export async function listLeadMagnets(opts: { page?: number; perPage?: number; status?: string; q?: string } = {}) {
-  const { page = 1, perPage = 20, status, q } = opts
+export async function listLeadMagnets(opts: { page?: number; perPage?: number; status?: string; q?: string; resourceType?: string; category?: string; dateFrom?: string; dateTo?: string } = {}) {
+  const { page = 1, perPage = 20, status, q, resourceType, category, dateFrom, dateTo } = opts
   const offset = (page - 1) * perPage
   const wheres: string[] = []
   const vals: unknown[] = []
-  if (status && status !== 'all') { wheres.push('status = ?'); vals.push(status) }
+  if (status && status !== 'all') {
+    if (status.toUpperCase() === 'SCHEDULED') {
+      wheres.push("status = 'PUBLISHED'"); wheres.push('published_at > NOW()')
+    } else {
+      wheres.push('status = ?'); vals.push(status)
+    }
+  }
   if (q) { wheres.push('title LIKE ?'); vals.push(`%${q}%`) }
+  if (resourceType) { wheres.push('resource_type = ?'); vals.push(resourceType) }
+  if (category) { wheres.push('category = ?'); vals.push(category) }
+  if (dateFrom) { wheres.push('DATE(published_at) >= ?'); vals.push(dateFrom) }
+  if (dateTo) { wheres.push('DATE(published_at) <= ?'); vals.push(dateTo) }
   const where = wheres.length ? `WHERE ${wheres.join(' AND ')}` : ''
 
   const [rows, countRow] = await Promise.all([

@@ -35,16 +35,24 @@ const SELECT_COLS = `
 
 function slugify(t: string) { return t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') }
 
-export async function listCaseStudies(opts: { page?: number; perPage?: number; status?: string; q?: string } = {}) {
-  const { page = 1, perPage = 20, status, q } = opts
+export async function listCaseStudies(opts: { page?: number; perPage?: number; status?: string; q?: string; industry?: string; service?: string; dateFrom?: string; dateTo?: string } = {}) {
+  const { page = 1, perPage = 20, status, q, industry, service, dateFrom, dateTo } = opts
   const offset = (page - 1) * perPage
   const wheres: string[] = []
   const vals: unknown[] = []
   if (status && status !== 'all') {
-    wheres.push('is_published = ?')
-    vals.push(status.toUpperCase() === 'PUBLISHED' ? 1 : 0)
+    if (status.toUpperCase() === 'SCHEDULED') {
+      wheres.push('is_published = 1'); wheres.push('published_at > NOW()')
+    } else {
+      wheres.push('is_published = ?')
+      vals.push(status.toUpperCase() === 'PUBLISHED' ? 1 : 0)
+    }
   }
   if (q) { wheres.push('(title LIKE ? OR client_name LIKE ?)'); vals.push(`%${q}%`, `%${q}%`) }
+  if (industry) { wheres.push('industry = ?'); vals.push(industry) }
+  if (service) { wheres.push('service_tags = ?'); vals.push(service) }
+  if (dateFrom) { wheres.push('DATE(published_at) >= ?'); vals.push(dateFrom) }
+  if (dateTo) { wheres.push('DATE(published_at) <= ?'); vals.push(dateTo) }
   const where = wheres.length ? `WHERE ${wheres.join(' AND ')}` : ''
 
   const [rows, countRow] = await Promise.all([
