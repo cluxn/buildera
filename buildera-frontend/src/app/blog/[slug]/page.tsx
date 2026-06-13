@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { getBlogPost, getBlogPosts } from '@/lib/api'
+import { extractTocAndInjectIds } from '@/lib/toc'
 import { BlogDetailHero } from '@/components/blog/BlogDetailHero'
 import { InlineNewsletterBlock } from '@/components/blog/InlineNewsletterBlock'
 import { BlogCtaBanner } from '@/components/sections/BlogCtaBanner'
@@ -11,6 +12,7 @@ import { RelatedPosts } from '@/components/blog/RelatedPosts'
 import { MiniLeadForm } from '@/components/ui/MiniLeadForm'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { JsonLd } from '@/components/ui/JsonLd'
+import { TableOfContents } from '@/components/blog/TableOfContents'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -47,6 +49,8 @@ export default async function BlogPostPage({ params }: Props) {
     .filter((p) => p.slug !== slug && p.category === post.category)
     .slice(0, 3)
 
+  const { items: tocItems, html: bodyWithIds } = extractTocAndInjectIds(post.body ?? '')
+
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://buildera.co'
   const blogSchema = {
     '@context': 'https://schema.org',
@@ -65,26 +69,45 @@ export default async function BlogPostPage({ params }: Props) {
     <main>
       <JsonLd data={blogSchema} />
       <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Blog', href: '/blog' }, { label: post.title }]} />
-      {/* Above-fold hero renders immediately — no Suspense wrapper */}
       <BlogDetailHero post={post} />
 
       <Suspense fallback={<div className="animate-pulse h-96 bg-muted rounded mx-auto max-w-3xl my-12" />}>
-        <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="my-10">
-            <MiniLeadForm
-              sourceForm="mini-cta"
-              headline="Get a Free Software Consultation"
-            />
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+          <div className={`lg:grid lg:gap-12 ${tocItems.length > 0 ? 'lg:grid-cols-[1fr_260px]' : ''}`}>
+            <article className="min-w-0">
+              <div className="mb-10">
+                <MiniLeadForm
+                  sourceForm="mini-cta"
+                  headline="Get a Free Software Consultation"
+                />
+              </div>
+
+              {/* Mobile TOC */}
+              {tocItems.length > 0 && (
+                <div className="lg:hidden mb-8">
+                  <TableOfContents items={tocItems} />
+                </div>
+              )}
+
+              <div
+                className="prose prose-slate prose-lg max-w-none"
+                dangerouslySetInnerHTML={{ __html: bodyWithIds }}
+              />
+
+              <InlineNewsletterBlock />
+              <BlogCtaBanner />
+            </article>
+
+            {/* Desktop sticky TOC sidebar */}
+            {tocItems.length > 0 && (
+              <aside className="hidden lg:block">
+                <div className="sticky top-24">
+                  <TableOfContents items={tocItems} />
+                </div>
+              </aside>
+            )}
           </div>
-
-          <div
-            className="prose prose-slate prose-lg max-w-none"
-            dangerouslySetInnerHTML={{ __html: post.body ?? '' }}
-          />
-
-          <InlineNewsletterBlock />
-          <BlogCtaBanner />
-        </article>
+        </div>
 
         {post.author && (
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">

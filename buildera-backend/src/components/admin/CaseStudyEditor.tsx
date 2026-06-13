@@ -1,31 +1,20 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import type { BlogPost } from '@/db/admin/blog'
-import type { Category } from '@/db/admin/categories'
+import type { CaseStudy } from '@/db/admin/case-studies'
 import { RichTextEditor } from './RichTextEditor'
 import { ImageUploadField } from './ImageUploadField'
 
-interface User { id: number; name: string; email: string; role: string }
-interface Props {
-  post?: BlogPost
-  categories: Category[]
-  users: User[]
-}
+interface Props { study?: CaseStudy }
 
-const SERVICE_TYPES = ['Website Development','Salesforce Development','DevOps','AI Agent Development','Software Development','Hire a Developer']
-const INDUSTRIES = ['Healthcare','Finance','Retail','Manufacturing','Education','Real Estate','Logistics','Technology','Other']
+const INDUSTRIES = ['Manufacturing','Retail','Logistics','Finance','Healthcare','Technology','E-Commerce','Other']
+const SERVICES = ['website-development','salesforce-dev','devops-dev','ai-agent-dev','software-dev','hire-a-developer']
 
 const STATUS_BADGES: Record<string, { label: string; className: string }> = {
   DRAFT: { label: 'Draft', className: 'bg-gray-100 text-gray-600' },
-  SUBMITTED: { label: 'Submitted', className: 'bg-amber-100 text-amber-700' },
   PUBLISHED: { label: 'Published', className: 'bg-green-100 text-green-700' },
   SCHEDULED: { label: 'Scheduled', className: 'bg-blue-100 text-blue-700' },
-}
-
-function formatSavedTime(date: Date) {
-  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 }
 
 function slugify(t: string) { return t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') }
@@ -37,40 +26,36 @@ function toDatetimeLocal(value: string): string {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`
 }
 
-const AUTOSAVE_KEY = (id: string) => `autosave_blog_${id}`
+const AUTOSAVE_KEY = (id: string) => `autosave_casestudy_${id}`
 
-export function BlogEditor({ post, categories, users }: Props) {
+export function CaseStudyEditor({ study }: Props) {
   const router = useRouter()
-  const isNew = !post?.id
-  const autoId = post?.id ? String(post.id) : 'new'
+  const isNew = !study?.id
+  const autoId = study?.id ? String(study.id) : 'new'
 
-  const [title, setTitle] = useState(post?.title ?? '')
-  const [slug, setSlug] = useState(post?.slug ?? '')
-  const [excerpt, setExcerpt] = useState(post?.excerpt ?? '')
-  const [content, setContent] = useState(post?.content ?? '')
-  const [status, setStatus] = useState<string>(post?.status ?? 'DRAFT')
-  const [authorId, setAuthorId] = useState<string>(post?.author_id ? String(post.author_id) : '')
-  const [categoryId, setCategoryId] = useState<string>(post?.category_id ? String(post.category_id) : '')
-  const [serviceType, setServiceType] = useState(post?.service_type ?? '')
-  const [industry, setIndustry] = useState(post?.industry ?? '')
-  const [isFeatured, setIsFeatured] = useState(Boolean(post?.is_featured))
-  const [coverImage, setCoverImage] = useState(post?.cover_image ?? '')
-  const [coverImageAlt, setCoverImageAlt] = useState(post?.cover_image_alt ?? '')
-  const [metaTitle, setMetaTitle] = useState(post?.meta_title ?? '')
-  const [metaDescription, setMetaDescription] = useState(post?.meta_description ?? '')
-  const [publishedAt, setPublishedAt] = useState(post?.published_at ? toDatetimeLocal(post.published_at) : '')
+  const [title, setTitle] = useState(study?.title ?? '')
+  const [slug, setSlug] = useState(study?.slug ?? '')
+  const [clientName, setClientName] = useState(study?.client_name ?? '')
+  const [content, setContent] = useState(study?.challenge ?? '')
+  const [industry, setIndustry] = useState(study?.industry ?? '')
+  const [serviceCategory, setServiceCategory] = useState(study?.service_category ?? '')
+  const [status, setStatus] = useState<string>(study?.status ?? 'DRAFT')
+  const [scheduledAt, setScheduledAt] = useState(
+    study?.published_at && new Date(study.published_at) > new Date() ? toDatetimeLocal(study.published_at) : ''
+  )
+  const [isFeatured, setIsFeatured] = useState(Boolean(study?.is_featured))
+  const [coverImage, setCoverImage] = useState(study?.cover_image ?? '')
+  const [coverImageAlt, setCoverImageAlt] = useState(study?.cover_image_alt ?? '')
+  const [metaTitle, setMetaTitle] = useState(study?.meta_title ?? '')
+  const [metaDescription, setMetaDescription] = useState(study?.meta_description ?? '')
+  const [testimonialQuote, setTestimonialQuote] = useState(study?.testimonial_quote ?? '')
+  const [testimonialAuthor, setTestimonialAuthor] = useState(study?.testimonial_author ?? '')
   const [saving, setSaving] = useState(false)
+  const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null)
   const [dropOpen, setDropOpen] = useState(false)
   const [restoreBanner, setRestoreBanner] = useState(false)
   const [savedData, setSavedData] = useState<Record<string, unknown> | null>(null)
-  const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null)
 
-  const wordCount = useMemo(
-    () => content.replace(/<[^>]*>/g, ' ').split(/\s+/).filter(Boolean).length,
-    [content]
-  )
-
-  // Autosave check on mount
   useEffect(() => {
     const key = AUTOSAVE_KEY(autoId)
     const raw = localStorage.getItem(key)
@@ -78,44 +63,37 @@ export function BlogEditor({ post, categories, users }: Props) {
     try {
       const parsed = JSON.parse(raw) as { savedAt: number; data: Record<string, unknown> }
       if (Date.now() - parsed.savedAt < 24 * 60 * 60 * 1000) {
-        setSavedData(parsed.data)
-        setRestoreBanner(true)
-      } else {
-        localStorage.removeItem(key)
-      }
+        setSavedData(parsed.data); setRestoreBanner(true)
+      } else { localStorage.removeItem(key) }
     } catch { localStorage.removeItem(key) }
   }, [autoId])
 
-  // Autosave
   const autosaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const doAutosave = useCallback(() => {
     if (autosaveTimer.current) clearTimeout(autosaveTimer.current)
     autosaveTimer.current = setTimeout(() => {
-      const data = { title, slug, excerpt, content, status, authorId, categoryId, serviceType, industry, isFeatured, coverImage, coverImageAlt, metaTitle, metaDescription, publishedAt }
+      const data = { title, slug, clientName, content, industry, serviceCategory, status, scheduledAt, isFeatured, coverImage, coverImageAlt, metaTitle, metaDescription, testimonialQuote, testimonialAuthor }
       localStorage.setItem(AUTOSAVE_KEY(autoId), JSON.stringify({ savedAt: Date.now(), data }))
     }, 2000)
-  }, [title, slug, excerpt, content, status, authorId, categoryId, serviceType, industry, isFeatured, coverImage, coverImageAlt, metaTitle, metaDescription, publishedAt, autoId])
-
+  }, [title, slug, clientName, content, industry, serviceCategory, status, scheduledAt, isFeatured, coverImage, coverImageAlt, metaTitle, metaDescription, testimonialQuote, testimonialAuthor, autoId])
   useEffect(() => { doAutosave() }, [doAutosave])
 
   function restoreAutosave() {
     if (!savedData) return
     setTitle(savedData.title as string ?? '')
     setSlug(savedData.slug as string ?? '')
-    setExcerpt(savedData.excerpt as string ?? '')
+    setClientName(savedData.clientName as string ?? '')
     setContent(savedData.content as string ?? '')
     setStatus(savedData.status as string ?? 'DRAFT')
-    setAuthorId(savedData.authorId as string ?? '')
-    setCategoryId(savedData.categoryId as string ?? '')
-    setPublishedAt(savedData.publishedAt as string ?? '')
+    setScheduledAt(savedData.scheduledAt as string ?? '')
     setRestoreBanner(false)
     localStorage.removeItem(AUTOSAVE_KEY(autoId))
   }
 
   async function handleSave(action: 'draft' | 'schedule' | 'publish') {
     if (action === 'schedule') {
-      if (!publishedAt || new Date(publishedAt) <= new Date()) {
-        alert('Set a future date/time in the Publish Date field to schedule.')
+      if (!scheduledAt || new Date(scheduledAt) <= new Date()) {
+        alert('Set a future date/time in the Schedule At field to schedule.')
         return
       }
     }
@@ -123,27 +101,34 @@ export function BlogEditor({ post, categories, users }: Props) {
     const finalStatus = action === 'draft' ? 'DRAFT' : 'PUBLISHED'
     const published_at =
       action === 'publish' ? new Date().toISOString() :
-      action === 'schedule' ? new Date(publishedAt).toISOString() :
-      publishedAt ? new Date(publishedAt).toISOString() : null
+      action === 'schedule' ? new Date(scheduledAt).toISOString() :
+      null
     const payload = {
-      title, slug, excerpt, content, status: finalStatus,
-      author_id: authorId ? Number(authorId) : null,
-      category_id: categoryId ? Number(categoryId) : null,
-      service_type: serviceType || null, industry: industry || null,
-      is_featured: isFeatured ? 1 : 0,
-      cover_image: coverImage || null, cover_image_alt: coverImageAlt || null,
-      meta_title: metaTitle || null, meta_description: metaDescription || null,
+      title, slug,
+      client_name: clientName || null,
+      challenge: content || null,
+      industry: industry || null,
+      service_category: serviceCategory || null,
+      status: finalStatus,
       published_at,
+      is_featured: isFeatured ? 1 : 0,
+      cover_image: coverImage || null,
+      cover_image_alt: coverImageAlt || null,
+      meta_title: metaTitle || null,
+      meta_description: metaDescription || null,
+      testimonial_quote: testimonialQuote || null,
+      testimonial_author: testimonialAuthor || null,
     }
     try {
-      const url = isNew ? '/api/admin/blog' : `/api/admin/blog/${post!.id}`
+      const url = isNew ? '/api/admin/case-studies' : `/api/admin/case-studies/${study!.id}`
       const method = isNew ? 'POST' : 'PUT'
       const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
       const data = await res.json()
       if (res.ok) {
         localStorage.removeItem(AUTOSAVE_KEY(autoId))
         setLastSavedAt(new Date())
-        if (isNew) router.push(`/admin/blog/${data.id}/edit`)
+        if (action !== 'draft') setStatus(finalStatus)
+        if (isNew) router.push(`/admin/case-studies/${data.id}/edit`)
         else router.refresh()
       }
     } finally { setSaving(false) }
@@ -152,28 +137,28 @@ export function BlogEditor({ post, categories, users }: Props) {
   const inp = 'w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#002BFF]'
   const label = 'block text-sm font-medium text-gray-700 mb-1'
 
-  const statusKey = status.toUpperCase()
-  const isScheduled = statusKey === 'PUBLISHED' && !!publishedAt && new Date(publishedAt) > new Date()
-  const statusBadge = isScheduled ? STATUS_BADGES.SCHEDULED : (STATUS_BADGES[statusKey] ?? STATUS_BADGES.DRAFT)
+  const isScheduledPost = status === 'PUBLISHED' && !!scheduledAt && new Date(scheduledAt) > new Date()
+  const badgeKey = isScheduledPost ? 'SCHEDULED' : status.toUpperCase()
+  const statusBadge = STATUS_BADGES[badgeKey] ?? STATUS_BADGES.DRAFT
 
   return (
     <div className="space-y-4">
+      {/* Sticky header */}
       <div className="sticky top-0 z-30 flex items-center justify-between gap-4 rounded-xl border border-gray-200 bg-white/90 backdrop-blur px-5 py-3 shadow-sm">
         <div className="min-w-0 flex-1">
-          <h1 className="truncate text-sm font-semibold text-gray-900">{title || 'Untitled post'}</h1>
+          <h1 className="truncate text-sm font-semibold text-gray-900">{title || 'Untitled case study'}</h1>
           <p className="mt-0.5 flex items-center gap-2 text-xs text-gray-400">
             <span className={`px-1.5 py-0.5 rounded font-medium ${statusBadge.className}`}>{statusBadge.label}</span>
-            {isScheduled && <span>for {new Date(publishedAt).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}</span>}
-            <span>{wordCount} words</span>
-            {lastSavedAt && <span>· Saved {formatSavedTime(lastSavedAt)}</span>}
+            {isScheduledPost && <span>for {new Date(scheduledAt).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}</span>}
+            {lastSavedAt && <span>· Saved {lastSavedAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>}
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-2">
-          <button onClick={() => router.push('/admin/blog')} className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100">
+          <button onClick={() => router.push('/admin/case-studies')} className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100">
             Cancel
           </button>
           {slug && (
-            <a href={`/blog/${slug}`} target="_blank" rel="noopener" className="px-3 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50">
+            <a href={`/case-studies/${slug}`} target="_blank" rel="noopener" className="px-3 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50">
               Preview
             </a>
           )}
@@ -206,26 +191,38 @@ export function BlogEditor({ post, categories, users }: Props) {
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Editor column */}
+        {/* Content column */}
         <div className="lg:col-span-2 space-y-4">
           <div className="bg-white rounded-xl border border-gray-200 p-5 space-y-4">
             <div>
               <label className={label}>Title</label>
-              <input className={inp} value={title} onChange={e => { setTitle(e.target.value); if (!post?.slug) setSlug(slugify(e.target.value)) }} placeholder="Post title…" />
+              <input className={inp} value={title} onChange={e => { setTitle(e.target.value); if (!study?.slug) setSlug(slugify(e.target.value)) }} placeholder="Case study title…" />
             </div>
             <div>
               <label className={label}>Slug</label>
-              <input className={inp} value={slug} onChange={e => setSlug(e.target.value)} placeholder="post-slug" />
+              <input className={inp} value={slug} onChange={e => setSlug(e.target.value)} placeholder="case-study-slug" />
             </div>
             <div>
-              <label className={label}>Excerpt</label>
-              <textarea className={inp} rows={3} value={excerpt} onChange={e => setExcerpt(e.target.value)} placeholder="Short description…" />
+              <label className={label}>Client Name</label>
+              <input className={inp} value={clientName} onChange={e => setClientName(e.target.value)} placeholder="Acme Corp" />
             </div>
           </div>
 
           <div className="bg-white rounded-xl border border-gray-200 p-5">
             <label className={label}>Content</label>
-            <RichTextEditor content={content} onChange={setContent} placeholder="Write your content here…" />
+            <RichTextEditor content={content} onChange={setContent} placeholder="Write the case study…" />
+          </div>
+
+          <div className="bg-white rounded-xl border border-gray-200 p-5 space-y-4">
+            <p className="text-sm font-medium text-gray-700">Testimonial</p>
+            <div>
+              <label className={label}>Quote</label>
+              <textarea className={inp} rows={3} value={testimonialQuote} onChange={e => setTestimonialQuote(e.target.value)} placeholder="Client testimonial quote…" />
+            </div>
+            <div>
+              <label className={label}>Author</label>
+              <input className={inp} value={testimonialAuthor} onChange={e => setTestimonialAuthor(e.target.value)} placeholder="Jane Smith, CTO at Acme" />
+            </div>
           </div>
         </div>
 
@@ -236,52 +233,38 @@ export function BlogEditor({ post, categories, users }: Props) {
               <label className={label}>Status</label>
               <select className={inp} value={status} onChange={e => setStatus(e.target.value)}>
                 <option value="DRAFT">Draft</option>
-                <option value="SUBMITTED">Submitted</option>
-                <option value="PUBLISHED">Published</option>
                 <option value="SCHEDULED">Scheduled</option>
+                <option value="PUBLISHED">Published</option>
               </select>
             </div>
             <div>
               <label className={label}>Schedule At</label>
-              <input type="datetime-local" className={inp} value={publishedAt} onChange={e => setPublishedAt(e.target.value)} />
+              <input type="datetime-local" className={inp} value={scheduledAt} onChange={e => setScheduledAt(e.target.value)} />
               <p className="mt-1 text-xs text-gray-400">Set a future date and click Schedule — post stays hidden until then.</p>
-            </div>
-            <div>
-              <label className={label}>Author</label>
-              <select className={inp} value={authorId} onChange={e => setAuthorId(e.target.value)}>
-                <option value="">— Select author —</option>
-                {users.map(u => <option key={u.id} value={u.id}>{u.name}</option>)}
-              </select>
-            </div>
-            <div>
-              <label className={label}>Category</label>
-              <select className={inp} value={categoryId} onChange={e => setCategoryId(e.target.value)}>
-                <option value="">— Select category —</option>
-                {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
-              </select>
-            </div>
-            <div>
-              <label className={label}>Service Type</label>
-              <select className={inp} value={serviceType} onChange={e => setServiceType(e.target.value)}>
-                <option value="">— Select —</option>
-                {SERVICE_TYPES.map(s => <option key={s} value={s}>{s}</option>)}
-              </select>
             </div>
             <div>
               <label className={label}>Industry</label>
               <select className={inp} value={industry} onChange={e => setIndustry(e.target.value)}>
-                <option value="">— Select —</option>
+                <option value="">— None —</option>
                 {INDUSTRIES.map(i => <option key={i} value={i}>{i}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className={label}>Service</label>
+              <select className={inp} value={serviceCategory} onChange={e => setServiceCategory(e.target.value)}>
+                <option value="">— None —</option>
+                {SERVICES.map(s => <option key={s} value={s}>{s}</option>)}
               </select>
             </div>
             <label className="flex items-center gap-2 text-sm">
               <input type="checkbox" checked={isFeatured} onChange={e => setIsFeatured(e.target.checked)} className="w-4 h-4 rounded accent-[#002BFF]" />
-              <span className="text-gray-700">Featured post</span>
+              <span className="text-gray-700">Featured</span>
             </label>
           </div>
 
           <div className="bg-white rounded-xl border border-gray-200 p-5 space-y-4">
-            <ImageUploadField label="Cover Image" value={coverImage} onChange={setCoverImage} placeholder="/uploads/..." />
+            <ImageUploadField label="Cover Image" value={coverImage} onChange={setCoverImage} />
+            {coverImage && <img src={coverImage} alt="Cover" className="w-full h-24 object-cover rounded-lg" />}
             <div>
               <label className={label}>Cover Image Alt</label>
               <input className={inp} value={coverImageAlt} onChange={e => setCoverImageAlt(e.target.value)} />
