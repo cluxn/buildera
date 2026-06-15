@@ -1,12 +1,13 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { ContentCaseStudy } from '@/lib/api'
+import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
 
 export function CaseStudyCard({ study }: { study: ContentCaseStudy }) {
   return (
     <Link href={`/case-studies/${study.slug}`} className="group relative bg-background border border-border rounded-xl overflow-hidden hover:border-[var(--brand-primary)]/40 hover:shadow-lg transition-all duration-200 flex flex-col">
       <div className="relative h-48 bg-[var(--brand-surface)]">
-        {study.hero_image && (
+        {study.hero_image ? (
           <Image
             src={study.hero_image}
             alt={study.hero_image_alt ?? study.title}
@@ -14,6 +15,8 @@ export function CaseStudyCard({ study }: { study: ContentCaseStudy }) {
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover"
           />
+        ) : (
+          <ImagePlaceholder />
         )}
         <span className="absolute top-3 left-3 px-2 py-0.5 rounded-full bg-[var(--brand-primary)] text-white text-xs font-semibold capitalize">
           {study.industry}

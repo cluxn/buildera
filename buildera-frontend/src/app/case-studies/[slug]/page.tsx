@@ -6,6 +6,7 @@ import { getContentCaseStudy, getContentCaseStudies } from '@/lib/api'
 import { CaseStudyCard } from '@/components/content/CaseStudyCard'
 import { CTASection } from '@/components/sections/CTASection'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
+import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
 import { JsonLd } from '@/components/ui/JsonLd'
 import {
   IconBuilding,
@@ -65,7 +66,7 @@ export default async function CaseStudyDetailPage({ params }: Props) {
       <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Case Studies', href: '/case-studies' }, { label: study.title }]} />
 
       {/* Hero */}
-      <section className="py-16 bg-background">
+      <section className="py-20 md:py-28 bg-background">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <span className="inline-block text-xs bg-[var(--brand-primary)] text-white px-2 py-0.5 rounded-full font-semibold mb-4 capitalize">
             {study.industry}
@@ -76,8 +77,8 @@ export default async function CaseStudyDetailPage({ params }: Props) {
           {study.client_name && (
             <p className="text-muted-foreground mb-6">{study.client_name}</p>
           )}
-          {study.hero_image && (
-            <div className="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden mt-4">
+          <div className="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden mt-4">
+            {study.hero_image ? (
               <Image
                 src={study.hero_image}
                 alt={study.hero_image_alt ?? study.title}
@@ -86,8 +87,10 @@ export default async function CaseStudyDetailPage({ params }: Props) {
                 sizes="(max-width: 768px) 100vw, 1200px"
                 className="object-cover"
               />
-            </div>
-          )}
+            ) : (
+              <ImagePlaceholder />
+            )}
+          </div>
         </div>
       </section>
 

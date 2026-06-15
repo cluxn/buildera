@@ -155,7 +155,7 @@ export function SolutionPreviewSection({
             >
               {stats.map((s, i) => (
                 <div key={i} className="rounded-xl border border-border bg-background p-5">
-                  <p className="text-xs text-muted-foreground mb-2">{s.label}</p>
+                  <p className="text-xs text-muted-foreground mb-2 min-h-[2rem]">{s.label}</p>
                   <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>
                 </div>
               ))}

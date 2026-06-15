@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { SiteNav } from "@/components/layout/SiteNav";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { ChromeGate } from "@/components/layout/ChromeGate";
 import { WhatsAppWidget } from "@/components/ui/WhatsAppWidget";
 import { NudgeBanner } from "@/components/ui/NudgeBanner";
 import { PopupManager } from "@/components/ui/PopupManager";
@@ -37,29 +38,33 @@ export default async function RootLayout({
         >
           Skip to content
         </a>
-        <NudgeBanner
-          enabled={settings.nudge_banner_enabled}
-          text={settings.nudge_banner_text}
-          link={settings.nudge_banner_link}
-          expiresAt={settings.nudge_banner_expires_at}
-        />
-        <SiteNav />
+        <ChromeGate>
+          <NudgeBanner
+            enabled={settings.nudge_banner_enabled}
+            text={settings.nudge_banner_text}
+            link={settings.nudge_banner_link}
+            expiresAt={settings.nudge_banner_expires_at}
+          />
+          <SiteNav />
+        </ChromeGate>
         <main id="main-content">{children}</main>
-        <SiteFooter />
-        <WhatsAppWidget
-          number={settings.whatsapp_number}
-          enabled={Boolean(settings.whatsapp_number)}
-        />
-        <PopupManager />
-        <ScriptInjector
-          ga4Id={settings.ga4_measurement_id || undefined}
-          clarityId={settings.clarity_project_id || undefined}
-          fbPixelId={settings.facebook_pixel_id || undefined}
-          linkedinId={settings.linkedin_insight_id || undefined}
-          gadsId={settings.google_ads_conversion_id || undefined}
-          gscTag={settings.gsc_verification_tag || undefined}
-        />
-        <CookieConsentBanner />
+        <ChromeGate>
+          <SiteFooter />
+          <WhatsAppWidget
+            number={settings.whatsapp_number}
+            enabled={Boolean(settings.whatsapp_number)}
+          />
+          <PopupManager />
+          <ScriptInjector
+            ga4Id={settings.ga4_measurement_id || undefined}
+            clarityId={settings.clarity_project_id || undefined}
+            fbPixelId={settings.facebook_pixel_id || undefined}
+            linkedinId={settings.linkedin_insight_id || undefined}
+            gadsId={settings.google_ads_conversion_id || undefined}
+            gscTag={settings.gsc_verification_tag || undefined}
+          />
+          <CookieConsentBanner />
+        </ChromeGate>
       </body>
     </html>
   );

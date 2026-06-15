@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import type { BlogPostDetail } from '@/lib/api'
+import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })
@@ -7,7 +8,7 @@ function formatDate(iso: string) {
 
 export function BlogDetailHero({ post }: { post: BlogPostDetail }) {
   return (
-    <section className="bg-background py-16">
+    <section className="bg-background py-20 md:py-28">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <span className="inline-block text-xs bg-[var(--brand-primary)] text-white px-2 py-0.5 rounded-full font-semibold mb-4 capitalize">
           {post.category?.replace(/-/g, ' ')}
@@ -31,8 +32,8 @@ export function BlogDetailHero({ post }: { post: BlogPostDetail }) {
           <span>·</span>
           <span className="capitalize">{post.category?.replace(/-/g, ' ')}</span>
         </div>
-        {post.image_path && (
-          <div className="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden mt-4">
+        <div className="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden mt-4">
+          {post.image_path ? (
             <Image
               src={post.image_path}
               alt={post.image_alt ?? post.title}
@@ -41,8 +42,10 @@ export function BlogDetailHero({ post }: { post: BlogPostDetail }) {
               sizes="(max-width: 768px) 100vw, 1200px"
               className="object-cover"
             />
-          </div>
-        )}
+          ) : (
+            <ImagePlaceholder />
+          )}
+        </div>
       </div>
     </section>
   )

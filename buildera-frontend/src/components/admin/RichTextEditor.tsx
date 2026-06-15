@@ -152,7 +152,7 @@ function ColorButton({ editor, type, icon, title }: {
 
 function Toolbar({ editor }: { editor: Editor }) {
   return (
-    <div className="sticky top-0 z-10 flex flex-wrap items-center gap-0.5 bg-white border-b border-gray-200 px-2 py-1.5">
+    <div className="flex flex-wrap items-center gap-0.5 bg-white border-b border-gray-200 px-2 py-1.5">
       <ToolbarButton title="Undo" onClick={() => editor.chain().focus().undo().run()} disabled={!editor.can().undo()}>
         <Undo2 size={15} />
       </ToolbarButton>
@@ -298,7 +298,7 @@ export function RichTextEditor({ content, onChange, placeholder }: Props) {
     onUpdate: ({ editor }) => onChange(editor.getHTML()),
     editorProps: {
       attributes: {
-        class: 'tiptap-content px-4 py-3 min-h-[400px] focus:outline-none',
+        class: 'tiptap-content px-4 py-3 min-h-[400px] max-h-[600px] overflow-y-auto focus:outline-none',
       },
     },
   })

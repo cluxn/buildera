@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { Guide } from '@/lib/api'
+import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
 
 const TYPE_COLORS: Record<string, string> = {
   article: 'bg-blue-100 text-blue-700',
@@ -15,7 +16,7 @@ export function GuideCard({ guide }: { guide: Guide }) {
   return (
     <Link href={`/guides/${guide.slug}`} className="group relative bg-background border border-border rounded-xl overflow-hidden hover:border-[var(--brand-primary)]/40 hover:shadow-lg transition-all duration-200 flex flex-col">
       <div className="relative h-48 bg-[var(--brand-surface)]">
-        {guide.cover_image && (
+        {guide.cover_image ? (
           <Image
             src={guide.cover_image}
             alt={guide.cover_image_alt ?? guide.title}
@@ -23,6 +24,8 @@ export function GuideCard({ guide }: { guide: Guide }) {
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover"
           />
+        ) : (
+          <ImagePlaceholder />
         )}
         <span className={`absolute top-3 left-3 px-2 py-0.5 rounded-full text-xs font-semibold capitalize ${typeColor}`}>
           {guide.resource_type}

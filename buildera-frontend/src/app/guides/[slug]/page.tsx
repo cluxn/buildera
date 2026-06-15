@@ -7,6 +7,7 @@ import { GuideCard } from '@/components/content/GuideCard'
 import { GuideDownloadForm } from '@/components/content/GuideDownloadForm'
 import { CTASection } from '@/components/sections/CTASection'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
+import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
 import { IconExternalLink } from '@tabler/icons-react'
 
 const TYPE_COLORS: Record<string, string> = {
@@ -55,7 +56,7 @@ export default async function GuideDetailPage({ params }: Props) {
       <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Guides', href: '/guides' }, { label: guide.title }]} />
 
       {/* Above-fold header */}
-      <section className="py-16 bg-background">
+      <section className="py-20 md:py-28 bg-background">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-4">
             <span className={`px-2 py-0.5 rounded-full text-xs font-semibold capitalize ${typeColor}`}>
@@ -65,8 +66,8 @@ export default async function GuideDetailPage({ params }: Props) {
           </div>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight mb-4">{guide.title}</h1>
           <p className="text-lg text-muted-foreground mb-6">{guide.description}</p>
-          {guide.cover_image && (
-            <div className="relative w-full h-64 md:h-80 rounded-2xl overflow-hidden">
+          <div className="relative w-full h-64 md:h-80 rounded-2xl overflow-hidden">
+            {guide.cover_image ? (
               <Image
                 src={guide.cover_image}
                 alt={guide.cover_image_alt ?? guide.title}
@@ -75,8 +76,10 @@ export default async function GuideDetailPage({ params }: Props) {
                 sizes="(max-width: 768px) 100vw, 1200px"
                 className="object-cover"
               />
-            </div>
-          )}
+            ) : (
+              <ImagePlaceholder />
+            )}
+          </div>
         </div>
       </section>
 

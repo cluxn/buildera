@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { BlogPost } from '@/lib/api'
+import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
@@ -18,7 +19,9 @@ export function BlogPostCard({ post }: { post: BlogPost }) {
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover"
           />
-        ) : null}
+        ) : (
+          <ImagePlaceholder />
+        )}
         <span className="absolute top-3 left-3 px-2 py-0.5 rounded-full bg-[var(--brand-primary)] text-white text-xs font-semibold capitalize">
           {post.category?.replace(/-/g, ' ')}
         </span>
