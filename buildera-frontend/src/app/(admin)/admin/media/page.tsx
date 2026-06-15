@@ -23,6 +23,7 @@ export default function MediaPage() {
   const [filter, setFilter] = useState('')
   const [q, setQ] = useState('')
   const [copied, setCopied] = useState<number | null>(null)
+  const [error, setError] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
 
   async function load() {
@@ -41,8 +42,13 @@ export default function MediaPage() {
     const file = e.target.files?.[0]
     if (!file) return
     setUploading(true)
+    setError('')
     const fd = new FormData(); fd.append('file', file)
-    await fetch('/api/admin/media', { method: 'POST', body: fd })
+    const res = await fetch('/api/admin/media', { method: 'POST', body: fd })
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}))
+      setError(data.error || 'Upload failed')
+    }
     setUploading(false)
     if (inputRef.current) inputRef.current.value = ''
     load()
@@ -50,7 +56,12 @@ export default function MediaPage() {
 
   async function remove(id: number) {
     if (!confirm('Delete this file?')) return
-    await fetch(`/api/admin/media/${id}`, { method: 'DELETE' })
+    setError('')
+    const res = await fetch(`/api/admin/media/${id}`, { method: 'DELETE' })
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}))
+      setError(data.error || 'Delete failed')
+    }
     load()
   }
 
@@ -80,6 +91,8 @@ export default function MediaPage() {
           </label>
         </div>
       </div>
+
+      {error && <p className="text-sm text-red-600">{error}</p>}
 
       {loading ? (
         <div className="bg-white rounded-xl border border-gray-200 p-10 text-center text-gray-400">Loading…</div>
