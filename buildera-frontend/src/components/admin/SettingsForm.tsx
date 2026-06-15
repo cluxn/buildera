@@ -13,14 +13,20 @@ export function SettingsForm({ settings: initial }: Props) {
   const [values, setValues] = useState<Record<string, string>>(initial)
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
+  const [error, setError] = useState('')
 
   function set(key: string, value: string) { setValues(v => ({ ...v, [key]: value })) }
 
   async function save(keys: string[]) {
-    setSaving(true); setSaved(false)
+    setSaving(true); setSaved(false); setError('')
     const payload = Object.fromEntries(keys.map(k => [k, values[k] ?? '']))
     try {
-      await fetch('/api/admin/settings', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+      const res = await fetch('/api/admin/settings', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        setError(data.error || 'Save failed')
+        return
+      }
       setSaved(true); setTimeout(() => setSaved(false), 2000)
     } finally { setSaving(false) }
   }
@@ -42,6 +48,7 @@ export function SettingsForm({ settings: initial }: Props) {
       </div>
 
       <div className="p-6 space-y-5">
+        {error && <p className="text-sm text-red-600">{error}</p>}
         {tab === 'General' && (
           <>
             <div className={row}><label className={label}>WhatsApp Number</label><input className={inp} value={values.whatsapp_number ?? ''} onChange={e => set('whatsapp_number', e.target.value)} placeholder="+1234567890" /></div>
