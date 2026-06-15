@@ -55,31 +55,6 @@ export default async function ContactPage() {
             {/* Info panel */}
             <div className="lg:col-span-2 flex flex-col gap-6">
               <ContactInfo whatsappNumber={settings.whatsapp_number} email={settings.company_email} phone={settings.company_phone} address={settings.company_address} />
-
-              {/* Response guarantee card */}
-              <div className="bg-background rounded-xl p-6 border border-border">
-                <h3 className="font-semibold mb-2 text-foreground">Our Response Guarantee</h3>
-                <p className="text-sm text-muted-foreground">
-                  We respond to every enquiry within 4 business hours. If we don&apos;t, your first
-                  consultation call is on us.
-                </p>
-              </div>
-
-              {/* Extra trust signals */}
-              <div className="space-y-3">
-                <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-500 shrink-0" aria-hidden="true" />
-                  150+ projects delivered across 6 service lines
-                </div>
-                <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-500 shrink-0" aria-hidden="true" />
-                  98% client satisfaction rate
-                </div>
-                <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-500 shrink-0" aria-hidden="true" />
-                  NDA available before any technical discussion
-                </div>
-              </div>
             </div>
           </div>
         </div>
