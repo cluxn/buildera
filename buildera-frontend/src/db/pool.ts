@@ -39,6 +39,14 @@ export async function queryOne<T = unknown>(sql: string, values?: AnyValues): Pr
   return (rows[0] as T) ?? null
 }
 
+// MySQL DATETIME/TIMESTAMP columns reject ISO 8601 strings (e.g. "2026-06-15T08:22:35.143Z")
+export function toMysqlDatetime(value: string | null | undefined): string | null {
+  if (!value) return null
+  const d = new Date(value)
+  if (isNaN(d.getTime())) return null
+  return d.toISOString().slice(0, 19).replace('T', ' ')
+}
+
 export async function execute(sql: string, values?: AnyValues): Promise<{ affectedRows: number; insertId: number }> {
   const [result] = await pool.execute(sql, values)
   const r = result as { affectedRows: number; insertId: number }

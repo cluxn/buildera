@@ -1,4 +1,4 @@
-import { query, queryOne, execute } from '@/db/pool'
+import { query, queryOne, execute, toMysqlDatetime } from '@/db/pool'
 
 export interface LeadMagnet {
   id: number; title: string; slug: string; excerpt: string | null
@@ -54,7 +54,7 @@ export async function createLeadMagnet(data: Partial<LeadMagnet>): Promise<numbe
       data.pdf_url ?? null, data.cta_text ?? null, data.thank_you_url ?? null,
       data.read_time_minutes ?? null, data.cover_image ?? null, data.cover_image_alt ?? null,
       data.resource_type ?? 'article', data.category ?? null,
-      data.status ?? 'DRAFT', data.published_at ?? null,
+      data.status ?? 'DRAFT', toMysqlDatetime(data.published_at),
       data.meta_title ?? null, data.meta_description ?? null,
     ],
   )
@@ -67,7 +67,10 @@ export async function updateLeadMagnet(id: number, data: Partial<LeadMagnet>): P
     'status','published_at','meta_title','meta_description']
   const fields: string[] = []; const vals: unknown[] = []
   for (const k of allowed) {
-    if (k in data) { fields.push(`${k} = ?`); vals.push((data as Record<string, unknown>)[k]) }
+    if (k in data) {
+      const v = (data as Record<string, unknown>)[k]
+      fields.push(`${k} = ?`); vals.push(k === 'published_at' ? toMysqlDatetime(v as string | null) : v)
+    }
   }
   if (!fields.length) return
   vals.push(id)

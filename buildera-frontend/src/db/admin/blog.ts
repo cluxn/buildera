@@ -1,4 +1,4 @@
-import { query, queryOne, execute } from '@/db/pool'
+import { query, queryOne, execute, toMysqlDatetime } from '@/db/pool'
 
 export interface BlogPost {
   id: number; title: string; slug: string; excerpt: string | null
@@ -118,7 +118,7 @@ export async function createBlogPost(data: Partial<BlogPost>): Promise<number> {
       data.cover_image ?? null, data.cover_image_alt ?? null,
       data.is_featured ?? 0, status,
       status === 'published' ? 1 : 0,
-      data.published_at ?? null,
+      toMysqlDatetime(data.published_at),
       data.meta_title ?? null, data.meta_description ?? null,
     ],
   )
@@ -137,7 +137,10 @@ export async function updateBlogPost(id: number, data: Partial<BlogPost>): Promi
     meta_title: 'seo_title', meta_description: 'seo_description',
   }
   for (const [codeKey, dbCol] of Object.entries(map)) {
-    if (codeKey in data) { fields.push(`${dbCol} = ?`); vals.push((data as Record<string, unknown>)[codeKey]) }
+    if (codeKey in data) {
+      const v = (data as Record<string, unknown>)[codeKey]
+      fields.push(`${dbCol} = ?`); vals.push(codeKey === 'published_at' ? toMysqlDatetime(v as string | null) : v)
+    }
   }
   if ('status' in data && data.status) {
     const s = (data.status as string).toLowerCase()

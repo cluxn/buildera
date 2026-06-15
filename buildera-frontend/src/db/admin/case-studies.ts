@@ -1,4 +1,4 @@
-import { query, queryOne, execute } from '@/db/pool'
+import { query, queryOne, execute, toMysqlDatetime } from '@/db/pool'
 
 export interface CaseStudy {
   id: number; title: string; slug: string; client_name: string | null
@@ -80,7 +80,7 @@ export async function createCaseStudy(data: Partial<CaseStudy>): Promise<number>
       data.cover_image ?? null, data.cover_image_alt ?? null,
       data.challenge ?? null, data.solution ?? null, data.outcome ?? null,
       data.result_stats ? JSON.stringify(data.result_stats) : null,
-      data.is_featured ?? 0, isPublished, data.published_at ?? null,
+      data.is_featured ?? 0, isPublished, toMysqlDatetime(data.published_at),
       data.meta_title ?? null, data.meta_description ?? null,
     ],
   )
@@ -100,7 +100,7 @@ export async function updateCaseStudy(id: number, data: Partial<CaseStudy>): Pro
     if (codeKey in data) {
       fields.push(`${dbCol} = ?`)
       const v = (data as Record<string, unknown>)[codeKey]
-      vals.push(v)
+      vals.push(codeKey === 'published_at' ? toMysqlDatetime(v as string | null) : v)
     }
   }
   if ('result_stats' in data) {
