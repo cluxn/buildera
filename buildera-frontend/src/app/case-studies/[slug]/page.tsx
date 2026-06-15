@@ -45,9 +45,10 @@ export default async function CaseStudyDetailPage({ params }: Props) {
   ])
   if (!study) notFound()
 
-  const related = allStudies.data
-    .filter((s) => s.slug !== slug && s.industry === study.industry)
-    .slice(0, 3)
+  const otherStudies = allStudies.data.filter((s) => s.slug !== slug)
+  const sameIndustry = otherStudies.filter((s) => s.industry === study.industry)
+  const related = (sameIndustry.length > 0 ? sameIndustry : otherStudies).slice(0, 3)
+  const relatedSameIndustry = sameIndustry.length > 0
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://buildera.co'
   const articleSchema = {
@@ -244,7 +245,9 @@ export default async function CaseStudyDetailPage({ params }: Props) {
           <section className="py-20 bg-[var(--brand-surface)]">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
               <h2 className="text-2xl font-bold mb-2">Explore More Case Studies</h2>
-              <p className="text-muted-foreground text-sm mb-8">More projects from the {study.industry} space.</p>
+              <p className="text-muted-foreground text-sm mb-8">
+                {relatedSameIndustry ? `More projects from the ${study.industry} space.` : 'More success stories from our clients.'}
+              </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {related.map((s) => <CaseStudyCard key={s.id} study={s} />)}
               </div>
