@@ -7,6 +7,8 @@ const ALLOWED_MIME = new Set([
   'application/pdf',
 ])
 
+const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024 // 10MB
+
 function getUploadDir(): string {
   const dir = process.env.UPLOAD_DIR
   if (!dir) throw new Error('UPLOAD_DIR env var is required')
@@ -22,6 +24,9 @@ export async function saveUploadedFile(file: File): Promise<{
 }> {
   if (!ALLOWED_MIME.has(file.type)) {
     throw new Error(`File type not allowed: ${file.type}`)
+  }
+  if (file.size > MAX_FILE_SIZE_BYTES) {
+    throw new Error(`File too large: max size is ${MAX_FILE_SIZE_BYTES / (1024 * 1024)}MB`)
   }
   const ext = file.name.split('.').pop()?.toLowerCase() || 'bin'
   const filename = `${randomUUID()}.${ext}`
