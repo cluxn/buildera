@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
-import { useRouter } from 'next/navigation'
 import { Trash2, Copy, Upload, Image } from 'lucide-react'
 
 interface MediaFile {
@@ -16,7 +15,6 @@ function fmtSize(bytes: number) {
 }
 
 export default function MediaPage() {
-  const router = useRouter()
   const [files, setFiles] = useState<MediaFile[]>([])
   const [loading, setLoading] = useState(true)
   const [uploading, setUploading] = useState(false)
