@@ -20,7 +20,8 @@ export function AdminHeader({ email, role }: Props) {
   const router = useRouter()
 
   async function handleLogout() {
-    await fetch('/api/admin/logout', { method: 'POST' })
+    const res = await fetch('/api/admin/logout', { method: 'POST' })
+    if (!res.ok) return
     router.push('/admin/login')
     router.refresh()
   }
