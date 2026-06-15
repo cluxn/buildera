@@ -12,28 +12,45 @@ export function ClientLogosClient({ rows }: Props) {
   const router = useRouter()
   const [editing, setEditing] = useState<Partial<ClientLogo> | null>(null)
   const [saving, setSaving] = useState(false)
+  const [error, setError] = useState('')
 
   async function save() {
     if (!editing?.name || !editing?.logo_url) return
     setSaving(true)
-    if (editing.id) {
-      await fetch(`/api/admin/client-logos/${editing.id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(editing) })
-    } else {
-      await fetch('/api/admin/client-logos', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(editing) })
-    }
+    setError('')
+    const res = editing.id
+      ? await fetch(`/api/admin/client-logos/${editing.id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(editing) })
+      : await fetch('/api/admin/client-logos', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(editing) })
     setSaving(false)
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}))
+      setError(data.error || 'Save failed')
+      return
+    }
     setEditing(null)
     router.refresh()
   }
 
   async function toggleVisible(id: number, visible: number) {
-    await fetch(`/api/admin/client-logos/${id}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ visible: visible ? 0 : 1 }) })
+    setError('')
+    const res = await fetch(`/api/admin/client-logos/${id}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ visible: visible ? 0 : 1 }) })
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}))
+      setError(data.error || 'Update failed')
+      return
+    }
     router.refresh()
   }
 
   async function remove(id: number) {
     if (!confirm('Delete this logo?')) return
-    await fetch(`/api/admin/client-logos/${id}`, { method: 'DELETE' })
+    setError('')
+    const res = await fetch(`/api/admin/client-logos/${id}`, { method: 'DELETE' })
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}))
+      setError(data.error || 'Delete failed')
+      return
+    }
     router.refresh()
   }
 
@@ -46,6 +63,8 @@ export function ClientLogosClient({ rows }: Props) {
           <Plus size={15} /> Add Logo
         </button>
       </div>
+
+      {error && <p className="text-sm text-red-600">{error}</p>}
 
       {editing !== null && (
         <div className="bg-white rounded-xl border border-gray-200 p-4 space-y-3">
