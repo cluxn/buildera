@@ -4,9 +4,10 @@ interface Props {
   whatsappNumber: string
   email?: string
   phone?: string
+  address?: string
 }
 
-export function ContactInfo({ whatsappNumber, email, phone }: Props) {
+export function ContactInfo({ whatsappNumber, email, phone, address }: Props) {
   return (
     <div className="space-y-4">
         {/* Email */}
@@ -60,7 +61,7 @@ export function ContactInfo({ whatsappNumber, email, phone }: Props) {
           <div>
             <p className="font-semibold text-foreground text-sm mb-1">Office</p>
             <p className="text-sm text-muted-foreground">
-              India — serving clients remotely and on-site
+              {address || 'India — serving clients remotely and on-site'}
             </p>
             <p className="text-xs text-muted-foreground mt-1">IST (UTC+5:30) · Mon–Fri 9am–6pm</p>
           </div>

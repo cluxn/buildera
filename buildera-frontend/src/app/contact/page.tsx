@@ -40,6 +40,12 @@ export default async function ContactPage() {
 
       <section id="contact-form" className="py-20 md:py-28 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold tracking-tight mb-2 text-foreground">Send Us a Message</h2>
+            <p className="text-muted-foreground text-sm">
+              Fill in the form and we&apos;ll get back to you within 4 business hours.
+            </p>
+          </div>
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
             {/* Form */}
             <div className="lg:col-span-3">
@@ -48,7 +54,7 @@ export default async function ContactPage() {
 
             {/* Info panel */}
             <div className="lg:col-span-2 flex flex-col gap-6">
-              <ContactInfo whatsappNumber={settings.whatsapp_number} email={settings.company_email} phone={settings.company_phone} />
+              <ContactInfo whatsappNumber={settings.whatsapp_number} email={settings.company_email} phone={settings.company_phone} address={settings.company_address} />
 
               {/* Response guarantee card */}
               <div className="bg-background rounded-xl p-6 border border-border">

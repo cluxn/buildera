@@ -123,14 +123,19 @@ export function CaseStudyEditor({ study }: Props) {
       const url = isNew ? '/api/admin/case-studies' : `/api/admin/case-studies/${study!.id}`
       const method = isNew ? 'POST' : 'PUT'
       const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
-      const data = await res.json()
+      const text = await res.text()
+      const data = text ? JSON.parse(text) : {}
       if (res.ok) {
         localStorage.removeItem(AUTOSAVE_KEY(autoId))
         setLastSavedAt(new Date())
         if (action !== 'draft') setStatus(finalStatus)
         if (isNew) router.push(`/admin/case-studies/${data.id}/edit`)
         else router.refresh()
+      } else {
+        alert(`Save failed: ${data.error ?? res.statusText}`)
       }
+    } catch (err) {
+      alert(`Save failed: ${err instanceof Error ? err.message : 'Unknown error'}`)
     } finally { setSaving(false) }
   }
 

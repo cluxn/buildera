@@ -139,13 +139,18 @@ export function BlogEditor({ post, categories, users }: Props) {
       const url = isNew ? '/api/admin/blog' : `/api/admin/blog/${post!.id}`
       const method = isNew ? 'POST' : 'PUT'
       const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
-      const data = await res.json()
+      const text = await res.text()
+      const data = text ? JSON.parse(text) : {}
       if (res.ok) {
         localStorage.removeItem(AUTOSAVE_KEY(autoId))
         setLastSavedAt(new Date())
         if (isNew) router.push(`/admin/blog/${data.id}/edit`)
         else router.refresh()
+      } else {
+        alert(`Save failed: ${data.error ?? res.statusText}`)
       }
+    } catch (err) {
+      alert(`Save failed: ${err instanceof Error ? err.message : 'Unknown error'}`)
     } finally { setSaving(false) }
   }
 

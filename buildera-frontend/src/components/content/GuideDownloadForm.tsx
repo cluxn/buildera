@@ -3,6 +3,7 @@
 import { useState, FormEvent } from 'react'
 import Image from 'next/image'
 import { IconLoader2, IconCircleCheck, IconDownload } from '@tabler/icons-react'
+import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder'
 
 interface Props {
   guideTitle: string
@@ -67,10 +68,10 @@ export function GuideDownloadForm({ guideTitle, coverImage, sourceForm = 'guide-
   return (
     <section className="py-16 bg-[var(--brand-surface)]">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
 
           {/* Left — form */}
-          <div className="bg-background rounded-2xl border border-border p-8 shadow-sm">
+          <div className="bg-background rounded-2xl border border-border p-8 shadow-sm h-full">
             {success ? (
               <div className="text-center py-8">
                 <IconCircleCheck className="w-14 h-14 text-green-500 mx-auto mb-4" />
@@ -181,10 +182,11 @@ export function GuideDownloadForm({ guideTitle, coverImage, sourceForm = 'guide-
             )}
           </div>
 
-          {/* Right — guide cover image */}
-          <div className="flex items-center justify-center">
-            {coverImage ? (
-              <div className="relative w-full max-w-sm aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
+          {/* Right — guide heading + cover image */}
+          <div className="flex flex-col h-full">
+            <h3 className="text-2xl font-bold mb-4 leading-tight">{guideTitle}</h3>
+            <div className="relative flex-1 min-h-64 rounded-2xl overflow-hidden shadow-2xl">
+              {coverImage ? (
                 <Image
                   src={coverImage}
                   alt={`${guideTitle} cover`}
@@ -192,14 +194,10 @@ export function GuideDownloadForm({ guideTitle, coverImage, sourceForm = 'guide-
                   sizes="(max-width: 768px) 80vw, 400px"
                   className="object-cover"
                 />
-              </div>
-            ) : (
-              <div className="w-full max-w-sm aspect-[3/4] rounded-2xl bg-gradient-to-br from-[var(--brand-gradient-from)] to-[var(--brand-gradient-to)] flex flex-col items-center justify-center p-10 text-white shadow-2xl">
-                <IconDownload size={48} className="mb-4 opacity-80" />
-                <p className="text-center font-semibold text-lg leading-snug">{guideTitle}</p>
-                <p className="text-white/60 text-sm mt-2">Free Download</p>
-              </div>
-            )}
+              ) : (
+                <ImagePlaceholder />
+              )}
+            </div>
           </div>
 
         </div>

@@ -27,7 +27,7 @@ export function AboutStory() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-stretch">
 
-          <div className="flex flex-col">
+          <div className="flex flex-col justify-center">
             <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-4">
               Our Story
             </p>

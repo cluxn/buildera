@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Edit, Trash2, Plus, Eye, EyeOff } from 'lucide-react'
 import type { ClientLogo } from '@/db/admin/client-logos'
+import { ImageUploadField } from './ImageUploadField'
 
 interface Props { rows: ClientLogo[] }
 
@@ -55,11 +56,7 @@ export function ClientLogosClient({ rows }: Props) {
               <input value={editing.name ?? ''} onChange={e => setEditing(p => ({ ...p, name: e.target.value }))}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" placeholder="Acme Corp" />
             </div>
-            <div>
-              <label className="text-xs font-medium text-gray-600 mb-1 block">Logo URL *</label>
-              <input value={editing.logo_url ?? ''} onChange={e => setEditing(p => ({ ...p, logo_url: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" placeholder="https://…/logo.svg" />
-            </div>
+            <ImageUploadField label="Logo URL *" value={editing.logo_url ?? ''} onChange={url => setEditing(p => ({ ...p, logo_url: url }))} placeholder="https://…/logo.svg" />
             <div>
               <label className="text-xs font-medium text-gray-600 mb-1 block">Industry</label>
               <input value={editing.industry ?? ''} onChange={e => setEditing(p => ({ ...p, industry: e.target.value }))}

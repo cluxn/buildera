@@ -80,11 +80,11 @@ export function SolutionPreviewSection({
           <p className="text-muted-foreground max-w-xl mx-auto">{description}</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-6 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-6 items-stretch">
 
           {/* Left — data table card */}
           <motion.div
-            className="rounded-2xl border border-border bg-background overflow-hidden shadow-sm"
+            className="rounded-2xl border border-border bg-background overflow-hidden shadow-sm flex flex-col h-full"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -122,6 +122,8 @@ export function SolutionPreviewSection({
                 </span>
               </div>
             ))}
+
+            <div className="flex-1" />
 
             {/* Action bar */}
             <div className="flex items-center gap-3 px-5 py-4 bg-[var(--brand-surface)] border-t border-border">

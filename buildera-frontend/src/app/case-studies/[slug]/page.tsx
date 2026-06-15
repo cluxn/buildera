@@ -180,8 +180,8 @@ export default async function CaseStudyDetailPage({ params }: Props) {
                     <div className="rounded-2xl border border-border bg-background overflow-hidden">
                       <div className="grid grid-cols-2 divide-x divide-y divide-border">
                         {study.key_metrics.slice(0, 4).map((m, i) => (
-                          <div key={i} className="px-4 py-5">
-                            <p className="text-2xl font-bold text-foreground leading-tight mb-1">
+                          <div key={i} className="px-4 py-5 min-w-0">
+                            <p className="text-2xl font-bold text-foreground leading-tight mb-1 break-words">
                               {m.value}
                             </p>
                             <p className="text-xs text-muted-foreground leading-snug">{m.label}</p>

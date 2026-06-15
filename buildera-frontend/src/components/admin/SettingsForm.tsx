@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { ImageUploadField } from './ImageUploadField'
 
 interface Props { settings: Record<string, string> }
 
@@ -44,11 +45,10 @@ export function SettingsForm({ settings: initial }: Props) {
         {tab === 'General' && (
           <>
             <div className={row}><label className={label}>WhatsApp Number</label><input className={inp} value={values.whatsapp_number ?? ''} onChange={e => set('whatsapp_number', e.target.value)} placeholder="+1234567890" /></div>
-            <div className={row}><label className={label}>Calendly URL</label><input className={inp} value={values.calendly_url ?? ''} onChange={e => set('calendly_url', e.target.value)} placeholder="https://calendly.com/..." /></div>
             <div className={row}><label className={label}>Company Email</label><input className={inp} type="email" value={values.company_email ?? ''} onChange={e => set('company_email', e.target.value)} /></div>
             <div className={row}><label className={label}>Company Phone</label><input className={inp} value={values.company_phone ?? ''} onChange={e => set('company_phone', e.target.value)} /></div>
             <div className={row}><label className={label}>Company Address</label><input className={inp} value={values.company_address ?? ''} onChange={e => set('company_address', e.target.value)} /></div>
-            <button onClick={() => save(['whatsapp_number','calendly_url','company_email','company_phone','company_address'])} disabled={saving} className="px-4 py-2 bg-[#002BFF] text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-60">
+            <button onClick={() => save(['whatsapp_number','company_email','company_phone','company_address'])} disabled={saving} className="px-4 py-2 bg-[#002BFF] text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-60">
               {saving ? 'Saving…' : saved ? 'Saved!' : 'Save General'}
             </button>
           </>
@@ -69,12 +69,8 @@ export function SettingsForm({ settings: initial }: Props) {
           <>
             <div className={row}><label className={label}>Site Name</label><input className={inp} value={values.site_name ?? ''} onChange={e => set('site_name', e.target.value)} /></div>
             <div className={row}><label className={label}>Tagline</label><input className={inp} value={values.site_tagline ?? ''} onChange={e => set('site_tagline', e.target.value)} /></div>
-            <div className={row}><label className={label}>Logo URL</label><input className={inp} value={values.logo_url ?? ''} onChange={e => set('logo_url', e.target.value)} placeholder="/uploads/logo.png" />
-              {values.logo_url && <img src={values.logo_url} alt="Logo preview" className="mt-2 h-10 object-contain" />}
-            </div>
-            <div className={row}><label className={label}>Favicon URL</label><input className={inp} value={values.favicon_url ?? ''} onChange={e => set('favicon_url', e.target.value)} />
-              {values.favicon_url && <img src={values.favicon_url} alt="Favicon preview" className="mt-2 h-8 object-contain" />}
-            </div>
+            <ImageUploadField label="Logo URL" value={values.logo_url ?? ''} onChange={url => set('logo_url', url)} placeholder="/uploads/logo.png" className={row} />
+            <ImageUploadField label="Favicon URL" value={values.favicon_url ?? ''} onChange={url => set('favicon_url', url)} placeholder="/uploads/favicon.ico" className={row} />
             <button onClick={() => save(['site_name','site_tagline','logo_url','favicon_url'])} disabled={saving} className="px-4 py-2 bg-[#002BFF] text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-60">
               {saving ? 'Saving…' : saved ? 'Saved!' : 'Save Appearance'}
             </button>

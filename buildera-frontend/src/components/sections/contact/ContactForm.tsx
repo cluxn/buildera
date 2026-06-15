@@ -94,11 +94,6 @@ export function ContactForm() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold tracking-tight mb-2 text-foreground">Send Us a Message</h2>
-      <p className="text-muted-foreground text-sm mb-8">
-        Fill in the form and we&apos;ll get back to you within 4 business hours.
-      </p>
-
       <form onSubmit={handleSubmit} noValidate>
         {/* Honeypot — visually hidden from real users */}
         <input

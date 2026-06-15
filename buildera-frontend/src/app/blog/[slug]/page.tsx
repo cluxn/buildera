@@ -6,7 +6,6 @@ import { extractTocAndInjectIds } from '@/lib/toc'
 import { BlogDetailHero } from '@/components/blog/BlogDetailHero'
 import { BlogCtaBanner } from '@/components/sections/BlogCtaBanner'
 import { CTASection } from '@/components/sections/CTASection'
-import { AuthorBio } from '@/components/blog/AuthorBio'
 import { RelatedPosts } from '@/components/blog/RelatedPosts'
 import { BlogShareButtons } from '@/components/blog/BlogShareButtons'
 import { MiniLeadForm } from '@/components/ui/MiniLeadForm'
@@ -122,12 +121,6 @@ export default async function BlogPostPage({ params }: Props) {
             </aside>
           </div>
         </div>
-
-        {post.author && (
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-            <AuthorBio author={post.author} />
-          </div>
-        )}
 
         {recommendedPosts.length > 0 && (
           <section className="bg-[var(--brand-surface)] py-20">

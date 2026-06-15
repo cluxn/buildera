@@ -45,9 +45,9 @@ export default async function GuideDetailPage({ params }: Props) {
   ])
   if (!guide) notFound()
 
-  const relatedGuides = relatedData.data
-    .filter((g) => g.slug !== slug && g.category === guide.category)
-    .slice(0, 3)
+  const otherGuides = relatedData.data.filter((g) => g.slug !== slug)
+  const sameCategory = otherGuides.filter((g) => g.category === guide.category)
+  const relatedGuides = (sameCategory.length > 0 ? sameCategory : otherGuides).slice(0, 3)
 
   const typeColor = TYPE_COLORS[guide.resource_type?.toLowerCase()] ?? 'bg-[var(--brand-primary)]/10 text-[var(--brand-primary)]'
 
