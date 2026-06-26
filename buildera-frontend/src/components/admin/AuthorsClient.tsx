@@ -389,7 +389,7 @@ export function AuthorsClient({ rows, currentUserId, isAdmin }: Props) {
                       </button>
                     )}
                     {row.id === currentUserId && (
-                      <ShieldCheck size={15} className="text-gray-300" title="Current user" />
+                      <ShieldCheck size={15} className="text-gray-300" aria-label="Current user" />
                     )}
                   </div>
                 </td>
