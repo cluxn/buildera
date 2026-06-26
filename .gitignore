@@ -36,3 +36,4 @@ storage/framework/views/
 buildera-backend/buildera
 *.sqlite
 *.db
+buildera-deploy.zip
