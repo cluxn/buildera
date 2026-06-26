@@ -41,4 +41,13 @@ for (const stmt of statements) {
 }
 
 console.log(`Migration complete — ${ok} statements executed.`)
+
+// Widen role column from ENUM to VARCHAR to support multiple roles per user
+try {
+  await conn.execute("ALTER TABLE users MODIFY COLUMN role VARCHAR(200) NOT NULL DEFAULT 'CONTENT_EDITOR'")
+  console.log('Altered users.role: ENUM → VARCHAR(200)')
+} catch {
+  // Already altered or column type already compatible — skip silently
+}
+
 await conn.end()

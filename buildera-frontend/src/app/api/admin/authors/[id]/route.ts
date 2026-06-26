@@ -1,16 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { verifySession } from '@/backend/auth/session'
-import { updateUserRole, deleteUser, ALLOWED_ROLES } from '@/db/admin/users'
+import { updateUserRole, deleteUser } from '@/db/admin/users'
+import { ALLOWED_ROLE_VALUES as ALLOWED_ROLES } from '@/lib/admin-permissions'
 
 export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const session = await verifySession()
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   if (!['SUPER_ADMIN','ADMIN'].includes(session.role)) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   const { id } = await params
-  const { role } = await request.json()
-  if (role !== undefined) {
-    if (!ALLOWED_ROLES.includes(role)) return NextResponse.json({ error: 'Invalid role' }, { status: 400 })
-    await updateUserRole(Number(id), role)
+  const { roles } = await request.json()
+  if (roles !== undefined) {
+    const rolesArr: string[] = Array.isArray(roles) ? roles : [roles]
+    if (rolesArr.length === 0 || !rolesArr.every((r: string) => ALLOWED_ROLES.includes(r))) {
+      return NextResponse.json({ error: 'Invalid role(s)' }, { status: 400 })
+    }
+    await updateUserRole(Number(id), rolesArr.join(','))
   }
   return NextResponse.json({ ok: true })
 }

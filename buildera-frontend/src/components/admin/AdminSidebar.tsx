@@ -8,6 +8,7 @@ import {
   Settings, ChevronRight, ChevronLeft,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { parseUserAccess } from '@/lib/admin-permissions'
 
 const STORAGE_KEY = 'admin_sidebar_collapsed'
 
@@ -15,7 +16,8 @@ interface NavItem {
   label: string
   href: string
   icon: React.ReactNode
-  roles: string[]
+  // permission key required, or null = always visible
+  permission: string | null
   matchPaths: string[]
   badge?: boolean
 }
@@ -25,21 +27,22 @@ const navItems: NavItem[] = [
     label: 'Dashboard',
     href: '/admin',
     icon: <LayoutDashboard size={18} />,
-    roles: ['SUPER_ADMIN','ADMIN','CONTENT_EDITOR','MARKETING_MANAGER','SEO_MANAGER'],
+    permission: null,
     matchPaths: ['/admin'],
   },
   {
     label: 'Content',
     href: '/admin/blog',
     icon: <FileText size={18} />,
-    roles: ['SUPER_ADMIN','ADMIN','CONTENT_EDITOR','MARKETING_MANAGER','SEO_MANAGER'],
+    // Visible if user has ANY content-related permission
+    permission: 'content',
     matchPaths: ['/admin/blog','/admin/case-studies','/admin/lead-magnets','/admin/testimonials','/admin/media','/admin/client-logos','/admin/authors','/admin/categories'],
   },
   {
     label: 'Leads',
     href: '/admin/leads',
     icon: <Users size={18} />,
-    roles: ['SUPER_ADMIN','ADMIN','MARKETING_MANAGER'],
+    permission: 'leads',
     matchPaths: ['/admin/leads'],
     badge: true,
   },
@@ -47,24 +50,26 @@ const navItems: NavItem[] = [
     label: 'Marketing',
     href: '/admin/marketing/popup',
     icon: <Megaphone size={18} />,
-    roles: ['SUPER_ADMIN','ADMIN','MARKETING_MANAGER'],
+    permission: 'marketing',
     matchPaths: ['/admin/marketing'],
   },
   {
     label: 'SEO',
     href: '/admin/seo/meta',
     icon: <Search size={18} />,
-    roles: ['SUPER_ADMIN','ADMIN','SEO_MANAGER'],
+    permission: 'seo',
     matchPaths: ['/admin/seo'],
   },
   {
     label: 'Settings',
     href: '/admin/settings',
     icon: <Settings size={18} />,
-    roles: ['SUPER_ADMIN','ADMIN'],
+    permission: 'settings',
     matchPaths: ['/admin/settings'],
   },
 ]
+
+const CONTENT_PERMISSIONS = ['blog','case_studies','lead_magnets','testimonials','media','client_logos','authors','categories']
 
 interface Props {
   role: string
@@ -74,6 +79,7 @@ interface Props {
 export function AdminSidebar({ role, unreadLeads }: Props) {
   const pathname = usePathname()
   const [collapsed, setCollapsed] = useState(false)
+  const { isAdmin, permissions } = parseUserAccess(role)
 
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY)
@@ -92,7 +98,14 @@ export function AdminSidebar({ role, unreadLeads }: Props) {
     return item.matchPaths.some(p => pathname.startsWith(p))
   }
 
-  const visibleItems = navItems.filter(item => item.roles.includes(role))
+  function canSeeItem(item: NavItem): boolean {
+    if (isAdmin) return true
+    if (item.permission === null) return true
+    if (item.permission === 'content') return CONTENT_PERMISSIONS.some(p => permissions.includes(p))
+    return permissions.includes(item.permission)
+  }
+
+  const visibleItems = navItems.filter(canSeeItem)
 
   return (
     <aside

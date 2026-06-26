@@ -13,6 +13,7 @@ import { TextStyle } from '@tiptap/extension-text-style'
 import { Color } from '@tiptap/extension-color'
 import Highlight from '@tiptap/extension-highlight'
 import type { Editor } from '@tiptap/core'
+import { NodeSelection } from '@tiptap/pm/state'
 import { ImageFigure } from './tiptap/ImageFigure'
 import { Callout } from './tiptap/Callout'
 import { CtaButton } from './tiptap/CtaButton'
@@ -78,6 +79,15 @@ function addYoutubeVideo(editor: Editor) {
   if (!url) return
   editor.commands.setYoutubeVideo({ src: url })
 }
+
+const SIZE_PRESETS = [
+  { label: 'Thumbnail (160px)', value: 160 },
+  { label: 'Small (320px)',     value: 320 },
+  { label: 'Medium (480px)',    value: 480 },
+  { label: 'Large (640px)',     value: 640 },
+  { label: 'XL (800px)',        value: 800 },
+  { label: 'Banner (1024px)',   value: 1024 },
+]
 
 const FONT_SIZES = [
   { label: 'Default', value: '' },
@@ -308,7 +318,61 @@ export function RichTextEditor({ content, onChange, placeholder }: Props) {
   return (
     <div className="border border-gray-300 rounded-lg overflow-hidden bg-white">
       <Toolbar editor={editor} />
-      <BubbleMenu editor={editor} className="z-20 flex items-center gap-0.5 bg-gray-900 rounded-lg shadow-lg p-1">
+      {/* Image bubble menu */}
+      <BubbleMenu
+        editor={editor}
+        shouldShow={({ state }) => state.selection instanceof NodeSelection && (state.selection as NodeSelection).node?.type.name === 'imageFigure'}
+        className="z-20 flex items-center gap-1 bg-white border border-gray-200 rounded-lg shadow-lg px-2 py-1.5 text-sm"
+      >
+        {(() => {
+          const attrs = editor.getAttributes('imageFigure') as { width: number | null; align: string | null; alt: string }
+          const currentAlign = attrs.align ?? null
+          const currentWidth = attrs.width ?? null
+          const btnBase = 'px-2 py-1 rounded text-xs font-medium transition-colors'
+          const btnActive = 'bg-[#002BFF] text-white'
+          const btnInactive = 'text-gray-600 hover:bg-gray-100'
+          return (
+            <>
+              {(['left','center','right','full'] as const).map(a => (
+                <button key={a} type="button"
+                  onClick={() => editor.chain().focus().updateAttributes('imageFigure', { align: currentAlign === a ? null : a }).run()}
+                  className={`${btnBase} ${currentAlign === a ? btnActive : btnInactive}`}
+                >
+                  {a === 'left' ? '← Left' : a === 'center' ? '≡ Center' : a === 'right' ? 'Right →' : '↔ Full'}
+                </button>
+              ))}
+              <div className="w-px h-4 bg-gray-200 mx-0.5" />
+              <select
+                value={currentAlign === 'full' ? '' : (currentWidth != null && SIZE_PRESETS.some(p => p.value === currentWidth) ? String(currentWidth) : '')}
+                onChange={e => {
+                  const v = Number(e.target.value)
+                  editor.chain().focus().updateAttributes('imageFigure', { width: v, align: null }).run()
+                }}
+                className="text-xs border border-gray-200 rounded px-1.5 py-1 text-gray-600 focus:outline-none focus:ring-1 focus:ring-[#002BFF]/30"
+              >
+                <option value="">Size preset</option>
+                {SIZE_PRESETS.map(p => <option key={p.value} value={p.value}>{p.label}</option>)}
+              </select>
+              <div className="w-px h-4 bg-gray-200 mx-0.5" />
+              <span className="text-xs text-gray-500 max-w-[120px] truncate">Alt: &quot;{attrs.alt || '—'}&quot;</span>
+              <button type="button"
+                onClick={() => {
+                  const newAlt = window.prompt('Alt text', attrs.alt || '')
+                  if (newAlt !== null) editor.chain().focus().updateAttributes('imageFigure', { alt: newAlt }).run()
+                }}
+                className="text-xs text-[#002BFF] hover:underline px-1"
+              >Rename</button>
+              <button type="button"
+                onClick={() => editor.chain().focus().deleteSelection().run()}
+                className="text-xs text-red-500 hover:underline px-1"
+              >Delete</button>
+            </>
+          )
+        })()}
+      </BubbleMenu>
+
+      {/* Text bubble menu */}
+      <BubbleMenu editor={editor} shouldShow={({ state }) => !(state.selection instanceof NodeSelection)} className="z-20 flex items-center gap-0.5 bg-gray-900 rounded-lg shadow-lg p-1">
         <button type="button" onClick={() => editor.chain().focus().toggleBold().run()}
           className={`p-1.5 rounded ${editor.isActive('bold') ? 'bg-white/20 text-white' : 'text-gray-300 hover:bg-white/10'}`} title="Bold">
           <Bold size={14} />

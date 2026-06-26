@@ -11,14 +11,13 @@ let redirectCache: RedirectRecord[] = []
 let cacheLoadedAt = 0
 const CACHE_TTL_MS = 5 * 60 * 1000
 
-async function getRedirects(): Promise<RedirectRecord[]> {
+async function getRedirects(requestOrigin: string): Promise<RedirectRecord[]> {
   const now = Date.now()
   if (redirectCache.length > 0 && now - cacheLoadedAt < CACHE_TTL_MS) {
     return redirectCache
   }
-  const origin = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
   try {
-    const res = await fetch(`${origin}/api/redirects`, { cache: 'no-store' })
+    const res = await fetch(`${requestOrigin}/api/redirects`, { cache: 'no-store' })
     if (res.ok) {
       redirectCache = await res.json()
       cacheLoadedAt = now
@@ -31,9 +30,10 @@ async function getRedirects(): Promise<RedirectRecord[]> {
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
+  const requestOrigin = request.nextUrl.origin
 
   const response = NextResponse.next()
-  const redirects = await getRedirects()
+  const redirects = await getRedirects(requestOrigin)
   const match = redirects.find((r) => r.from_path === pathname)
   if (match) {
     const destination = match.to_path.startsWith('http')

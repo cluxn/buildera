@@ -49,6 +49,10 @@ export async function verifySession(): Promise<SessionPayload | null> {
   }
 }
 
+export function hasAnyRole(session: SessionPayload, allowed: string[]): boolean {
+  return session.role.split(',').some(r => allowed.includes(r.trim()))
+}
+
 export async function destroySession(): Promise<void> {
   const jar = await cookies()
   jar.delete(COOKIE_NAME)

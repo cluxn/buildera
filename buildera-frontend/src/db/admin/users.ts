@@ -39,4 +39,4 @@ export async function deleteUser(id: number): Promise<void> {
   await execute('DELETE FROM users WHERE id = ?', [id])
 }
 
-export const ALLOWED_ROLES = ['SUPER_ADMIN','ADMIN','CONTENT_EDITOR','MARKETING_MANAGER','SEO_MANAGER']
+export { ALLOWED_ROLE_VALUES as ALLOWED_ROLES } from '@/lib/admin-permissions'

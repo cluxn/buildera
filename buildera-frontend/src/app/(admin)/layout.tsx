@@ -16,7 +16,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       <AdminSidebar role={session.role} unreadLeads={unreadLeads} />
       <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
         <AdminHeader email={session.email} role={session.role} />
-        <AdminSectionTabs />
+        <AdminSectionTabs userRole={session.role} />
         <main className="flex-1 overflow-y-auto p-6">
           {children}
         </main>

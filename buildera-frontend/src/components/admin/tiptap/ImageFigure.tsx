@@ -34,6 +34,7 @@ export const ImageFigure = Node.create<ImageFigureOptions>({
       alt: { default: '' },
       caption: { default: '' },
       width: { default: null },
+      align: { default: null }, // 'left' | 'center' | 'right' | 'full' | null
     }
   },
 
@@ -71,11 +72,17 @@ export const ImageFigure = Node.create<ImageFigureOptions>({
   },
 
   renderHTML({ HTMLAttributes, node }) {
-    const { src, alt, caption, width } = node.attrs as { src: string; alt: string; caption: string; width: number | null }
+    const { src, alt, caption, width, align } = node.attrs as { src: string; alt: string; caption: string; width: number | null; align: string | null }
+    let style = ''
+    if (align === 'full') style = 'width: 100%'
+    else if (align === 'center') style = `${width ? `width: ${width}px; ` : ''}display: block; margin: 0 auto`
+    else if (align === 'left') style = `${width ? `width: ${width}px; ` : ''}display: block; margin-right: auto; margin-left: 0`
+    else if (align === 'right') style = `${width ? `width: ${width}px; ` : ''}display: block; margin-left: auto; margin-right: 0`
+    else style = width ? `width: ${width}px` : ''
     const figureAttrs = mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, {
       'data-type': 'image-figure',
       class: 'tiptap-figure',
-      style: width ? `width: ${width}px` : null,
+      style: style || null,
     })
     const children: Array<[string, Record<string, unknown>] | [string, Record<string, unknown>, string]> = [
       ['img', { src, alt: alt || '' }],
@@ -102,7 +109,7 @@ export const ImageFigure = Node.create<ImageFigureOptions>({
 })
 
 function ImageFigureView({ node, updateAttributes, selected, editor }: NodeViewProps) {
-  const { src, alt, caption, width } = node.attrs as { src: string; alt: string; caption: string; width: number | null }
+  const { src, alt, caption, width, align } = node.attrs as { src: string; alt: string; caption: string; width: number | null; align: string | null }
   const [editing, setEditing] = useState(false)
   const [altInput, setAltInput] = useState(alt || '')
   const [captionInput, setCaptionInput] = useState(caption || '')
@@ -139,7 +146,15 @@ function ImageFigureView({ node, updateAttributes, selected, editor }: NodeViewP
       <figure
         ref={figureRef as React.RefObject<HTMLElement>}
         className={`tiptap-figure relative group ${selected ? 'ring-2 ring-[#002BFF] ring-offset-2' : ''}`}
-        style={width ? { width: `${width}px` } : undefined}
+        style={(() => {
+          if (align === 'full') return { width: '100%' }
+          const s: React.CSSProperties = {}
+          if (width) s.width = `${width}px`
+          if (align === 'center') { s.marginLeft = 'auto'; s.marginRight = 'auto'; s.display = 'block' }
+          else if (align === 'left') { s.marginLeft = '0'; s.marginRight = 'auto'; s.display = 'block' }
+          else if (align === 'right') { s.marginLeft = 'auto'; s.marginRight = '0'; s.display = 'block' }
+          return Object.keys(s).length ? s : undefined
+        })()}
       >
         {src && <img src={src} alt={alt || ''} className="block w-full" />}
         {caption && <figcaption>{caption}</figcaption>}
