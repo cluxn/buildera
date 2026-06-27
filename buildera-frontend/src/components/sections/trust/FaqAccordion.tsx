@@ -1,4 +1,5 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import { JsonLd } from '@/components/ui/JsonLd'
 
 export interface FaqItem {
   question: string
@@ -74,9 +75,20 @@ interface Props {
 }
 
 export function FaqAccordion({ items = FAQ_ITEMS, singleColumn = false }: Props) {
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  }
+
   if (singleColumn) {
     return (
       <section className="py-20 bg-[var(--brand-surface)]">
+        <JsonLd data={faqSchema} />
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
@@ -113,6 +125,7 @@ export function FaqAccordion({ items = FAQ_ITEMS, singleColumn = false }: Props)
 
   return (
     <section className="py-20 bg-[var(--brand-surface)]">
+      <JsonLd data={faqSchema} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brand-primary)] mb-3">

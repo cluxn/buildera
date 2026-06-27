@@ -18,8 +18,19 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: { default: "Buildera", template: "%s | Buildera" },
-  description: "We build what your business needs to grow.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://buildera.co'),
+  title: {
+    default: "Buildera — Custom Software, Salesforce & IT Services",
+    template: "%s | Buildera",
+  },
+  description: "Buildera builds custom software, Salesforce solutions, DevOps pipelines, and AI agents for growing businesses. Book a free discovery call.",
+  robots: { index: true, follow: true },
+  openGraph: {
+    siteName: 'Buildera',
+    type: 'website',
+    locale: 'en_US',
+  },
+  twitter: { card: 'summary_large_image' },
 };
 
 export default async function RootLayout({

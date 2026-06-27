@@ -26,14 +26,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const post = await getBlogPost(slug)
   if (!post) return { title: 'Post Not Found | Buildera' }
+  const title = post.seo_title ?? `${post.title} | Buildera Blog`
+  const description = post.seo_description ?? post.excerpt
+  const ogImage = post.image_path ?? `${SITE_URL}/og-image.png`
+  const canonical = `${SITE_URL}/blog/${slug}`
   return {
-    title: post.seo_title ?? `${post.title} | Buildera Blog`,
-    description: post.seo_description ?? post.excerpt,
-    alternates: { canonical: `${SITE_URL}/blog/${slug}` },
+    title,
+    description,
+    alternates: { canonical },
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      images: post.image_path ? [post.image_path] : [],
+      url: canonical,
+      siteName: 'Buildera',
+      type: 'article',
+      locale: 'en_US',
+      images: [{ url: ogImage, width: 1200, height: 630, alt: post.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [ogImage],
     },
   }
 }

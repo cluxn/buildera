@@ -30,10 +30,29 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const guide = await getGuide(slug)
   if (!guide) return { title: 'Guide Not Found | Buildera' }
+  const title = guide.seo_title ?? `${guide.title} | Buildera Guides`
+  const description = guide.seo_description ?? guide.description
+  const ogImage = guide.cover_image ?? `${SITE_URL}/og-image.png`
+  const canonical = `${SITE_URL}/guides/${slug}`
   return {
-    title: guide.seo_title ?? `${guide.title} | Buildera Guides`,
-    description: guide.seo_description ?? guide.description,
-    alternates: { canonical: `${SITE_URL}/guides/${slug}` },
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      title: guide.title,
+      description,
+      url: canonical,
+      siteName: 'Buildera',
+      type: 'article',
+      locale: 'en_US',
+      images: [{ url: ogImage, width: 1200, height: 630, alt: guide.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [ogImage],
+    },
   }
 }
 

@@ -84,23 +84,46 @@ const STATIC_PATHS: string[] = [
   '/contact',
   '/how-we-work',
   '/book-a-call',
-  '/privacy',
-  '/terms',
+  '/testimonials',
   '/blog',
   '/case-studies',
   '/guides',
-  '/search',
+  '/privacy',
+  '/terms',
   ...SERVICE_PATHS,
   ...SOLUTION_PATHS,
   ...INDUSTRY_PATHS,
 ]
 
+function getStaticPriority(path: string): number {
+  if (path === '/') return 1.0
+  if (path === '/book-a-call' || path === '/contact') return 0.9
+  if (path.startsWith('/services/') && path.split('/').length === 4) return 0.9
+  if (path.startsWith('/services/') && path.split('/').length === 3) return 0.85
+  if (path === '/services') return 0.85
+  if (path.startsWith('/solutions/') && path.split('/').length === 3) return 0.8
+  if (path.startsWith('/industries/') && path.split('/').length === 3) return 0.75
+  if (path === '/solutions' || path === '/industries') return 0.8
+  if (path === '/about' || path === '/how-we-work') return 0.7
+  if (path === '/blog' || path === '/case-studies' || path === '/guides') return 0.65
+  if (path === '/faq' || path === '/testimonials') return 0.6
+  if (path === '/privacy' || path === '/terms') return 0.3
+  return 0.7
+}
+
+function getChangeFrequency(path: string): MetadataRoute.Sitemap[number]['changeFrequency'] {
+  if (path === '/') return 'weekly'
+  if (path === '/blog' || path === '/case-studies' || path === '/guides') return 'weekly'
+  if (path.startsWith('/services/') || path.startsWith('/solutions/') || path.startsWith('/industries/')) return 'monthly'
+  return 'monthly'
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticEntries: MetadataRoute.Sitemap = STATIC_PATHS.map((path) => ({
     url: `${SITE_URL}${path}`,
     lastModified: new Date(),
-    changeFrequency: path === '/' ? 'weekly' : 'monthly' as MetadataRoute.Sitemap[number]['changeFrequency'],
-    priority: path === '/' ? 1.0 : path.startsWith('/services/') && path.split('/').length === 4 ? 0.9 : 0.8,
+    changeFrequency: getChangeFrequency(path),
+    priority: getStaticPriority(path),
   }))
 
   const [blogResult, csResult, guidesResult] = await Promise.all([

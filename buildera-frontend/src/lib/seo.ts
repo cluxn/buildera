@@ -36,6 +36,7 @@ export async function generateSeoMetadata(
       url: canonical,
       siteName: 'Buildera',
       type: 'website',
+      locale: 'en_US',
       images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
     },
     twitter: {

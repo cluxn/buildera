@@ -30,10 +30,29 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const study = await getContentCaseStudy(slug)
   if (!study) return { title: 'Case Study Not Found | Buildera' }
+  const title = study.seo_title ?? `${study.title} | Buildera Case Study`
+  const description = study.seo_description ?? `${study.industry} case study — ${study.title}`
+  const ogImage = study.hero_image ?? `${SITE_URL}/og-image.png`
+  const canonical = `${SITE_URL}/case-studies/${slug}`
   return {
-    title: study.seo_title ?? `${study.title} | Buildera Case Study`,
-    description: study.seo_description ?? `${study.industry} case study — ${study.title}`,
-    alternates: { canonical: `${SITE_URL}/case-studies/${slug}` },
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      title: study.title,
+      description,
+      url: canonical,
+      siteName: 'Buildera',
+      type: 'article',
+      locale: 'en_US',
+      images: [{ url: ogImage, width: 1200, height: 630, alt: study.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [ogImage],
+    },
   }
 }
 
