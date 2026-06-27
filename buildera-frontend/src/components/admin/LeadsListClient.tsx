@@ -26,7 +26,7 @@ export function LeadsListClient({ rows, total, perPage, page, stats, filters }: 
   const [exportOpen, setExportOpen] = useState(false)
   const exportRef = useRef<HTMLDivElement>(null)
 
-  function buildExportUrl(format: 'csv' | 'excel' | 'sample') {
+  function buildExportUrl(format: 'csv' | 'excel') {
     const p = new URLSearchParams()
     p.set('format', format)
     if (filters.status && filters.status !== 'all') p.set('status', filters.status)
@@ -120,14 +120,6 @@ export function LeadsListClient({ rows, total, perPage, page, stats, filters }: 
                     className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50"
                   >
                     <FileSpreadsheet size={14} className="text-green-600" /> Export as Excel
-                  </a>
-                  <div className="border-t border-gray-100" />
-                  <a
-                    href={buildExportUrl('sample')}
-                    onMouseDown={() => setExportOpen(false)}
-                    className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-500 hover:bg-gray-50"
-                  >
-                    <Download size={14} className="text-gray-400" /> Download Sample Template
                   </a>
                 </div>
               )}

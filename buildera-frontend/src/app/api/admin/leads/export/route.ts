@@ -22,23 +22,6 @@ const COLUMNS = [
   { key: 'updated_at',    label: 'Updated At' },
 ]
 
-const SAMPLE_ROW: Record<string, string> = {
-  id: '1',
-  name: 'Jane Smith',
-  email: 'jane@example.com',
-  phone: '+1 555 000 0000',
-  company: 'Acme Corp',
-  role: 'Website Development',
-  source: 'CONTACT_FORM',
-  status: 'NEW',
-  message: 'We need a new website for our company.',
-  admin_notes: 'Followed up via email',
-  lead_score: '80',
-  follow_up_date: '2026-07-05',
-  ip_address: '192.168.1.1',
-  created_at: '2026-06-27 10:00:00',
-  updated_at: '2026-06-27 10:00:00',
-}
 
 function csvEscape(val: unknown): string {
   const s = val == null ? '' : String(val)
@@ -63,18 +46,6 @@ export async function GET(request: NextRequest) {
 
   const sp = request.nextUrl.searchParams
   const format = (sp.get('format') ?? 'csv').toLowerCase()
-
-  // Sample template — no DB query needed
-  if (format === 'sample') {
-    const csv = buildCsv([SAMPLE_ROW as Record<string, unknown>])
-    const bom = '﻿'
-    return new NextResponse(bom + csv, {
-      headers: {
-        'Content-Type': 'text/csv; charset=utf-8',
-        'Content-Disposition': 'attachment; filename="leads-sample-template.csv"',
-      },
-    })
-  }
 
   // Build filter WHERE clause (same logic as listLeads)
   const status = sp.get('status')
