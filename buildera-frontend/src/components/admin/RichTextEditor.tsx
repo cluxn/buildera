@@ -372,26 +372,90 @@ export function RichTextEditor({ content, onChange, placeholder }: Props) {
       </BubbleMenu>
 
       {/* Text bubble menu */}
-      <BubbleMenu editor={editor} shouldShow={({ state }) => !(state.selection instanceof NodeSelection)} className="z-20 flex items-center gap-0.5 bg-gray-900 rounded-lg shadow-lg p-1">
+      <BubbleMenu editor={editor} shouldShow={({ state }) => !(state.selection instanceof NodeSelection)} className="z-20 flex items-center gap-0.5 bg-white border border-gray-200 rounded-lg shadow-lg px-1.5 py-1">
+        {/* Paragraph type */}
+        <select
+          title="Text style"
+          value={
+            editor.isActive('heading', { level: 1 }) ? 'h1' :
+            editor.isActive('heading', { level: 2 }) ? 'h2' :
+            editor.isActive('heading', { level: 3 }) ? 'h3' :
+            editor.isActive('heading', { level: 4 }) ? 'h4' :
+            editor.isActive('heading', { level: 5 }) ? 'h5' :
+            'p'
+          }
+          onChange={(e) => {
+            const v = e.target.value
+            if (v === 'p') editor.chain().focus().setParagraph().run()
+            else editor.chain().focus().toggleHeading({ level: Number(v[1]) as 1|2|3|4|5 }).run()
+          }}
+          className="text-xs border border-gray-200 rounded px-1.5 py-1 text-gray-600 focus:outline-none focus:ring-1 focus:ring-[#002BFF]/30"
+        >
+          <option value="p">Normal</option>
+          <option value="h1">H1</option>
+          <option value="h2">H2</option>
+          <option value="h3">H3</option>
+          <option value="h4">H4</option>
+          <option value="h5">H5</option>
+        </select>
+        {/* Font size */}
+        <select
+          title="Font size"
+          value={FONT_SIZES.some((f) => f.value === ((editor.getAttributes('textStyle').fontSize as string | undefined) ?? '')) ? ((editor.getAttributes('textStyle').fontSize as string | undefined) ?? '') : ''}
+          onChange={(e) => {
+            const v = e.target.value
+            if (v) editor.chain().focus().setFontSize(v).run()
+            else editor.chain().focus().unsetFontSize().run()
+          }}
+          className="text-xs border border-gray-200 rounded px-1.5 py-1 text-gray-600 focus:outline-none focus:ring-1 focus:ring-[#002BFF]/30"
+        >
+          <option value="">Size</option>
+          {FONT_SIZES.filter(f => f.value).map((f) => (
+            <option key={f.label} value={f.value}>{f.label}</option>
+          ))}
+        </select>
+        <div className="w-px h-4 bg-gray-200 mx-0.5" />
+        {/* Format buttons */}
         <button type="button" onClick={() => editor.chain().focus().toggleBold().run()}
-          className={`p-1.5 rounded ${editor.isActive('bold') ? 'bg-white/20 text-white' : 'text-gray-300 hover:bg-white/10'}`} title="Bold">
+          title="Bold" className={`p-1.5 rounded transition-colors ${editor.isActive('bold') ? 'bg-[#002BFF]/10 text-[#002BFF]' : 'text-gray-600 hover:bg-gray-100'}`}>
           <Bold size={14} />
         </button>
         <button type="button" onClick={() => editor.chain().focus().toggleItalic().run()}
-          className={`p-1.5 rounded ${editor.isActive('italic') ? 'bg-white/20 text-white' : 'text-gray-300 hover:bg-white/10'}`} title="Italic">
+          title="Italic" className={`p-1.5 rounded transition-colors ${editor.isActive('italic') ? 'bg-[#002BFF]/10 text-[#002BFF]' : 'text-gray-600 hover:bg-gray-100'}`}>
           <Italic size={14} />
         </button>
         <button type="button" onClick={() => editor.chain().focus().toggleUnderline().run()}
-          className={`p-1.5 rounded ${editor.isActive('underline') ? 'bg-white/20 text-white' : 'text-gray-300 hover:bg-white/10'}`} title="Underline">
+          title="Underline" className={`p-1.5 rounded transition-colors ${editor.isActive('underline') ? 'bg-[#002BFF]/10 text-[#002BFF]' : 'text-gray-600 hover:bg-gray-100'}`}>
           <UnderlineIcon size={14} />
         </button>
-        <button type="button" onClick={() => editor.chain().focus().toggleCode().run()}
-          className={`p-1.5 rounded ${editor.isActive('code') ? 'bg-white/20 text-white' : 'text-gray-300 hover:bg-white/10'}`} title="Inline code">
-          <Code size={14} />
+        <button type="button" onClick={() => editor.chain().focus().toggleStrike().run()}
+          title="Strikethrough" className={`p-1.5 rounded transition-colors ${editor.isActive('strike') ? 'bg-[#002BFF]/10 text-[#002BFF]' : 'text-gray-600 hover:bg-gray-100'}`}>
+          <Strikethrough size={14} />
         </button>
+        <ColorButton editor={editor} type="color" icon={<Baseline size={14} />} title="Text color (right-click to clear)" />
+        <ColorButton editor={editor} type="highlight" icon={<Highlighter size={14} />} title="Highlight (right-click to clear)" />
+        <div className="w-px h-4 bg-gray-200 mx-0.5" />
+        {/* Alignment */}
+        {([
+          { align: 'left', icon: <AlignLeft size={14} /> },
+          { align: 'center', icon: <AlignCenter size={14} /> },
+          { align: 'right', icon: <AlignRight size={14} /> },
+        ] as const).map(({ align, icon }) => (
+          <button key={align} type="button"
+            onClick={() => editor.chain().focus().setTextAlign(align).run()}
+            title={`Align ${align}`}
+            className={`p-1.5 rounded transition-colors ${editor.isActive({ textAlign: align }) ? 'bg-[#002BFF]/10 text-[#002BFF]' : 'text-gray-600 hover:bg-gray-100'}`}
+          >{icon}</button>
+        ))}
+        <div className="w-px h-4 bg-gray-200 mx-0.5" />
+        {/* Link + Code */}
         <button type="button" onClick={() => setLink(editor)}
-          className={`p-1.5 rounded ${editor.isActive('link') ? 'bg-white/20 text-white' : 'text-gray-300 hover:bg-white/10'}`} title="Link">
+          className={`p-1.5 rounded transition-colors ${editor.isActive('link') ? 'bg-[#002BFF]/10 text-[#002BFF]' : 'text-gray-600 hover:bg-gray-100'}`} title="Link">
           <Link2 size={14} />
+        </button>
+        <button type="button" onClick={() => editor.chain().focus().toggleCode().run()}
+          className={`p-1.5 rounded transition-colors ${editor.isActive('code') ? 'bg-[#002BFF]/10 text-[#002BFF]' : 'text-gray-600 hover:bg-gray-100'}`} title="Inline code">
+          <Code size={14} />
         </button>
       </BubbleMenu>
       <EditorContent editor={editor} />
