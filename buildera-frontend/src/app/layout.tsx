@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { unstable_noStore as noStore } from "next/cache";
 import "./globals.css";
-
-export const dynamic = "force-dynamic";
 import { SiteNav } from "@/components/layout/SiteNav";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { ChromeGate } from "@/components/layout/ChromeGate";
@@ -41,7 +38,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  noStore();
   const settings = await fetchSettings().catch(() => SETTINGS_FALLBACK);
 
   return (
