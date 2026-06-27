@@ -54,7 +54,7 @@ export default async function ContactPage() {
 
             {/* Info panel */}
             <div className="lg:col-span-2 flex flex-col gap-6">
-              <ContactInfo whatsappNumber={settings.whatsapp_number} email={settings.company_email} phone={settings.company_phone} address={settings.company_address} />
+              <ContactInfo email={settings.company_email} phone={settings.company_phone} address={settings.company_address} />
             </div>
           </div>
         </div>

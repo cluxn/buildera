@@ -1,13 +1,12 @@
-import { IconMail, IconBrandWhatsapp, IconMapPin, IconPhone } from '@tabler/icons-react'
+import { IconMail, IconMapPin, IconPhone } from '@tabler/icons-react'
 
 interface Props {
-  whatsappNumber: string
   email?: string
   phone?: string
   address?: string
 }
 
-export function ContactInfo({ whatsappNumber, email, phone, address }: Props) {
+export function ContactInfo({ email, phone, address }: Props) {
   return (
     <div className="space-y-4">
         {/* Email */}
@@ -25,30 +24,6 @@ export function ContactInfo({ whatsappNumber, email, phone, address }: Props) {
             >
               {email ?? 'info@buildera.co'}
             </a>
-          </div>
-        </div>
-
-        {/* WhatsApp */}
-        <div className="bg-background rounded-xl p-5 border border-border flex items-start gap-4">
-          {/* A11Y: decorative icon badge — aria-hidden, not a tap target */}
-          <div className="w-10 h-10 rounded-lg bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] flex items-center justify-center shrink-0" aria-hidden="true">
-            <IconBrandWhatsapp className="w-5 h-5" />
-          </div>
-          <div>
-            <p className="font-semibold text-foreground text-sm mb-1">WhatsApp</p>
-            {whatsappNumber ? (
-              /* A11Y-01: brand-primary-dark for small link text on white — WCAG AA */
-              <a
-                href={`https://wa.me/${whatsappNumber}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-[var(--brand-primary-dark)] hover:underline"
-              >
-                Chat on WhatsApp
-              </a>
-            ) : (
-              <p className="text-sm text-muted-foreground">Available on request</p>
-            )}
           </div>
         </div>
 
