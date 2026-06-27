@@ -27,6 +27,6 @@ export async function POST(request: NextRequest) {
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   if (!ROLE_LEADS.includes(session.role)) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   const body = await request.json()
-  const id = await createLead({ ...body, source: 'MANUAL' })
+  const id = await createLead({ ...body, source_form: 'MANUAL' })
   return NextResponse.json({ id }, { status: 201 })
 }

@@ -22,8 +22,9 @@ interface SearchResult {
 async function fetchResults(q: string): Promise<SearchResult[]> {
   if (!q || q.length < 2) return []
   try {
+    const base = process.env.NEXT_PUBLIC_SITE_URL ?? process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000'
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/search?q=${encodeURIComponent(q)}`,
+      `${base}/api/search?q=${encodeURIComponent(q)}`,
       { cache: 'no-store' },
     )
     if (!res.ok) return []

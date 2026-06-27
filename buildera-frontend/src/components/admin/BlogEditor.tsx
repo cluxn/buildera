@@ -50,7 +50,11 @@ export function BlogEditor({ post, categories, authors }: Props) {
   const [content, setContent] = useState(post?.content ?? '')
   const [status, setStatus] = useState<string>(post?.status ?? 'DRAFT')
   const [authorId, setAuthorId] = useState<string>(post?.author_id ? String(post.author_id) : '')
-  const [categoryId, setCategoryId] = useState<string>(post?.category_id ? String(post.category_id) : '')
+  const [categoryId, setCategoryId] = useState<string>(() => {
+    if (!post?.category) return ''
+    const match = categories.find(c => c.name === post.category)
+    return match ? String(match.id) : ''
+  })
   const [serviceType, setServiceType] = useState(post?.service_type ?? '')
   const [industry, setIndustry] = useState(post?.industry ?? '')
   const [isFeatured, setIsFeatured] = useState(Boolean(post?.is_featured))
@@ -128,7 +132,7 @@ export function BlogEditor({ post, categories, authors }: Props) {
     const payload = {
       title, slug, excerpt, content, status: finalStatus,
       author_id: authorId ? Number(authorId) : null,
-      category_id: categoryId ? Number(categoryId) : null,
+      category: categoryId ? (categories.find(c => c.id === Number(categoryId))?.name ?? null) : null,
       service_type: serviceType || null, industry: industry || null,
       is_featured: isFeatured ? 1 : 0,
       cover_image: coverImage || null, cover_image_alt: coverImageAlt || null,

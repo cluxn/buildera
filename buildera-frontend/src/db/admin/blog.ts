@@ -61,7 +61,7 @@ export async function listBlogPosts(opts: ListOpts = {}) {
 
   const [rows, countRow] = await Promise.all([
     query<BlogPost>(
-      `SELECT ${SELECT_COLS} FROM blog_posts bp LEFT JOIN users u ON u.id = bp.author_id
+      `SELECT ${SELECT_COLS} FROM blog_posts bp LEFT JOIN authors u ON u.id = bp.author_id
        ${where} ORDER BY bp.created_at DESC LIMIT ? OFFSET ?`,
       [...vals, perPage, offset],
     ),
@@ -72,7 +72,7 @@ export async function listBlogPosts(opts: ListOpts = {}) {
 
 export async function getBlogPost(id: number): Promise<BlogPost | null> {
   const post = await queryOne<BlogPost>(
-    `SELECT ${SELECT_COLS} FROM blog_posts bp LEFT JOIN users u ON u.id = bp.author_id WHERE bp.id = ?`,
+    `SELECT ${SELECT_COLS} FROM blog_posts bp LEFT JOIN authors u ON u.id = bp.author_id WHERE bp.id = ?`,
     [id],
   )
   return post ? normalizePost(post) : null
@@ -80,7 +80,7 @@ export async function getBlogPost(id: number): Promise<BlogPost | null> {
 
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
   const post = await queryOne<BlogPost>(
-    `SELECT ${SELECT_COLS} FROM blog_posts bp LEFT JOIN users u ON u.id = bp.author_id
+    `SELECT ${SELECT_COLS} FROM blog_posts bp LEFT JOIN authors u ON u.id = bp.author_id
      WHERE bp.slug = ? AND (bp.status = 'published' OR bp.is_published = 1)
      AND (bp.published_at IS NULL OR bp.published_at <= NOW())`,
     [slug],
@@ -185,7 +185,7 @@ export async function listPublicBlogPosts(page = 1, perPage = 12, category?: str
        bp.featured_image as cover_image, bp.featured_image_alt as cover_image_alt,
        bp.published_at, bp.views as view_count, bp.category,
        u.name as author_name
-       FROM blog_posts bp LEFT JOIN users u ON u.id = bp.author_id
+       FROM blog_posts bp LEFT JOIN authors u ON u.id = bp.author_id
        ${where} ORDER BY ${orderBy} LIMIT ? OFFSET ?`,
       [...vals, perPage, offset],
     ),

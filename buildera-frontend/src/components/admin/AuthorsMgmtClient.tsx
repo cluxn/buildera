@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Plus, Pencil, Trash2, X, Check, Twitter, Linkedin, User } from 'lucide-react'
+import { Plus, Pencil, Trash2, X, Check, User } from 'lucide-react'
+import { IconBrandTwitter, IconBrandLinkedin } from '@tabler/icons-react'
 
 interface Author {
   id: number
@@ -231,12 +232,12 @@ export function AuthorsMgmtClient({ authors }: Props) {
                       <div className="flex gap-2">
                         {a.twitter_url && (
                           <a href={a.twitter_url} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-500 transition-colors" title="Twitter">
-                            <Twitter size={14} />
+                            <IconBrandTwitter size={14} />
                           </a>
                         )}
                         {a.linkedin_url && (
                           <a href={a.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-700 transition-colors" title="LinkedIn">
-                            <Linkedin size={14} />
+                            <IconBrandLinkedin size={14} />
                           </a>
                         )}
                       </div>
