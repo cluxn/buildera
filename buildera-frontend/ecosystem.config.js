@@ -2,7 +2,8 @@ module.exports = {
   apps: [
     {
       name: "buildera-frontend",
-      script: ".next/standalone/server.js",
+      script: "node_modules/.bin/next",
+      args: "start",
       env_production: {
         NODE_ENV: "production",
         PORT: 3000,
