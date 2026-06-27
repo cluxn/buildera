@@ -7,11 +7,11 @@ import type { Category } from '@/db/admin/categories'
 import { RichTextEditor } from './RichTextEditor'
 import { ImageUploadField } from './ImageUploadField'
 
-interface User { id: number; name: string; email: string; role: string }
+interface Author { id: number; name: string; job_title: string | null }
 interface Props {
   post?: BlogPost
   categories: Category[]
-  users: User[]
+  authors: Author[]
 }
 
 const SERVICE_TYPES = ['Website Development','Salesforce Development','DevOps','AI Agent Development','Software Development','Hire a Developer']
@@ -39,7 +39,7 @@ function toDatetimeLocal(value: string): string {
 
 const AUTOSAVE_KEY = (id: string) => `autosave_blog_${id}`
 
-export function BlogEditor({ post, categories, users }: Props) {
+export function BlogEditor({ post, categories, authors }: Props) {
   const router = useRouter()
   const isNew = !post?.id
   const autoId = post?.id ? String(post.id) : 'new'
@@ -255,7 +255,7 @@ export function BlogEditor({ post, categories, users }: Props) {
               <label className={label}>Author</label>
               <select className={inp} value={authorId} onChange={e => setAuthorId(e.target.value)}>
                 <option value="">— Select author —</option>
-                {users.map(u => <option key={u.id} value={u.id}>{u.name}</option>)}
+                {authors.map(a => <option key={a.id} value={a.id}>{a.name}{a.job_title ? ` — ${a.job_title}` : ''}</option>)}
               </select>
             </div>
             <div>

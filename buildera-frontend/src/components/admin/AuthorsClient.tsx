@@ -126,7 +126,7 @@ export function AuthorsClient({ rows, currentUserId, isAdmin }: Props) {
     setSaving(true)
     setCreateError('')
     try {
-      const res = await fetch('/api/admin/authors', {
+      const res = await fetch('/api/admin/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: form.name, email: form.email, password: form.password, roles }),
@@ -152,7 +152,7 @@ export function AuthorsClient({ rows, currentUserId, isAdmin }: Props) {
     const roles = rolesToSubmit(editAccess, editPerms)
     if (roles.length === 0) return
     setEditSaving(true)
-    await fetch(`/api/admin/authors/${id}`, {
+    await fetch(`/api/admin/users/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ roles }),
@@ -164,7 +164,7 @@ export function AuthorsClient({ rows, currentUserId, isAdmin }: Props) {
 
   async function handleDelete(id: number) {
     if (!confirm('Delete this user? This cannot be undone.')) return
-    await fetch(`/api/admin/authors/${id}`, { method: 'DELETE' })
+    await fetch(`/api/admin/users/${id}`, { method: 'DELETE' })
     router.refresh()
   }
 

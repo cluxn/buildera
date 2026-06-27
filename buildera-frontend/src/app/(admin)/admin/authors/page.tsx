@@ -1,13 +1,13 @@
 import { redirect } from 'next/navigation'
-import { verifySession, hasAnyRole } from '@/backend/auth/session'
-import { listUsers } from '@/db/admin/users'
-import { AuthorsClient } from '@/components/admin/AuthorsClient'
+import { verifySession } from '@/backend/auth/session'
+import { listAuthors } from '@/db/admin/authors'
+import { AuthorsMgmtClient } from '@/components/admin/AuthorsMgmtClient'
 
 export default async function AuthorsPage() {
   const session = await verifySession()
   if (!session) redirect('/admin/login')
 
-  const rows = await listUsers().catch(() => [])
+  const authors = await listAuthors().catch(() => [])
 
-  return <AuthorsClient rows={rows} currentUserId={session.userId} isAdmin={hasAnyRole(session, ['SUPER_ADMIN', 'ADMIN'])} />
+  return <AuthorsMgmtClient authors={authors} />
 }
