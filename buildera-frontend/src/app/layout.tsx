@@ -65,10 +65,7 @@ export default async function RootLayout({
         <main id="main-content">{children}</main>
         <ChromeGate>
           <SiteFooter />
-          <WhatsAppWidget
-            number={settings.whatsapp_number}
-            enabled={Boolean(settings.whatsapp_number)}
-          />
+          <WhatsAppWidget />
           <PopupManager />
           <ScriptInjector
             ga4Id={settings.ga4_measurement_id || undefined}

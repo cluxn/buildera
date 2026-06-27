@@ -4,22 +4,21 @@ import { useState, useEffect } from 'react'
 import { motion } from 'motion/react'
 import { IconBrandWhatsapp } from '@tabler/icons-react'
 
-interface Props {
-  number: string
-  enabled: boolean
-}
-
-export function WhatsAppWidget({ number, enabled }: Props) {
+export function WhatsAppWidget() {
+  const [number, setNumber] = useState('')
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
+    fetch('/api/whatsapp', { cache: 'no-store' })
+      .then(r => r.json())
+      .then(d => { if (d.number && d.enabled) setNumber(d.number) })
+      .catch(() => {})
+
     const timer = setTimeout(() => setIsVisible(true), 3000)
     return () => clearTimeout(timer)
   }, [])
 
-  if (!isVisible || !number || !enabled) {
-    return null
-  }
+  if (!isVisible || !number) return null
 
   return (
     <motion.div
