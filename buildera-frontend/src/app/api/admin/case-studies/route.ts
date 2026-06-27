@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { verifySession } from '@/backend/auth/session'
 import { listCaseStudies, createCaseStudy } from '@/db/admin/case-studies'
-import { revalidateTag } from 'next/cache'
+import { revalidateTag, revalidatePath } from 'next/cache'
 
 export async function GET(request: NextRequest) {
   const session = await verifySession()
@@ -21,6 +21,6 @@ export async function POST(request: NextRequest) {
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   const body = await request.json()
   const id = await createCaseStudy(body)
-  revalidateTag('case_studies')
+  revalidateTag('case_studies'); revalidatePath('/case-studies', 'layout')
   return NextResponse.json({ id }, { status: 201 })
 }

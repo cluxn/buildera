@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { verifySession } from '@/backend/auth/session'
 import { getBlogPost, updateBlogPost, deleteBlogPost, duplicateBlogPost } from '@/db/admin/blog'
-import { revalidateTag } from 'next/cache'
+import { revalidateTag, revalidatePath } from 'next/cache'
 
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const session = await verifySession()
@@ -18,7 +18,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
   const { id } = await params
   const body = await request.json()
   await updateBlogPost(Number(id), body)
-  revalidateTag('blog_posts')
+  revalidateTag('blog_posts'); revalidatePath('/blog', 'layout')
   return NextResponse.json({ ok: true })
 }
 
@@ -28,7 +28,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
   const { id } = await params
   const body = await request.json()
   await updateBlogPost(Number(id), body)
-  revalidateTag('blog_posts')
+  revalidateTag('blog_posts'); revalidatePath('/blog', 'layout')
   return NextResponse.json({ ok: true })
 }
 
@@ -38,7 +38,7 @@ export async function POST(_req: NextRequest, { params }: { params: Promise<{ id
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   const { id } = await params
   const newId = await duplicateBlogPost(Number(id))
-  revalidateTag('blog_posts')
+  revalidateTag('blog_posts'); revalidatePath('/blog', 'layout')
   return NextResponse.json({ id: newId }, { status: 201 })
 }
 
@@ -48,6 +48,6 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
   if (!['SUPER_ADMIN','ADMIN'].includes(session.role)) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   const { id } = await params
   await deleteBlogPost(Number(id))
-  revalidateTag('blog_posts')
+  revalidateTag('blog_posts'); revalidatePath('/blog', 'layout')
   return NextResponse.json({ ok: true })
 }

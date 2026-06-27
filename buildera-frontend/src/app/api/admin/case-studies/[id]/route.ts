@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { verifySession } from '@/backend/auth/session'
 import { getCaseStudy, updateCaseStudy, deleteCaseStudy } from '@/db/admin/case-studies'
-import { revalidateTag } from 'next/cache'
+import { revalidateTag, revalidatePath } from 'next/cache'
 
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const session = await verifySession()
@@ -18,7 +18,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
   const { id } = await params
   const body = await request.json()
   await updateCaseStudy(Number(id), body)
-  revalidateTag('case_studies')
+  revalidateTag('case_studies'); revalidatePath('/case-studies', 'layout')
   return NextResponse.json({ ok: true })
 }
 
@@ -28,7 +28,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
   const { id } = await params
   const body = await request.json()
   await updateCaseStudy(Number(id), body)
-  revalidateTag('case_studies')
+  revalidateTag('case_studies'); revalidatePath('/case-studies', 'layout')
   return NextResponse.json({ ok: true })
 }
 
@@ -38,6 +38,6 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
   if (!['SUPER_ADMIN','ADMIN'].includes(session.role)) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   const { id } = await params
   await deleteCaseStudy(Number(id))
-  revalidateTag('case_studies')
+  revalidateTag('case_studies'); revalidatePath('/case-studies', 'layout')
   return NextResponse.json({ ok: true })
 }

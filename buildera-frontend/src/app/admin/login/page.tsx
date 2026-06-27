@@ -24,7 +24,11 @@ export default function LoginPage() {
       })
       const data = await res.json()
       if (!res.ok) { setError(data.error || 'Login failed'); return }
-      router.push('/admin')
+      if (data.mustChangePassword) {
+        router.push('/admin/change-password')
+      } else {
+        router.push('/admin')
+      }
       router.refresh()
     } catch {
       setError('Something went wrong. Please try again.')

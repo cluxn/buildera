@@ -37,6 +37,8 @@ export function CaseStudyEditor({ study }: Props) {
   const [slug, setSlug] = useState(study?.slug ?? '')
   const [clientName, setClientName] = useState(study?.client_name ?? '')
   const [content, setContent] = useState(study?.challenge ?? '')
+  const [solution, setSolution] = useState(study?.solution ?? '')
+  const [outcome, setOutcome] = useState(study?.outcome ?? '')
   const [industry, setIndustry] = useState(study?.industry ?? '')
   const [serviceCategory, setServiceCategory] = useState(study?.service_category ?? '')
   const [status, setStatus] = useState<string>(study?.status ?? 'DRAFT')
@@ -72,10 +74,10 @@ export function CaseStudyEditor({ study }: Props) {
   const doAutosave = useCallback(() => {
     if (autosaveTimer.current) clearTimeout(autosaveTimer.current)
     autosaveTimer.current = setTimeout(() => {
-      const data = { title, slug, clientName, content, industry, serviceCategory, status, scheduledAt, isFeatured, coverImage, coverImageAlt, metaTitle, metaDescription, testimonialQuote, testimonialAuthor }
+      const data = { title, slug, clientName, content, solution, outcome, industry, serviceCategory, status, scheduledAt, isFeatured, coverImage, coverImageAlt, metaTitle, metaDescription, testimonialQuote, testimonialAuthor }
       localStorage.setItem(AUTOSAVE_KEY(autoId), JSON.stringify({ savedAt: Date.now(), data }))
     }, 2000)
-  }, [title, slug, clientName, content, industry, serviceCategory, status, scheduledAt, isFeatured, coverImage, coverImageAlt, metaTitle, metaDescription, testimonialQuote, testimonialAuthor, autoId])
+  }, [title, slug, clientName, content, solution, outcome, industry, serviceCategory, status, scheduledAt, isFeatured, coverImage, coverImageAlt, metaTitle, metaDescription, testimonialQuote, testimonialAuthor, autoId])
   useEffect(() => { doAutosave() }, [doAutosave])
 
   function restoreAutosave() {
@@ -84,6 +86,8 @@ export function CaseStudyEditor({ study }: Props) {
     setSlug(savedData.slug as string ?? '')
     setClientName(savedData.clientName as string ?? '')
     setContent(savedData.content as string ?? '')
+    setSolution(savedData.solution as string ?? '')
+    setOutcome(savedData.outcome as string ?? '')
     setStatus(savedData.status as string ?? 'DRAFT')
     setScheduledAt(savedData.scheduledAt as string ?? '')
     setRestoreBanner(false)
@@ -107,6 +111,8 @@ export function CaseStudyEditor({ study }: Props) {
       title, slug,
       client_name: clientName || null,
       challenge: content || null,
+      solution: solution || null,
+      outcome: outcome || null,
       industry: industry || null,
       service_category: serviceCategory || null,
       status: finalStatus,
@@ -214,8 +220,18 @@ export function CaseStudyEditor({ study }: Props) {
           </div>
 
           <div className="bg-white rounded-xl border border-gray-200 p-5">
-            <label className={label}>Content</label>
-            <RichTextEditor content={content} onChange={setContent} placeholder="Write the case study…" />
+            <label className={label}>Challenge / Problem</label>
+            <RichTextEditor content={content} onChange={setContent} placeholder="Describe the client's challenge or problem…" />
+          </div>
+
+          <div className="bg-white rounded-xl border border-gray-200 p-5">
+            <label className={label}>Solution</label>
+            <RichTextEditor content={solution} onChange={setSolution} placeholder="Describe the solution Buildera delivered…" />
+          </div>
+
+          <div className="bg-white rounded-xl border border-gray-200 p-5">
+            <label className={label}>Outcome / Results</label>
+            <RichTextEditor content={outcome} onChange={setOutcome} placeholder="Describe the measurable outcomes and results…" />
           </div>
 
           <div className="bg-white rounded-xl border border-gray-200 p-5 space-y-4">

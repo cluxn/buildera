@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Link from 'next/link'
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
-import { ChevronDown, ChevronUp, Download, Plus, X } from 'lucide-react'
+import { ChevronDown, ChevronUp, Download, Plus, X, FileSpreadsheet, FileText } from 'lucide-react'
 import type { Lead } from '@/db/admin/leads'
 
 const STATUS_TABS = ['all','NEW','CONTACTED','MEETING_SCHEDULED','CONVERTED','CLOSED','LOST','JUNK','follow_up']
@@ -23,6 +23,19 @@ export function LeadsListClient({ rows, total, perPage, page, stats, filters }: 
   const [selected, setSelected] = useState<Lead | null>(null)
   const [adminNotes, setAdminNotes] = useState('')
   const [savingNote, setSavingNote] = useState(false)
+  const [exportOpen, setExportOpen] = useState(false)
+  const exportRef = useRef<HTMLDivElement>(null)
+
+  function buildExportUrl(format: 'csv' | 'excel' | 'sample') {
+    const p = new URLSearchParams()
+    p.set('format', format)
+    if (filters.status && filters.status !== 'all') p.set('status', filters.status)
+    if (filters.source && filters.source !== 'all') p.set('source', filters.source)
+    if (filters.q) p.set('q', filters.q)
+    if (filters.dateFrom) p.set('date_from', filters.dateFrom)
+    if (filters.dateTo) p.set('date_to', filters.dateTo)
+    return `/api/admin/leads/export?${p}`
+  }
 
   function nav(params: Record<string, string>) {
     const p = new URLSearchParams(sp.toString())
@@ -84,9 +97,41 @@ export function LeadsListClient({ rows, total, perPage, page, stats, filters }: 
             <input type="date" value={filters.dateTo} onChange={e => nav({ dateTo: e.target.value, page: '1' })} className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#002BFF]" />
           </div>
           <div className="flex gap-2">
-            <Link href="/api/admin/leads/export" className="flex items-center gap-1.5 px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">
-              <Download size={14} /> Export CSV
-            </Link>
+            <div ref={exportRef} className="relative">
+              <button
+                onClick={() => setExportOpen(v => !v)}
+                onBlur={() => setTimeout(() => setExportOpen(false), 150)}
+                className="flex items-center gap-1.5 px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50"
+              >
+                <Download size={14} /> Export <ChevronDown size={12} className="opacity-60" />
+              </button>
+              {exportOpen && (
+                <div className="absolute right-0 top-full mt-1 z-30 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden min-w-[180px]">
+                  <a
+                    href={buildExportUrl('csv')}
+                    onMouseDown={() => setExportOpen(false)}
+                    className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50"
+                  >
+                    <FileText size={14} className="text-gray-400" /> Export as CSV
+                  </a>
+                  <a
+                    href={buildExportUrl('excel')}
+                    onMouseDown={() => setExportOpen(false)}
+                    className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50"
+                  >
+                    <FileSpreadsheet size={14} className="text-green-600" /> Export as Excel
+                  </a>
+                  <div className="border-t border-gray-100" />
+                  <a
+                    href={buildExportUrl('sample')}
+                    onMouseDown={() => setExportOpen(false)}
+                    className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-500 hover:bg-gray-50"
+                  >
+                    <Download size={14} className="text-gray-400" /> Download Sample Template
+                  </a>
+                </div>
+              )}
+            </div>
             <button className="flex items-center gap-1.5 px-3 py-1.5 text-sm bg-[#002BFF] text-white rounded-lg hover:bg-blue-700">
               <Plus size={14} /> Add Lead
             </button>

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { verifySession } from '@/backend/auth/session'
 import { listLeadMagnets, createLeadMagnet } from '@/db/admin/lead-magnets'
-import { revalidateTag } from 'next/cache'
+import { revalidateTag, revalidatePath } from 'next/cache'
 
 export async function GET(request: NextRequest) {
   const session = await verifySession()
@@ -21,6 +21,6 @@ export async function POST(request: NextRequest) {
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   const body = await request.json()
   const id = await createLeadMagnet(body)
-  revalidateTag('guides')
+  revalidateTag('guides'); revalidatePath('/guides', 'layout')
   return NextResponse.json({ id }, { status: 201 })
 }

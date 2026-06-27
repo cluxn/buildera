@@ -25,5 +25,9 @@ export async function POST(request: NextRequest) {
   if (!valid) return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 })
 
   await createSession({ userId: user.id, role: user.role, email: user.email })
+
+  if (user.must_change_password) {
+    return NextResponse.json({ ok: true, mustChangePassword: true })
+  }
   return NextResponse.json({ ok: true })
 }
