@@ -21,8 +21,8 @@ export async function createUser(data: {
   name: string; email: string; passwordHash: string; role: string
 }): Promise<number> {
   const result = await execute(
-    'INSERT INTO users (name, email, password_hash, role, must_change_password) VALUES (?,?,?,?,1)',
-    [data.name, data.email, data.passwordHash, data.role],
+    'INSERT INTO users (name, email, password, password_hash, role, must_change_password) VALUES (?,?,?,?,?,1)',
+    [data.name, data.email, data.passwordHash, data.passwordHash, data.role],
   )
   return result.insertId
 }
@@ -32,7 +32,7 @@ export async function updateUserRole(id: number, role: string): Promise<void> {
 }
 
 export async function updateUserPassword(id: number, passwordHash: string): Promise<void> {
-  await execute('UPDATE users SET password_hash = ?, must_change_password = 0 WHERE id = ?', [passwordHash, id])
+  await execute('UPDATE users SET password = ?, password_hash = ?, must_change_password = 0 WHERE id = ?', [passwordHash, passwordHash, id])
 }
 
 export async function deleteUser(id: number): Promise<void> {
