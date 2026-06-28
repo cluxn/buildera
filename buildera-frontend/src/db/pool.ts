@@ -20,11 +20,18 @@ function createPool() {
   })
 }
 
-export const pool = globalForMysql.pool ?? createPool()
-
-if (process.env.NODE_ENV !== 'production') {
-  globalForMysql.pool = pool
+function getPool(): mysql.Pool {
+  if (!globalForMysql.pool) {
+    globalForMysql.pool = createPool()
+  }
+  return globalForMysql.pool
 }
+
+export const pool = new Proxy({} as mysql.Pool, {
+  get(_target, prop) {
+    return (getPool() as unknown as Record<string | symbol, unknown>)[prop]
+  },
+})
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyValues = any[]
