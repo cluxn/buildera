@@ -11,6 +11,8 @@ import { ScriptInjector } from "@/components/ui/ScriptInjector";
 import { CookieConsentBanner } from "@/components/ui/CookieConsentBanner";
 import { fetchSettings, SETTINGS_FALLBACK } from "@/lib/api";
 
+export const dynamic = 'force-dynamic';
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
